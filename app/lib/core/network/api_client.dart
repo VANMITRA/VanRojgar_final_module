@@ -4,7 +4,6 @@ import '../config/app_config.dart';
 import '../security/token_store.dart';
 import '../storage/prefs.dart';
 import 'app_exception.dart';
-import '../demo/demo_backend.dart';
 
 class ApiClient {
   late final Dio dio;
@@ -81,7 +80,6 @@ class ApiClient {
   }
 
   Future<dynamic> get(String path, {Map<String, dynamic>? queryParameters, bool isRetry = false}) async {
-    if (await DemoBackend.isActive()) return DemoBackend.handle('GET', path, query: queryParameters);
     try {
       final res = await dio.get(path, queryParameters: queryParameters);
       if (res.data is Map && res.data['data'] != null) {
@@ -99,7 +97,6 @@ class ApiClient {
   }
 
   Future<dynamic> post(String path, {dynamic data, Map<String, dynamic>? headers}) async {
-    if (await DemoBackend.isActive()) return DemoBackend.handle('POST', path, data: data);
     try {
       final res = await dio.post(path, data: data, options: Options(headers: headers));
       if (res.data is Map && res.data['data'] != null) {
@@ -107,19 +104,11 @@ class ApiClient {
       }
       return res.data;
     } on DioException catch (e) {
-      final err = _wrapDioError(e);
-      // Server unreachable at login: fall back to the built-in offline demo accounts.
-      if (err.code == 'NETWORK_ERROR' && path.contains('auth/login') && data is Map &&
-          await DemoBackend.canLogin('${data['phone']}', '${data['password']}')) {
-        await DemoBackend.activate();
-        return DemoBackend.handle('POST', path, data: data);
-      }
-      throw err;
+      throw _wrapDioError(e);
     }
   }
 
   Future<dynamic> patch(String path, {dynamic data}) async {
-    if (await DemoBackend.isActive()) return DemoBackend.handle('PATCH', path, data: data);
     try {
       final res = await dio.patch(path, data: data);
       if (res.data is Map && res.data['data'] != null) {

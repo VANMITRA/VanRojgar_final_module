@@ -51,15 +51,6 @@ class ProfileScreen extends ConsumerWidget {
                 subtitle: 'व्यवहार व ऑर्डरच्या ताज्या सूचना पहा',
                 onTap: () => context.push('/messages'),
               ),
-              if (user.role == 'team') ...[
-                PreferenceCard(
-                  icon: Icons.admin_panel_settings,
-                  title: 'प्रशासक साधने (Team Tools)',
-                  subtitle: 'ग्रामसभा व डिलिव्हरी पडताळणी रांग',
-                  iconColor: tokens.actionPrimary,
-                  onTap: () => context.push('/team'),
-                ),
-              ],
               PreferenceCard(
                 icon: Icons.help_outline,
                 title: 'मदत व संपर्क (Help & Support)',

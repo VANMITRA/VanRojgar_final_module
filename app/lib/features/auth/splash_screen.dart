@@ -46,8 +46,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         context.go('/gs');
       } else if (user.role == 'buyer') {
         context.go('/b');
-      } else if (user.role == 'team') {
-        context.go('/team');
       } else {
         context.go('/v');
       }

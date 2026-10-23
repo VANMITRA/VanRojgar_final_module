@@ -41,6 +41,5 @@ flutter:
   assets:
     - assets/products/
     - assets/products/photos/
-    - assets/demo/
     - assets/livelihood/
   generate: true

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import '../../shared/widgets/vr_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,8 +58,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         context.go('/gs');
       } else if (user.role == 'buyer') {
         context.go('/b');
-      } else if (user.role == 'team') {
-        context.go('/team');
       } else {
         context.go('/v');
       }
@@ -79,11 +76,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     _phoneController.text = digits.length == 12 && digits.startsWith('91')
         ? digits.substring(2)
         : (digits.length == 10 ? digits : phone);
-    if (kDebugMode) {
-      _passwordController.text = '123456';
-    } else {
-      _passwordController.clear();
-    }
+    _passwordController.text = AppConfig.demoPin;
   }
 
   void _showServerDialog() async {
@@ -390,7 +383,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ],
                 ),
               ),
-              if (kDebugMode && AppConfig.devTools) ...[
+              if (AppConfig.devTools) ...[
                 const SizedBox(height: 32),
                 // Fast Demo Logins Section for local pilot testing
                 Container(
@@ -404,7 +397,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       VrText(
-                        '⚡ Demo Quick Logins (नाशिक पायलट - Dev Mode):',
+                        'Try a demo account (डेमो खाते):',
                         style: TextStyle(color: tokens.textPrimary, fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 8),

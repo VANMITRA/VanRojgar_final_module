@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/network/api_client.dart';
 import '../../core/network/app_exception.dart';
 import '../../core/security/token_store.dart';
-import '../../core/demo/demo_backend.dart';
 import '../../core/storage/prefs.dart';
 import '../../shared/models/user.dart';
 
@@ -100,7 +99,6 @@ class AuthController extends StateNotifier<AsyncValue<UserModel?>> {
   }
 
   Future<void> logout() async {
-    await DemoBackend.deactivate();
     await TokenStore.clearToken();
     state = const AsyncValue.data(null);
   }

@@ -29,7 +29,6 @@ import '../../features/delivery/delivery_apply_screen.dart';
 import '../../features/delivery/delivery_jobs_screen.dart';
 import '../../features/barter/barter_sheet.dart';
 import '../../features/barter/barter_offers_screen.dart';
-import '../../features/team/team_tools_screen.dart';
 import '../../features/livelihood/livelihood_embed.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
@@ -264,6 +263,5 @@ final appRouter = GoRouter(
     ),
 
     // Back Office Team Tools
-    GoRoute(path: '/team', builder: (_, __) => const TeamToolsScreen()),
   ],
 );
