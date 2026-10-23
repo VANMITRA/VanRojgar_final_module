@@ -1,0 +1,20 @@
+# Raw Nashik files hold personal data (phone and bank numbers): never commit them
+data/
+*.xlsx
+*.xls
+CFR_Nashik_2026_MRSAC_Resources.docx
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.jks
+*.keystore
+google-services.json
+# Build output
+build/
+node_modules/
+venv/
+.venv/
+.dart_tool/
+__pycache__/
