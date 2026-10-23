@@ -44,6 +44,9 @@ export function parseRateLimit(str, defaultMax = 60, defaultWindowSeconds = 60) 
 if (parsed.data.NODE_ENV === 'production' && (!process.env.MONGODB_URI || !process.env.JWT_SECRET)) {
   throw new Error('MONGODB_URI and JWT_SECRET must be set in production');
 }
+if (parsed.data.NODE_ENV === 'production' && parsed.data.JWT_SECRET.length < 32) {
+  throw new Error('JWT_SECRET must be at least 32 characters in production');
+}
 
 export const config = {
   ...parsed.data,

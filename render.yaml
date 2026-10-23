@@ -1,0 +1,22 @@
+# Render blueprint for the Node server (accounts, marketplace, trade, delivery, barter).
+# Secrets are entered in the Render dashboard, never in this file. See docs/DEPLOY.md.
+services:
+  - type: web
+    name: vanrozgar-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false

@@ -83,6 +83,8 @@ export async function seed() {
   const userMap = new Map();
 
   for (const u of demoUsersRaw) {
+    // The back-office account has a known demo password: never create it in production unless one is set.
+    if (u.role === 'team' && config.NODE_ENV === 'production' && !process.env.SEED_TEAM_PASSWORD) continue;
     const pass = u.role === 'team' ? config.SEED_TEAM_PASSWORD : config.SEED_DEMO_PASSWORD;
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(pass, salt);
