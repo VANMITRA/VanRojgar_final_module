@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
     enum: ['gramsabha', 'villager', 'buyer', 'team'],
     required: true
   },
-  language: { type: String, enum: ['en', 'mr'], default: 'mr' },
+  language: { type: String, enum: ['en', 'hi', 'mr'], default: 'en' },
   passwordHash: { type: String, required: true, select: false },
   gramSabhaId: { type: mongoose.Schema.Types.ObjectId, ref: 'GramSabha' },
   village: { type: String, trim: true },

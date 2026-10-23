@@ -15,7 +15,7 @@ final activeLocaleProvider = StateNotifierProvider<LocaleNotifier, String>((ref)
 });
 
 class LocaleNotifier extends StateNotifier<String> {
-  LocaleNotifier() : super('mr') {
+  LocaleNotifier() : super('en') {
     _init();
   }
 

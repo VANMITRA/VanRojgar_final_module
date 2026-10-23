@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+import '../../l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -74,6 +76,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
     if (name.isEmpty || phone.isEmpty || password.isEmpty) {
       setState(() => _errorMessage = 'कृपया सर्व आवश्यक माहिती भरा (Please fill required fields).');
+      return;
+    }
+
+    if (!RegExp(r'^\d{6}$').hasMatch(password)) {
+      setState(() => _errorMessage = AppLocalizations.of(context)?.pinInvalid ?? 'The PIN must be exactly 6 digits.');
       return;
     }
 
@@ -305,13 +312,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 const SizedBox(height: 16),
               ],
 
-              Text('पासवर्ड (किमान ८ अक्षरे) *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+              Text(AppLocalizations.of(context)?.pinLabel ?? 'PIN (6 digits) *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
+                keyboardType: TextInputType.number,
+                maxLength: 6,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
-                  hintText: '••••••••',
+                  counterText: '',
+                  hintText: AppLocalizations.of(context)?.pinHint ?? '6-digit PIN',
                   filled: true,
                   fillColor: tokens.surface,
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),

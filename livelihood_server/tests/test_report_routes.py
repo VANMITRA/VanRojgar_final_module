@@ -213,7 +213,7 @@ def test_a_small_radius_still_warns_about_a_protected_area_just_outside_it(
 
 
 def test_a_user_with_no_village_cannot_get_a_report(monkeypatch: pytest.MonkeyPatch) -> None:
-    homeless = UserInfo(uuid.uuid4(), "No village", None, frozenset({"villager"}))
+    homeless = UserInfo(str(uuid.uuid4()), "No village", None, frozenset({"villager"}))
     monkeypatch.setenv("VANMITRA_LIVELIHOOD_DEV_USERS", "true")
     get_settings.cache_clear()
     app = create_app()

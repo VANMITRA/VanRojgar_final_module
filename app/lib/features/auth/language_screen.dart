@@ -105,14 +105,6 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                       surfaceColor: surfaceColor,
                       tokens: tokens,
                     ),
-                    _buildLangCard(
-                      code: 'kn',
-                      iconWidget: const Icon(Icons.waves, size: 36, color: Color(0xFF2F80ED)),
-                      name: 'कोंकणी',
-                      subName: 'Konkani',
-                      surfaceColor: surfaceColor,
-                      tokens: tokens,
-                    ),
                   ],
                 ),
               ),
@@ -121,7 +113,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
               ElevatedButton(
                 onPressed: () async {
                   await ref.read(activeLocaleProvider.notifier).setLanguage(_selected);
-                  if (_selected == 'en' || _selected == 'mr') {
+                  if (_selected == 'en' || _selected == 'hi' || _selected == 'mr') {
                     // Save to the account so the next login keeps this language
                     ref.read(apiClientProvider).patch('/auth/profile', data: {'language': _selected}).catchError((_) => null);
                   }
@@ -255,7 +247,6 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
     switch (_selected) {
       case 'hi': return 'भाषा चुनें';
       case 'mr': return 'भाषा निवडा';
-      case 'kn': return 'भास विंचात';
       default: return 'Choose Your Language';
     }
   }
@@ -264,7 +255,6 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
     switch (_selected) {
       case 'hi': return 'अपनी पसंदीदा भाषा चुनें';
       case 'mr': return 'आपली पसंतीची भाषा निवडा';
-      case 'kn': return 'तुमची आवडती भास विंचात';
       default: return 'Select your preferred language';
     }
   }
@@ -273,7 +263,6 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
     switch (_selected) {
       case 'hi': return 'आगे बढ़ें →';
       case 'mr': return 'पुढे जा →';
-      case 'kn': return 'फुडें वचात →';
       default: return 'Continue →';
     }
   }

@@ -67,7 +67,7 @@ test('auth validation: register with a non-pilot district/village fails with 422
         role: 'villager',
         name: 'Ramesh Patil',
         phone: '+919822112233',
-        password: 'ValidPassword123',
+        password: '123456',
         village: 'Baramati',
         district: 'Pune'
       });
@@ -84,7 +84,7 @@ test('auth validation: register with a non-pilot district/village fails with 422
       role: 'villager',
       name: 'Ramesh Patil',
       phone: '+919822112233',
-      password: 'ValidPassword123',
+      password: '123456',
       village: 'Baramati',
       district: 'Pune'
     });
@@ -100,7 +100,7 @@ test('auth validation: register with valid Nashik pilot village succeeds', async
     role: 'villager',
     name: 'सखाराम भिल',
     phone: '+919822022222',
-    password: 'ValidPassword123',
+    password: '123456',
     village: 'तोरणगण',
     district: 'Nashik'
   };

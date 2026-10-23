@@ -16,16 +16,17 @@ export const phoneSchema = z.string().trim().transform((val) => {
   message: 'Valid 10-digit Indian mobile number required'
 });
 
+// The password of a village user, a Gram Sabha or a buyer is a 6-digit PIN (the API field keeps the
+// name `password`). Back-office accounts are seeded with a stronger password and only log in.
 export const passwordSchema = z.string()
-  .min(8, 'Password must be at least 8 characters')
-  .refine(val => !/^\d+$/.test(val), 'Password cannot consist solely of digits');
+  .regex(/^\d{6}$/, 'PIN must be exactly 6 digits');
 
 export const registerSchema = z.object({
   role: z.enum(['gramsabha', 'villager', 'buyer']),
   name: z.string().min(2, 'Name is required').trim(),
   phone: phoneSchema,
   password: passwordSchema,
-  language: z.enum(['en', 'mr']).default('mr'),
+  language: z.enum(['en', 'hi', 'mr']).default('en'),
   // Role specific fields
   village: z.string().trim().optional(),
   taluka: z.string().trim().optional(),
@@ -76,5 +77,5 @@ export const updateProfileSchema = z.object({
   email: z.string().email().trim().optional().or(z.literal('')),
   businessName: z.string().trim().optional(),
   city: z.string().trim().optional(),
-  language: z.enum(['en', 'mr']).optional()
+  language: z.enum(['en', 'hi', 'mr']).optional()
 });

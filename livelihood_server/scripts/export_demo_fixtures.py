@@ -89,7 +89,7 @@ def scenario(c: TestClient) -> dict[str, Any]:
 
 def client_for(name: str) -> TestClient:
     store = InMemoryStore()
-    user = UserInfo(uuid.uuid4(), name, "sample_ozhar", frozenset({"villager"}))
+    user = UserInfo(str(uuid.uuid4()), name, "sample_ozhar", frozenset({"villager"}))
     app = create_app()
     app.dependency_overrides[get_store] = lambda: store
     app.dependency_overrides[get_current_user] = lambda: user  # whoever calls is [name]

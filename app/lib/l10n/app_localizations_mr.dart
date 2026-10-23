@@ -42,6 +42,18 @@ class AppLocalizationsMr extends AppLocalizations {
   String get deliveries => 'डिलिव्हरी';
 
   @override
+  String get pinLabel => 'पिन (६ अंक) *';
+
+  @override
+  String get pinHint => '६ अंकी पिन';
+
+  @override
+  String get pinInvalid => 'पिन अगदी ६ अंकांचा असावा.';
+
+  @override
+  String get livelihood => 'उपजीविका';
+
+  @override
   String get profile => 'प्रोफाइल';
 
   @override

@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     mongodb_db: str = "vanmitra"
     db_connect_timeout_s: int = 3
 
+    # The Node server's collection of people (read-only here), in the same database
+    users_collection: str = "users"
+
     # Module 4
     livelihood_demo_endpoints: bool = False  # unauthenticated, serves SAMPLE data: dev only
     livelihood_default_radius_m: int = 5000

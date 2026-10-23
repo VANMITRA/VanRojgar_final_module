@@ -166,6 +166,30 @@ abstract class AppLocalizations {
   /// **'Deliveries'**
   String get deliveries;
 
+  /// No description provided for @pinLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN (6 digits) *'**
+  String get pinLabel;
+
+  /// No description provided for @pinHint.
+  ///
+  /// In en, this message translates to:
+  /// **'6-digit PIN'**
+  String get pinHint;
+
+  /// No description provided for @pinInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The PIN must be exactly 6 digits.'**
+  String get pinInvalid;
+
+  /// No description provided for @livelihood.
+  ///
+  /// In en, this message translates to:
+  /// **'Livelihood'**
+  String get livelihood;
+
   /// No description provided for @profile.
   ///
   /// In en, this message translates to:

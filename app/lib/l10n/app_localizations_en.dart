@@ -42,6 +42,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deliveries => 'Deliveries';
 
   @override
+  String get pinLabel => 'PIN (6 digits) *';
+
+  @override
+  String get pinHint => '6-digit PIN';
+
+  @override
+  String get pinInvalid => 'The PIN must be exactly 6 digits.';
+
+  @override
+  String get livelihood => 'Livelihood';
+
+  @override
   String get profile => 'Profile';
 
   @override

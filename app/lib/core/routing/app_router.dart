@@ -30,6 +30,7 @@ import '../../features/delivery/delivery_jobs_screen.dart';
 import '../../features/barter/barter_sheet.dart';
 import '../../features/barter/barter_offers_screen.dart';
 import '../../features/team/team_tools_screen.dart';
+import '../../features/livelihood/livelihood_embed.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
 import '../../features/auth/auth_providers.dart';
@@ -53,6 +54,7 @@ class _PortalShellState extends ConsumerState<PortalShell> {
         VrNavItem(icon: Icons.inventory_2_outlined, label: l10n?.listings ?? 'उत्पादने'),
         VrNavItem(icon: Icons.inbox_outlined, label: l10n?.requests ?? 'मागण्या'),
         VrNavItem(icon: Icons.local_shipping_outlined, label: l10n?.orders ?? 'ऑर्डर्स'),
+        VrNavItem(icon: Icons.agriculture_outlined, label: l10n?.livelihood ?? 'उपजीविका'),
         VrNavItem(icon: Icons.person_outline, label: l10n?.profile ?? 'प्रोफाइल'),
       ];
     } else if (widget.portal == 'b') {
@@ -66,6 +68,7 @@ class _PortalShellState extends ConsumerState<PortalShell> {
     } else {
       return [
         VrNavItem(icon: Icons.home_outlined, label: l10n?.home ?? 'मुख्यपृष्ठ'),
+        VrNavItem(icon: Icons.agriculture_outlined, label: l10n?.livelihood ?? 'उपजीविका'),
         VrNavItem(icon: Icons.search, label: l10n?.search ?? 'शोधा'),
         VrNavItem(icon: Icons.inbox_outlined, label: l10n?.requests ?? 'मागण्या'),
         VrNavItem(icon: Icons.shopping_bag_outlined, label: l10n?.orders ?? 'ऑर्डर्स'),
@@ -80,7 +83,8 @@ class _PortalShellState extends ConsumerState<PortalShell> {
       if (location.startsWith('/gs/listings')) return 1;
       if (location.startsWith('/gs/requests')) return 2;
       if (location.startsWith('/gs/orders')) return 3;
-      if (location.startsWith('/gs/profile')) return 4;
+      if (location.startsWith('/gs/livelihood')) return 4;
+      if (location.startsWith('/gs/profile')) return 5;
       return 0;
     } else if (widget.portal == 'b') {
       if (location.startsWith('/b/search')) return 1;
@@ -89,10 +93,11 @@ class _PortalShellState extends ConsumerState<PortalShell> {
       if (location.startsWith('/b/profile')) return 4;
       return 0;
     } else {
-      if (location.startsWith('/v/search')) return 1;
-      if (location.startsWith('/v/requests')) return 2;
-      if (location.startsWith('/v/orders')) return 3;
-      if (location.startsWith('/v/profile')) return 4;
+      if (location.startsWith('/v/livelihood')) return 1;
+      if (location.startsWith('/v/search')) return 2;
+      if (location.startsWith('/v/requests')) return 3;
+      if (location.startsWith('/v/orders')) return 4;
+      if (location.startsWith('/v/profile')) return 5;
       return 0;
     }
   }
@@ -106,7 +111,8 @@ class _PortalShellState extends ConsumerState<PortalShell> {
         case 1: context.go('/gs/listings'); break;
         case 2: context.go('/gs/requests'); break;
         case 3: context.go('/gs/orders'); break;
-        case 4: context.go('/gs/profile'); break;
+        case 4: context.go('/gs/livelihood'); break;
+        case 5: context.go('/gs/profile'); break;
       }
     } else if (base == 'b') {
       switch (index) {
@@ -119,10 +125,11 @@ class _PortalShellState extends ConsumerState<PortalShell> {
     } else {
       switch (index) {
         case 0: context.go('/v'); break;
-        case 1: context.go('/v/search'); break;
-        case 2: context.go('/v/requests'); break;
-        case 3: context.go('/v/orders'); break;
-        case 4: context.go('/v/profile'); break;
+        case 1: context.go('/v/livelihood'); break;
+        case 2: context.go('/v/search'); break;
+        case 3: context.go('/v/requests'); break;
+        case 4: context.go('/v/orders'); break;
+        case 5: context.go('/v/profile'); break;
       }
     }
   }
@@ -189,6 +196,7 @@ final appRouter = GoRouter(
         GoRoute(path: '/gs/listings', builder: (_, __) => const GsListingsScreen()),
         GoRoute(path: '/gs/requests', builder: (_, __) => const GsRequestsScreen()),
         GoRoute(path: '/gs/orders', builder: (_, __) => const GsOrdersScreen()),
+        GoRoute(path: '/gs/livelihood', builder: (_, __) => const LivelihoodShell()),
         GoRoute(path: '/gs/profile', builder: (_, __) => const ProfileScreen()),
       ],
     ),
@@ -198,6 +206,7 @@ final appRouter = GoRouter(
       builder: (_, __, child) => PortalShell(portal: 'v', child: child),
       routes: [
         GoRoute(path: '/v', builder: (_, __) => const VillagerHomeScreen()),
+        GoRoute(path: '/v/livelihood', builder: (_, __) => const LivelihoodShell()),
         GoRoute(path: '/v/search', builder: (_, __) => const SearchScreen()),
         GoRoute(path: '/v/requests', builder: (_, __) => const GsRequestsScreen()),
         GoRoute(path: '/v/orders', builder: (_, __) => const GsOrdersScreen()),

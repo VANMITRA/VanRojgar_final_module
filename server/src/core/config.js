@@ -18,7 +18,7 @@ const configSchema = z.object({
   RATE_LIMIT_LOGIN: z.string().default('120/15m'),
   RATE_LIMIT_SEARCH: z.string().default('120/1m'),
   DELIVERY_RATE_PAISE_PER_KM: z.coerce.number().default(1200),
-  SEED_DEMO_PASSWORD: z.string().default('VanRozgar@2026'),
+  SEED_DEMO_PASSWORD: z.string().default('123456'),
   SEED_TEAM_PASSWORD: z.string().default('VanMitraAdmin@2026'),
 });
 

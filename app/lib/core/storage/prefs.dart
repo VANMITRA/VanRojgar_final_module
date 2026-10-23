@@ -17,7 +17,7 @@ class Prefs {
 
   static Future<String> getLanguage() async {
     final sp = await SharedPreferences.getInstance();
-    return sp.getString(_keyLanguage) ?? 'mr';
+    return sp.getString(_keyLanguage) ?? 'en';
   }
 
   static Future<void> setLanguage(String lang) async {

@@ -80,7 +80,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ? digits.substring(2)
         : (digits.length == 10 ? digits : phone);
     if (kDebugMode) {
-      _passwordController.text = 'VanRozgar@2026';
+      _passwordController.text = '123456';
     } else {
       _passwordController.clear();
     }
