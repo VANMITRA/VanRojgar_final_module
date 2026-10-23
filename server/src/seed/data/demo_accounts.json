@@ -1,0 +1,115 @@
+[
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा मातोरी",
+    "phone": "+919822011001",
+    "village": "मातोरी",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा जलालपूर",
+    "phone": "+919822011002",
+    "village": "जलालपूर",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा महादेवपूर",
+    "phone": "+919822011003",
+    "village": "महादेवपूर",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा चांदशी",
+    "phone": "+919822011004",
+    "village": "चांदशी",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा गोवर्धन",
+    "phone": "+919822011005",
+    "village": "गोवर्धन",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा मुगसरे",
+    "phone": "+919822011006",
+    "village": "मुगसरे",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा दरी",
+    "phone": "+919822011007",
+    "village": "दरी",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा यशवंतनगर",
+    "phone": "+919822011008",
+    "village": "यशवंतनगर",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा महिरावणी",
+    "phone": "+919822011009",
+    "village": "महिरावणी",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "gramsabha",
+    "name": "सचिव, ग्रामसभा वासाळी",
+    "phone": "+919822011010",
+    "village": "वासाळी",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "villager",
+    "name": "डेमो ग्रामस्थ (Demo Villager)",
+    "phone": "+919822022222",
+    "village": "मातोरी",
+    "taluka": "Nashik",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
+    "role": "buyer",
+    "name": "Demo Buyer",
+    "businessName": "Demo Herbal Co.",
+    "city": "Nashik",
+    "phone": "+919822033333",
+    "language": "en"
+  },
+  {
+    "role": "team",
+    "name": "VanRozgar Team",
+    "phone": "+919822099999",
+    "language": "en"
+  }
+]

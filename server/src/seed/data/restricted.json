@@ -1,0 +1,41 @@
+[
+  {
+    "name": {
+      "mr": "रक्तचंदन",
+      "en": "Red Sanders"
+    },
+    "terms": ["red sanders", "raktachandan", "रक्तचंदन", "pterocarpus santalinus"],
+    "reason": {
+      "mr": "भारतीय वन कायद्यानुसार रक्तचंदन संरक्षित आहे आणि खुल्या बाजारात विक्रीस बंदी आहे.",
+      "en": "Red Sanders is endangered and strictly restricted under Schedule of Indian Forest Act."
+    },
+    "schedule": "Schedule VI - Wildlife Protection Act",
+    "verified": true
+  },
+  {
+    "name": {
+      "mr": "सागवान लाकूड (अवैध)",
+      "en": "Teak Timber (Unprocessed Logs)"
+    },
+    "terms": ["teak log", "sagwan lakud", "सागवान", "साग लाकूड"],
+    "reason": {
+      "mr": "मोठ्या लाकडाच्या ओंडक्यांची विनापरवाना तोड व विक्री प्रतिबंधित आहे.",
+      "en": "Commercial felling and open trade of round timber logs requires transit pass."
+    },
+    "schedule": "Maharashtra Forest Transit Rules",
+    "verified": true
+  },
+  {
+    "name": {
+      "mr": "सर्पगंधा (वन संकलित)",
+      "en": "Wild Sarpagandha"
+    },
+    "terms": ["sarpagandha", "सर्पगंधा", "rauwolfia serpentina"],
+    "reason": {
+      "mr": "संकटग्रस्त प्रजाती - नैसर्गिक जंगलातून थेट उपटून काढण्यास बंदी आहे.",
+      "en": "Critically endangered species protected from wild uprooting."
+    },
+    "schedule": "CITES Appendix II",
+    "verified": true
+  }
+]

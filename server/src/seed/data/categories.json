@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "medicinal-plants",
+    "name": {
+      "mr": "औषधी वनस्पती",
+      "en": "Medicinal Plants",
+      "hi": "औषधीय पौधे एवं जड़ी-बूटियाँ"
+    },
+    "iconKey": "spa",
+    "order": 1,
+    "description": {
+      "mr": "पारंपारिक आयुर्वेदिक व औषधी वन वनस्पती",
+      "en": "Wild harvested herbal and Ayurvedic plants",
+      "hi": "प्राकृतिक आयुर्वेदिक एवं औषधीय जंगली जड़ी-बूटियाँ"
+    }
+  },
+  {
+    "slug": "forest-produce",
+    "name": {
+      "mr": "वनोपज (Minor Forest Produce)",
+      "en": "Minor Forest Produce",
+      "hi": "लघु वनोपज (Minor Forest Produce)"
+    },
+    "iconKey": "eco",
+    "order": 2,
+    "description": {
+      "mr": "मध, महुआ, तेंदू पत्ता, डिंक, हिरडा आणि बेहेडा",
+      "en": "Wild honey, mahua flower, tendu leaves, lac, gum and wild fruits",
+      "hi": "जंगली शहद, महुआ फूल, तेंदू पत्ता, गोंद, हरड़ एवं बहेड़ा"
+    }
+  },
+  {
+    "slug": "handicrafts-bamboo",
+    "name": {
+      "mr": "हस्तकला आणि बांबू साहित्य",
+      "en": "Handicrafts & Bamboo",
+      "hi": "हस्तशिल्प एवं बांस उत्पाद"
+    },
+    "iconKey": "handshake",
+    "order": 3,
+    "description": {
+      "mr": "बांबू टोपल्या, चटया, हस्तनिर्मित लाकडी वस्तू",
+      "en": "Handcrafted bamboo weaves, baskets and eco-friendly utility goods",
+      "hi": "बांस की टोकरियां, चटाइयां एवं पर्यावरण-अनुकूल हस्तशिल्प"
+    }
+  },
+  {
+    "slug": "water-land-resources",
+    "name": {
+      "mr": "जल आणि भूमी संसाधने",
+      "en": "Water & Land Resources",
+      "hi": "जल एवं भूमि संसाधन"
+    },
+    "iconKey": "water_drop",
+    "order": 4,
+    "description": {
+      "mr": "वन तलाव मत्स्यपालन, चारा आणि नैसर्गिक खते",
+      "en": "Sustainable inland fisheries, organic forest compost and fodder",
+      "hi": "तालाब मत्स्य पालन, चारा एवं जैविक वन खाद"
+    }
+  },
+  {
+    "slug": "others",
+    "name": {
+      "mr": "इतर वन उत्पादने",
+      "en": "Other Forest Produce",
+      "hi": "अन्य वन उत्पाद"
+    },
+    "iconKey": "category",
+    "order": 5,
+    "description": {
+      "mr": "स्थानिक गावपातळीवरील नैसर्गिक उत्पादने",
+      "en": "Local village level natural goods",
+      "hi": "स्थानीय ग्रामीण स्तर के प्राकृतिक उत्पाद"
+    }
+  }
+]

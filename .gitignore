@@ -1,5 +1,5 @@
 # Raw Nashik files hold personal data (phone and bank numbers): never commit them
-data/
+/data/
 *.xlsx
 *.xls
 CFR_Nashik_2026_MRSAC_Resources.docx
