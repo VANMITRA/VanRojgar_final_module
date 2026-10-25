@@ -4,6 +4,8 @@ One Android app for forest-dwelling communities (CFR title holders) in Nashik di
 Tech4Tomorrow hackathon: a **livelihood report with a map** (what your forest land can earn, what is around it) joined
 with a **forest-produce marketplace** (who buys it). Separate from VanMitra.
 
+**Working plan (who does what):** [docs/plan.md](docs/plan.md)
+
 **Read first:** [docs/final_plan.md](docs/final_plan.md) (decisions, build order) and [docs/QUESTIONS.md](docs/QUESTIONS.md) (what is still open).
 
 ## Layout
