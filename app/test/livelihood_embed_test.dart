@@ -23,6 +23,7 @@ Future<void> _pump(WidgetTester tester) async {
         livelihoodRepositoryProvider.overrideWithValue(const SeedLivelihoodRepository()),
         profileRepositoryProvider.overrideWithValue(MemoryProfileRepository()),
       ],
+      // ignore: prefer_const_constructors
       child: MaterialApp(
         locale: const Locale('en'),
         supportedLocales: const [Locale('en')],

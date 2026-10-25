@@ -89,7 +89,7 @@ class _LivelihoodShellState extends State<LivelihoodShell> {
   @override
   Widget build(BuildContext context) {
     return NavigatorPopHandler(
-      onPop: () => _navigator.currentState?.maybePop(),
+      onPopWithResult: (_) => _navigator.currentState?.maybePop(),
       child: Navigator(
         key: _navigator,
         initialRoute: LivelihoodRoutes.home,
