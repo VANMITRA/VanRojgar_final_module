@@ -20,3 +20,29 @@ services:
         sync: false
       - key: CORS_ORIGINS
         sync: false
+
+  # The livelihood report server (Python). It must use the SAME JWT_SECRET and database as vanrozgar-api
+  # (see docs/DEPLOY.md section 7). Secrets are entered in the Render dashboard, never in this file.
+  - type: web
+    name: vanrozgar-livelihood
+    runtime: python
+    plan: free
+    rootDir: livelihood_server
+    buildCommand: pip install -r requirements-core.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.10"
+      - key: VANMITRA_ENV
+        value: production
+      - key: VANMITRA_LIVELIHOOD_STORE
+        value: mongo
+      - key: VANMITRA_MONGODB_DB
+        value: vanrozgar
+      - key: VANMITRA_USERS_COLLECTION
+        value: users
+      - key: VANMITRA_MONGODB_URI
+        sync: false
+      - key: VANMITRA_JWT_SECRET
+        sync: false

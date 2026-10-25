@@ -65,3 +65,27 @@ Local builds without `android/key.properties` still fall back to the debug key; 
 - **Production seeding needs `JWT_SECRET` too** (the server refuses to start in production without it). In PowerShell:
   `$env:NODE_ENV="production"; $env:MONGODB_URI="<Atlas string>"; $env:JWT_SECRET="<same as Render>"; $env:SEED_DEMO_PASSWORD="123456"; npm run seed; npm run indexes`
 - Village positions are not in these files, so real villages have no map point and listings from them show "distance unknown" until coordinates are added.
+
+## 7. The livelihood server (Python) on Render
+`render.yaml` now has a second service, `vanrozgar-livelihood`. It reads the same MongoDB (`users`, read-only) and accepts the same sign-in token, so the two secrets below must match the Node service exactly.
+
+1. Render, New, Blueprint (or open the existing blueprint and sync). Enter the two secrets when asked:
+   - `VANMITRA_MONGODB_URI`: the **same** Atlas string as `MONGODB_URI`
+   - `VANMITRA_JWT_SECRET`: the **same** value as `JWT_SECRET`
+2. Open `https://<livelihood-service>.onrender.com/api/v1/health`. It should say `ok`.
+3. Load the livelihood data into Atlas once, from your PC (this writes to the database, so you run it):
+   ```powershell
+   cd livelihood_server
+   py -3.12 -m venv venv; venv\Scripts\pip install -r requirements-core.txt
+   $env:VANMITRA_MONGODB_URI="<Atlas string>"; $env:VANMITRA_MONGODB_DB="vanrozgar"; $env:VANMITRA_JWT_SECRET="<same as Render>"
+   venv\Scripts\python scripts\setup_livelihood_indexes.py          # indexes
+   venv\Scripts\python scripts\seed_livelihood.py                   # dry run: shows what it would write
+   venv\Scripts\python scripts\seed_livelihood.py --apply           # ideas (draft) and the scheme register
+   venv\Scripts\python scripts\load_livelihood_resources.py app\livelihood\seed\sample_resources.geojson --apply
+   ```
+   The resource file above is the labelled **SAMPLE** set (12 places near Trimbak). Real district resources: see `scripts/build_osm_resources.py` (section 8).
+4. Put its address in the GitHub secret `LIVELIHOOD_API_URL` (`https://<livelihood-service>.onrender.com/api/v1`), then build the APK.
+5. A person from any village in the register gets a report. If the livelihood server has no surveyed centre for their village, it uses the **taluka town** as the centre and says so in the report's source; they get a report about their own land by saving their plot location (GPS, pin or typed).
+
+## 8. Real resources from OpenStreetMap (optional, run from your PC)
+`livelihood_server/scripts/build_osm_resources.py` asks the public Overpass service for wells, water bodies, rivers, dams and protected areas in Nashik district and writes a GeoJSON file in the format the loader checks. Everything is labelled `confidence: low`, `check_status: to_verify` and credited to OpenStreetMap contributors (ODbL). The public service is often busy: the script retries slowly. Check the file with `load_livelihood_resources.py <file>` (validate only) before adding `--apply`.

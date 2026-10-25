@@ -25,6 +25,7 @@ from .domain.idea_detail import build_idea_detail
 from .domain.units import AreaUnit
 from .geo import circle_polygon, find_nearby, validate_point
 from .identity import UserInfo
+from .nashik_villages import approximate_village
 from .schemas import (
     ANIMAL_CODES,
     ASSET_CODES,
@@ -83,7 +84,11 @@ Store = Annotated[LivelihoodStore, Depends(get_store)]
 
 
 def _profile_out(stored: StoredProfile, store: LivelihoodStore) -> ProfileOut:
-    village = store.get_village(stored.village_id) if stored.village_id else None
+    village = (
+        (store.get_village(stored.village_id) or approximate_village(stored.village_id))
+        if stored.village_id
+        else None
+    )
     return ProfileOut(
         profile=stored.profile,
         area_ha=stored.profile.area_ha,
@@ -151,7 +156,8 @@ def _village_of(user: UserInfo, store: LivelihoodStore) -> VillageGeo:
     """His village, from his login. With no village on his role there is no report."""
     if user.village_id is None:
         raise ApiError(422, "NO_VILLAGE", "livelihood.no_village")
-    village = store.get_village(user.village_id)
+    # a village nobody loaded a surveyed centre for still gets a report, centred on its taluka town
+    village = store.get_village(user.village_id) or approximate_village(user.village_id)
     if village is None:
         raise ApiError(422, "VILLAGE_NOT_FOUND", "livelihood.village_not_found")
     return village
