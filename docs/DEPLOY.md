@@ -81,7 +81,6 @@ The only village data in the app is the **14 Community Forest Resource villages 
    venv\Scripts\python scripts\setup_livelihood_indexes.py          # indexes
    venv\Scripts\python scripts\seed_livelihood.py                   # dry run: shows what it would write
    venv\Scripts\python scripts\seed_livelihood.py --apply           # ideas (draft) and the scheme register
-   venv\Scripts\python scripts\load_livelihood_resources.py app\livelihood\seed\sample_resources.geojson --apply
    ```
    Do **not** load `sample_resources.geojson`: it is a labelled sample for a place outside the 14 villages. Without resource data a report says there are no mapped resources nearby, which is honest. Real resources: `scripts/build_osm_resources.py` (section 8).
 4. Put its address in the GitHub secret `LIVELIHOOD_API_URL` (`https://<livelihood-service>.onrender.com/api/v1`), then build the APK.
