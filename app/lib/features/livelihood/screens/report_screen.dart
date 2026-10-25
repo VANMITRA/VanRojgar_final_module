@@ -7,6 +7,7 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../data/error_mapping.dart';
 import '../livelihood_routes.dart';
+import '../pdf/report_pdf.dart';
 import '../livelihood_strings.dart';
 import '../models/report.dart';
 import '../providers/livelihood_providers.dart';
@@ -141,6 +142,7 @@ class _ReportBody extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
         ],
         _HeaderCard(report),
+        PdfExportButton(report),
 
         // where he is heading: what he asked for, so it comes first
         SectionHeader(s.t('lv_sec_heading')),

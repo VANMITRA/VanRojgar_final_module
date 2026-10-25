@@ -81,12 +81,13 @@ def test_everything_is_labelled_low_confidence_unverified_and_credited() -> None
         assert p["id"].startswith("osm_")
 
 
-def test_protected_areas_are_marked_sensitive_and_a_relation_is_not_guessed() -> None:
+def test_protected_areas_stay_visible_to_reports_and_a_relation_is_not_guessed() -> None:
     ds = to_dataset(ELEMENTS)
     protected = [
         f for f in ds["features"] if f["properties"]["kind"].endswith(("reserve", "compartment"))
     ]
-    assert len(protected) == 2 and all(f["properties"]["sensitive"] for f in protected)
+    # a `sensitive` resource is hidden from every report, and the wildlife check needs these
+    assert len(protected) == 2 and not any(f["properties"]["sensitive"] for f in protected)
     assert convert_element(ELEMENTS[6]) is None  # no extent known, so nothing is invented
 
 
@@ -101,3 +102,29 @@ def test_names_keep_marathi_and_english_apart() -> None:
     assert by_id["osm_way_2"]["name_mr"] == "गंगापूर धरण"
     assert by_id["osm_way_3"]["name_en"] == "Test Dam"
     assert by_id["osm_way_2"]["attrs"] == {"perennial": False}  # intermittent water
+
+
+def test_a_listed_resource_carries_a_rounded_map_point_and_a_sensitive_one_does_not() -> None:
+    from app.livelihood.schemas import ResourceRecord
+    from app.livelihood.service import map_point
+
+    def record(geometry: dict[str, Any], *, sensitive: bool = False) -> ResourceRecord:
+        return ResourceRecord(
+            id="r",
+            kind="well",
+            geometry=geometry,
+            source="t",
+            sensitive=sensitive,  # type: ignore[arg-type]
+        )
+
+    assert map_point(record({"type": "Point", "coordinates": [73.78456, 20.01234]})) == (
+        20.012,
+        73.785,
+    )
+    square = {
+        "type": "Polygon",
+        "coordinates": [[[73.0, 19.0], [73.1, 19.0], [73.1, 19.1], [73.0, 19.1], [73.0, 19.0]]],
+    }
+    lat, lng = map_point(record(square)) or (0.0, 0.0)
+    assert 19.0 < lat < 19.1 and 73.0 < lng < 73.1  # a point inside the shape
+    assert map_point(record({"type": "Point", "coordinates": [73.7, 20.0]}, sensitive=True)) is None

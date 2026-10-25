@@ -351,6 +351,10 @@ class ResourceOut(BaseModel):
     unknown_checks: list[str]
     use_only_through_gram_sabha: bool
     trust: TrustLabel
+    # Where to draw it on the map: a point on or inside the resource, rounded to about 100 m.
+    # None when the position is not shown (a sensitive place) or cannot be read.
+    lat: float | None = None
+    lng: float | None = None
 
 
 class Counts(BaseModel):

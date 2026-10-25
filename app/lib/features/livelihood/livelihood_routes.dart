@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'screens/add_details_screen.dart';
 import 'screens/idea_detail_screen.dart';
 import 'screens/livelihood_home_screen.dart';
+import 'screens/map_screen.dart';
 import 'screens/policy_screen.dart';
 import 'screens/report_screen.dart';
 import 'screens/resources_screen.dart';
@@ -23,6 +24,7 @@ class LivelihoodRoutes {
   /// Open with `arguments: <idea code>`.
   static const String idea = '/livelihood/idea';
   static const String schemes = '/livelihood/schemes';
+  static const String map = '/livelihood/map';
 }
 
 final Map<String, WidgetBuilder> livelihoodRoutes = {
@@ -33,4 +35,5 @@ final Map<String, WidgetBuilder> livelihoodRoutes = {
   LivelihoodRoutes.policy: (_) => const PolicyScreen(),
   LivelihoodRoutes.idea: (_) => const IdeaDetailScreen(),
   LivelihoodRoutes.schemes: (_) => const SchemesScreen(),
+  LivelihoodRoutes.map: (_) => const MapScreen(),
 };

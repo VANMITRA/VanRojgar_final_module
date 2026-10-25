@@ -85,9 +85,7 @@ def main() -> None:
     for f in dataset["features"]:
         kinds[f["properties"]["kind"]] = kinds.get(f["properties"]["kind"], 0) + 1
     print(f"wrote {len(dataset['features'])} features to {OUT}: {kinds}")
-    print(
-        "Next: validate it with scripts/load_livelihood_resources.py (no --apply)."
-    )
+    print("Next: validate it with scripts/load_livelihood_resources.py (no --apply).")
 
 
 if __name__ == "__main__":

@@ -97,6 +97,8 @@ class ResourceItem {
     required this.unknownChecks,
     required this.useOnlyThroughGramSabha,
     required this.trust,
+    this.lat,
+    this.lng,
   });
 
   final String id;
@@ -111,6 +113,10 @@ class ResourceItem {
   final List<String> unknownChecks;
   final bool useOnlyThroughGramSabha;
   final TrustLabel trust;
+
+  /// Where to draw it on the map (rounded to about 100 m); null when the server does not show a position.
+  final double? lat;
+  final double? lng;
 
   String name(String lang) =>
       (lang == 'mr' || lang == 'hi') && nameMr.isNotEmpty ? nameMr : nameEn;
@@ -128,6 +134,8 @@ class ResourceItem {
         unknownChecks: List<String>.from(j['unknown_checks'] as List),
         useOnlyThroughGramSabha: j['use_only_through_gram_sabha'] as bool,
         trust: TrustLabel.fromJson(j['trust'] as Map<String, dynamic>),
+        lat: (j['lat'] as num?)?.toDouble(),
+        lng: (j['lng'] as num?)?.toDouble(),
       );
 }
 

@@ -132,6 +132,29 @@ class LivelihoodProfile {
   final int? familyWorkers;
   final MoneyLevel? moneyLevel;
 
+  /// The same details with a new plot position. Everything else is kept.
+  LivelihoodProfile withLocation({
+    required double lat,
+    required double lng,
+    required LocationSource source,
+    double? accuracyM,
+  }) =>
+      LivelihoodProfile(
+        areaValue: areaValue,
+        areaUnit: areaUnit,
+        landType: landType,
+        waterOnLand: waterOnLand,
+        lat: lat,
+        lng: lng,
+        accuracyM: accuracyM,
+        locationSource: source,
+        livestock: livestock,
+        assets: assets,
+        pastWork: pastWork,
+        familyWorkers: familyWorkers,
+        moneyLevel: moneyLevel,
+      );
+
   /// Land in hectares, or null if he gave none.
   double? get areaHa =>
       areaValue == null ? null : areaValue! * areaUnit.toHectaresFactor;

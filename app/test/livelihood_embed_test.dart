@@ -59,6 +59,8 @@ void main() {
 
   testWidgets('a screen of the feature shows its title row and goes back', (tester) async {
     await _pump(tester);
+    await tester.ensureVisible(find.text('Government schemes')); // the hub grew: scroll to the card
+    await tester.pump();
     await tester.tap(find.text('Government schemes'));
     await _settle(tester);
     expect(find.byTooltip('Back'), findsOneWidget);
@@ -70,6 +72,8 @@ void main() {
 
   testWidgets('the system back button goes back inside the feature first', (tester) async {
     await _pump(tester);
+    await tester.ensureVisible(find.text('Government schemes'));
+    await tester.pump();
     await tester.tap(find.text('Government schemes'));
     await _settle(tester);
     final handled = await tester.binding.handlePopRoute();

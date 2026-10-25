@@ -56,8 +56,6 @@ def _feature(
     attrs: dict[str, Any],
     mr_fallback: str,
     en_fallback: str,
-    *,
-    sensitive: bool = False,
 ) -> dict[str, Any]:
     tags = {str(k): str(v) for k, v in (el.get("tags") or {}).items()}
     name_mr, name_en = _names(tags, "")
@@ -69,7 +67,8 @@ def _feature(
             "kind": kind,
             "district": "Nashik",
             "tag_hint": "none",
-            "sensitive": sensitive,
+            # `sensitive` hides a resource from every report; boundaries are public
+            "sensitive": False,
             "confidence": "low",
             "check_status": "to_verify",
             "attrs": attrs,
@@ -151,7 +150,6 @@ def convert_element(el: dict[str, Any]) -> dict[str, Any] | None:
             {},
             "संरक्षित क्षेत्र (OpenStreetMap)",
             "Protected area (OpenStreetMap)",
-            sensitive=True,
         )
     return None
 

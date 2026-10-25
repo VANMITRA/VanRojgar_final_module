@@ -11,6 +11,8 @@ import 'data/livelihood_api.dart';
 import 'livelihood_routes.dart';
 import 'providers/host_hooks.dart';
 import 'providers/launch_provider.dart';
+import 'providers/market_points.dart';
+import '../auth/auth_providers.dart' show apiClientProvider;
 import 'providers/livelihood_providers.dart';
 
 /// How the livelihood feature sits inside this app.
@@ -30,6 +32,17 @@ final List<Override> livelihoodOverrides = [
     ),
   ),
   hostFrameBuilderProvider.overrideWithValue(embeddedLivelihoodFrame),
+  // The map's "Marketplace listings" layer reads the marketplace server, which only the host knows about.
+  marketPointsLoaderProvider.overrideWith((ref) {
+    final api = ref.watch(apiClientProvider);
+    return () async {
+      final res = await api.get('/listings/map');
+      return [
+        for (final p in (res['points'] as List? ?? const []))
+          MarketPoint.fromJson(Map<String, dynamic>.from(p as Map)),
+      ];
+    };
+  }),
 ];
 
 /// The frame the shell gives every screen of the feature (public so a test can use it).
@@ -113,7 +126,8 @@ class _LivelihoodShellState extends ConsumerState<LivelihoodShell> {
   @override
   Widget build(BuildContext context) {
     return NavigatorPopHandler(
-      onPopWithResult: (_) => _navigator.currentState?.maybePop(),
+      // ignore: deprecated_member_use -- onPopWithResult changes when this is called and breaks back inside the feature
+      onPop: () => _navigator.currentState?.maybePop(),
       child: Navigator(
         key: _navigator,
         initialRoute: LivelihoodRoutes.home,

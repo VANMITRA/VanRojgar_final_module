@@ -9,6 +9,8 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 
+from shapely.geometry import shape
+
 from ..errors import ApiError
 from .domain.analysis import build_analysis
 from .domain.config import DEFAULT_CONFIG, LivelihoodConfig
@@ -95,9 +97,21 @@ def label_nearby(
     ]
 
 
+def map_point(record: ResourceRecord) -> tuple[float, float] | None:
+    """(lat, lng) to draw a resource at, rounded to about 100 m. None for a sensitive place."""
+    if record.sensitive:
+        return None
+    try:
+        p = shape(record.geometry).representative_point()
+    except Exception:
+        return None
+    return round(p.y, 3), round(p.x, 3)
+
+
 def resource_card(r: LabelledResource) -> ResourceOut:
     """One resource as the app shows it: a label and a reason, never a number (rule L5)."""
     record = r.near.record
+    point = map_point(record)
     return ResourceOut(
         id=r.id,
         kind=record.kind,
@@ -116,6 +130,8 @@ def resource_card(r: LabelledResource) -> ResourceOut:
             check_status=record.check_status,
             confidence=record.confidence,
         ),
+        lat=point[0] if point else None,
+        lng=point[1] if point else None,
     )
 
 

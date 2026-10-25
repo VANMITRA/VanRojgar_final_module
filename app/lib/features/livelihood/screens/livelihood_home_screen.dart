@@ -130,6 +130,14 @@ class _LivelihoodHomeScreenState extends ConsumerState<LivelihoodHomeScreen> {
         ),
         const SizedBox(height: AppSpacing.sm),
         LvActionCard(
+          icon: Icons.map_rounded,
+          title: s.t('map_open'),
+          subtitle: s.t('map_open_sub'),
+          accent: const Color(0xFF2E705B),
+          onTap: () => _open(LivelihoodRoutes.map),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        LvActionCard(
           icon: Icons.account_balance_rounded,
           title: s.t('lv_hub_schemes'),
           subtitle: s.t('lv_hub_schemes_sub'),
