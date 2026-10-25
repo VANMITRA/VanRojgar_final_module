@@ -5,8 +5,19 @@ import { GramSabha } from '../models/GramSabha.js';
 import { config } from '../core/config.js';
 import { AppError, ErrorCodes } from '../core/errors.js';
 import { serializeUser } from '../core/serializers.js';
-import { buildSearchTokens } from '../core/normalise.js';
+import { loadRaah, gramSabhaFields, SOURCE as RAAH_SOURCE } from '../seed/raah.js';
 
+
+const { villages: DATASET, blockTowns: BLOCK_TOWNS } = loadRaah();
+
+const norm = (t) => String(t ?? '').trim().toLowerCase().replace(/s+/g, ' ');
+
+/** The dataset village for (village, taluka), by Marathi or English name, or undefined. */
+export function findDatasetVillage(village, taluka) {
+  return DATASET.find((v) => norm(v.taluka) === norm(taluka) && [v.nameMr, v.nameEn].some((n) => norm(n) === norm(village)));
+}
+
+export const isDatasetVillage = (village, taluka) => Boolean(findDatasetVillage(village, taluka));
 
 export class AuthService {
   static async register(data) {
@@ -20,6 +31,11 @@ export class AuthService {
 
     let gramSabhaId = data.gramSabhaId;
 
+    // Only the villages of the dataset (the 14 CFR villages of the Raah Foundation report) can be registered.
+    if ((data.role === 'gramsabha' || data.role === 'villager') && !isDatasetVillage(data.village, data.taluka)) {
+      throw new AppError(ErrorCodes.VALIDATION_ERROR, 'This village is not in the VanRozgar dataset', 422);
+    }
+
     if (data.role === 'gramsabha') {
       // Find matching Gram Sabha or create a new one
       let gs = await GramSabha.findOne({
@@ -29,6 +45,14 @@ export class AuthService {
           { 'village.en': data.village }
         ]
       });
+      if (!gs) {
+        // The database was not seeded yet: build the record of this dataset village now
+        gs = await GramSabha.create({
+          ...gramSabhaFields(findDatasetVillage(data.village, data.taluka), BLOCK_TOWNS),
+          verificationStatus: 'pending',
+          verificationNote: RAAH_SOURCE
+        });
+      }
 
       if (gs) {
         gramSabhaId = gs._id;
@@ -47,22 +71,6 @@ export class AuthService {
           gs.verificationNote = `दावा दाखल: ${data.name} (${data.phone}) - प्रशासकीय मंजुरी प्रलंबित`;
           await gs.save();
         }
-      } else {
-        // A village that is not in the CFR register: create an unclaimed record with nothing invented
-        // (no area, no rights, no position) for the team to review.
-        gs = await GramSabha.create({
-          name: { mr: `ग्रामसभा ${data.village}`, en: `Gram Sabha ${data.village}` },
-          village: { mr: data.village, en: data.village },
-          taluka: data.taluka,
-          district: data.district || 'Nashik',
-          contactPerson: data.contactPerson || data.name,
-          phone: data.phone,
-          verificationStatus: 'pending',
-          verificationNote: 'Village not found in the CFR register; awaiting team review.',
-          cfr: { rights: [], approvedAreaHa: 0, claimCount: 0 },
-          searchTerms: buildSearchTokens(data.village, data.taluka, 'Gram Sabha')
-        });
-        gramSabhaId = gs._id;
       }
     } else if (data.role === 'villager' && !gramSabhaId && data.village) {
       // The same village name exists in several talukas, so use the taluka whenever the app sends it

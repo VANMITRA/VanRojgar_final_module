@@ -56,15 +56,15 @@ You hold the keystore. It is never committed (`*.jks` and `key.properties` are g
 
 Local builds without `android/key.properties` still fall back to the debug key; that APK is for your own testing only.
 
-## 6. Real village data (CFR register + MRSAC)
-`npm run seed` now also loads the real villages: 771 villages and 950 claims from the district CFR register, and 680 MRSAC village profiles, as **unclaimed Gram Sabhas** (the first person to register for a village files a claim that the team approves). The 10 demo villages and their demo listings stay, labelled Demo.
+## 6. The dataset: 14 villages (Raah Foundation report)
+The only village data in the app is the **14 Community Forest Resource villages of the Raah Foundation report** (letter of 1 October 2026): Dongargaon, Kanchane, Kumbharde, Varshi (Deola); Bhatode, Kochargaon (Dindori); Ambai, Chakore, Devgaon, Met Chandrachi, Pahine, Take Harsh, Talwade, Waghera (Trimbakeshwar). `npm run seed` loads them as Gram Sabhas with the report's figures (CFR area, saplings, forest ponds, water storage, boulder structures, labour days, meetings, wildlife sessions and, for 12 villages, the plantation species). It also removes every other village from the database. Registration, the delivery areas and the livelihood server accept only these 14. There are **no demo listings**: the marketplace starts empty and holds only what Gram Sabhas list. The demo logins stay (one demo Gram Sabha per village, `+919822011001` to `+919822011014`, a demo villager in Devgaon, a demo buyer), PIN from `SEED_DEMO_PASSWORD`.
 
-- The raw spreadsheet and Word document are **never committed** (git ignores them). Only the cleaned files in `server/src/seed/data/cfr/` are in the repo: they hold village, taluka, right type, area, decision and the committee flag, and no names, phone numbers or bank details. A test fails if a long number or a bank field ever appears there.
-- To rebuild them from new raw files: `pip install openpyxl python-docx`, then `python -I -X utf8 server/scripts/cfr/clean_cfr_data.py "<xlsx>" "<docx>" server/src/seed/data/cfr`.
-- To preview a load without writing: `cd server && npm run import:cfr`. To write only the CFR part: `npm run import:cfr -- --apply`. Both are safe to repeat.
+- The data file is `server/src/seed/data/raah/raah_villages.json`, typed from the report; a test checks that every column adds up to the report's printed totals (2,019 ha, 217,708 saplings, 11 ponds, 794 boulder structures, 12,710 labour days, 19 meetings, 4 sessions). The report gives no map position, so each village sits at its block town's centre, labelled approximate.
+- **Check against the paper before you submit:** in the Varshi and Waghera species lists the rows do not add up to the total the report prints (6,261 against 6,161, and 23,257 against 26,866). The numbers are as read from the scan; the app does not show list totals.
+- To preview a load without writing: `cd server && npm run import:raah`. To write only the villages: `npm run import:raah -- --apply`. Both are safe to repeat.
 - **Production seeding needs `JWT_SECRET` too** (the server refuses to start in production without it). In PowerShell:
   `$env:NODE_ENV="production"; $env:MONGODB_URI="<Atlas string>"; $env:JWT_SECRET="<same as Render>"; $env:SEED_DEMO_PASSWORD="123456"; npm run seed; npm run indexes`
-- Village positions are not in these files, so real villages have no map point and listings from them show "distance unknown" until coordinates are added.
+- Village positions are approximate (block town), so listings show a rough distance until real coordinates are added.
 
 ## 7. The livelihood server (Python) on Render
 `render.yaml` now has a second service, `vanrozgar-livelihood`. It reads the same MongoDB (`users`, read-only) and accepts the same sign-in token, so the two secrets below must match the Node service exactly.

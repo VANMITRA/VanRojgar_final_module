@@ -1,0 +1,1045 @@
+{
+  "source": "Raah Foundation, quarterly update on ecological restoration in CFR areas of Nashik district, letter dated 1 October 2026, with its village-wise progress enclosure and species lists",
+  "note": "The 14 villages of the report and nothing else. Numbers are copied from the report; the report totals were checked against the sums below.",
+  "villages": [
+    {
+      "id": "dongargaon",
+      "taluka": "Deola",
+      "nameEn": "Dongargaon",
+      "nameMr": "डोंगरगाव",
+      "cfrAreaHa": 154,
+      "saplings": 6832,
+      "forestPonds": 2,
+      "waterCapacityLitres": 6780000,
+      "looseBoulderStructures": 71,
+      "labourDays": 843,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 0,
+      "species": [
+        {
+          "name": "Anjan",
+          "count": 100
+        },
+        {
+          "name": "Chinch",
+          "count": 2200
+        },
+        {
+          "name": "Ashok",
+          "count": 55
+        },
+        {
+          "name": "Babhul",
+          "count": 200
+        },
+        {
+          "name": "Bel",
+          "count": 150
+        },
+        {
+          "name": "Bor",
+          "count": 180
+        },
+        {
+          "name": "Maharukh",
+          "count": 140
+        },
+        {
+          "name": "Pandhara Khair",
+          "count": 500
+        },
+        {
+          "name": "Shami",
+          "count": 300
+        },
+        {
+          "name": "Shindi",
+          "count": 100
+        },
+        {
+          "name": "Shirish",
+          "count": 100
+        },
+        {
+          "name": "Shisu",
+          "count": 100
+        },
+        {
+          "name": "Sitaphal",
+          "count": 1635
+        },
+        {
+          "name": "Tambda Khair",
+          "count": 300
+        }
+      ],
+      "speciesListTotalPrinted": 6060
+    },
+    {
+      "id": "kanchane",
+      "taluka": "Deola",
+      "nameEn": "Kanchane",
+      "nameMr": "कांचने",
+      "cfrAreaHa": 51,
+      "saplings": 5160,
+      "forestPonds": 1,
+      "waterCapacityLitres": 8170000,
+      "looseBoulderStructures": 90,
+      "labourDays": 287,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 0,
+      "species": [
+        {
+          "name": "Anjan",
+          "count": 250
+        },
+        {
+          "name": "Amba (Grafted)",
+          "count": 600
+        },
+        {
+          "name": "Chinch",
+          "count": 1800
+        },
+        {
+          "name": "Awla",
+          "count": 200
+        },
+        {
+          "name": "Bel",
+          "count": 100
+        },
+        {
+          "name": "Bhendi",
+          "count": 100
+        },
+        {
+          "name": "Bor",
+          "count": 100
+        },
+        {
+          "name": "Kawath",
+          "count": 100
+        },
+        {
+          "name": "Pandhara Khair",
+          "count": 100
+        },
+        {
+          "name": "Shami",
+          "count": 100
+        },
+        {
+          "name": "Shindi",
+          "count": 100
+        },
+        {
+          "name": "Shirish",
+          "count": 100
+        },
+        {
+          "name": "Sitaphal",
+          "count": 800
+        },
+        {
+          "name": "Tambda Khair",
+          "count": 600
+        }
+      ],
+      "speciesListTotalPrinted": 5050
+    },
+    {
+      "id": "kumbharde",
+      "taluka": "Deola",
+      "nameEn": "Kumbharde",
+      "nameMr": "कुंभार्डे",
+      "cfrAreaHa": 211,
+      "saplings": 0,
+      "forestPonds": 0,
+      "waterCapacityLitres": 0,
+      "looseBoulderStructures": 250,
+      "labourDays": 615,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 0,
+      "species": [],
+      "speciesListTotalPrinted": null
+    },
+    {
+      "id": "varshi",
+      "taluka": "Deola",
+      "nameEn": "Varshi",
+      "nameMr": "वर्षी",
+      "cfrAreaHa": 159,
+      "saplings": 9798,
+      "forestPonds": 0,
+      "waterCapacityLitres": 0,
+      "looseBoulderStructures": 0,
+      "labourDays": 617,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 0,
+      "species": [
+        {
+          "name": "Anjan",
+          "count": 200
+        },
+        {
+          "name": "Amba (Grafted)",
+          "count": 1000
+        },
+        {
+          "name": "Chinch",
+          "count": 1500
+        },
+        {
+          "name": "Babhul",
+          "count": 50
+        },
+        {
+          "name": "Bamboo",
+          "count": 1600
+        },
+        {
+          "name": "Behda",
+          "count": 50
+        },
+        {
+          "name": "Bel",
+          "count": 51
+        },
+        {
+          "name": "Bor",
+          "count": 100
+        },
+        {
+          "name": "Kawath",
+          "count": 100
+        },
+        {
+          "name": "Pandhara Khair",
+          "count": 160
+        },
+        {
+          "name": "Ritha",
+          "count": 150
+        },
+        {
+          "name": "Shami",
+          "count": 100
+        },
+        {
+          "name": "Shindi",
+          "count": 100
+        },
+        {
+          "name": "Shirish",
+          "count": 100
+        },
+        {
+          "name": "Shisu",
+          "count": 100
+        },
+        {
+          "name": "Sitaphal",
+          "count": 700
+        },
+        {
+          "name": "Tambda Khair",
+          "count": 200
+        }
+      ],
+      "speciesListTotalPrinted": 6161
+    },
+    {
+      "id": "bhatode",
+      "taluka": "Dindori",
+      "nameEn": "Bhatode",
+      "nameMr": "भाटोडे",
+      "cfrAreaHa": 50,
+      "saplings": 0,
+      "forestPonds": 0,
+      "waterCapacityLitres": 0,
+      "looseBoulderStructures": 30,
+      "labourDays": 0,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 0,
+      "species": [],
+      "speciesListTotalPrinted": null
+    },
+    {
+      "id": "kochargaon",
+      "taluka": "Dindori",
+      "nameEn": "Kochargaon",
+      "nameMr": "कोचरगाव",
+      "cfrAreaHa": 255,
+      "saplings": 74654,
+      "forestPonds": 3,
+      "waterCapacityLitres": 20910000,
+      "looseBoulderStructures": 40,
+      "labourDays": 2730,
+      "cfrmcMeetings": 3,
+      "wildlifeSessions": 0,
+      "species": [
+        {
+          "name": "Babool",
+          "count": null
+        },
+        {
+          "name": "Bel",
+          "count": null
+        },
+        {
+          "name": "Cashew",
+          "count": null
+        },
+        {
+          "name": "Sitaphal",
+          "count": null
+        },
+        {
+          "name": "Neem",
+          "count": null
+        },
+        {
+          "name": "Bamboo",
+          "count": null
+        },
+        {
+          "name": "Apta",
+          "count": null
+        },
+        {
+          "name": "Sawar",
+          "count": null
+        },
+        {
+          "name": "Asana",
+          "count": null
+        },
+        {
+          "name": "Palas",
+          "count": null
+        },
+        {
+          "name": "Karwand",
+          "count": null
+        },
+        {
+          "name": "Bahava",
+          "count": null
+        },
+        {
+          "name": "Bhokar",
+          "count": null
+        },
+        {
+          "name": "Tendu / Tembumi",
+          "count": null
+        },
+        {
+          "name": "Pangara",
+          "count": null
+        },
+        {
+          "name": "Payar",
+          "count": null
+        },
+        {
+          "name": "Wad",
+          "count": null
+        },
+        {
+          "name": "Nandruk",
+          "count": null
+        },
+        {
+          "name": "Dhaman",
+          "count": null
+        },
+        {
+          "name": "Murudsheng",
+          "count": null
+        },
+        {
+          "name": "Moha",
+          "count": null
+        },
+        {
+          "name": "Kalamb",
+          "count": null
+        },
+        {
+          "name": "Tetu",
+          "count": null
+        },
+        {
+          "name": "Shamee",
+          "count": null
+        },
+        {
+          "name": "Putranjiva",
+          "count": null
+        },
+        {
+          "name": "Ritha",
+          "count": null
+        },
+        {
+          "name": "Kahandol",
+          "count": null
+        },
+        {
+          "name": "Jambhul",
+          "count": null
+        },
+        {
+          "name": "Tamarind",
+          "count": null
+        },
+        {
+          "name": "Saag",
+          "count": null
+        },
+        {
+          "name": "Arjun",
+          "count": null
+        },
+        {
+          "name": "Sadada",
+          "count": null
+        },
+        {
+          "name": "Dhayati",
+          "count": null
+        },
+        {
+          "name": "Kala Kuda",
+          "count": null
+        }
+      ],
+      "speciesListTotalPrinted": null
+    },
+    {
+      "id": "ambai",
+      "taluka": "Trimbakeshwar",
+      "nameEn": "Ambai",
+      "nameMr": "अंबाई",
+      "cfrAreaHa": 225,
+      "saplings": 39829,
+      "forestPonds": 1,
+      "waterCapacityLitres": 7460000,
+      "looseBoulderStructures": 115,
+      "labourDays": 3778,
+      "cfrmcMeetings": 2,
+      "wildlifeSessions": 1,
+      "species": [
+        {
+          "name": "Ain",
+          "count": 550
+        },
+        {
+          "name": "Amba",
+          "count": 150
+        },
+        {
+          "name": "Amba (Grafted)",
+          "count": 500
+        },
+        {
+          "name": "Ashok",
+          "count": 1500
+        },
+        {
+          "name": "Awla",
+          "count": 536
+        },
+        {
+          "name": "Bahava",
+          "count": 300
+        },
+        {
+          "name": "Bakul",
+          "count": 650
+        },
+        {
+          "name": "Bamboo",
+          "count": 9237
+        },
+        {
+          "name": "Behda",
+          "count": 4500
+        },
+        {
+          "name": "Bhendi",
+          "count": 700
+        },
+        {
+          "name": "Gunj Vel",
+          "count": 120
+        },
+        {
+          "name": "Hadga",
+          "count": 1900
+        },
+        {
+          "name": "Hirda",
+          "count": 160
+        },
+        {
+          "name": "Jambhul",
+          "count": 620
+        },
+        {
+          "name": "Kahandol",
+          "count": 2000
+        },
+        {
+          "name": "Kaju",
+          "count": 3798
+        },
+        {
+          "name": "Karanj",
+          "count": 1000
+        },
+        {
+          "name": "Karvand",
+          "count": 1200
+        },
+        {
+          "name": "Kate Pangara",
+          "count": 710
+        },
+        {
+          "name": "Khirni",
+          "count": 375
+        },
+        {
+          "name": "Koshimb",
+          "count": 1000
+        },
+        {
+          "name": "Lal Bhendi",
+          "count": 440
+        },
+        {
+          "name": "Maharukh",
+          "count": 400
+        },
+        {
+          "name": "Moh",
+          "count": 2000
+        },
+        {
+          "name": "Mahogani",
+          "count": 250
+        },
+        {
+          "name": "Pandhara Khair",
+          "count": 1500
+        },
+        {
+          "name": "Buch Pangara",
+          "count": 80
+        },
+        {
+          "name": "Paayar",
+          "count": 20
+        },
+        {
+          "name": "Shami",
+          "count": 1000
+        },
+        {
+          "name": "Shendari / Bixa",
+          "count": 104
+        },
+        {
+          "name": "Shirish",
+          "count": 1000
+        },
+        {
+          "name": "Shisu",
+          "count": 1500
+        },
+        {
+          "name": "Shivan",
+          "count": 600
+        },
+        {
+          "name": "Tetu",
+          "count": 150
+        },
+        {
+          "name": "Vanjyot (Ratangunj)",
+          "count": 300
+        }
+      ],
+      "speciesListTotalPrinted": 40850
+    },
+    {
+      "id": "chakore",
+      "taluka": "Trimbakeshwar",
+      "nameEn": "Chakore",
+      "nameMr": "चाकोरे",
+      "cfrAreaHa": 87,
+      "saplings": 5458,
+      "forestPonds": 0,
+      "waterCapacityLitres": 0,
+      "looseBoulderStructures": 36,
+      "labourDays": 296,
+      "cfrmcMeetings": 2,
+      "wildlifeSessions": 1,
+      "species": [
+        {
+          "name": "Bamboo",
+          "count": 4008
+        },
+        {
+          "name": "Banyan",
+          "count": 250
+        },
+        {
+          "name": "Peepal",
+          "count": 250
+        }
+      ],
+      "speciesListTotalPrinted": 4508
+    },
+    {
+      "id": "devgaon",
+      "taluka": "Trimbakeshwar",
+      "nameEn": "Devgaon",
+      "nameMr": "देवगाव",
+      "cfrAreaHa": 100,
+      "saplings": 5000,
+      "forestPonds": 2,
+      "waterCapacityLitres": 635000,
+      "looseBoulderStructures": 30,
+      "labourDays": 530,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 1,
+      "species": [
+        {
+          "name": "Bamboo",
+          "count": 500
+        },
+        {
+          "name": "Pandhara Khair",
+          "count": 500
+        },
+        {
+          "name": "Bahava",
+          "count": 500
+        },
+        {
+          "name": "Shirish",
+          "count": 500
+        },
+        {
+          "name": "Shisam",
+          "count": 500
+        },
+        {
+          "name": "Shivan",
+          "count": 500
+        },
+        {
+          "name": "Tambda Khair",
+          "count": 500
+        },
+        {
+          "name": "Shishu",
+          "count": 500
+        },
+        {
+          "name": "Moh",
+          "count": 500
+        },
+        {
+          "name": "Jambul",
+          "count": 500
+        }
+      ],
+      "speciesListTotalPrinted": 5000
+    },
+    {
+      "id": "met-chandrachi",
+      "taluka": "Trimbakeshwar",
+      "nameEn": "Met Chandrachi",
+      "nameMr": "मेट चंद्राची",
+      "cfrAreaHa": 100,
+      "saplings": 6980,
+      "forestPonds": 1,
+      "waterCapacityLitres": 1347000,
+      "looseBoulderStructures": 76,
+      "labourDays": 1003,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 0,
+      "species": [
+        {
+          "name": "Bamboo",
+          "count": 250
+        },
+        {
+          "name": "Shirish",
+          "count": 750
+        },
+        {
+          "name": "Avala",
+          "count": 750
+        },
+        {
+          "name": "Shisam",
+          "count": 750
+        },
+        {
+          "name": "Moh",
+          "count": 250
+        },
+        {
+          "name": "Pandhara Khair",
+          "count": 500
+        },
+        {
+          "name": "Shishu",
+          "count": 750
+        },
+        {
+          "name": "Bamboo",
+          "count": 750
+        },
+        {
+          "name": "Tambda Khair",
+          "count": 750
+        },
+        {
+          "name": "Shivan",
+          "count": 500
+        },
+        {
+          "name": "Moh",
+          "count": 300
+        },
+        {
+          "name": "Kaju",
+          "count": 200
+        },
+        {
+          "name": "Jambhul",
+          "count": 500
+        }
+      ],
+      "speciesListTotalPrinted": 7000
+    },
+    {
+      "id": "pahine",
+      "taluka": "Trimbakeshwar",
+      "nameEn": "Pahine",
+      "nameMr": "पहिने",
+      "cfrAreaHa": 157,
+      "saplings": 6300,
+      "forestPonds": 0,
+      "waterCapacityLitres": 0,
+      "looseBoulderStructures": 6,
+      "labourDays": 262,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 1,
+      "species": [
+        {
+          "name": "Bamboo",
+          "count": 6300
+        }
+      ],
+      "speciesListTotalPrinted": 6300
+    },
+    {
+      "id": "take-harsh",
+      "taluka": "Trimbakeshwar",
+      "nameEn": "Take Harsh",
+      "nameMr": "टाके हर्ष",
+      "cfrAreaHa": 220,
+      "saplings": 15031,
+      "forestPonds": 0,
+      "waterCapacityLitres": 0,
+      "looseBoulderStructures": 30,
+      "labourDays": 503,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 0,
+      "species": [
+        {
+          "name": "Bamboo",
+          "count": 15000
+        }
+      ],
+      "speciesListTotalPrinted": 15000
+    },
+    {
+      "id": "talwade",
+      "taluka": "Trimbakeshwar",
+      "nameEn": "Talwade",
+      "nameMr": "तळवाडे",
+      "cfrAreaHa": 50,
+      "saplings": 15132,
+      "forestPonds": 0,
+      "waterCapacityLitres": 0,
+      "looseBoulderStructures": 0,
+      "labourDays": 611,
+      "cfrmcMeetings": 2,
+      "wildlifeSessions": 0,
+      "species": [
+        {
+          "name": "Ain",
+          "count": 300
+        },
+        {
+          "name": "Amba",
+          "count": 85
+        },
+        {
+          "name": "Ashok",
+          "count": 300
+        },
+        {
+          "name": "Awla",
+          "count": 300
+        },
+        {
+          "name": "Bahava",
+          "count": 100
+        },
+        {
+          "name": "Bakul",
+          "count": 70
+        },
+        {
+          "name": "Bamboo",
+          "count": 4009
+        },
+        {
+          "name": "Behda",
+          "count": 1460
+        },
+        {
+          "name": "Bhendi",
+          "count": 191
+        },
+        {
+          "name": "Hadga",
+          "count": 715
+        },
+        {
+          "name": "Jambta",
+          "count": 443
+        },
+        {
+          "name": "Kahandol",
+          "count": 447
+        },
+        {
+          "name": "Kaju",
+          "count": 575
+        },
+        {
+          "name": "Karanj",
+          "count": 425
+        },
+        {
+          "name": "Karvand",
+          "count": 300
+        },
+        {
+          "name": "Moh",
+          "count": 960
+        },
+        {
+          "name": "Pandhara Khair",
+          "count": 950
+        },
+        {
+          "name": "Shami",
+          "count": 600
+        },
+        {
+          "name": "Shendari",
+          "count": 433
+        },
+        {
+          "name": "Shirish",
+          "count": 277
+        },
+        {
+          "name": "Shisu",
+          "count": 256
+        },
+        {
+          "name": "Shivan",
+          "count": 968
+        },
+        {
+          "name": "Surangi",
+          "count": 200
+        },
+        {
+          "name": "Tetu",
+          "count": 50
+        },
+        {
+          "name": "Ratangunj",
+          "count": 100
+        },
+        {
+          "name": "Bamboo (TCM)",
+          "count": 1900
+        },
+        {
+          "name": "Grafted Mango",
+          "count": 500
+        }
+      ],
+      "speciesListTotalPrinted": 16914
+    },
+    {
+      "id": "waghera",
+      "taluka": "Trimbakeshwar",
+      "nameEn": "Waghera",
+      "nameMr": "वाघेरा",
+      "cfrAreaHa": 200,
+      "saplings": 27534,
+      "forestPonds": 1,
+      "waterCapacityLitres": 7790000,
+      "looseBoulderStructures": 20,
+      "labourDays": 635,
+      "cfrmcMeetings": 1,
+      "wildlifeSessions": 0,
+      "species": [
+        {
+          "name": "Ain",
+          "count": 350
+        },
+        {
+          "name": "Amba",
+          "count": 191
+        },
+        {
+          "name": "Amba (Grafted)",
+          "count": 500
+        },
+        {
+          "name": "Ashok",
+          "count": 430
+        },
+        {
+          "name": "Awla",
+          "count": 600
+        },
+        {
+          "name": "Bahava",
+          "count": 150
+        },
+        {
+          "name": "Bakul",
+          "count": 50
+        },
+        {
+          "name": "Bamboo (Rohini)",
+          "count": 3191
+        },
+        {
+          "name": "Behda",
+          "count": 2500
+        },
+        {
+          "name": "Bhendi",
+          "count": 800
+        },
+        {
+          "name": "Bibba",
+          "count": 25
+        },
+        {
+          "name": "Bor",
+          "count": 750
+        },
+        {
+          "name": "Hadga",
+          "count": 300
+        },
+        {
+          "name": "Jambta",
+          "count": 300
+        },
+        {
+          "name": "Kahandol",
+          "count": 600
+        },
+        {
+          "name": "Kaju",
+          "count": 2600
+        },
+        {
+          "name": "Karanj",
+          "count": 400
+        },
+        {
+          "name": "Karvand",
+          "count": 1100
+        },
+        {
+          "name": "Maharukh",
+          "count": 900
+        },
+        {
+          "name": "Moh",
+          "count": 900
+        },
+        {
+          "name": "Pandhara Khair",
+          "count": 3300
+        },
+        {
+          "name": "Papda / Waval",
+          "count": 500
+        },
+        {
+          "name": "Shami",
+          "count": 500
+        },
+        {
+          "name": "Shirish",
+          "count": 660
+        },
+        {
+          "name": "Shisu",
+          "count": 1000
+        },
+        {
+          "name": "Shivan",
+          "count": 500
+        },
+        {
+          "name": "Tetu",
+          "count": 60
+        },
+        {
+          "name": "Vanjyot (Ratangunj)",
+          "count": 100
+        }
+      ],
+      "speciesListTotalPrinted": 26866
+    }
+  ],
+  "blockTowns": {
+    "Deola": {
+      "lat": 20.517,
+      "lng": 74.15
+    },
+    "Dindori": {
+      "lat": 20.202,
+      "lng": 73.833
+    },
+    "Trimbakeshwar": {
+      "lat": 19.9322,
+      "lng": 73.5307
+    }
+  },
+  "blockTownNote": "The report gives no map position. Each village is placed at the centre of its block town, which is only approximate (a few km to tens of km off)."
+}

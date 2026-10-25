@@ -95,9 +95,6 @@ const Map<String, Map<String, String>> _text = {
         'The report will be measured from your village centre, not from your plot.',
     'lv_lat': 'Latitude',
     'lv_lng': 'Longitude',
-    'lv_loc_default': 'Use default coordinates',
-    'lv_loc_default_note':
-        'Fills in 19.7805, 73.2210: the sample village near Trimbak that the demo data is built around.',
     'lv_loc_getting': 'Finding your location',
     'lv_loc_got': 'Location found: {lat}, {lng}',
     'lv_loc_accuracy': 'Accurate to about {acc} m',
@@ -485,9 +482,6 @@ const Map<String, Map<String, String>> _text = {
         'अहवाल तुमच्या जमिनीपासून नव्हे, तर गावाच्या मध्यापासून मोजला जाईल.',
     'lv_lat': 'अक्षांश',
     'lv_lng': 'रेखांश',
-    'lv_loc_default': 'डीफॉल्ट निर्देशांक वापरा',
-    'lv_loc_default_note':
-        '19.7805, 73.2210 भरले जाते: त्र्यंबक जवळचे नमुना गाव, ज्याच्याभोवती डेमो माहिती बनवली आहे.',
     'lv_loc_getting': 'तुमचे ठिकाण शोधत आहे',
     'lv_loc_got': 'ठिकाण सापडले: {lat}, {lng}',
     'lv_loc_accuracy': 'सुमारे {acc} मी अचूक',

@@ -11,10 +11,9 @@
 ## Data, and how honest it is
 | Data | State |
 |---|---|
-| Community forest claims | Real: 950 rows, 771 villages, 14 talukas, from the district CFR register. Cleaned of all personal columns. 49 rows have no decision recorded and 167 have no right type; the app says "not recorded" |
-| Village facts (forest, water, wells, soil, schools) | Real: 680 villages from the MRSAC geoportal, figures as printed. 853 of 950 claim rows matched a village; 96 names did not |
+| Villages and forest restoration figures | Real: the 14 CFR villages of the Raah Foundation report (1 Oct 2026): area, saplings, ponds, water storage, boulder structures, labour days, meetings, wildlife sessions, and species for 12 villages. No other village is in the app |
 | Resources near a plot (the pins) | **Still the labelled SAMPLE set near Trimbak.** A builder for real OpenStreetMap data exists and has not been run (the public service was busy). OSM in rural areas is patchy and is labelled low confidence |
-| Village positions | **Not available.** A village without a surveyed centre uses its taluka town as an approximate centre and says so; a person who saves their plot location gets a report about their own land |
+| Village positions | **Not available.** Each of the 14 villages is placed at its block town's centre and says so; a person who saves their plot location gets a report about their own land |
 | Weather | Typical monthly rain and maximum temperature from Open-Meteo (5 full years), cached, falling back to a labelled sample. **Not a forecast**. Market prices were not added: no free reliable source was found |
 | Scheme register | 10 real government schemes, each linking only to its official website, no amounts. **No person has checked any row yet** (the app says so). 2 NGO rows are still labelled samples |
 | Idea library | 16 ideas, a draft. **Not expert-reviewed**; the app says so |
@@ -22,8 +21,9 @@
 ## Numbers for the form (every one needs a person)
 | Item | Figure | Source to cite |
 |---|---|---|
-| Community claims on the register | 950 [confirm how many are in the pilot village(s)] | the CFR register |
-| Villages with claims | 771 | the CFR register |
+| Villages in the programme | 14 (Deola 4, Dindori 2, Trimbakeshwar 8) | Raah Foundation report |
+| CFR area covered | 2,019 ha | Raah Foundation report |
+| Saplings planted and nurtured | 217,708 | Raah Foundation report |
 | Direct and indirect beneficiaries | **[confirm]**, estimated from the pilot village's claim and household data | to be supplied |
 | Cost to run | free tiers today (database, two servers, weather, map tiles) **[confirm limits on the day]** | provider pages |
 

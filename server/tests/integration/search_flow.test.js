@@ -12,7 +12,7 @@ try {
   console.warn(`integration tests skipped: ${err.message.split('\n')[0]}`);
 }
 
-test('search API: seeded data pages through once, nearest is ordered, and login works', { skip: !rs }, async (t) => {
+test('dataset: seeding loads only the 14 Raah villages, registration is limited to them, listings start empty', { skip: !rs }, async (t) => {
   process.env.MONGODB_URI = rs.getUri('vanrozgar_test');
   process.env.SEED_DEMO_PASSWORD = '123456';
   const { seed } = await import('../../src/seed/run.js');
@@ -22,91 +22,60 @@ test('search API: seeded data pages through once, nearest is ordered, and login 
   await connectDB(); // the seeder disconnects when it finishes
   t.after(async () => { await disconnectDB(); await rs.stop(); });
 
-  const login = await request(app).post('/api/v1/auth/login').send({ phone: '+919822033333', password: '123456' });
-  assert.equal(login.status, 200);
-  const token = login.body.data.token;
-
-  // Page through every listing, 7 at a time: no duplicates, all 50 seen.
-  const seen = [];
-  let cursor;
-  for (let i = 0; i < 20; i++) {
-    const res = await request(app).get('/api/v1/search').set('Authorization', `Bearer ${token}`)
-      .query({ limit: 7, ...(cursor ? { cursor } : {}) });
-    assert.equal(res.status, 200);
-    seen.push(...res.body.data.listings.map(l => l._id));
-    cursor = res.body.data.nextCursor;
-    if (!cursor) break;
-  }
-  assert.equal(new Set(seen).size, seen.length);
-  assert.equal(seen.length, 50);
-
-  // Nearest with a position: distances never decrease, unknown distances come last.
-  const near = await request(app).get('/api/v1/search').set('Authorization', `Bearer ${token}`)
-    .query({ sort: 'nearest', lat: 20.0, lng: 73.78, limit: 50 });
-  assert.equal(near.status, 200);
-  const known = near.body.data.listings.map(l => l.distanceKm).filter(d => d !== null);
-  assert.deepEqual(known, [...known].sort((a, b) => a - b));
-
-  // Every seeded listing carries a product code; the map layer lists only listings that have a position.
-  const { Listing } = await import('../../src/models/Listing.js');
-  assert.equal(await Listing.countDocuments({ productCode: { $exists: true, $ne: null } }), 50);
-  const map = await request(app).get('/api/v1/listings/map');
-  assert.equal(map.status, 200);
-  const points = map.body.data.points;
-  assert.ok(points.length > 0, 'seeded villages with coordinates appear on the map');
-  for (const pt of points) {
-    assert.equal(Math.round(pt.lat * 100) / 100, pt.lat, 'latitude is rounded to 2 decimals');
-    assert.equal(Math.round(pt.lng * 100) / 100, pt.lng, 'longitude is rounded to 2 decimals');
-  }
-  const bamboo = await request(app).get('/api/v1/listings/map').query({ product: 'bamboo' });
-  assert.ok(bamboo.body.data.points.length > 0);
-  assert.ok(bamboo.body.data.points.every((pt) => pt.productCode === 'bamboo'));
-  const unknown = await request(app).get('/api/v1/listings/map').query({ product: 'nothing-here' });
-  assert.deepEqual(unknown.body.data.points, []);
-
-  // The real villages from the CFR register are loaded as unclaimed Gram Sabhas, with claims and MRSAC profiles.
   const { GramSabha } = await import('../../src/models/GramSabha.js');
-  const { CfrClaim } = await import('../../src/models/CfrClaim.js');
-  const { VillageProfile } = await import('../../src/models/VillageProfile.js');
-  const { importCfr } = await import('../../src/seed/cfr.js');
-  const real = await GramSabha.countDocuments({ verificationStatus: 'pending', isDemoData: false });
-  assert.ok(real > 700, `real villages loaded: ${real}`);
-  assert.equal(await GramSabha.countDocuments({ verificationStatus: 'verified_seed' }), 10, 'the 10 demo villages are untouched');
-  const first = await importCfr({ apply: true });
-  assert.ok(first.claimsSkipped < 10, `claims skipped because a demo village has the same name: ${first.claimsSkipped}`);
-  assert.equal(await CfrClaim.countDocuments({ source: 'cfr_2026' }), 950 - first.claimsSkipped);
-  assert.equal(await VillageProfile.countDocuments(), 680);
+  const { Listing } = await import('../../src/models/Listing.js');
+  const { User } = await import('../../src/models/User.js');
+  const { importRaah } = await import('../../src/seed/raah.js');
 
-  const dahe = await GramSabha.findOne({ taluka: 'Nashik', censusCode: '550989' });
-  const detail = await request(app).get(`/api/v1/gramsabhas/${dahe._id}`);
+  // Exactly the 14 villages, each with the report's figures
+  assert.equal(await GramSabha.countDocuments(), 14);
+  assert.deepEqual((await GramSabha.distinct('taluka')).sort(), ['Deola', 'Dindori', 'Trimbakeshwar']);
+  const waghera = await GramSabha.findOne({ 'village.en': 'Waghera' });
+  assert.equal(waghera.restoration.saplings, 27534);
+  assert.equal(waghera.cfr.approvedAreaHa, 200);
+  assert.equal(await Listing.countDocuments(), 0, 'no demo listings');
+  assert.equal(await User.countDocuments({ role: 'gramsabha' }), 14);
+
+  // The list a person picks their village from has these 14 and nothing else
+  const all = await request(app).get('/api/v1/gramsabhas').query({ limit: 500 });
+  assert.equal(all.status, 200);
+  assert.equal(all.body.data.length, 14);
+
+  // The village page returns the figures
+  const detail = await request(app).get(`/api/v1/gramsabhas/${waghera._id}`);
   assert.equal(detail.status, 200);
-  assert.equal(detail.body.data.villageProfile.forestHa, 271.5);
-  assert.equal(detail.body.data.villageProfile.wellsTotal, 58);
-  assert.ok(detail.body.data.claims.length >= 1);
-  assert.ok(detail.body.data.gramSabha.cfr.rights.length >= 1);
+  assert.equal(detail.body.data.gramSabha.restoration.species.length, 28);
   assert.equal(detail.body.data.gramSabha.claim?.claimantPhone, undefined, 'claimant phone is never public');
 
-  // Importing again changes nothing.
-  const again = await importCfr({ apply: true });
+  // Importing again changes nothing
+  const again = await importRaah({ apply: true });
   assert.equal(again.created, 0);
-  assert.equal(await CfrClaim.countDocuments({ source: 'cfr_2026' }), 950 - first.claimsSkipped);
-  assert.equal(await GramSabha.countDocuments({ verificationStatus: 'pending', isDemoData: false }), real);
+  assert.equal(await GramSabha.countDocuments(), 14);
 
-  // Registering for an existing village files a claim on THAT record and does not create a second one.
-  const before = await GramSabha.countDocuments();
+  // Registering for a dataset village files a claim on THAT record; any other village is refused.
   const reg = await request(app).post('/api/v1/auth/register').send({
     role: 'gramsabha', name: 'Test Secretary', phone: '+919800000001', password: '654321',
-    village: dahe.village.mr, taluka: 'Nashik'
+    village: 'Kochargaon', taluka: 'Dindori'
   });
   assert.equal(reg.status, 201);
-  assert.equal(await GramSabha.countDocuments(), before, 'no duplicate Gram Sabha');
-  const claimed = await GramSabha.findById(dahe._id);
-  assert.equal(claimed.claim.status, 'pending');
-  const { User } = await import('../../src/models/User.js');
-  const newUser = await User.findOne({ phone: '+919800000001' });
-  assert.equal(String(newUser.gramSabhaId), String(dahe._id));
+  assert.equal(await GramSabha.countDocuments(), 14, 'no duplicate Gram Sabha');
+  const koch = await GramSabha.findOne({ 'village.en': 'Kochargaon' });
+  assert.equal(koch.claim.status, 'pending');
+  assert.equal(String((await User.findOne({ phone: '+919800000001' })).gramSabhaId), String(koch._id));
 
-  // A wrong PIN is rejected.
+  const other = await request(app).post('/api/v1/auth/register').send({
+    role: 'villager', name: 'Someone Else', phone: '+919800000002', password: '654321',
+    village: 'मातोरी', taluka: 'Nashik'
+  });
+  assert.equal(other.status, 422);
+  assert.equal(await User.countDocuments({ phone: '+919800000002' }), 0);
+
+  // Demo login works, a wrong PIN is rejected, and the map layer is empty until someone lists
+  const login = await request(app).post('/api/v1/auth/login').send({ phone: '+919822033333', password: '123456' });
+  assert.equal(login.status, 200);
   const bad = await request(app).post('/api/v1/auth/login').send({ phone: '+919822033333', password: '000000' });
   assert.equal(bad.status, 401);
+  const map = await request(app).get('/api/v1/listings/map');
+  assert.equal(map.status, 200);
+  assert.deepEqual(map.body.data.points, []);
 });

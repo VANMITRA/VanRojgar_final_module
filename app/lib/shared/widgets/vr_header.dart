@@ -86,7 +86,7 @@ class VrHeader extends StatelessWidget implements PreferredSizeWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 VrText(
-                  subtitle ?? 'harsul_trimbak_nashik',
+                  subtitle ?? 'nashik',
                   style: TextStyle(
                     color: tokens.onBrand.withValues(alpha: 0.75),
                     fontSize: 11,

@@ -62,11 +62,11 @@ class AppInputHints {
     if (isGs) {
       switch (_loc(context)) {
         case 'hi':
-          return 'उदा. ग्रामसभा हरसूल';
+          return 'उदा. ग्रामसभा देवगाव';
         case 'mr':
-          return 'उदा. ग्रामसभा हरसूल';
+          return 'उदा. ग्रामसभा देवगाव';
         default:
-          return 'e.g. Gram Sabha Harsul';
+          return 'e.g. Gram Sabha Devgaon';
       }
     }
     switch (_loc(context)) {

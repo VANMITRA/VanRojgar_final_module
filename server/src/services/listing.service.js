@@ -123,17 +123,6 @@ export class ListingService {
       };
     } else if (gramSabha.location && Array.isArray(gramSabha.location.coordinates) && gramSabha.location.coordinates.length === 2) {
       location = gramSabha.location;
-    } else {
-      try {
-        const villagePointsRaw = JSON.parse(fs.readFileSync(path.join(__dirname, '../seed/data/village_points.json'), 'utf-8'));
-        const match = villagePointsRaw.find(p =>
-          p.taluka?.toLowerCase() === gramSabha.taluka?.toLowerCase() &&
-          (p.villageMr === gramSabha.village.mr || p.villageEn?.toLowerCase() === gramSabha.village.en?.toLowerCase())
-        ) || villagePointsRaw.find(p => p.taluka?.toLowerCase() === gramSabha.taluka?.toLowerCase());
-        if (match?.coordinates) {
-          location = { type: 'Point', coordinates: match.coordinates };
-        }
-      } catch (_) {}
     }
 
     const listing = await Listing.create({

@@ -1,16 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
 import { inferProductCode, PRODUCT_CODES, PRODUCT_CODE_PATTERN } from '../../src/core/productCode.js';
 import { toMapPoint } from '../../src/services/listing.service.js';
 import { createListingSchema } from '../../src/validators/listing.schema.js';
 
-const listings = JSON.parse(fs.readFileSync(new URL('../../src/seed/data/demo_listings.json', import.meta.url), 'utf-8'));
+// Typical titles a Gram Sabha would give each product (the app ships no demo listings any more)
+const titles = [
+  ['Bamboo planter', 'बांबू कुंडी'], ['Bamboo utility basket', 'बांबूची टोपली'], ['Managed-apiary honey (500 g jar)', 'मधपेटीतील मध'],
+  ['Dried cultivated herb sachet (100 g)', 'वाळवलेली औषधी वनस्पती'], ['Fruit preserve (200 g jar)', 'फळांचा मुरांबा'],
+  ['Nursery seed packet', 'रोपवाटिका बियाणे'], ['Leaf plates (pack of 25)', 'पत्रावळी'], ['Natural-fibre rope', 'नैसर्गिक दोरी'],
+  ['Dried fruit pack (100 g)', 'सुकामेवा']
+];
 
-test('product code: every seeded listing gets a known code', () => {
-  for (const l of listings) {
-    const code = inferProductCode(l.titleEn, l.titleMr);
-    assert.ok(PRODUCT_CODES.includes(code), `${l.titleEn} -> ${code}`);
+test('product code: every typical title gets a known code', () => {
+  for (const [en, mr] of titles) {
+    const code = inferProductCode(en, mr);
+    assert.ok(PRODUCT_CODES.includes(code), `${en} -> ${code}`);
   }
 });
 

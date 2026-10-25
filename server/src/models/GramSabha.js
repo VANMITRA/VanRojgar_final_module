@@ -34,6 +34,19 @@ const GramSabhaSchema = new mongoose.Schema({
     approvedAreaHa: { type: Number, default: 0 },
     claimCount: { type: Number, default: 1 }
   },
+  // Restoration figures from the Raah Foundation report (the dataset of this app)
+  restoration: {
+    cfrAreaHa: Number,
+    saplings: Number,
+    forestPonds: Number,
+    waterCapacityLitres: Number,
+    looseBoulderStructures: Number,
+    labourDays: Number,
+    cfrmcMeetings: Number,
+    wildlifeSessions: Number,
+    species: [{ _id: false, name: String, count: Number }],
+    source: String
+  },
   contactPerson: { type: String, trim: true },
   phone: { type: String, trim: true },
   isDemoData: { type: Boolean, default: false },

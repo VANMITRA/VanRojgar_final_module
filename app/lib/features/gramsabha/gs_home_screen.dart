@@ -68,7 +68,7 @@ class _GsHomeScreenState extends ConsumerState<GsHomeScreen> {
         'Tendu & Mahua season: Register Gram Sabha forest produce promptly.',
         'Community Forest Rights (CFR) Sec 3(1)(c) secures forest produce ownership and direct sales.',
         'Orders of 50 units or more require sustainable purpose reason.',
-        'Pilot test: 16 Gram Sabhas in Nashik connected directly to marketplace.',
+        'Pilot: the 14 CFR villages of the Raah Foundation report, connected directly to the marketplace.',
       ];
     }
   }
@@ -90,7 +90,7 @@ class _GsHomeScreenState extends ConsumerState<GsHomeScreen> {
     final ordersCount = ordersAsync.asData?.value.where((o) => o.orderStatus != 'closed' && o.orderStatus != 'cancelled').length ?? 0;
 
     final displayName = user?.name ?? (l10n?.gramSabhaRole ?? 'Gram Sabha');
-    final locationName = '${user?.village ?? "harsul"}_${user?.taluka ?? "trimbak"}_${user?.district ?? "nashik"}';
+    final locationName = '${user?.village ?? ""}_${user?.taluka ?? ""}_${user?.district ?? "nashik"}';
     final isPendingVerification = user?.status == 'pending';
 
     return Container(

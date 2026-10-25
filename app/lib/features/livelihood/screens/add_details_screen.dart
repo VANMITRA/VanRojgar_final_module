@@ -585,27 +585,6 @@ class _LocationStepState extends ConsumerState<_LocationStep> {
                       value: state.lngText,
                       onChanged: notifier.setLng,
                     ),
-                    const SizedBox(height: AppSpacing.sm),
-                    OutlinedButton.icon(
-                      key: const ValueKey('default_coords'),
-                      onPressed: notifier.useDefaultCoordinates,
-                      icon: const Icon(Icons.pin_drop_outlined),
-                      label: Text(s.t('lv_loc_default')),
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(48),
-                        foregroundColor: c.textPrimary,
-                        side: BorderSide(color: c.border),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: AppSpacing.xs),
-                      child: Text(
-                        s.t('lv_loc_default_note'),
-                        style: AppTypography.caption.copyWith(
-                          color: c.textSecondary,
-                        ),
-                      ),
-                    ),
                   ],
                 )
               : null,
@@ -651,7 +630,7 @@ class _CoordFieldState extends State<_CoordField> {
   @override
   void didUpdateWidget(_CoordField old) {
     super.didUpdateWidget(old);
-    // the value was changed from outside ("Use default coordinates"), not by typing
+    // the value was changed from outside (GPS or the map), not by typing
     if (widget.value != _controller.text) {
       _controller.value = TextEditingValue(
         text: widget.value,

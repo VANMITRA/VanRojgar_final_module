@@ -136,14 +136,14 @@ class _PortalShellState extends ConsumerState<PortalShell> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(authControllerProvider).asData?.value;
-    String sub = 'harsul_trimbak_nashik';
+    String sub = 'nashik';
     if (user != null) {
       if (widget.portal == 'b') {
         final city = (user.city ?? 'nashik').toLowerCase().replaceAll(' ', '_');
         sub = '${city}_procurement_${user.district.toLowerCase()}';
       } else {
-        final v = (user.village ?? 'harsul').toLowerCase().replaceAll(' ', '_');
-        final t = (user.taluka ?? 'trimbak').toLowerCase().replaceAll(' ', '_');
+        final v = (user.village ?? '').toLowerCase().replaceAll(' ', '_');
+        final t = (user.taluka ?? '').toLowerCase().replaceAll(' ', '_');
         final d = user.district.toLowerCase().replaceAll(' ', '_');
         sub = '${v}_${t}_$d';
       }

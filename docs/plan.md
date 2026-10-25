@@ -4,6 +4,12 @@
 This file replaces the "what to do next" parts of [final_plan.md](final_plan.md) (that file still says "nothing built yet"; it is
 now the record of decisions). Open questions and the reasons behind them stay in [QUESTIONS.md](QUESTIONS.md).
 
+## Update, 25 Oct night: one person, one dataset
+Ayush is the only developer now, so the Ayush/Soham split below is history: everything is in one repo and one branch (`main`).
+**The dataset is the 14 villages of the Raah Foundation report and nothing else** (the old 771-village CFR register, the
+680 MRSAC profiles, the 10 demo villages and all demo listings are removed; the sections below that mention them are out of date).
+One Mitra stays a bottom tab for Gram Sabha and villager accounts. See [DEPLOY.md](DEPLOY.md) section 6.
+
 ## 0. Decisions confirmed on 25 Oct
 
 | Topic | Decision |

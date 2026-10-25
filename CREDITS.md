@@ -9,8 +9,7 @@
 
 | What | Source | Licence / terms |
 |---|---|---|
-| Community forest claims (village, taluka, right type, area, decision) | District CFR register, Nashik 2026. Cleaned: no names, phone numbers or bank details | Official record of the district committee |
-| Village resources (forest, water, wells, soil, roads, schools) | MRSAC geoportal (Maharashtra Remote Sensing Application Centre), October 2026, figures as printed | Public geoportal data |
+| The 14 villages and their forest restoration figures (CFR area, saplings, ponds, water storage, boulder structures, labour days, meetings, species) | Raah Foundation, quarterly update on ecological restoration in the CFR areas of Nashik district, letter of 1 October 2026 and its village-wise enclosure | Supplied by the project owner; figures as printed in the report |
 | Map tiles and the optional resource dataset | (c) OpenStreetMap contributors | ODbL, https://www.openstreetmap.org/copyright. Tiles are for light use: replace the tile server before any large launch |
 | Typical monthly rain and temperature | Open-Meteo.com, historical weather | CC BY 4.0, https://open-meteo.com |
 | Scheme links | The official websites named in each row | Links only; no amounts, no applications |

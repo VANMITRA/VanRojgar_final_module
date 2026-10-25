@@ -33,7 +33,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   String? _selectedTaluka;
   String? _selectedVillage;
-  bool _isOtherVillage = false;
 
   bool _isLoading = false;
   String? _errorMessage;
@@ -88,9 +87,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     }
 
     final taluka = _selectedTaluka ?? _talukaController.text.trim();
-    final village = _isOtherVillage
-        ? _villageController.text.trim()
-        : (_selectedVillage ?? _villageController.text.trim());
+    final village = _selectedVillage ?? _villageController.text.trim();
 
     if ((widget.portal == 'gramsabha' || widget.portal == 'villager') && village.isEmpty) {
       setState(() => _errorMessage = 'कृपया गाव निवडा (Please select village).');
@@ -220,7 +217,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       _selectedTaluka = val;
                       _talukaController.text = val ?? '';
                       _selectedVillage = null;
-                      _isOtherVillage = false;
                       _villageController.clear();
                     });
                   },
@@ -238,38 +234,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     fillColor: tokens.surface,
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                   ),
-                  items: [
-                    ..._villageItems(),
-                    const DropdownMenuItem(
-                      value: '__other__',
-                      child: Text('इतर गाव • Other Village...', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
-                    ),
-                  ],
+                  items: _villageItems(),
                   onChanged: (val) {
                     setState(() {
                       _selectedVillage = val;
-                      if (val == '__other__') {
-                        _isOtherVillage = true;
-                        _villageController.clear();
-                      } else {
-                        _isOtherVillage = false;
-                        _villageController.text = val ?? '';
-                      }
+                      _villageController.text = val ?? '';
                     });
                   },
                 ),
-                if (_isOtherVillage) ...[
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: _villageController,
-                    decoration: InputDecoration(
-                      hintText: AppInputHints.typeVillage(context),
-                      filled: true,
-                      fillColor: tokens.surface,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-                    ),
-                  ),
-                ],
                 const SizedBox(height: 16),
               ],
               if (widget.portal == 'gramsabha') ...[

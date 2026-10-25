@@ -57,9 +57,7 @@ def test_monthly_averages_across_the_years() -> None:
 
 def test_a_month_with_too_few_days_is_not_guessed() -> None:
     daily = _daily(range(2022, 2024), rain_by_month=RAIN, tmax_by_month=TMAX)
-    keep = [
-        i for i, t in enumerate(daily["time"]) if t[5:7] != "03"
-    ]  # March is missing entirely
+    keep = [i for i, t in enumerate(daily["time"]) if t[5:7] != "03"]  # March is missing entirely
     thin = {k: [v[i] for i in keep] for k, v in daily.items()}
     assert climate.aggregate(thin, 2022, 2023) is None
 

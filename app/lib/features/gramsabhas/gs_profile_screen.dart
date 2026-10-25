@@ -12,9 +12,9 @@ final gsDetailProvider = FutureProvider.family<Map<String, dynamic>, String>((re
   return Map<String, dynamic>.from(res as Map);
 });
 
-/// A Gram Sabha: who it is, the community forest rights on the district CFR register, the individual claims,
-/// and the village facts from the MRSAC geoportal. Everything shown comes from the server; a missing value is
-/// shown as "not available", never filled in.
+/// A Gram Sabha of the dataset (the 14 CFR villages of the Raah Foundation report): who it is and the restoration
+/// figures of its community forest. Everything shown comes from the server; a missing value is shown as
+/// "not available", never filled in.
 class GsProfileScreen extends ConsumerWidget {
   final String gramSabhaId;
 
@@ -33,15 +33,10 @@ class GsProfileScreen extends ConsumerWidget {
         child: gsAsync.when(
           data: (data) {
             final gs = data['gramSabha'] as Map<String, dynamic>? ?? {};
-            final profile = data['villageProfile'] as Map<String, dynamic>?;
-            final claims = (data['claims'] as List? ?? []).map((e) => Map<String, dynamic>.from(e as Map)).toList();
-            final cfr = gs['cfr'] as Map<String, dynamic>? ?? {};
-            final rights = (cfr['rights'] as List? ?? []).cast<String>();
+            final restoration = gs['restoration'] as Map<String, dynamic>?;
             final status = (gs['verificationStatus'] as String?) ?? 'pending';
             final isDemo = status == 'verified_seed' || gs['isDemoData'] == true;
             final claimStatus = (gs['claim'] as Map?)?['status'] as String?;
-            final approvedCount = claims.where((c) => c['decision'] == 'approved').length;
-            final approvedArea = (cfr['approvedAreaHa'] as num?)?.toDouble() ?? 0;
 
             return RefreshIndicator(
               onRefresh: () async => ref.refresh(gsDetailProvider(gramSabhaId).future),
@@ -52,52 +47,7 @@ class GsProfileScreen extends ConsumerWidget {
                   const SizedBox(height: 12),
                   _sourceNote(tokens, isDemo),
                   const SizedBox(height: 16),
-                  _card(
-                    tokens,
-                    icon: Icons.gavel,
-                    iconColor: tokens.brandSecondary,
-                    title: 'सामूहिक वनहक्क (CFR Rights)',
-                    children: [
-                      if (rights.isEmpty)
-                        VrText(
-                          isDemo ? 'डेमो गाव: हक्क नोंदवलेले नाहीत (Demo village, no rights recorded)' : 'नोंदवही मध्ये हक्कांचा प्रकार नाही (No right type recorded)',
-                          style: TextStyle(color: tokens.textMuted, fontSize: 13),
-                        )
-                      else
-                        Wrap(spacing: 8, runSpacing: 8, children: rights.map((r) => RightsBadge(clause: r)).toList()),
-                      const Divider(height: 24),
-                      _fact(tokens, 'दावे • Claims on record', claims.isEmpty ? _na : '${claims.length}'),
-                      _fact(tokens, 'मंजूर दावे • Approved claims', claims.isEmpty ? _na : '$approvedCount'),
-                      _fact(tokens, 'मंजूर CFR क्षेत्र • Approved area', approvedCount == 0 ? _na : '${_fmt(approvedArea)} ha'),
-                    ],
-                  ),
-                  if (claims.isNotEmpty) ...[
-                    const SizedBox(height: 16),
-                    _card(
-                      tokens,
-                      icon: Icons.assignment_outlined,
-                      iconColor: tokens.brandPrimary,
-                      title: 'दावे (Claims in the district register)',
-                      children: [for (final c in claims) _claimRow(tokens, c)],
-                    ),
-                  ],
-                  const SizedBox(height: 16),
-                  _card(
-                    tokens,
-                    icon: Icons.landscape,
-                    iconColor: tokens.brandPrimary,
-                    title: 'गावातील नैसर्गिक संसाधने (MRSAC Facts)',
-                    children: profile == null
-                        ? [
-                            VrText(
-                              isDemo
-                                  ? 'डेमो गाव: MRSAC माहिती जोडलेली नाही (Demo village, no MRSAC profile)'
-                                  : 'या गावासाठी MRSAC माहिती जुळली नाही (No MRSAC profile matched this village)',
-                              style: TextStyle(color: tokens.textMuted, fontSize: 13),
-                            ),
-                          ]
-                        : _profileRows(tokens, profile),
-                  ),
+                  ..._restorationCards(tokens, restoration),
                   const SizedBox(height: 32),
                 ],
               ),
@@ -130,13 +80,13 @@ class GsProfileScreen extends ConsumerWidget {
   Widget _hero(VrTokens tokens, Map<String, dynamic> gs, String status, bool isDemo, String? claimStatus) {
     final String chip;
     if (isDemo) {
-      chip = '⚠️ डेमो डेटा (Demo)';
+      chip = 'डेमो लॉगिन • Demo login';
     } else if (claimStatus == 'pending') {
       chip = 'दावा तपासणीत • Claim under review';
     } else if (status == 'verified') {
       chip = 'सत्यापित • Verified';
     } else {
-      chip = 'जिल्हा CFR नोंदवही • District CFR register';
+      chip = 'Raah Foundation अहवाल • Report';
     }
     return Container(
       padding: const EdgeInsets.all(20),
@@ -198,8 +148,8 @@ class GsProfileScreen extends ConsumerWidget {
           Expanded(
             child: VrText(
               isDemo
-                  ? 'टीप: हे गाव प्रात्यक्षिकासाठी आहे. येथील उत्पादने व खाती डेमो डेटा आहेत. (This village is for demonstration; its listings and accounts are demo data.)'
-                  : 'स्रोत: जिल्हा समितीची CFR नोंदवही 2026 आणि MRSAC जिओपोर्टल. (Source: district CFR register 2026 and the MRSAC geoportal.)',
+                  ? 'टीप: या गावाचे लॉगिन प्रात्यक्षिकासाठी आहे; गावाची आकडेवारी Raah Foundation अहवालातील आहे. (The login on this village is a demo; the figures are from the Raah Foundation report.)'
+                  : 'स्रोत: Raah Foundation अहवाल, 1 ऑक्टोबर 2026. (Source: Raah Foundation report, 1 October 2026.)',
               style: TextStyle(color: tokens.textMuted, fontSize: 11),
             ),
           ),
@@ -254,77 +204,81 @@ class GsProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _claimRow(VrTokens tokens, Map<String, dynamic> c) {
-    final decision = c['decision'] as String? ?? 'pending';
-    final recorded = c['decisionRecorded'] != false;
-    final (label, color) = switch (decision) {
-      'approved' => ('मंजूर • Approved', tokens.success),
-      'rejected' => ('नामंजूर • Rejected', tokens.error),
-      _ => (recorded ? 'प्रलंबित • Pending' : 'निर्णय नोंद नाही • No decision recorded', tokens.warning),
-    };
-    final rights = (c['rights'] as List? ?? []).join(', ');
-    final claimed = (c['areaClaimedHa'] as num?) ?? 0;
-    final approved = (c['areaApprovedHa'] as num?) ?? 0;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: tokens.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: tokens.outline),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  List<Widget> _restorationCards(VrTokens tokens, Map<String, dynamic>? r) {
+    if (r == null) {
+      return [
+        _card(
+          tokens,
+          icon: Icons.park_outlined,
+          iconColor: tokens.brandPrimary,
+          title: 'वन पुनरुज्जीवन (Forest restoration)',
+          children: [VrText(_na, style: TextStyle(color: tokens.textMuted, fontSize: 13))],
+        ),
+      ];
+    }
+    String n(Object? v, [String unit = '']) => v == null ? _na : '${_group(v as num)}$unit';
+    final species = (r['species'] as List? ?? []).map((e) => Map<String, dynamic>.from(e as Map)).toList();
+    return [
+      _card(
+        tokens,
+        icon: Icons.park_outlined,
+        iconColor: tokens.brandPrimary,
+        title: 'वन पुनरुज्जीवन (Forest restoration)',
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: VrText('दावा क्र. ${c['caseNo'] ?? '-'}', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
-              ),
-              Flexible(child: VrText(label, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 12))),
-            ],
-          ),
-          const SizedBox(height: 4),
-          if (rights.isNotEmpty) VrText('हक्क: $rights', style: TextStyle(color: tokens.textMuted, fontSize: 12)),
-          if ((c['compartment'] as String?)?.isNotEmpty ?? false)
-            VrText('वनकक्ष / गट: ${c['compartment']}', style: TextStyle(color: tokens.textMuted, fontSize: 12)),
-          VrText(
-            'मागणी: ${_fmt(claimed)} ha • मंजूर: ${decision == 'approved' ? _fmt(approved) : '-'} ha',
-            style: TextStyle(color: tokens.textMuted, fontSize: 12),
-          ),
+          _fact(tokens, 'CFR क्षेत्र • CFR area', n(r['cfrAreaHa'], ' ha')),
+          _fact(tokens, 'लावलेली रोपे • Saplings planted and nurtured', n(r['saplings'])),
+          _fact(tokens, 'वन तळी • Forest ponds', n(r['forestPonds'])),
+          _fact(tokens, 'पाणी साठवण क्षमता • Water storage', n(r['waterCapacityLitres'], ' litres')),
+          _fact(tokens, 'दगडी बंधारे (LBS) • Loose boulder structures', n(r['looseBoulderStructures'])),
+          _fact(tokens, 'रोजगार दिवस • Labour days', n(r['labourDays'])),
+          _fact(tokens, 'CFRMC बैठका • CFRMC meetings', n(r['cfrmcMeetings'])),
+          _fact(tokens, 'वन्यजीव जागृती सत्रे • Wildlife awareness sessions', n(r['wildlifeSessions'])),
         ],
       ),
-    );
-  }
-
-  List<Widget> _profileRows(VrTokens tokens, Map<String, dynamic> p) {
-    String n(Object? v, [String unit = '']) => v == null ? _na : '${v is num ? _fmt(v) : v}$unit';
-    final raw = (p['rawDetails'] as Map?)?.map((k, v) => MapEntry('$k', '$v')) ?? <String, String>{};
-    return [
-      _fact(tokens, 'गावाचे क्षेत्र • Village area', n(p['villageAreaHa'], ' ha')),
-      _fact(tokens, 'वन क्षेत्र • Forest area', n(p['forestHa'], ' ha')),
-      _fact(tokens, 'जलस्रोत • Water bodies', n(p['waterBodiesCount'])),
-      _fact(tokens, 'विहिरी • Wells', n(p['wellsTotal'])),
-      _fact(tokens, 'जलसंधारण कामे • Water conservation works', n(p['waterConservationWorks'])),
-      _fact(tokens, 'मृदा प्रकार • Soil', n(p['soilType'])),
-      if (raw.isNotEmpty) ...[
-        const Divider(height: 24),
-        for (final e in raw.entries)
-          Theme(
-            data: ThemeData(dividerColor: Colors.transparent),
-            child: ExpansionTile(
-              tilePadding: EdgeInsets.zero,
-              childrenPadding: const EdgeInsets.only(bottom: 8),
-              title: VrText(e.key, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-              children: [Align(alignment: Alignment.centerLeft, child: VrText(e.value, style: TextStyle(color: tokens.textMuted, fontSize: 12)))],
-            ),
-          ),
-      ],
+      const SizedBox(height: 16),
+      _card(
+        tokens,
+        icon: Icons.nature_outlined,
+        iconColor: tokens.brandSecondary,
+        title: 'लागवडीच्या प्रजाती (Plantation species)',
+        children: species.isEmpty
+            ? [
+                VrText(
+                  'अहवालात या गावाची प्रजाती यादी नाही (The report has no species list for this village).',
+                  style: TextStyle(color: tokens.textMuted, fontSize: 13),
+                ),
+              ]
+            : [
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: [
+                    for (final sp in species)
+                      Chip(
+                        visualDensity: VisualDensity.compact,
+                        label: VrText(
+                          sp['count'] == null ? '${sp['name']}' : '${sp['name']} • ${_group(sp['count'] as num)}',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+      ),
       const SizedBox(height: 8),
       VrText(
-        'स्रोत: MRSAC जिओपोर्टल, ऑक्टोबर 2026 (Source: MRSAC geoportal, October 2026). आकडे जसे छापले तसे.',
+        'स्रोत: ${r['source'] ?? 'Raah Foundation report'}. आकडे अहवालात छापल्याप्रमाणे. (Figures as printed in the report.)',
         style: TextStyle(color: tokens.textMuted, fontSize: 11, fontStyle: FontStyle.italic),
       ),
     ];
+  }
+
+  /// Thousands grouping: 217708 -> 217,708.
+  String _group(num v) {
+    final digits = _fmt(v);
+    final dot = digits.indexOf('.');
+    final whole = dot < 0 ? digits : digits.substring(0, dot);
+    final grouped = whole.replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (_) => ',');
+    return dot < 0 ? grouped : grouped + digits.substring(dot);
   }
 }
