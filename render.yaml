@@ -42,6 +42,8 @@ services:
         value: vanrozgar
       - key: VANMITRA_USERS_COLLECTION
         value: users
+      - key: VANMITRA_LIVELIHOOD_LIVE_WEATHER
+        value: "true"   # typical weather from Open-Meteo; any failure falls back to the labelled sample
       - key: VANMITRA_MONGODB_URI
         sync: false
       - key: VANMITRA_JWT_SECRET

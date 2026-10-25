@@ -141,3 +141,18 @@
 | Server tests | **41 / 41 pass** |
 
 Still open: the app cannot be built until `app/lib/features/livelihood/data/` is pushed; nothing is deployed; no real-phone test; village map points; the livelihood module items assigned to Soham.
+
+---
+
+## ✅ 25 Oct 2026, night: the app compiles, and the livelihood module is built (what was run)
+
+| Check | Result |
+|---|---|
+| `flutter analyze` | **No issues** (it was 240 issues: `features/livelihood/data/` had never been committed; rebuilt from the tests) |
+| `flutter test` | **150 pass**, 4 skipped (they need a live server) |
+| `npm test` (Node server) | **41 / 41 pass**, including a database-backed test |
+| Python livelihood server: `pytest`, `ruff`, `mypy` | **209 pass**, lint and types clean |
+
+Built: map (tap to move the plot, 2 to 10 km circle, resource pins, listings layer, OSM credit); PDF in English, Marathi and Hindi (checked by looking at the pictures; the `pdf` package cannot shape Devanagari so Flutter draws the text); Hindi for every string; idea to marketplace and listing to idea links; live weather from Open-Meteo with a labelled fallback; 10 real government scheme rows (links only, unchecked by a person); approximate village centres so every register village gets a report; an OpenStreetMap resource builder.
+
+**Not done:** nothing is deployed; no test on a real phone; real resource pins and village positions (the map and Overpass services were unreachable from the build machine); a native reader for Marathi and Hindi; a person to check each scheme row; the privacy page. See `docs/plan.md` section 8.

@@ -442,6 +442,7 @@ class WeatherOut(BaseModel):
     is_sample: bool
     months: list[WeatherMonth]
     note_key: str = "weather.typical_not_forecast"  # "Typical, from past years. Not a forecast."
+    source: str | None = None  # who the numbers are from, shown under them (None for the sample)
 
 
 class DisastersOut(BaseModel):

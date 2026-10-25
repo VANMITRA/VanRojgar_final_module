@@ -152,3 +152,33 @@ Status words: **Todo**, **Blocked** (needs something named), **Done**. Nothing b
 |---|---|---|
 | B1 | `app/lib/features/livelihood/data/` (API client, repositories, cache, location service) was never committed, so the app does not compile from a clean clone and no APK can be built. `flutter analyze`: 240 issues, all in `features/livelihood` and its tests | Soham: push that folder first |
 | B2 | Raw CFR/MRSAC files are not on Ayush's PC | Soham |
+
+## 8. Soham's part and the integration, done by Ayush on 25 Oct (Soham: review and take over)
+
+Done on request while Soham's branch was empty, from `main`. **If Soham already has his own copy of any of these files, his version and this one will conflict: compare them, keep one, and drop the other.**
+
+| # | Task | State |
+|---|---|---|
+| B1 | The missing `features/livelihood/data/` layer | **Rebuilt** (API adapter, cache, repositories, location) from the tests. App now compiles: `flutter analyze` clean, **150 app tests pass** (4 need a live server and are skipped) |
+| S1 | Python server on Render | Blueprint and steps written (`render.yaml`, `DEPLOY.md` 7). **Not deployed** |
+| S2 | Real data | CFR claims and MRSAC village profiles cleaned and loaded by the seeder (see Ayush's A1/A2). Resource coordinates: **not available** from the MRSAC files |
+| S3 | Coordinates and boundaries | **Not done**: the MRSAC geoportal and a second Overpass server were unreachable from the build machine. Approximate taluka-town centres are used and labelled |
+| S4 | Map | **Done**: OSM tiles, plot, 2 to 10 km circle, resource pins, tap-to-move pin, listings layer, visible credit. Pins are from the labelled sample until real resources are loaded |
+| S5 | Schemes registry | 10 real government rows with official links, **unchecked by a person**; NGO rows still samples. A named person must check each row |
+| S6 | PDF | **Done**, English, Marathi and Hindi, drawn with Flutter's own text engine because the `pdf` package cannot shape Devanagari. Verified by looking at the output |
+| S7 | Weather and prices | Weather **done** (Open-Meteo, opt-in, falls back to the sample). Prices **cut** |
+| S8 | Languages | Hindi written for all 325 strings (machine draft). Marathi and Hindi **still need a native reader** |
+| S9 | Idea and marketplace link | **Done** both ways with product codes, tested |
+| S10 | Python checks | 209 tests, `ruff` and `mypy` clean |
+| S11 | Round 2 | Draft in `docs/round2/soham.md` |
+| I1 | Merge to main | Done for everything above |
+| I2 | One sign-in | Designed in the code and read: the Python server accepts the Node token and reads the user from the same database. **Not tested on deployed servers** |
+| I3 | APK build | Workflow ready; needs the secrets and a deployed API |
+| I4 | Cross-module links | Built and tested with fakes. **Not tested end to end on a phone** |
+| I5 | Keep-warm | **Not done**: open both health URLs a minute before a demo |
+| I6 | Credits | `CREDITS.md` updated |
+| I7 | Privacy page | **Not written** |
+| I8 | Phone test | **Not done** |
+| I9 | Round 2 package | Drafts only |
+
+Still needs people: deploy and secrets (A3, S1, E in DEPLOY.md), the keystore, a native Marathi and Hindi reader, a named checker for every scheme row, the real resource data (run `build_osm_resources.py`), form facts F1 to F8, the phone test.

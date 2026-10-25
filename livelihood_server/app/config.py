@@ -32,6 +32,9 @@ class Settings(BaseSettings):
     livelihood_max_radius_m: int = 10000
     # "memory": nothing is persisted (dev and tests). "mongo": the real database.
     livelihood_store: Literal["memory", "mongo"] = "memory"
+    # Typical weather from Open-Meteo (free, no key). Off by default so tests and local runs never
+    # touch the network; on in render.yaml. Any failure falls back to the labelled sample weather.
+    livelihood_live_weather: bool = False
     # Accept the built-in demo users (see app/livelihood/auth.py). NEVER in production.
     livelihood_dev_users: bool = False
 

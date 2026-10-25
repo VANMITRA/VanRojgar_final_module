@@ -19,11 +19,12 @@ from uuid6 import uuid7
 
 from ..config import get_settings
 from ..errors import ApiError
+from . import climate
 from .deps import CurrentUser, get_store
 from .domain.config import DEFAULT_CONFIG, LivelihoodConfig
 from .domain.idea_detail import build_idea_detail
 from .domain.units import AreaUnit
-from .geo import circle_polygon, find_nearby, validate_point
+from .geo import CentrePoint, circle_polygon, find_nearby, validate_point
 from .identity import UserInfo
 from .nashik_villages import approximate_village
 from .schemas import (
@@ -40,6 +41,7 @@ from .schemas import (
     ResourceKind,
     VillageGeo,
     VillageRef,
+    WeatherOut,
 )
 from .scheme_schemas import (
     AUDIENCES,
@@ -152,6 +154,17 @@ def _settings_config() -> LivelihoodConfig:
     )
 
 
+def _weather_for(centre: CentrePoint) -> WeatherOut:
+    """Typical weather at the centre from Open-Meteo when on and answering; else the SAMPLE.
+
+    Never an error: a weather service being down must not break a report."""
+    if get_settings().livelihood_live_weather:
+        real = climate.monthly_normals(centre.lat, centre.lng)
+        if real is not None:
+            return real
+    return load_sample_weather()
+
+
 def _village_of(user: UserInfo, store: LivelihoodStore) -> VillageGeo:
     """His village, from his login. With no village on his role there is no report."""
     if user.village_id is None:
@@ -196,7 +209,7 @@ def _build_and_save_report(
         dataset=dataset,
         cfg=cfg,
         radius_m=radius,
-        weather=load_sample_weather(),  # sample numbers until a real source is chosen (Q11)
+        weather=_weather_for(centre),
         schemes=store.list_schemes(),
         report_id=uuid7().hex,
     )

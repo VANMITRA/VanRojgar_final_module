@@ -1,98 +1,29 @@
 {
-  "register": "sample_schemes",
-  "is_sample": true,
-  "note": "SAMPLE rows for the demo. A real register needs a named person to fill it in and sign each row (docs/OPEN_QUESTIONS.md Q23).",
+  "register": "schemes_v1",
+  "is_sample": false,
+  "note": "Government rows are real schemes: each links ONLY to the official website, shows no amount, and says no person has checked it yet (checked_by is empty). The two NGO rows are still labelled SAMPLE. A named person must check each row and fill in checked_by and last_checked_on before it is called reviewed (docs/OPEN_QUESTIONS.md Q23).",
   "schemes": [
     {
-      "code": "sample_gov_dairy",
+      "code": "pm_kisan",
       "kind": "government",
-      "name_en": "Sample: dairy support",
-      "name_mr": "नमुना: दुग्धव्यवसाय सहाय्य",
-      "runs_en": "A state department (sample)",
-      "runs_mr": "राज्य विभाग (नमुना)",
-      "what_en": "An example of help for keeping milk animals, such as training and sheds.",
-      "what_mr": "दुधाळ जनावरे पाळण्यासाठीच्या मदतीचे उदाहरण, जसे प्रशिक्षण आणि गोठे.",
-      "help_types": [
-        "livestock"
-      ],
-      "audiences": [
-        "farmers",
-        "women"
-      ],
-      "idea_codes": [
-        "dairy_small",
-        "goat_rearing",
-        "fodder_bank"
-      ],
-      "official_url": "https://www.myscheme.gov.in/",
+      "name_en": "PM-KISAN",
+      "name_mr": "पीएम-किसान सन्मान निधी",
+      "runs_en": "Government of India (Ministry of Agriculture and Farmers Welfare)",
+      "runs_mr": "भारत सरकार (कृषी व शेतकरी कल्याण मंत्रालय)",
+      "what_en": "Income support for farmer families who hold land. Read the official page for the rules.",
+      "what_mr": "जमीन असलेल्या शेतकरी कुटुंबांसाठी उत्पन्न सहाय्य. नियमांसाठी अधिकृत पान वाचा.",
       "who_en": "As written on the official page. We cannot tell you whether you qualify.",
       "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
       "documents_en": [
         "Identity proof",
-        "Land record or Gram Sabha letter",
+        "Land record",
         "Bank passbook"
       ],
       "documents_mr": [
         "ओळखीचा पुरावा",
-        "जमिनीचा उतारा किंवा ग्रामसभेचे पत्र",
+        "जमिनीचा अभिलेख",
         "बँक पासबुक"
       ],
-      "note_en": "Sample row written for the demo; it is not a real scheme. The link opens the national scheme search portal, not a page for this row.",
-      "note_mr": "ही डेमोसाठी लिहिलेली नमुना नोंद आहे; ही खरी योजना नाही. लिंक राष्ट्रीय योजना शोध संकेतस्थळ उघडते, या नोंदीचे पान नव्हे.",
-      "last_checked_on": "unknown",
-      "checked_by": null,
-      "is_sample": true,
-      "status": "draft"
-    },
-    {
-      "code": "sample_gov_poultry",
-      "kind": "government",
-      "name_en": "Sample: backyard poultry support",
-      "name_mr": "नमुना: परसबागेतील कुक्कुटपालन सहाय्य",
-      "runs_en": "A state department (sample)",
-      "runs_mr": "राज्य विभाग (नमुना)",
-      "what_en": "An example of help for starting a small flock of hens.",
-      "what_mr": "कोंबड्यांचा लहान गट सुरू करण्यासाठीच्या मदतीचे उदाहरण.",
-      "help_types": [
-        "livestock"
-      ],
-      "audiences": [
-        "tribal",
-        "women"
-      ],
-      "idea_codes": [
-        "backyard_poultry",
-        "goat_rearing"
-      ],
-      "official_url": null,
-      "who_en": "As written on the official page. We cannot tell you whether you qualify.",
-      "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
-      "documents_en": [
-        "Identity proof",
-        "Land record or Gram Sabha letter",
-        "Bank passbook"
-      ],
-      "documents_mr": [
-        "ओळखीचा पुरावा",
-        "जमिनीचा उतारा किंवा ग्रामसभेचे पत्र",
-        "बँक पासबुक"
-      ],
-      "note_en": "Sample row written for the demo; it is not a real scheme. No official page is added yet.",
-      "note_mr": "ही डेमोसाठी लिहिलेली नमुना नोंद आहे; ही खरी योजना नाही. अधिकृत पान अजून जोडलेले नाही.",
-      "last_checked_on": "unknown",
-      "checked_by": null,
-      "is_sample": true,
-      "status": "draft"
-    },
-    {
-      "code": "sample_gov_drip",
-      "kind": "government",
-      "name_en": "Sample: drip irrigation support",
-      "name_mr": "नमुना: ठिबक सिंचन सहाय्य",
-      "runs_en": "A state department (sample)",
-      "runs_mr": "राज्य विभाग (नमुना)",
-      "what_en": "An example of help for drip kits and small vegetable or nursery plots.",
-      "what_mr": "ठिबक संच आणि लहान भाजीपाला किंवा रोपवाटिका क्षेत्रासाठीच्या मदतीचे उदाहरण.",
       "help_types": [
         "farming"
       ],
@@ -101,148 +32,364 @@
       ],
       "idea_codes": [
         "vegetables_drip",
-        "plant_nursery",
         "millets_pulses",
         "agroforestry_fruit"
       ],
-      "official_url": "https://www.myscheme.gov.in/",
+      "official_url": "https://pmkisan.gov.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
+      "last_checked_on": "unknown",
+      "checked_by": null,
+      "is_sample": false,
+      "status": "draft"
+    },
+    {
+      "code": "mgnrega",
+      "kind": "government",
+      "name_en": "MGNREGA",
+      "name_mr": "महात्मा गांधी राष्ट्रीय ग्रामीण रोजगार हमी योजना",
+      "runs_en": "Government of India (Ministry of Rural Development), with the state",
+      "runs_mr": "भारत सरकार (ग्रामीण विकास मंत्रालय), राज्य सरकारसह",
+      "what_en": "Paid work on village projects such as water conservation, for rural families who ask for it.",
+      "what_mr": "ज्या ग्रामीण कुटुंबांनी मागणी केली त्यांच्यासाठी जलसंधारणासारख्या गावातील कामांवर मजुरीचे काम.",
+      "who_en": "As written on the official page. We cannot tell you whether you qualify.",
+      "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
+      "documents_en": [
+        "Job card (from the Gram Panchayat)",
+        "Identity proof",
+        "Bank or post office account"
+      ],
+      "documents_mr": [
+        "जॉब कार्ड (ग्रामपंचायतीकडून)",
+        "ओळखीचा पुरावा",
+        "बँक किंवा पोस्ट खाते"
+      ],
+      "help_types": [
+        "farming"
+      ],
+      "audiences": [
+        "farmers",
+        "tribal"
+      ],
+      "idea_codes": [
+        "fodder_bank",
+        "forest_watch_work",
+        "plant_nursery"
+      ],
+      "official_url": "https://nrega.nic.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
+      "last_checked_on": "unknown",
+      "checked_by": null,
+      "is_sample": false,
+      "status": "draft"
+    },
+    {
+      "code": "pmmsy",
+      "kind": "government",
+      "name_en": "Pradhan Mantri Matsya Sampada Yojana",
+      "name_mr": "प्रधानमंत्री मत्स्य संपदा योजना",
+      "runs_en": "Government of India (Department of Fisheries)",
+      "runs_mr": "भारत सरकार (मत्स्यव्यवसाय विभाग)",
+      "what_en": "Support for fish culture, fishing and related work. Read the official page for what is covered.",
+      "what_mr": "मत्स्यपालन, मासेमारी आणि संबंधित कामासाठी सहाय्य. काय समाविष्ट आहे यासाठी अधिकृत पान वाचा.",
       "who_en": "As written on the official page. We cannot tell you whether you qualify.",
       "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
       "documents_en": [
         "Identity proof",
-        "Land record or Gram Sabha letter",
         "Bank passbook"
       ],
       "documents_mr": [
         "ओळखीचा पुरावा",
-        "जमिनीचा उतारा किंवा ग्रामसभेचे पत्र",
         "बँक पासबुक"
       ],
-      "note_en": "Sample row written for the demo; it is not a real scheme. The link opens the national scheme search portal, not a page for this row.",
-      "note_mr": "ही डेमोसाठी लिहिलेली नमुना नोंद आहे; ही खरी योजना नाही. लिंक राष्ट्रीय योजना शोध संकेतस्थळ उघडते, या नोंदीचे पान नव्हे.",
-      "last_checked_on": "unknown",
-      "checked_by": null,
-      "is_sample": true,
-      "status": "draft"
-    },
-    {
-      "code": "sample_gov_fish",
-      "kind": "government",
-      "name_en": "Sample: group fish culture support",
-      "name_mr": "नमुना: गटाने मत्स्यपालन सहाय्य",
-      "runs_en": "A state department (sample)",
-      "runs_mr": "राज्य विभाग (नमुना)",
-      "what_en": "An example of help for a group that raises fish in a village pond.",
-      "what_mr": "गावातील तलावात मासे वाढवणाऱ्या गटासाठीच्या मदतीचे उदाहरण.",
       "help_types": [
         "fishing"
       ],
       "audiences": [
+        "farmers",
         "groups"
       ],
       "idea_codes": [
         "fish_pond_group"
       ],
-      "official_url": "https://www.myscheme.gov.in/",
+      "official_url": "https://pmmsy.dof.gov.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
+      "last_checked_on": "unknown",
+      "checked_by": null,
+      "is_sample": false,
+      "status": "draft"
+    },
+    {
+      "code": "pmfme",
+      "kind": "government",
+      "name_en": "PM Formalisation of Micro Food Processing Enterprises (PMFME)",
+      "name_mr": "पीएम सूक्ष्म अन्न प्रक्रिया उद्योग औपचारिकीकरण योजना (PMFME)",
+      "runs_en": "Government of India (Ministry of Food Processing Industries)",
+      "runs_mr": "भारत सरकार (अन्न प्रक्रिया उद्योग मंत्रालय)",
+      "what_en": "Support for small food processing units and groups, such as preserves and dried products.",
+      "what_mr": "लहान अन्न प्रक्रिया उद्योग आणि गटांसाठी सहाय्य, जसे मुरांबा आणि वाळवलेले पदार्थ.",
       "who_en": "As written on the official page. We cannot tell you whether you qualify.",
       "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
       "documents_en": [
         "Identity proof",
-        "Land record or Gram Sabha letter",
         "Bank passbook"
       ],
       "documents_mr": [
         "ओळखीचा पुरावा",
-        "जमिनीचा उतारा किंवा ग्रामसभेचे पत्र",
         "बँक पासबुक"
       ],
-      "note_en": "Sample row written for the demo; it is not a real scheme. The link opens the national scheme search portal, not a page for this row.",
-      "note_mr": "ही डेमोसाठी लिहिलेली नमुना नोंद आहे; ही खरी योजना नाही. लिंक राष्ट्रीय योजना शोध संकेतस्थळ उघडते, या नोंदीचे पान नव्हे.",
-      "last_checked_on": "unknown",
-      "checked_by": null,
-      "is_sample": true,
-      "status": "draft"
-    },
-    {
-      "code": "sample_gov_smallbiz",
-      "kind": "government",
-      "name_en": "Sample: small business start-up help",
-      "name_mr": "नमुना: लघु उद्योग सुरुवात मदत",
-      "runs_en": "A state department (sample)",
-      "runs_mr": "राज्य विभाग (नमुना)",
-      "what_en": "An example of training and loan help for a small home business.",
-      "what_mr": "लहान घरगुती उद्योगासाठी प्रशिक्षण आणि कर्ज मदतीचे उदाहरण.",
       "help_types": [
-        "small_business"
+        "small_business",
+        "forest_produce"
       ],
       "audiences": [
         "women",
         "groups"
       ],
       "idea_codes": [
+        "mfp_collection_group",
         "mushroom_shed",
-        "plant_nursery",
-        "beekeeping_box"
+        "agroforestry_fruit"
       ],
-      "official_url": null,
+      "official_url": "https://pmfme.mofpi.gov.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
+      "last_checked_on": "unknown",
+      "checked_by": null,
+      "is_sample": false,
+      "status": "draft"
+    },
+    {
+      "code": "pm_vishwakarma",
+      "kind": "government",
+      "name_en": "PM Vishwakarma",
+      "name_mr": "पीएम विश्वकर्मा",
+      "runs_en": "Government of India (Ministry of Micro, Small and Medium Enterprises)",
+      "runs_mr": "भारत सरकार (सूक्ष्म, लघु व मध्यम उद्योग मंत्रालय)",
+      "what_en": "Support for traditional artisans and craftspeople, such as basket making and bamboo work.",
+      "what_mr": "पारंपरिक कारागीर आणि हस्तकलाकारांसाठी सहाय्य, जसे टोपली विणणे आणि बांबूचे काम.",
       "who_en": "As written on the official page. We cannot tell you whether you qualify.",
       "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
       "documents_en": [
         "Identity proof",
-        "Land record or Gram Sabha letter",
         "Bank passbook"
       ],
       "documents_mr": [
         "ओळखीचा पुरावा",
-        "जमिनीचा उतारा किंवा ग्रामसभेचे पत्र",
         "बँक पासबुक"
       ],
-      "note_en": "Sample row written for the demo; it is not a real scheme. No official page is added yet.",
-      "note_mr": "ही डेमोसाठी लिहिलेली नमुना नोंद आहे; ही खरी योजना नाही. अधिकृत पान अजून जोडलेले नाही.",
+      "help_types": [
+        "small_business"
+      ],
+      "audiences": [
+        "groups"
+      ],
+      "idea_codes": [
+        "mfp_collection_group"
+      ],
+      "official_url": "https://pmvishwakarma.gov.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
       "last_checked_on": "unknown",
       "checked_by": null,
-      "is_sample": true,
+      "is_sample": false,
       "status": "draft"
     },
     {
-      "code": "sample_gov_forest",
+      "code": "midh",
       "kind": "government",
-      "name_en": "Sample: forest produce through the Gram Sabha",
-      "name_mr": "नमुना: ग्रामसभेमार्फत वनउपज",
-      "runs_en": "A state department (sample)",
-      "runs_mr": "राज्य विभाग (नमुना)",
-      "what_en": "An example of help for collecting and selling forest produce as a village group.",
-      "what_mr": "गावाच्या गटाने वनउपज गोळा करून विकण्यासाठीच्या मदतीचे उदाहरण.",
+      "name_en": "Mission for Integrated Development of Horticulture (MIDH)",
+      "name_mr": "एकात्मिक फलोत्पादन विकास अभियान (MIDH)",
+      "runs_en": "Government of India (Ministry of Agriculture and Farmers Welfare)",
+      "runs_mr": "भारत सरकार (कृषी व शेतकरी कल्याण मंत्रालय)",
+      "what_en": "Support for fruit, vegetable, mushroom and nursery work. Read the official page for what is covered.",
+      "what_mr": "फळे, भाजीपाला, मशरूम आणि रोपवाटिका कामासाठी सहाय्य. काय समाविष्ट आहे यासाठी अधिकृत पान वाचा.",
+      "who_en": "As written on the official page. We cannot tell you whether you qualify.",
+      "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
+      "documents_en": [
+        "Identity proof",
+        "Bank passbook"
+      ],
+      "documents_mr": [
+        "ओळखीचा पुरावा",
+        "बँक पासबुक"
+      ],
+      "help_types": [
+        "farming"
+      ],
+      "audiences": [
+        "farmers"
+      ],
+      "idea_codes": [
+        "vegetables_drip",
+        "mushroom_shed",
+        "plant_nursery",
+        "agroforestry_fruit"
+      ],
+      "official_url": "https://midh.gov.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
+      "last_checked_on": "unknown",
+      "checked_by": null,
+      "is_sample": false,
+      "status": "draft"
+    },
+    {
+      "code": "nbhm",
+      "kind": "government",
+      "name_en": "National Beekeeping and Honey Mission",
+      "name_mr": "राष्ट्रीय मधुमक्षिकापालन व मध अभियान",
+      "runs_en": "Government of India (National Bee Board)",
+      "runs_mr": "भारत सरकार (राष्ट्रीय मधुमक्षिका मंडळ)",
+      "what_en": "Support for scientific beekeeping and honey. Read the official page for what is covered.",
+      "what_mr": "शास्त्रीय मधुमक्षिकापालन आणि मधासाठी सहाय्य. काय समाविष्ट आहे यासाठी अधिकृत पान वाचा.",
+      "who_en": "As written on the official page. We cannot tell you whether you qualify.",
+      "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
+      "documents_en": [
+        "Identity proof",
+        "Bank passbook"
+      ],
+      "documents_mr": [
+        "ओळखीचा पुरावा",
+        "बँक पासबुक"
+      ],
+      "help_types": [
+        "farming",
+        "forest_produce"
+      ],
+      "audiences": [
+        "farmers",
+        "groups"
+      ],
+      "idea_codes": [
+        "beekeeping_box"
+      ],
+      "official_url": "https://nbb.gov.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
+      "last_checked_on": "unknown",
+      "checked_by": null,
+      "is_sample": false,
+      "status": "draft"
+    },
+    {
+      "code": "trifed",
+      "kind": "government",
+      "name_en": "TRIFED: Van Dhan and minor forest produce support",
+      "name_mr": "ट्रायफेड: वन धन आणि गौण वनउपज सहाय्य",
+      "runs_en": "Government of India (Ministry of Tribal Affairs, through TRIFED)",
+      "runs_mr": "भारत सरकार (आदिवासी कल्याण मंत्रालय, ट्रायफेडमार्फत)",
+      "what_en": "Support for tribal gatherers and groups working with minor forest produce, including Van Dhan centres.",
+      "what_mr": "गौण वनउपजावर काम करणाऱ्या आदिवासी संकलक आणि गटांसाठी सहाय्य, वन धन केंद्रांसह.",
+      "who_en": "As written on the official page. We cannot tell you whether you qualify.",
+      "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
+      "documents_en": [
+        "Identity proof",
+        "Bank passbook"
+      ],
+      "documents_mr": [
+        "ओळखीचा पुरावा",
+        "बँक पासबुक"
+      ],
       "help_types": [
         "forest_produce"
       ],
       "audiences": [
         "tribal",
-        "groups"
+        "groups",
+        "women"
       ],
       "idea_codes": [
-        "mfp_collection_group",
-        "forest_watch_work",
-        "beekeeping_box"
+        "mfp_collection_group"
       ],
-      "official_url": null,
+      "official_url": "https://trifed.tribal.gov.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
+      "last_checked_on": "unknown",
+      "checked_by": null,
+      "is_sample": false,
+      "status": "draft"
+    },
+    {
+      "code": "mota_schemes",
+      "kind": "government",
+      "name_en": "Ministry of Tribal Affairs: schemes list",
+      "name_mr": "आदिवासी कल्याण मंत्रालय: योजनांची यादी",
+      "runs_en": "Government of India (Ministry of Tribal Affairs)",
+      "runs_mr": "भारत सरकार (आदिवासी कल्याण मंत्रालय)",
+      "what_en": "The Ministry lists its schemes for tribal communities. Check which ones relate to your work.",
+      "what_mr": "मंत्रालय आदिवासी समुदायांसाठीच्या योजनांची यादी देते. तुमच्या कामाशी कोणत्या जुळतात ते तपासा.",
       "who_en": "As written on the official page. We cannot tell you whether you qualify.",
       "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
       "documents_en": [
         "Identity proof",
-        "Land record or Gram Sabha letter",
         "Bank passbook"
       ],
       "documents_mr": [
         "ओळखीचा पुरावा",
-        "जमिनीचा उतारा किंवा ग्रामसभेचे पत्र",
         "बँक पासबुक"
       ],
-      "note_en": "Sample row written for the demo; it is not a real scheme. No official page is added yet.",
-      "note_mr": "ही डेमोसाठी लिहिलेली नमुना नोंद आहे; ही खरी योजना नाही. अधिकृत पान अजून जोडलेले नाही.",
+      "help_types": [
+        "forest_produce",
+        "small_business"
+      ],
+      "audiences": [
+        "tribal"
+      ],
+      "idea_codes": [
+        "mfp_collection_group",
+        "forest_watch_work"
+      ],
+      "official_url": "https://tribal.nic.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
       "last_checked_on": "unknown",
       "checked_by": null,
-      "is_sample": true,
+      "is_sample": false,
+      "status": "draft"
+    },
+    {
+      "code": "mh_tribal",
+      "kind": "government",
+      "name_en": "Maharashtra Tribal Development Department: schemes",
+      "name_mr": "महाराष्ट्र आदिवासी विकास विभाग: योजना",
+      "runs_en": "Government of Maharashtra",
+      "runs_mr": "महाराष्ट्र शासन",
+      "what_en": "The state department lists schemes for tribal families, such as help with farming, animals and small business.",
+      "what_mr": "राज्य विभाग आदिवासी कुटुंबांसाठीच्या योजनांची यादी देतो, जसे शेती, जनावरे आणि लहान व्यवसायासाठी मदत.",
+      "who_en": "As written on the official page. We cannot tell you whether you qualify.",
+      "who_mr": "अधिकृत पानावर लिहिल्याप्रमाणे. तुम्ही पात्र आहात की नाही हे आम्ही सांगू शकत नाही.",
+      "documents_en": [
+        "Identity proof",
+        "Bank passbook"
+      ],
+      "documents_mr": [
+        "ओळखीचा पुरावा",
+        "बँक पासबुक"
+      ],
+      "help_types": [
+        "farming",
+        "livestock",
+        "small_business"
+      ],
+      "audiences": [
+        "tribal",
+        "farmers"
+      ],
+      "idea_codes": [
+        "dairy_small",
+        "goat_rearing",
+        "backyard_poultry",
+        "vegetables_drip"
+      ],
+      "official_url": "https://tribal.maharashtra.gov.in/",
+      "note_en": "The link goes to the official website. A person has not checked this row yet.",
+      "note_mr": "लिंक अधिकृत संकेतस्थळावर नेते. ही नोंद अजून कोणा व्यक्तीने तपासलेली नाही.",
+      "last_checked_on": "unknown",
+      "checked_by": null,
+      "is_sample": false,
       "status": "draft"
     },
     {

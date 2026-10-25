@@ -59,12 +59,16 @@ def put_profile(client: TestClient, body: dict[str, Any] | None = None) -> None:
 # ── the register itself ───────────────────────────────────────────────────────
 
 
-def test_every_bundled_scheme_is_a_labelled_sample_with_no_amount() -> None:
+def test_every_bundled_scheme_is_real_with_an_official_link_or_a_labelled_sample() -> None:
     rows = load_schemes()
     assert len(rows) >= 6
     codes = {i.code for i in load_ideas()}
     for r in rows:
-        assert r.is_sample and r.status == "draft" and r.last_checked_on == "unknown"
+        # nobody has checked a bundled row yet, and the register says so
+        assert r.status == "draft" and r.last_checked_on == "unknown" and r.checked_by is None
+        if not r.is_sample:
+            assert r.official_url and r.official_url.startswith("https://"), r.code
+            assert not r.name_en.lower().startswith("sample"), r.code
         assert set(r.idea_codes) <= codes, r.code
         assert r.official_url is None or r.official_url.startswith("https://")
         assert "qualify" not in r.who_en.lower() or "cannot tell you" in r.who_en.lower()
@@ -97,13 +101,17 @@ def test_schemes_need_a_login(client: TestClient) -> None:
     assert client.get(f"{URL}/ideas/dairy_small").status_code == 401
 
 
-def test_the_register_lists_everything_as_sample(client: TestClient) -> None:
+def test_the_register_labels_samples_and_real_rows_correctly(client: TestClient) -> None:
     body = client.get(f"{URL}/schemes", headers=auth()).json()
     assert len(body["schemes"]) == len(load_schemes())
-    assert body["is_sample_data"] is True and body["register_empty"] is False
+    assert body["register_empty"] is False
+    # the register is "sample" only while a sample row is in it
+    assert body["is_sample_data"] is any(s["is_sample"] for s in body["schemes"])
     assert set(body["help_types"]) <= set(HELP_TYPES)
     assert set(body["audiences"]) <= set(AUDIENCES)
-    assert all(s["is_sample"] for s in body["schemes"])
+    real = [s for s in body["schemes"] if not s["is_sample"]]
+    assert real and all(s["official_url"].startswith("https://") for s in real)
+    assert any(s["is_sample"] for s in body["schemes"]), "the NGO rows are still labelled samples"
 
 
 def test_the_register_filters(client: TestClient) -> None:
@@ -185,7 +193,8 @@ def test_an_idea_in_the_report_has_its_full_detail(client: TestClient) -> None:
     # the resources it would use are the very ones in the report
     in_report = {r["id"]: r for r in report["resources"]}
     assert d["resources"] and all(r == in_report[r["id"]] for r in d["resources"])
-    assert d["schemes"] and all(s["is_sample"] for s in d["schemes"])
+    assert d["schemes"]
+    assert all(s["is_sample"] or s["official_url"].startswith("https://") for s in d["schemes"])
     assert d["is_sample_data"] is True and d["draft"] is True
     assert d["weather_note"] is not None
 

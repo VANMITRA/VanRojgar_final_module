@@ -196,6 +196,8 @@ class _ReportBody extends StatelessWidget {
         if (report.weather != null) ...[
           SectionHeader(s.t('lv_sec_weather')),
           WeatherBars(report.weather!),
+          if (report.weather!.source != null)
+            NoteLine('${s.t('lv_source')}: ${report.weather!.source}', icon: Icons.cloud_outlined),
           NoteLine(s.t('lv_disasters_none'), icon: Icons.history_rounded),
         ],
 

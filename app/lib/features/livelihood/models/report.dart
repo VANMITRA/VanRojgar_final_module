@@ -308,13 +308,17 @@ class WeatherMonth {
 }
 
 class Weather {
-  const Weather({required this.isSample, required this.months});
+  const Weather({required this.isSample, required this.months, this.source});
 
   final bool isSample;
   final List<WeatherMonth> months;
 
+  /// Who the numbers are from (shown under them); null for the labelled sample.
+  final String? source;
+
   factory Weather.fromJson(Map<String, dynamic> j) => Weather(
         isSample: j['is_sample'] as bool,
+        source: j['source'] as String?,
         months: [
           for (final m in j['months'] as List)
             WeatherMonth.fromJson(m as Map<String, dynamic>),
