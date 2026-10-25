@@ -50,6 +50,13 @@ export const ListingDetailModal: React.FC = () => {
     e.preventDefault();
     setErrorMessage(null);
 
+    // Buying happens in the app (quantity, bulk reason, payment). The website only hands over the item code and the download.
+    if (activeTab === 'buy') {
+      setDownloadListing(selectedListing);
+      setSelectedListing(null);
+      return;
+    }
+
     if (quantity <= 0) {
       setErrorMessage(language === 'hi' ? 'कृपया शून्य से अधिक मात्रा निर्दिष्ट करें।' : 'Please specify a quantity greater than zero.');
       return;
@@ -70,13 +77,6 @@ export const ListingDetailModal: React.FC = () => {
           ? 'सतत वन संकलन सुनिश्चित करने हेतु थोक मांग (≥२५ इकाई) के लिए कारण बताना अनिवार्य है।'
           : 'A reason is strictly mandatory for bulk requests (≥25 units) to safeguard village sustainable harvesting.'
       );
-      return;
-    }
-
-    // Buying happens in the app (payment, orders). The website only hands over the item code and the download.
-    if (activeTab === 'buy') {
-      setDownloadListing(selectedListing);
-      setSelectedListing(null);
       return;
     }
 
@@ -296,7 +296,7 @@ export const ListingDetailModal: React.FC = () => {
               </div>
 
               {/* Large Order Reason Rule (Required when quantity >= 25) */}
-              {isLarge && (
+              {isLarge && activeTab === 'barter' && (
                 <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-700/50 space-y-2">
                   <div className="flex items-start gap-2 text-xs font-bold text-amber-800 dark:text-amber-300">
                     <Info className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" />

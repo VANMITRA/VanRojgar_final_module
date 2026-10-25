@@ -1,3 +1,4 @@
+import '../utils/roles.dart';
 import 'package:flutter/material.dart';
 import 'vr_text.dart';
 import '../../core/theme/tokens.dart';
@@ -65,7 +66,7 @@ class ProfileHero extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: VrText(
-                        user.role.replaceAll('_', ' ').toUpperCase(),
+                        roleLabelFor(user.role),
                         style: TextStyle(
                           color: tokens.onBrand,
                           fontSize: 10,
