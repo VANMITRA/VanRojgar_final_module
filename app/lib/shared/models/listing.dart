@@ -14,6 +14,8 @@ class ListingModel {
   final String? description;
   /// Shared with the livelihood module, e.g. honey, bamboo, herb (server core/productCode.js).
   final String? productCode;
+  /// The code the website shows and the search finds, e.g. VR-K7M2QX (server core/itemCode.js).
+  final String? itemCode;
   final double quantityAvailable;
   final String unit;
   final int pricePerUnitPaise;
@@ -41,6 +43,7 @@ class ListingModel {
     this.categoryId,
     this.description,
     this.productCode,
+    this.itemCode,
     required this.quantityAvailable,
     required this.unit,
     required this.pricePerUnitPaise,
@@ -81,6 +84,7 @@ class ListingModel {
       categoryId: json['categoryId'] is Map ? json['categoryId']['_id'] : json['categoryId'],
       description: json['description'],
       productCode: json['productCode'],
+      itemCode: json['itemCode'],
       quantityAvailable: (json['quantityAvailable'] as num?)?.toDouble() ?? 0,
       unit: json['unit'] ?? 'kg',
       pricePerUnitPaise: (json['pricePerUnitPaise'] as num?)?.toInt() ?? 0,

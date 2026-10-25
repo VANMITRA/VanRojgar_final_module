@@ -160,11 +160,11 @@ class AppInputHints {
   static String searchForest(BuildContext context) {
     switch (_loc(context)) {
       case 'hi':
-        return 'जंगली शहद, महुआ, बांस या जड़ी-बूटियाँ खोजें...';
+        return 'शहद, बांस, जड़ी-बूटी खोजें या आइटम कोड (VR-...) डालें';
       case 'mr':
-        return 'रान मध, डिंक, बांबू किंवा औषधी वनस्पती शोधा...';
+        return 'मध, बांबू, औषधी शोधा किंवा वस्तू कोड (VR-...) टाका';
       default:
-        return 'Search forest resources, honey, bamboo...';
+        return 'Search honey, bamboo... or paste an item code (VR-...)';
     }
   }
 

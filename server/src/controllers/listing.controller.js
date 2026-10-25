@@ -20,6 +20,15 @@ export class ListingController {
     }
   }
 
+  static async getByCode(req, res, next) {
+    try {
+      const listing = await ListingService.getByItemCode(req.params.code);
+      return res.json(successEnvelope(listing));
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async getById(req, res, next) {
     try {
       const listing = await ListingService.getById(req.params.id, req.user);

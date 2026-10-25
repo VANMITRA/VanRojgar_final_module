@@ -10,6 +10,8 @@ import { config } from '../core/config.js';
 import { normaliseString, buildSearchTokens } from '../core/normalise.js';
 import { serializeListing, roundLocation } from '../core/serializers.js';
 import { inferProductCode } from '../core/productCode.js';
+import { generateItemCode, normaliseItemCode } from '../core/itemCode.js';
+import { isFarmerRole } from '../core/roles.js';
 
 /** One marker for the map layer. Coordinates are rounded to 2 decimals (about 1 km), like everywhere else in public. */
 export function toMapPoint(listing) {
@@ -22,6 +24,7 @@ export function toMapPoint(listing) {
     taluka: listing.taluka,
     category: listing.categoryId?.slug ?? null,
     productCode: listing.productCode ?? null,
+    itemCode: listing.itemCode ?? null,
     pricePerUnitPaise: listing.pricePerUnitPaise,
     unit: listing.unit,
     lat: loc.coordinates[1],
@@ -54,7 +57,7 @@ export class ListingService {
       throw new AppError(ErrorCodes.FORBIDDEN, 'Buyers cannot create listings', 403);
     }
 
-    if (user.role === 'villager' && !config.ALLOW_VILLAGER_LISTINGS) {
+    if (isFarmerRole(user.role) && !config.ALLOW_VILLAGER_LISTINGS) {
       throw new AppError(ErrorCodes.FORBIDDEN, 'Villager direct listings are currently disabled in this pilot', 403);
     }
 
@@ -125,8 +128,8 @@ export class ListingService {
       location = gramSabha.location;
     }
 
-    const listing = await Listing.create({
-      ownerType: user.role === 'gramsabha' ? 'gramsabha' : 'villager',
+    const fields = {
+      ownerType: user.role === 'gramsabha' ? 'gramsabha' : user.role,
       ownerId: user._id,
       gramSabhaId: gramSabha._id,
       title: { mr: data.titleMr, en: data.titleEn },
@@ -150,9 +153,33 @@ export class ListingService {
       district: gramSabha.district || 'Nashik',
       searchTerms,
       flags: { rightsNotOnRecord }
-    });
+    };
+
+    // A new listing gets its own item code; the unique index decides the (very rare) clash, so try again
+    let listing;
+    for (let attempt = 0; ; attempt++) {
+      try {
+        listing = await Listing.create({ ...fields, itemCode: generateItemCode() });
+        break;
+      } catch (err) {
+        const clash = err?.code === 11000 && /itemCode/.test(err.message ?? '');
+        if (!clash || attempt >= 5) throw err;
+      }
+    }
 
     return serializeListing(listing, { isOwnerOrParticipant: true });
+  }
+
+  /** The active listing with this item code (any spelling of it), or a 404. */
+  static async getByItemCode(text) {
+    const code = normaliseItemCode(text);
+    const listing = code
+      ? await Listing.findOne({ itemCode: code, status: 'active' }).populate('gramSabhaId').populate('categoryId')
+      : null;
+    if (!listing) {
+      throw new AppError(ErrorCodes.NOT_FOUND, 'No listing has this item code', 404);
+    }
+    return serializeListing(listing);
   }
 
   /** Active listings that have a position, for the map layer. Optional filter by product code. */

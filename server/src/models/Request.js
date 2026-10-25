@@ -5,7 +5,7 @@ const RequestSchema = new mongoose.Schema({
   requesterId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   requesterRole: {
     type: String,
-    enum: ['gramsabha', 'villager', 'buyer'],
+    enum: ['gramsabha', 'villager', 'cfrholder', 'buyer'],
     required: true
   },
   sellerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

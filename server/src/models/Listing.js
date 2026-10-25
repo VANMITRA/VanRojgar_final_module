@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const ListingSchema = new mongoose.Schema({
   ownerType: {
     type: String,
-    enum: ['gramsabha', 'villager'],
+    enum: ['gramsabha', 'villager', 'cfrholder'],
     required: true
   },
   ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -17,6 +17,7 @@ const ListingSchema = new mongoose.Schema({
 
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
   description: { type: String, trim: true },
+  itemCode: { type: String, trim: true, uppercase: true }, // `VR-` + 6 characters, see core/itemCode.js
   productCode: { type: String, trim: true, lowercase: true }, // shared with the livelihood module, see core/productCode.js
   quantityAvailable: { type: Number, required: true, min: 0 },
   unit: {
@@ -77,5 +78,6 @@ ListingSchema.index({ searchTerms: 1 });
 ListingSchema.index({ ownerId: 1, status: 1 });
 ListingSchema.index({ productCode: 1, status: 1 }, { sparse: true });
 ListingSchema.index({ taluka: 1, status: 1 });
+ListingSchema.index({ itemCode: 1 }, { unique: true, sparse: true });
 
 export const Listing = mongoose.models.Listing || mongoose.model('Listing', ListingSchema);

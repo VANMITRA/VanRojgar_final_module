@@ -10,9 +10,10 @@ import '../../core/geo/talukas.dart';
 import '../../shared/models/gram_sabha.dart';
 import 'auth_providers.dart';
 import 'village_providers.dart';
+import '../../shared/utils/roles.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
-  final String portal; // 'gramsabha' | 'villager' | 'buyer'
+  final String portal; // 'gramsabha' | 'villager' (farmer) | 'cfrholder' | 'buyer'
 
   const RegisterScreen({super.key, required this.portal});
 
@@ -89,7 +90,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     final taluka = _selectedTaluka ?? _talukaController.text.trim();
     final village = _selectedVillage ?? _villageController.text.trim();
 
-    if ((widget.portal == 'gramsabha' || widget.portal == 'villager') && village.isEmpty) {
+    if (isVillageRole(widget.portal) && village.isEmpty) {
       setState(() => _errorMessage = 'कृपया गाव निवडा (Please select village).');
       return;
     }
@@ -106,7 +107,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       data['village'] = village;
       data['taluka'] = taluka;
       data['contactPerson'] = _contactPersonController.text.trim();
-    } else if (widget.portal == 'villager') {
+    } else if (widget.portal == roleFarmer || widget.portal == roleCfrHolder) {
       data['village'] = village;
       data['taluka'] = taluka;
     } else {
@@ -124,13 +125,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       final user = await ref.read(authControllerProvider.notifier).register(data);
       if (!mounted) return;
 
-      if (user.role == 'gramsabha') {
-        context.go('/gs');
-      } else if (user.role == 'buyer') {
-        context.go('/b');
-      } else {
-        context.go('/v');
-      }
+      context.go(homeRouteFor(user.role));
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -146,7 +141,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
     String portalTitle = 'नोंदणी करा';
     if (widget.portal == 'gramsabha') portalTitle = 'ग्रामसभा नोंदणी (Gram Sabha)';
-    if (widget.portal == 'villager') portalTitle = 'ग्रामस्थ नोंदणी (Villager)';
+    if (widget.portal == roleFarmer) portalTitle = 'शेतकरी नोंदणी (Farmer)';
+    if (widget.portal == roleCfrHolder) portalTitle = 'सीएफआर धारक नोंदणी (CFR holder)';
     if (widget.portal == 'buyer') portalTitle = 'व्यापारी नोंदणी (General Buyer)';
 
     return Scaffold(
@@ -197,7 +193,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              if (widget.portal == 'gramsabha' || widget.portal == 'villager') ...[
+              if (isVillageRole(widget.portal)) ...[
                 Text('तालुका (Taluka) *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(

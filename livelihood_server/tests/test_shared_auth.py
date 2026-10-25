@@ -17,7 +17,8 @@ from app.main import create_app
 
 URL = "/api/v1/livelihood"
 SECRET = "shared-secret-between-the-two-servers-0123456789"
-VILLAGER = ObjectId()
+CFR_HOLDER = ObjectId()
+FARMER = ObjectId()
 GRAM_SABHA = ObjectId()
 BUYER = ObjectId()
 SUSPENDED = ObjectId()
@@ -26,9 +27,16 @@ SUSPENDED = ObjectId()
 class FakeUsers:
     def __init__(self) -> None:
         self.docs = {
-            VILLAGER: {
-                "_id": VILLAGER,
+            CFR_HOLDER: {
+                "_id": CFR_HOLDER,
                 "name": "Sita",
+                "role": "cfrholder",
+                "taluka": "Trimbak",
+                "village": "Harsul",
+            },
+            FARMER: {
+                "_id": FARMER,
+                "name": "Ram",
                 "role": "villager",
                 "taluka": "Trimbak",
                 "village": "Harsul",
@@ -41,14 +49,14 @@ class FakeUsers:
                 "village": "Karanjali",
             },
             BUYER: {"_id": BUYER, "name": "Buyer", "role": "buyer"},
-            SUSPENDED: {"_id": SUSPENDED, "name": "X", "role": "villager", "status": "suspended"},
+            SUSPENDED: {"_id": SUSPENDED, "name": "X", "role": "cfrholder", "status": "suspended"},
         }
 
     def find_one(self, query: dict[str, Any]) -> dict[str, Any] | None:
         return self.docs.get(query["_id"])
 
 
-def token(sub: str, role: str = "villager", secret: str = SECRET, minutes: int = 30) -> str:
+def token(sub: str, role: str = "cfrholder", secret: str = SECRET, minutes: int = 30) -> str:
     now = datetime.now(UTC)
     return jwt.encode(
         {"sub": sub, "role": role, "iat": now, "exp": now + timedelta(minutes=minutes)},
@@ -74,18 +82,21 @@ def get(client: TestClient, tok: str | None) -> Any:
     return client.get(f"{URL}/profile", headers=headers)
 
 
-def test_a_node_token_for_a_villager_is_accepted(client: TestClient) -> None:
-    r = get(client, token(str(VILLAGER)))
+def test_a_node_token_for_a_cfr_holder_is_accepted(client: TestClient) -> None:
+    r = get(client, token(str(CFR_HOLDER)))
     assert r.status_code == 404  # signed in; no details saved yet
 
 
-def test_the_gram_sabha_is_accepted_too(client: TestClient) -> None:
-    assert get(client, token(str(GRAM_SABHA), "gramsabha")).status_code == 404
-
-
-def test_a_buyer_is_not_served(client: TestClient) -> None:
-    r = get(client, token(str(BUYER), "buyer"))
-    assert r.status_code == 403 and r.json()["message_key"] == "livelihood.role_not_allowed"
+@pytest.mark.parametrize(
+    ("user", "role"), [(FARMER, "villager"), (GRAM_SABHA, "gramsabha"), (BUYER, "buyer")]
+)
+def test_only_a_cfr_holder_is_served(client: TestClient, user: ObjectId, role: str) -> None:
+    # a farmer, the Gram Sabha and a buyer have the marketplace only: no livelihood report
+    for url in ("profile", "report/latest"):
+        headers = {"Authorization": f"Bearer {token(str(user), role)}"}
+        r = client.get(f"{URL}/{url}", headers=headers)
+        assert r.status_code == 403, url
+        assert r.json()["message_key"] == "livelihood.role_not_allowed"
 
 
 def test_a_suspended_user_a_stranger_and_a_bad_id_are_refused(client: TestClient) -> None:
@@ -95,8 +106,8 @@ def test_a_suspended_user_a_stranger_and_a_bad_id_are_refused(client: TestClient
 
 
 def test_a_token_signed_with_another_secret_or_expired_is_refused(client: TestClient) -> None:
-    assert get(client, token(str(VILLAGER), secret="x" * 40)).status_code == 401
-    assert get(client, token(str(VILLAGER), minutes=-5)).status_code == 401
+    assert get(client, token(str(CFR_HOLDER), secret="x" * 40)).status_code == 401
+    assert get(client, token(str(CFR_HOLDER), minutes=-5)).status_code == 401
     assert get(client, None).status_code == 401
 
 
@@ -122,8 +133,10 @@ def test_the_village_id_is_taluka_slash_village() -> None:
 
 def test_the_directory_gives_the_name_the_role_and_the_village() -> None:
     users = MongoUserDirectory(FakeUsers())
-    sita = users.get(str(VILLAGER))
+    sita = users.get(str(CFR_HOLDER))
     assert sita is not None and sita.name == "Sita"
-    assert sita.roles == {"villager"} and sita.village_id == "trimbak/harsul"
+    assert sita.roles == {"cfr_holder"} and sita.village_id == "trimbak/harsul"
+    ram = users.get(str(FARMER))
+    assert ram is not None and ram.roles == {"villager"}
     office = users.get(str(GRAM_SABHA))
     assert office is not None and office.roles == {"gram_sabha"}

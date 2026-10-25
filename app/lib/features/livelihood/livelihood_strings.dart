@@ -116,7 +116,7 @@ const Map<String, Map<String, String>> _text = {
         'Saved on this phone. It will be sent when you are online.',
     'lv_err_offline': 'No internet right now. Try again when you are online.',
     'lv_err_signin': 'Please sign in again to see your report.',
-    'lv_err_role': 'This part is for villagers and Gram Sabha members.',
+    'lv_err_role': 'This part is only for CFR holders (people with community forest rights).',
     'lv_err_no_village':
         'Your account is not linked to a village yet. Ask the Gram Sabha office.',
     'lv_err_data':
@@ -503,7 +503,7 @@ const Map<String, Map<String, String>> _text = {
     'lv_err_offline':
         'आत्ता इंटरनेट नाही. इंटरनेट मिळाल्यावर पुन्हा प्रयत्न करा.',
     'lv_err_signin': 'तुमचा अहवाल पाहण्यासाठी कृपया पुन्हा साइन इन करा.',
-    'lv_err_role': 'हा भाग गावकरी आणि ग्रामसभा सदस्यांसाठी आहे.',
+    'lv_err_role': 'हा भाग फक्त सीएफआर धारकांसाठी (सामूहिक वनहक्क असलेल्यांसाठी) आहे.',
     'lv_err_no_village':
         'तुमचे खाते अजून गावाशी जोडलेले नाही. ग्रामसभा कार्यालयाला विचारा.',
     'lv_err_data':

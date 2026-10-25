@@ -19,6 +19,9 @@ import {
   initialDeliveryJobs,
 } from '../data/mockData';
 import { calculateDeliveryPay, checkIsLargeOrder } from '../utils/marketplace';
+import { sampleItemCode } from '../utils/itemCode';
+import { fetchLiveListings } from '../data/liveListings';
+import { API_URL } from '../config';
 
 export interface ToastMessage {
   id: string;
@@ -44,13 +47,15 @@ interface MarketplaceContextType {
 
   // Data states
   listings: Listing[];
+  /** `live` when the listings came from the marketplace server, `sample` when they are the labelled demo data. */
+  dataSource: 'sample' | 'live';
   requests: RequestItem[];
   orders: Order[];
   deliveryPartner: DeliveryPartner;
   deliveryJobs: DeliveryJob[];
 
   // User Actions
-  addListing: (listingData: Omit<Listing, 'id' | 'rating' | 'reviewCount' | 'isVerified' | 'fairPriceRange'>) => void;
+  addListing: (listingData: Omit<Listing, 'id' | 'itemCode' | 'source' | 'rating' | 'reviewCount' | 'isVerified' | 'fairPriceRange'>) => void;
   toggleListingStatus: (id: string) => void;
   submitRequest: (params: {
     listingId: string;
@@ -82,6 +87,10 @@ interface MarketplaceContextType {
   // Detail Modal helper
   selectedListing: Listing | null;
   setSelectedListing: (listing: Listing | null) => void;
+
+  // "Buy in the app" page (the website takes no payment: the app does)
+  downloadListing: Listing | null;
+  setDownloadListing: (listing: Listing | null) => void;
 }
 
 const MarketplaceContext = createContext<MarketplaceContextType | undefined>(undefined);
@@ -157,6 +166,21 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [deliveryJobs, setDeliveryJobs] = useState<DeliveryJob[]>(initialDeliveryJobs);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [selectedListing, setSelectedListing] = useState<Listing | null>(null);
+  const [downloadListing, setDownloadListing] = useState<Listing | null>(null);
+  const [dataSource, setDataSource] = useState<'sample' | 'live'>('sample');
+
+  // Live listings from the marketplace server replace the sample ones when there are any; otherwise keep Sample
+  useEffect(() => {
+    let cancelled = false;
+    fetchLiveListings(API_URL).then((live) => {
+      if (cancelled || !live || live.length === 0) return;
+      setListings(live);
+      setDataSource('live');
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Apply dark class to document body
   useEffect(() => {
@@ -216,13 +240,16 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   // Add Listing
   const addListing = (
-    listingData: Omit<Listing, 'id' | 'rating' | 'reviewCount' | 'isVerified' | 'fairPriceRange'>
+    listingData: Omit<Listing, 'id' | 'itemCode' | 'source' | 'rating' | 'reviewCount' | 'isVerified' | 'fairPriceRange'>
   ) => {
     const minFair = Math.round(listingData.pricePerUnit * 0.88);
     const maxFair = Math.round(listingData.pricePerUnit * 1.14);
+    const id = `list-${Date.now()}`;
     const newListing: Listing = {
       ...listingData,
-      id: `list-${Date.now()}`,
+      id,
+      itemCode: sampleItemCode(id),
+      source: 'sample',
       rating: 5.0,
       reviewCount: 1,
       isVerified: true,
@@ -628,6 +655,7 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
         activeTab,
         setActiveTab,
         listings,
+        dataSource,
         requests,
         orders,
         deliveryPartner,
@@ -651,6 +679,8 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
         dismissToast,
         selectedListing,
         setSelectedListing,
+        downloadListing,
+        setDownloadListing,
       }}
     >
       {children}

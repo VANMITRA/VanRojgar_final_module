@@ -10,6 +10,7 @@ import '../listings/listing_providers.dart';
 import '../auth/auth_providers.dart';
 import '../trade/request_sheet.dart';
 import '../../shared/utils/livelihood_link.dart';
+import '../../shared/widgets/item_code_chip.dart';
 
 class ListingDetailScreen extends ConsumerWidget {
   final String listingId;
@@ -148,6 +149,10 @@ class ListingDetailScreen extends ConsumerWidget {
                             ModeBadge(mode: listing.mode),
                           ],
                         ),
+                        if (listing.itemCode != null && listing.itemCode!.isNotEmpty) ...[
+                          const SizedBox(height: 10),
+                          Align(alignment: Alignment.centerLeft, child: ItemCodeChip(code: listing.itemCode!)),
+                        ],
                         const SizedBox(height: 12),
                         Container(
                           padding: const EdgeInsets.all(14),

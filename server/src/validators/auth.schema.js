@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { REGISTER_ROLES, VILLAGE_ROLES } from '../core/roles.js';
 
 export const phoneSchema = z.string().trim().transform((val) => {
   const digits = val.replace(/\D/g, '');
@@ -22,7 +23,7 @@ export const passwordSchema = z.string()
   .regex(/^\d{6}$/, 'PIN must be exactly 6 digits');
 
 export const registerSchema = z.object({
-  role: z.enum(['gramsabha', 'villager', 'buyer']),
+  role: z.enum(REGISTER_ROLES),
   name: z.string().min(2, 'Name is required').trim(),
   phone: phoneSchema,
   password: passwordSchema,
@@ -47,16 +48,16 @@ export const registerSchema = z.object({
       });
     }
   }
-  if (data.role === 'villager') {
+  if (data.role === 'villager' || data.role === 'cfrholder') {
     if (!data.village) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ['village'],
-        message: 'Village is required for Villager registration'
+        message: 'Village is required for Farmer and CFR holder registration'
       });
     }
   }
-  if ((data.role === 'gramsabha' || data.role === 'villager') && data.district) {
+  if (VILLAGE_ROLES.includes(data.role) && data.district) {
     if (data.district.trim().toLowerCase() !== 'nashik') {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

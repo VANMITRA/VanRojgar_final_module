@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { translations } from '../i18n/translations';
+import { appFlow } from '../i18n/appFlow';
+import { CopyCodeButton } from './CopyCodeButton';
 import { ResourceIcon } from './ResourceIcon';
 import { evaluateBarterBalance, checkIsLargeOrder, calculateDeliveryPay } from '../utils/marketplace';
 import {
@@ -18,8 +20,9 @@ import {
 } from 'lucide-react';
 
 export const ListingDetailModal: React.FC = () => {
-  const { selectedListing, setSelectedListing, submitRequest, language, activePortal } = useMarketplace();
+  const { selectedListing, setSelectedListing, setDownloadListing, submitRequest, language, activePortal } = useMarketplace();
   const t = translations[language];
+  const flow = appFlow[language];
 
   const [activeTab, setActiveTab] = useState<'buy' | 'barter'>('buy');
   const [quantity, setQuantity] = useState<number>(5);
@@ -67,6 +70,13 @@ export const ListingDetailModal: React.FC = () => {
           ? 'सतत वन संकलन सुनिश्चित करने हेतु थोक मांग (≥२५ इकाई) के लिए कारण बताना अनिवार्य है।'
           : 'A reason is strictly mandatory for bulk requests (≥25 units) to safeguard village sustainable harvesting.'
       );
+      return;
+    }
+
+    // Buying happens in the app (payment, orders). The website only hands over the item code and the download.
+    if (activeTab === 'buy') {
+      setDownloadListing(selectedListing);
+      setSelectedListing(null);
       return;
     }
 
@@ -129,12 +139,22 @@ export const ListingDetailModal: React.FC = () => {
               <h2 id="modal-title" className="text-xl sm:text-2xl font-bold font-['Manrope']">
                 {selectedListing.title}
               </h2>
+              <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-white/90">
+                <span className="opacity-80">{flow.itemCode}</span>
+                <code className="font-extrabold tracking-wider bg-black/25 px-2 py-0.5 rounded-md">{selectedListing.itemCode}</code>
+                <CopyCodeButton code={selectedListing.itemCode} className="!bg-white/10 !text-white !border-white/20 hover:!bg-white/20" />
+                {selectedListing.source === 'sample' && (
+                  <span className="px-2 py-0.5 rounded-full bg-amber-400/25 border border-amber-300/40 text-amber-100 text-[10px] font-extrabold">
+                    {flow.sampleBadge}
+                  </span>
+                )}
+              </div>
               <div className="flex items-center gap-2 mt-1 text-xs text-white/90">
                 <span className="font-semibold">{selectedListing.gramSabhaName}</span>
                 <span>•</span>
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-[#FF8D20]" />
-                  {selectedListing.village}, {selectedListing.district} ({selectedListing.distanceKm} km {t.common.distance})
+                  {selectedListing.village}, {selectedListing.district}{selectedListing.source === 'sample' ? ` (${selectedListing.distanceKm} km ${t.common.distance})` : ''}
                 </span>
               </div>
             </div>
@@ -467,7 +487,7 @@ export const ListingDetailModal: React.FC = () => {
                   disabled={submitting}
                   className="flex items-center gap-2 bg-[#FF8D20] hover:bg-[#D96B00] text-white px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-orange-950/20 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
                 >
-                  <span>{activeTab === 'buy' ? t.listingModal.submitPurchaseBtn : t.listingModal.submitBarterBtn}</span>
+                  <span>{activeTab === 'buy' ? flow.buyInApp : t.listingModal.submitBarterBtn}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

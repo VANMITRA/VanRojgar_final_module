@@ -93,3 +93,12 @@
 - The **APK download link** (Release page or storage).
 - Item code format approval (S3).
 - NGO and letter, community representative, photos, permission, team list (see `QUESTIONS.md`).
+
+---
+
+## Agreed formats (S3, done 26 Oct)
+
+- **Item code:** `VR-` plus 6 characters from `23456789ABCDEFGHJKMNPQRSTUVWXYZ` (no 0, O, 1, I, L), e.g. `VR-K7M2QX`. One per listing, made by the server when the listing is created (`server/src/core/itemCode.js`). Existing listings get one with `node scripts/backfill_item_codes.js --apply` (a person runs it; dry run by default).
+- **App search:** typing or pasting a code in any spelling (`vr k7m2qx`) finds exactly that listing. Also `GET /api/v1/listings/code/:code`.
+- **Website:** shows the code with a Copy button. With `VITE_API_URL` set it lists real listings; otherwise it shows **Sample** listings whose codes belong to no real item (labelled). "Buy" opens the app download page (`VITE_APK_URL`).
+- **Roles:** stored values `gramsabha`, `villager` (= Farmer), `cfrholder`, `buyer`. Only `cfrholder` gets the Livelihood tab and may call the livelihood server (403 otherwise).

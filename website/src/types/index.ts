@@ -28,6 +28,10 @@ export interface GroupContributor {
 
 export interface Listing {
   id: string;
+  /** The code a person pastes into the app's search to find this item (`VR-K7M2QX`). */
+  itemCode: string;
+  /** `live` = from the marketplace server; `sample` = made-up demo data, always labelled as such. */
+  source: 'live' | 'sample';
   title: string;
   category: ResourceCategory;
   quantity: number;

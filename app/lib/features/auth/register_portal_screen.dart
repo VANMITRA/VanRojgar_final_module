@@ -108,11 +108,19 @@ class RegisterPortalScreen extends StatelessWidget {
               ),
               buildPortalCard(
                 role: 'villager',
-                titleMr: 'ग्रामस्थ / शेतकरी',
-                titleEn: 'Villager',
+                titleMr: 'शेतकरी',
+                titleEn: 'Farmer',
                 description: 'CFR गावातील रहिवासी. वनोपज खरेदी, वस्तुविनिमय आणि वाहन असल्यास डिलिव्हरीद्वारे रोजगार.',
                 icon: Icons.person_pin,
                 color: tokens.actionPrimary,
+              ),
+              buildPortalCard(
+                role: 'cfrholder',
+                titleMr: 'सीएफआर धारक',
+                titleEn: 'CFR holder',
+                description: 'सामूहिक वनहक्क असलेला शेतकरी. शेतकऱ्याचे सर्व काही, तसेच उपजीविका अहवाल (Livelihood).',
+                icon: Icons.forest,
+                color: tokens.brandPrimary,
               ),
               buildPortalCard(
                 role: 'buyer',

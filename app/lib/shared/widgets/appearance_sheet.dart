@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/theme_mode_provider.dart';
 import '../../features/auth/auth_providers.dart';
+import '../utils/roles.dart';
 
 class AppearanceSheet extends ConsumerWidget {
   const AppearanceSheet({super.key});
@@ -28,9 +29,7 @@ class AppearanceSheet extends ConsumerWidget {
     final activeLocale = ref.watch(activeLocaleProvider);
 
     final String initial = (user?.name.isNotEmpty == true) ? user!.name[0].toUpperCase() : 'V';
-    final String roleLabel = user?.role == 'gramsabha'
-        ? 'FRC • ग्रामसभा'
-        : (user?.role == 'buyer' ? 'BUYER • खरेदीदार' : 'VILLAGER • ग्रामस्थ');
+    final String roleLabel = roleLabelFor(user?.role);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),

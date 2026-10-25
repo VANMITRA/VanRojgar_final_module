@@ -9,6 +9,7 @@ import '../../core/localization/app_input_hints.dart';
 import '../../core/network/app_exception.dart';
 import '../../l10n/app_localizations.dart';
 import 'auth_providers.dart';
+import '../../shared/utils/roles.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -54,13 +55,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       final user = await ref.read(authControllerProvider.notifier).login(phone, password);
       if (!mounted) return;
 
-      if (user.role == 'gramsabha') {
-        context.go('/gs');
-      } else if (user.role == 'buyer') {
-        context.go('/b');
-      } else {
-        context.go('/v');
-      }
+      context.go(homeRouteFor(user.role));
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -410,8 +405,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             onPressed: () => _fillDemo('+919822011001', 'gramsabha'),
                           ),
                           ActionChip(
-                            label: const VrText('Villager'),
+                            label: const VrText('Farmer'),
                             onPressed: () => _fillDemo('+919822022222', 'villager'),
+                          ),
+                          ActionChip(
+                            label: const VrText('CFR holder'),
+                            onPressed: () => _fillDemo('+919822044444', 'cfrholder'),
                           ),
                           ActionChip(
                             label: const VrText('Buyer'),

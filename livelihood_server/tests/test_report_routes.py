@@ -85,7 +85,7 @@ def test_report_without_saved_details_is_a_general_village_report(client: TestCl
     assert r.status_code == 200
     body = r.json()
     assert body["header"]["report_level"] == "village"
-    assert body["header"]["name"] == "Demo villager"  # from his login, not the request
+    assert body["header"]["name"] == "Demo CFR holder"  # from his login, not the request
     assert body["is_sample_data"] is True
     assert "profile_incomplete" in body["analysis"]["notes"]
     assert {i["group"] for i in body["ideas"]} == {"ranked"}
@@ -137,7 +137,7 @@ def test_reports_are_private_to_their_owner(client: TestClient) -> None:
     mine = client.post(f"{URL}/report", json={}, headers=auth(DEV_VILLAGER.id)).json()
     assert client.get(f"{URL}/report/latest", headers=auth(DEV_VILLAGER_2.id)).status_code == 404
     theirs = client.post(f"{URL}/report", json={}, headers=auth(DEV_VILLAGER_2.id)).json()
-    assert theirs["id"] != mine["id"] and theirs["header"]["name"] == "Second villager"
+    assert theirs["id"] != mine["id"] and theirs["header"]["name"] == "Second CFR holder"
     assert (
         client.get(f"{URL}/report/latest", headers=auth(DEV_VILLAGER.id)).json()["id"] == mine["id"]
     )
@@ -213,7 +213,7 @@ def test_a_small_radius_still_warns_about_a_protected_area_just_outside_it(
 
 
 def test_a_user_with_no_village_cannot_get_a_report(monkeypatch: pytest.MonkeyPatch) -> None:
-    homeless = UserInfo(str(uuid.uuid4()), "No village", None, frozenset({"villager"}))
+    homeless = UserInfo(str(uuid.uuid4()), "No village", None, frozenset({"cfr_holder"}))
     monkeypatch.setenv("VANMITRA_LIVELIHOOD_DEV_USERS", "true")
     get_settings.cache_clear()
     app = create_app()

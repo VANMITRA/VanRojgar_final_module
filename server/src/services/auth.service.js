@@ -4,6 +4,7 @@ import { User } from '../models/User.js';
 import { GramSabha } from '../models/GramSabha.js';
 import { config } from '../core/config.js';
 import { AppError, ErrorCodes } from '../core/errors.js';
+import { VILLAGE_ROLES, isFarmerRole } from '../core/roles.js';
 import { serializeUser } from '../core/serializers.js';
 import { loadRaah, gramSabhaFields, SOURCE as RAAH_SOURCE } from '../seed/raah.js';
 
@@ -32,7 +33,7 @@ export class AuthService {
     let gramSabhaId = data.gramSabhaId;
 
     // Only the villages of the dataset (the 14 CFR villages of the Raah Foundation report) can be registered.
-    if ((data.role === 'gramsabha' || data.role === 'villager') && !isDatasetVillage(data.village, data.taluka)) {
+    if (VILLAGE_ROLES.includes(data.role) && !isDatasetVillage(data.village, data.taluka)) {
       throw new AppError(ErrorCodes.VALIDATION_ERROR, 'This village is not in the VanRozgar dataset', 422);
     }
 
@@ -72,7 +73,7 @@ export class AuthService {
           await gs.save();
         }
       }
-    } else if (data.role === 'villager' && !gramSabhaId && data.village) {
+    } else if (isFarmerRole(data.role) && !gramSabhaId && data.village) {
       // The same village name exists in several talukas, so use the taluka whenever the app sends it
       const gs = await GramSabha.findOne({
         ...(data.taluka ? { taluka: data.taluka } : {}),

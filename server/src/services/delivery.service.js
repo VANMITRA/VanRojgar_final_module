@@ -4,10 +4,11 @@ import { Delivery } from '../models/Delivery.js';
 import { Order } from '../models/Order.js';
 import { User } from '../models/User.js';
 import { AppError, ErrorCodes } from '../core/errors.js';
+import { isFarmerRole } from '../core/roles.js';
 
 export class DeliveryService {
   static async apply(user, data) {
-    if (user.role !== 'villager') {
+    if (!isFarmerRole(user.role)) {
       throw new AppError(ErrorCodes.FORBIDDEN, 'Only forest villagers can apply as delivery partners', 403);
     }
 

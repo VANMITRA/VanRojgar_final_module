@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   city: { type: String, trim: true },
   role: {
     type: String,
-    enum: ['gramsabha', 'villager', 'buyer', 'team'],
+    enum: ['gramsabha', 'villager', 'cfrholder', 'buyer', 'team'],
     required: true
   },
   language: { type: String, enum: ['en', 'hi', 'mr'], default: 'en' },

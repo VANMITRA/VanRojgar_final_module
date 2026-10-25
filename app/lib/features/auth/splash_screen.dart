@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/theme/tokens.dart';
 import '../../shared/models/user.dart';
 import 'auth_providers.dart';
+import '../../shared/utils/roles.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -42,13 +43,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
     final user = authState.valueOrNull;
     if (user != null) {
-      if (user.role == 'gramsabha') {
-        context.go('/gs');
-      } else if (user.role == 'buyer') {
-        context.go('/b');
-      } else {
-        context.go('/v');
-      }
+      context.go(homeRouteFor(user.role));
     } else {
       context.go('/login');
     }

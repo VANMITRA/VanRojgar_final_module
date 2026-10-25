@@ -1,6 +1,8 @@
+import 'roles.dart';
+
 /// The link from a marketplace listing to the livelihood report (docs/plan.md section 3).
 ///
-/// Only Gram Sabha and villager accounts have the livelihood tab; buyers get no link.
+/// Only a CFR holder has the livelihood tab; farmers, the Gram Sabha and buyers get no link.
 /// The livelihood screen reads `village`, `taluka` and `product` from the route's query parameters.
 String? livelihoodRouteFor(
   String? role, {
@@ -8,12 +10,8 @@ String? livelihoodRouteFor(
   required String taluka,
   String? product,
 }) {
-  final base = switch (role) {
-    'gramsabha' => '/gs/livelihood',
-    'villager' => '/v/livelihood',
-    _ => null,
-  };
-  if (base == null) return null;
+  if (!canUseLivelihood(role)) return null;
+  const base = '/c/livelihood';
   return Uri(path: base, queryParameters: {
     'village': village,
     'taluka': taluka,

@@ -11,7 +11,8 @@ Two ways in, one at a time:
 * DEVELOPMENT and tests (`VANMITRA_LIVELIHOOD_DEV_USERS=true`): built-in users and tokens minted by
   `create_access_token`. Refused in production.
 
-Only village users and the Gram Sabha may use this module, each for their OWN land.
+Only a CFR holder (a farmer with community forest rights) may use this module, for their OWN land.
+Farmers, the Gram Sabha and buyers get the marketplace only.
 """
 
 import uuid
@@ -30,7 +31,7 @@ from ..config import get_settings
 from ..errors import ApiError
 from .identity import UserInfo
 
-ALLOWED_ROLES = frozenset({"villager", "gram_sabha"})
+ALLOWED_ROLES = frozenset({"cfr_holder"})
 _bearer = HTTPBearer(auto_error=False)
 
 
@@ -46,17 +47,35 @@ class EmptyDirectory:
 
 
 # Built-in DEVELOPMENT users (only when VANMITRA_LIVELIHOOD_DEV_USERS=true; refused in production).
-DEV_VILLAGER = UserInfo(
+DEV_VILLAGER = UserInfo(  # the name is old: this is a CFR holder, the only role served
     "00000000-0000-7000-8000-000000000001",
-    "Demo villager",
+    "Demo CFR holder",
     "sample_ozhar",
-    frozenset({"villager"}),
+    frozenset({"cfr_holder"}),
 )
 DEV_VILLAGER_2 = UserInfo(
     "00000000-0000-7000-8000-000000000002",
-    "Second villager",
+    "Second CFR holder",
+    "sample_ozhar",
+    frozenset({"cfr_holder"}),
+)
+DEV_FARMER = UserInfo(  # roles this module does not serve: farmer, Gram Sabha, buyer
+    "00000000-0000-7000-8000-000000000003",
+    "Demo farmer",
     "sample_ozhar",
     frozenset({"villager"}),
+)
+DEV_GRAM_SABHA = UserInfo(
+    "00000000-0000-7000-8000-000000000004",
+    "Demo Gram Sabha",
+    "sample_ozhar",
+    frozenset({"gram_sabha"}),
+)
+DEV_BUYER = UserInfo(
+    "00000000-0000-7000-8000-000000000005",
+    "Demo buyer",
+    None,
+    frozenset({"buyer"}),
 )
 DEV_OFFICER = UserInfo(  # a role this module does not serve
     "00000000-0000-7000-8000-000000000009",
@@ -75,7 +94,11 @@ class StaticDirectory:
 
 
 # The Node server's role names -> this module's.
-_ROLE_NAMES = {"villager": "villager", "gramsabha": "gram_sabha"}
+_ROLE_NAMES = {
+    "villager": "villager",  # the Farmer role keeps its old stored name
+    "gramsabha": "gram_sabha",
+    "cfrholder": "cfr_holder",
+}
 
 
 def village_slug(taluka: str | None, village: str | None) -> str | None:
@@ -121,7 +144,9 @@ def _mongo_users() -> Any:
 def get_directory() -> UserDirectory:
     settings = get_settings()
     if settings.livelihood_dev_users:
-        return StaticDirectory([DEV_VILLAGER, DEV_VILLAGER_2, DEV_OFFICER])
+        return StaticDirectory(
+            [DEV_VILLAGER, DEV_VILLAGER_2, DEV_FARMER, DEV_GRAM_SABHA, DEV_BUYER, DEV_OFFICER]
+        )
     return MongoUserDirectory(_mongo_users())
 
 

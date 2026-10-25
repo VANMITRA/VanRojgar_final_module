@@ -184,15 +184,8 @@ cd VanRozgar
 npm install
 ```
 
-### 3. Configure Environment Variables (Optional)
-If using AI Studio / Gemini conversational features:
-```bash
-cp .env.example .env.local
-```
-Add your API key inside `.env.local`:
-```env
-GEMINI_API_KEY="your_api_key_here"
-```
+### 3. Configure Environment Variables (Optional; both are public, no secrets)
+Set `VITE_API_URL` (the marketplace server) and `VITE_APK_URL` (app download link) in `.env.local`. Without `VITE_API_URL` the site shows labelled **Sample** listings. See `.env.example`.
 
 ### 4. Run Development Server
 ```bash

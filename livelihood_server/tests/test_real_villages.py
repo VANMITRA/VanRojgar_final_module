@@ -29,7 +29,7 @@ PROFILE = {
 
 
 def _user(village_id: str | None) -> UserInfo:
-    return UserInfo(str(uuid.uuid4()), "Test villager", village_id, frozenset({"villager"}))
+    return UserInfo(str(uuid.uuid4()), "Test CFR holder", village_id, frozenset({"cfr_holder"}))
 
 
 def _client(monkeypatch: pytest.MonkeyPatch, user: UserInfo) -> TestClient:
@@ -99,7 +99,7 @@ def test_report_for_a_real_village_with_a_saved_plot(monkeypatch: pytest.MonkeyP
     assert r.status_code == 200
     body = r.json()
     assert body["header"]["report_level"] == "plot"
-    assert body["header"]["name"] == "Test villager"
+    assert body["header"]["name"] == "Test CFR holder"
 
 
 def test_report_with_no_saved_plot_is_still_served(monkeypatch: pytest.MonkeyPatch) -> None:

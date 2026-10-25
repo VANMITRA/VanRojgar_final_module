@@ -5,7 +5,7 @@ class UserModel {
   final String? email;
   final String? businessName;
   final String? city;
-  final String role; // 'gramsabha' | 'villager' | 'buyer'
+  final String role; // 'gramsabha' | 'villager' (farmer) | 'cfrholder' | 'buyer'
   final String language;
   final String? gramSabhaId;
   final String? village;

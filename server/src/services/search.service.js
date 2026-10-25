@@ -3,6 +3,7 @@ import { GramSabha } from '../models/GramSabha.js';
 import { Resource } from '../models/Resource.js';
 import { Category } from '../models/Category.js';
 import { normaliseString } from '../core/normalise.js';
+import { normaliseItemCode } from '../core/itemCode.js';
 import { serializeListing, serializeGramSabha } from '../core/serializers.js';
 
 function escapeRegex(str) {
@@ -63,10 +64,13 @@ export class SearchService {
 
   static async globalSearch({ q, category, minPrice, maxPrice, minQty, taluka, district, mode, verifiedOnly, lat, lng, radiusKm, sort = 'newest', limit = 20, cursor }) {
     const normQ = normaliseString(q);
-    const tokens = normQ ? normQ.split(' ').filter(Boolean) : [];
+    // An item code (from the website, any spelling) finds exactly that listing, so the words are not searched
+    const itemCode = normaliseItemCode(q);
+    const tokens = !itemCode && normQ ? normQ.split(' ').filter(Boolean) : [];
 
     // Build listings filter
     const listingFilter = { status: 'active' };
+    if (itemCode) listingFilter.itemCode = itemCode;
 
     if (tokens.length > 0) {
       listingFilter.searchTerms = {
@@ -139,14 +143,14 @@ export class SearchService {
       gsFilter.searchTerms = { $in: tokens.map(t => new RegExp(`^${escapeRegex(t)}`, 'i')) };
     }
     if (taluka) gsFilter.taluka = taluka;
-    const gramsabhas = await GramSabha.find(gsFilter).limit(5);
+    const gramsabhas = itemCode ? [] : await GramSabha.find(gsFilter).limit(5);
 
     // Also search Resources
     const resFilter = {};
     if (tokens.length > 0) {
       resFilter.searchTerms = { $in: tokens.map(t => new RegExp(`^${escapeRegex(t)}`, 'i')) };
     }
-    const resources = await Resource.find(resFilter).populate('categoryId').limit(5);
+    const resources = itemCode ? [] : await Resource.find(resFilter).populate('categoryId').limit(5);
 
     // Suggestions if empty
     let suggestions = [];

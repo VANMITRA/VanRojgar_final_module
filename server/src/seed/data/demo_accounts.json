@@ -135,6 +135,15 @@
     "language": "mr"
   },
   {
+    "role": "cfrholder",
+    "name": "डेमो सीएफआर धारक (Demo CFR holder)",
+    "phone": "+919822044444",
+    "village": "देवगाव",
+    "taluka": "Trimbakeshwar",
+    "district": "Nashik",
+    "language": "mr"
+  },
+  {
     "role": "buyer",
     "name": "Demo Buyer",
     "businessName": "Demo Herbal Co.",
