@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../shared/widgets/vr_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/theme/tokens.dart';
 import '../../shared/widgets/profile_hero.dart';
 import '../../shared/widgets/preference_card.dart';
 import '../../shared/widgets/appearance_sheet.dart';
@@ -15,7 +14,6 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tokens = context.vr;
     final user = ref.watch(authControllerProvider).asData?.value;
 
     if (user == null) {

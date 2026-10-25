@@ -13,6 +13,7 @@ import { Listing } from '../models/Listing.js';
 import { Request } from '../models/Request.js';
 import { Order } from '../models/Order.js';
 import { buildSearchTokens } from '../core/normalise.js';
+import { inferProductCode } from '../core/productCode.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -160,6 +161,7 @@ export async function seed() {
           title: { mr: item.titleMr, en: item.titleEn, hi: item.titleHi || '' },
           categoryId: cat ? cat._id : null,
           description: item.description,
+          productCode: inferProductCode(item.titleEn, item.titleMr) ?? undefined,
           quantityAvailable: item.quantityAvailable,
           unit: item.unit,
           pricePerUnitPaise,

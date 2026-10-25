@@ -201,7 +201,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 Text('तालुका (Taluka) *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
-                  value: _selectedTaluka,
+                  initialValue: _selectedTaluka,
                   decoration: InputDecoration(
                     hintText: AppInputHints.selectTaluka(context),
                     filled: true,
@@ -226,7 +226,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 Text('गाव (Village) *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
-                  value: _selectedVillage,
+                  initialValue: _selectedVillage,
                   decoration: InputDecoration(
                     hintText: AppInputHints.selectVillage(context, _selectedTaluka != null),
                     filled: true,

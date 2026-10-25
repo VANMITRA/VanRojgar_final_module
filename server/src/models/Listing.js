@@ -17,6 +17,7 @@ const ListingSchema = new mongoose.Schema({
 
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
   description: { type: String, trim: true },
+  productCode: { type: String, trim: true, lowercase: true }, // shared with the livelihood module, see core/productCode.js
   quantityAvailable: { type: Number, required: true, min: 0 },
   unit: {
     type: String,
@@ -74,6 +75,7 @@ ListingSchema.index({ status: 1, categoryId: 1, pricePerUnitPaise: 1 });
 ListingSchema.index({ location: '2dsphere' }, { sparse: true });
 ListingSchema.index({ searchTerms: 1 });
 ListingSchema.index({ ownerId: 1, status: 1 });
+ListingSchema.index({ productCode: 1, status: 1 }, { sparse: true });
 ListingSchema.index({ taluka: 1, status: 1 });
 
 export const Listing = mongoose.models.Listing || mongoose.model('Listing', ListingSchema);

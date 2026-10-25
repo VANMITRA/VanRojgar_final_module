@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { PRODUCT_CODE_PATTERN } from '../core/productCode.js';
+
+const productCode = z.string().trim().toLowerCase().regex(PRODUCT_CODE_PATTERN, 'Product code must be lowercase letters and hyphens');
 
 export const unitEnum = z.enum(['kg', 'g', 'quintal', 'litre', 'piece', 'bundle', 'jar', 'bag']);
 
@@ -6,6 +9,7 @@ export const createListingSchema = z.object({
   titleMr: z.string().min(2, 'Marathi title is required').trim(),
   titleEn: z.string().min(2, 'English title is required').trim(),
   categoryId: z.string().min(1, 'Category is required'),
+  productCode: productCode.optional(),
   description: z.string().trim().optional(),
   quantityAvailable: z.coerce.number().positive('Quantity must be greater than zero'),
   unit: unitEnum,
@@ -36,6 +40,7 @@ export const updateListingSchema = z.object({
   titleMr: z.string().min(2).trim().optional(),
   titleEn: z.string().min(2).trim().optional(),
   description: z.string().trim().optional(),
+  productCode: productCode.optional(),
   quantityAvailable: z.coerce.number().min(0).optional(),
   pricePerUnitRupees: z.coerce.number().min(0).optional(),
   mode: z.enum(['sell', 'barter', 'both']).optional(),

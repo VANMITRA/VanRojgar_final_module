@@ -187,7 +187,7 @@ class AppearanceSheet extends ConsumerWidget {
                 ),
                 Switch.adaptive(
                   value: isDark,
-                  activeColor: tokens.actionPrimary,
+                  activeThumbColor: tokens.actionPrimary,
                   onChanged: (val) {
                     ref.read(themeModeProvider.notifier).toggle();
                   },

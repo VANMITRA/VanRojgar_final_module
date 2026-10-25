@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show kReleaseMode;
+
 class AppConfig {
   static const String apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
@@ -13,8 +15,10 @@ class AppConfig {
   /// PIN pre-filled by the demo account buttons. It must match SEED_DEMO_PASSWORD on the server.
   static const String demoPin = String.fromEnvironment('DEMO_PIN', defaultValue: '123456');
 
+  /// Demo account buttons and the server-target dialog on the login screen. On in debug runs, off in release
+  /// builds unless the build sets --dart-define=DEV_TOOLS=true (for example a labelled demo APK).
   static const bool devTools = bool.fromEnvironment(
     'DEV_TOOLS',
-    defaultValue: true,
+    defaultValue: !kReleaseMode,
   );
 }

@@ -44,7 +44,7 @@ if (!debugKeystoreFile.exists()) {
 }
 
 android {
-    namespace = "com.example.vanrozgar"
+    namespace = "in.vanrozgar.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "org.vanrozgar.app"
+        applicationId = "in.vanrozgar.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -79,8 +79,11 @@ android {
                 keyPassword = properties.getProperty("keyPassword")
                 storeFile = file(properties.getProperty("storeFile"))
                 storePassword = properties.getProperty("storePassword")
+            } else if (System.getenv("REQUIRE_RELEASE_KEY") == "1") {
+                // CI sets this so a release build can never be signed with the public debug key by accident
+                throw GradleException("REQUIRE_RELEASE_KEY=1 but android/key.properties is missing")
             } else {
-                // Fallback to debug keystore for development / pilot demo
+                // Local development only: fall back to the debug keystore
                 initWith(signingConfigs.getByName("debug"))
             }
         }

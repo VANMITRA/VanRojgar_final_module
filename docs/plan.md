@@ -86,10 +86,10 @@ Status words: **Todo**, **Blocked** (needs something named), **Done**. Nothing b
 | Item | Agreed shape |
 |---|---|
 | Sign-in | Node server owns accounts (phone + 6-digit PIN); the Python server verifies the same JWT with the same `JWT_SECRET` and reads `users` read-only |
-| Product code | Short lowercase string such as `honey`, `bamboo`, `herb`, `leaf-plate`; present on livelihood ideas **and** on marketplace categories/listings |
+| Product code | One of `honey`, `bamboo`, `herb`, `preserve`, `seed`, `leaf-plate`, `fibre`, `dried-fruit` (list in `server/src/core/productCode.js`). **Built on the marketplace side:** every listing has one. Soham maps each produce idea to a code (for example `beekeeping_box` to `honey`) |
 | Link: idea to listing | App route to the Gram Sabha add-listing screen with `?product=<code>&village=<id>` |
-| Link: listing to report | App route `/livelihood` with `?villageId=<id>` (or `lat`/`lng`) |
-| Listing map layer | `GET /api/v1/listings/map` returns `{id, title, village, lat, lng, category}`; coordinates rounded to 2 decimals; Ayush builds, Soham renders |
+| Link: listing to report | **Built (marketplace side):** the button on a listing opens `/gs/livelihood` or `/v/livelihood` with `?village=&taluka=&product=`. Soham's `LivelihoodShell` must read those parameters. Buyers have no livelihood tab, so they get no button |
+| Listing map layer | **Built:** `GET /api/v1/listings/map[?product=<code>]` returns `{points: [{id, title{mr,en}, village, taluka, category, productCode, pricePerUnitPaise, unit, lat, lng}]}`; coordinates rounded to 2 decimals; public, no sign-in. Soham renders it |
 | Village identity | One village id used by both servers; matched by name+taluka against the cleaned CFR/MRSAC records |
 | Environment | `API_BASE_URL`, `LIVELIHOOD_API_BASE_URL`, `JWT_SECRET`, `MONGODB_URI` per service; secrets only in Render/GitHub settings |
 
@@ -128,3 +128,27 @@ Status words: **Todo**, **Blocked** (needs something named), **Done**. Nothing b
 3. Anything made up is labelled **Demo** in the UI; nothing claims official review or real data it does not have.
 4. No database write (seed, import, index) is run by Claude; Ayush or Soham runs it after reading the dry run.
 5. A task is only "Done" after it was run and the output was read.
+
+## 7. Progress log
+
+**25 Oct (Ayush), checked by running it:**
+
+| Task | State |
+|---|---|
+| A1, A2 | **Blocked**: the CFR file is not on this PC. Synthetic seed (10 villages, 50 listings, 13 accounts) is kept and labelled |
+| A3 | **Needs Ayush**: the Render blueprint and guide are ready; entering the Atlas string and secrets is the owner's step |
+| A4 | **Partly done**: app id `in.vanrozgar.app`, signing workflow and Gradle guard written ([DEPLOY.md](DEPLOY.md) section 5). **Not built or tested**; needs the keystore, the GitHub secrets, and blocker B1 below |
+| A5 | Done: demo buttons are off in release builds by default; no admin credential in the app. (The server seeder still has a development-only back-office password and skips it in production unless one is set) |
+| A6 | Marketplace half done (button, route, product code, tests). Soham's half open (S9) |
+| A7 | Done: endpoint and tests |
+| A8 | Done: the barter offers screen exists and is reachable, so nothing was hidden |
+| A9 | Server 33/33 pass. App: my files are analyzer-clean; the rest is blocked by B1 |
+| A10 | Done: `IMPLEMENTATION_STATUS.md` rewritten with what was run and the open gaps |
+| A11 | Draft written: `docs/round2/ayush.md` (every figure marked to confirm) |
+
+**Blockers found**
+
+| # | Blocker | Owner |
+|---|---|---|
+| B1 | `app/lib/features/livelihood/data/` (API client, repositories, cache, location service) was never committed, so the app does not compile from a clean clone and no APK can be built. `flutter analyze`: 240 issues, all in `features/livelihood` and its tests | Soham: push that folder first |
+| B2 | Raw CFR/MRSAC files are not on Ayush's PC | Soham |

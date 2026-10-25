@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'vr_text.dart';
 import 'package:flutter/material.dart';
-import '../../core/theme/tokens.dart';
 import '../../l10n/app_localizations.dart';
 
 class UserHeroCard extends StatelessWidget {

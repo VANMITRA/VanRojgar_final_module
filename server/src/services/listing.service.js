@@ -8,7 +8,26 @@ import { Category } from '../models/Category.js';
 import { AppError, ErrorCodes } from '../core/errors.js';
 import { config } from '../core/config.js';
 import { normaliseString, buildSearchTokens } from '../core/normalise.js';
-import { serializeListing } from '../core/serializers.js';
+import { serializeListing, roundLocation } from '../core/serializers.js';
+import { inferProductCode } from '../core/productCode.js';
+
+/** One marker for the map layer. Coordinates are rounded to 2 decimals (about 1 km), like everywhere else in public. */
+export function toMapPoint(listing) {
+  const loc = roundLocation(listing.location);
+  if (!loc) return null;
+  return {
+    id: String(listing._id),
+    title: { mr: listing.title?.mr, en: listing.title?.en },
+    village: listing.village,
+    taluka: listing.taluka,
+    category: listing.categoryId?.slug ?? null,
+    productCode: listing.productCode ?? null,
+    pricePerUnitPaise: listing.pricePerUnitPaise,
+    unit: listing.unit,
+    lat: loc.coordinates[1],
+    lng: loc.coordinates[0]
+  };
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -124,6 +143,7 @@ export class ListingService {
       title: { mr: data.titleMr, en: data.titleEn },
       categoryId: data.categoryId,
       description: data.description,
+      productCode: data.productCode || inferProductCode(data.titleEn, data.titleMr) || undefined,
       quantityAvailable: data.quantityAvailable,
       unit: data.unit,
       pricePerUnitPaise,
@@ -144,6 +164,14 @@ export class ListingService {
     });
 
     return serializeListing(listing, { isOwnerOrParticipant: true });
+  }
+
+  /** Active listings that have a position, for the map layer. Optional filter by product code. */
+  static async mapPoints({ productCode } = {}) {
+    const filter = { status: 'active', 'location.coordinates.1': { $exists: true } };
+    if (productCode) filter.productCode = productCode;
+    const rows = await Listing.find(filter).populate('categoryId', 'slug').sort({ createdAt: -1, _id: -1 }).limit(500);
+    return rows.map(toMapPoint).filter(Boolean);
   }
 
   static async getById(id, requestingUser = null) {

@@ -9,6 +9,7 @@ import '../../shared/widgets/async_value_view.dart';
 import '../listings/listing_providers.dart';
 import '../auth/auth_providers.dart';
 import '../trade/request_sheet.dart';
+import '../../shared/utils/livelihood_link.dart';
 
 class ListingDetailScreen extends ConsumerWidget {
   final String listingId;
@@ -29,6 +30,8 @@ class ListingDetailScreen extends ConsumerWidget {
           emptyMessage: 'Listing not found',
           data: (listing) {
             final isOwner = currentUser?.id == listing.ownerId;
+            final reportRoute = livelihoodRouteFor(currentUser?.role,
+                village: listing.village, taluka: listing.taluka, product: listing.productCode);
             final canBarter = (listing.mode == 'barter' || listing.mode == 'both') && currentUser?.role != 'buyer';
 
             return Column(
@@ -262,6 +265,22 @@ class ListingDetailScreen extends ConsumerWidget {
                             ],
                           ),
                         ),
+                        if (reportRoute != null) ...[
+                          const SizedBox(height: 16),
+                          OutlinedButton.icon(
+                            icon: const Icon(Icons.agriculture_outlined, size: 18),
+                            onPressed: () => context.go(reportRoute),
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            ),
+                            label: const Text(
+                              'या परिसरात काय पिकवता येईल • See what land near here can produce',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),

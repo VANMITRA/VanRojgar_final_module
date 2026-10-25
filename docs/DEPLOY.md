@@ -29,3 +29,29 @@ flutter build apk --release --dart-define=API_BASE_URL=https://<name>.onrender.c
 flutter build web --release --dart-define=API_BASE_URL=https://<name>.onrender.com/api/v1
 ```
 In GitHub, Settings, Secrets, Actions, set `API_URL` to the same address and run the "Android APK" workflow.
+
+## 5. Signed APK in GitHub Actions (application id `in.vanrozgar.app`)
+You hold the keystore. It is never committed (`*.jks` and `key.properties` are git-ignored).
+
+1. Create the keystore once, on your PC, and keep a backup somewhere private. If it is lost the app can never be updated under the same id:
+   ```bash
+   keytool -genkeypair -v -keystore vanrozgar-upload.jks -alias vanrozgar -keyalg RSA -keysize 2048 -validity 10000
+   base64 -w0 vanrozgar-upload.jks      # on Windows PowerShell: [Convert]::ToBase64String([IO.File]::ReadAllBytes("vanrozgar-upload.jks"))
+   ```
+2. GitHub, Settings, Secrets and variables, Actions, add these **secrets**:
+
+   | Secret | Value |
+   |---|---|
+   | `ANDROID_KEYSTORE_BASE64` | the base64 text from step 1 |
+   | `ANDROID_KEYSTORE_PASSWORD` | the keystore password |
+   | `ANDROID_KEY_ALIAS` | `vanrozgar` (or the alias you chose) |
+   | `ANDROID_KEY_PASSWORD` | the key password |
+   | `API_URL` | `https://<node-service>.onrender.com/api/v1` |
+   | `LIVELIHOOD_API_URL` | `https://<python-service>.onrender.com/api/v1` |
+   | `DEMO_PIN` | the 6-digit `SEED_DEMO_PASSWORD`, only if you want demo buttons |
+
+   Optional **variable** `DEV_TOOLS` = `true` to show the labelled demo-account buttons in the APK. Leave it unset for a build without them.
+3. Actions, "Android APK", Run workflow (or push a tag such as `v0.1.0`). The job stops with a clear message if a secret is missing, and Gradle refuses to sign a release with the debug key (`REQUIRE_RELEASE_KEY=1`).
+4. Download `vanrozgar-apk`, install on a phone, sign in over mobile data.
+
+Local builds without `android/key.properties` still fall back to the debug key; that APK is for your own testing only.

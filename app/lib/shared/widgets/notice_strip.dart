@@ -3,9 +3,7 @@ import 'vr_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../core/network/api_client.dart';
 import '../../core/theme/tokens.dart';
-import '../../features/auth/auth_providers.dart';
 
 class NoticeItem {
   final String id;

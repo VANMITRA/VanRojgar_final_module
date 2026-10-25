@@ -33,7 +33,7 @@ test('search API: seeded data pages through once, nearest is ordered, and login 
     const res = await request(app).get('/api/v1/search').set('Authorization', `Bearer ${token}`)
       .query({ limit: 7, ...(cursor ? { cursor } : {}) });
     assert.equal(res.status, 200);
-    seen.push(...res.body.data.listings.map(l => l.id));
+    seen.push(...res.body.data.listings.map(l => l._id));
     cursor = res.body.data.nextCursor;
     if (!cursor) break;
   }
@@ -46,6 +46,23 @@ test('search API: seeded data pages through once, nearest is ordered, and login 
   assert.equal(near.status, 200);
   const known = near.body.data.listings.map(l => l.distanceKm).filter(d => d !== null);
   assert.deepEqual(known, [...known].sort((a, b) => a - b));
+
+  // Every seeded listing carries a product code; the map layer lists only listings that have a position.
+  const { Listing } = await import('../../src/models/Listing.js');
+  assert.equal(await Listing.countDocuments({ productCode: { $exists: true, $ne: null } }), 50);
+  const map = await request(app).get('/api/v1/listings/map');
+  assert.equal(map.status, 200);
+  const points = map.body.data.points;
+  assert.ok(points.length > 0, 'seeded villages with coordinates appear on the map');
+  for (const pt of points) {
+    assert.equal(Math.round(pt.lat * 100) / 100, pt.lat, 'latitude is rounded to 2 decimals');
+    assert.equal(Math.round(pt.lng * 100) / 100, pt.lng, 'longitude is rounded to 2 decimals');
+  }
+  const bamboo = await request(app).get('/api/v1/listings/map').query({ product: 'bamboo' });
+  assert.ok(bamboo.body.data.points.length > 0);
+  assert.ok(bamboo.body.data.points.every((pt) => pt.productCode === 'bamboo'));
+  const unknown = await request(app).get('/api/v1/listings/map').query({ product: 'nothing-here' });
+  assert.deepEqual(unknown.body.data.points, []);
 
   // A wrong PIN is rejected.
   const bad = await request(app).post('/api/v1/auth/login').send({ phone: '+919822033333', password: '000000' });

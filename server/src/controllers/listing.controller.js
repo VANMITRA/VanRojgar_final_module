@@ -11,6 +11,15 @@ export class ListingController {
     }
   }
 
+  static async map(req, res, next) {
+    try {
+      const points = await ListingService.mapPoints({ productCode: req.query.product });
+      return res.json(successEnvelope({ points }));
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async getById(req, res, next) {
     try {
       const listing = await ListingService.getById(req.params.id, req.user);

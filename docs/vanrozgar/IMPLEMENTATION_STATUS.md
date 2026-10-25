@@ -36,7 +36,7 @@
     - Listing GPS coordinates are rounded to 2 decimal places before an order is placed to protect tribal harvest locations.
   - **Search & Geo**: Regex special characters are safely escaped; Unicode Devanagari vowel marks (`\p{M}`) are preserved during normalization; cursor pagination supported; distance calculation in km via Haversine formula and 2dsphere indexing.
   - **Delivery & Barter**: Atomic claiming of available delivery jobs (`findOneAndUpdate`), delivery partner status lifecycle tracking (`assigned` → `in_transit` → `delivered`), mutual versioned barter terms.
-  - **Pilot Seeder**: Idempotent upsert seeder for 16 Nashik pilot CFR villages *(clearly labeled as pilot demo accounts & records)*, 5 categories, demo accounts, and demo produce.
+  - **Pilot Seeder**: Idempotent upsert seeder for 10 Nashik pilot villages, 50 demo listings (managed/cultivated produce only) and 13 demo accounts, every one labelled Demo. Each listing carries a `productCode` (honey, bamboo, herb, preserve, seed, leaf-plate, fibre, dried-fruit). Real CFR claim data is **not** imported yet.
 
 ---
 
@@ -100,3 +100,28 @@
 - **Environment**: Sanitized `server/.env.example` with placeholder credentials.
 - **API Tests**: Automated test suite verifying reject validation (422 when note < 5 chars, 200 with note persistence), status filtering, and pilot village registration constraints.
 
+
+---
+
+## ✅ Verified on 25 Oct 2026 (what was actually run)
+
+| Check | Result |
+|---|---|
+| `cd server && npm test` | **33 / 33 pass**, including the database-backed API test (seed, paging through all 50 listings, nearest order, login, map layer) |
+| `GET /api/v1/listings/map` (new) | Returns active listings that have a position; coordinates rounded to 2 decimals; optional `?product=<code>` filter. Covered by an integration test |
+| `productCode` on listings (new) | Set on all 50 seeded listings, inferred from the title when a new listing does not give one, validated on create and update |
+| App: files outside `features/livelihood` | `flutter analyze` has **no errors or warnings**; the new link helper has 3 passing tests |
+| App id | Changed to `in.vanrozgar.app` (namespace, `applicationId`, `MainActivity` package). **Not built**: see the blocker below |
+| Demo account buttons | Off by default in release builds (`DEV_TOOLS` defaults to `!kReleaseMode`); no admin credential in the app |
+
+### ❌ Known blockers and gaps (not fixed)
+
+| # | Item |
+|---|---|
+| 1 | **The app does not compile from a clean clone.** `app/lib/features/livelihood/data/` (the API client, repositories, cache and location service the livelihood screens import) was never committed. `flutter analyze` reports 240 issues, all in `features/livelihood` and its tests, and `test/widget_test.dart` cannot load. Owner: Soham. No APK can be built until the folder is pushed |
+| 2 | **Nothing is deployed.** The Render blueprint, Atlas and the secrets are ready to be entered by the owner; no production URL exists |
+| 3 | **Release signing is untested.** The workflow and Gradle guard are written; the keystore and GitHub secrets do not exist yet |
+| 4 | **Real CFR / MRSAC data is not imported.** The raw files are not on this machine |
+| 5 | **Listing to report link**: the button and the route (`/gs|v/livelihood?village=&taluka=&product=`) exist, but the livelihood screen does not read those parameters yet (Soham, S9) |
+| 6 | **No test on a real phone** has been done |
+| 7 | The earlier "✅ Complete" ticks above for the app were recorded before the livelihood merge and were not re-run |

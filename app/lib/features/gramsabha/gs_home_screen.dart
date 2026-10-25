@@ -17,7 +17,6 @@ import '../../shared/widgets/preference_card.dart';
 import '../auth/auth_providers.dart';
 import '../listings/listing_providers.dart';
 import '../trade/trade_providers.dart';
-import '../../core/network/api_client.dart';
 
 class GsHomeScreen extends ConsumerStatefulWidget {
   const GsHomeScreen({super.key});

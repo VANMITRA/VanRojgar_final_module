@@ -2,11 +2,9 @@ import '../../features/auth/auth_providers.dart';
 import 'vr_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/network/api_client.dart';
 import '../../core/network/app_exception.dart';
 import '../../core/localization/app_input_hints.dart';
 import '../../core/theme/tokens.dart';
-import '../../features/auth/auth_providers.dart';
 import '../../features/trade/trade_providers.dart';
 
 Future<void> showRejectReasonSheet({

@@ -32,7 +32,6 @@ import '../../features/barter/barter_offers_screen.dart';
 import '../../features/livelihood/livelihood_embed.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
-import '../../features/auth/auth_providers.dart';
 
 class PortalShell extends ConsumerStatefulWidget {
   final Widget child;
@@ -145,7 +144,7 @@ class _PortalShellState extends ConsumerState<PortalShell> {
         final v = (user.village ?? 'harsul').toLowerCase().replaceAll(' ', '_');
         final t = (user.taluka ?? 'trimbak').toLowerCase().replaceAll(' ', '_');
         final d = user.district.toLowerCase().replaceAll(' ', '_');
-        sub = '${v}_${t}_${d}';
+        sub = '${v}_${t}_$d';
       }
     }
 
