@@ -136,13 +136,19 @@ void main() {
       expect(text, contains('Gram Sabha'));
     });
 
-    test('falls back to English, never to a blank or a raw key', () {
-      const hi = LivelihoodStrings('hi');
-      expect(hi.t('lv_footer'), en.t('lv_footer'));
+    test('a language with no table falls back to English, never to a blank or a raw key', () {
+      const konkani = LivelihoodStrings('kok'); // not translated: English until it is written
+      expect(konkani.t('lv_footer'), en.t('lv_footer'));
       expect(
-        hi.t('no_such_key'),
+        konkani.t('no_such_key'),
         'no_such_key',
       ); // visible, so a gap is noticed in testing
+    });
+
+    test('Hindi is written, so it no longer falls back to English', () {
+      const hi = LivelihoodStrings('hi');
+      expect(hi.t('lv_footer'), isNot(en.t('lv_footer')));
+      expect(hi.t('no_such_key'), 'no_such_key');
     });
 
     test('every Marathi key exists in English and vice versa', () {
