@@ -14,6 +14,7 @@ import { Request } from '../models/Request.js';
 import { Order } from '../models/Order.js';
 import { buildSearchTokens } from '../core/normalise.js';
 import { inferProductCode } from '../core/productCode.js';
+import { importCfr } from './cfr.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -74,6 +75,10 @@ export async function seed() {
     gsMap.set(`${v.taluka}:${v.villageMr}`, gs);
   }
   logger.info(`✅ Synced ${villagesRaw.length} CFR Gram Sabhas with geo points`);
+
+  // The real villages: the district CFR register (claims) and the MRSAC village profiles, as unclaimed Gram Sabhas
+  const cfr = await importCfr({ apply: true, log: (m) => logger.info(m) });
+  logger.info(`✅ CFR register: ${cfr.villages} villages, ${cfr.claims} claims, ${cfr.profiles} MRSAC village profiles`);
 
   // Remove stale seeded data outside the 10 pilot villages
   const pilotKeys = villagesRaw.map((v) => v.villageMr);

@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 const VillageProfileSchema = new mongoose.Schema({
   censusCode: { type: String, required: true, unique: true, trim: true },
   villageName: { type: String, required: true, trim: true },
+  villageNameEn: { type: String, trim: true },
+  gramPanchayat: { type: String, trim: true },
+  villageAreaHa: { type: Number },
+  source: { type: String, trim: true },
   taluka: { type: String, required: true, trim: true },
   district: { type: String, default: 'Nashik' },
   forestHa: { type: Number, default: 0 },

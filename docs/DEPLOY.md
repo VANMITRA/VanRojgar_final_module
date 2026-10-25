@@ -55,3 +55,13 @@ You hold the keystore. It is never committed (`*.jks` and `key.properties` are g
 4. Download `vanrozgar-apk`, install on a phone, sign in over mobile data.
 
 Local builds without `android/key.properties` still fall back to the debug key; that APK is for your own testing only.
+
+## 6. Real village data (CFR register + MRSAC)
+`npm run seed` now also loads the real villages: 771 villages and 950 claims from the district CFR register, and 680 MRSAC village profiles, as **unclaimed Gram Sabhas** (the first person to register for a village files a claim that the team approves). The 10 demo villages and their demo listings stay, labelled Demo.
+
+- The raw spreadsheet and Word document are **never committed** (git ignores them). Only the cleaned files in `server/src/seed/data/cfr/` are in the repo: they hold village, taluka, right type, area, decision and the committee flag, and no names, phone numbers or bank details. A test fails if a long number or a bank field ever appears there.
+- To rebuild them from new raw files: `pip install openpyxl python-docx`, then `python -I -X utf8 server/scripts/cfr/clean_cfr_data.py "<xlsx>" "<docx>" server/src/seed/data/cfr`.
+- To preview a load without writing: `cd server && npm run import:cfr`. To write only the CFR part: `npm run import:cfr -- --apply`. Both are safe to repeat.
+- **Production seeding needs `JWT_SECRET` too** (the server refuses to start in production without it). In PowerShell:
+  `$env:NODE_ENV="production"; $env:MONGODB_URI="<Atlas string>"; $env:JWT_SECRET="<same as Render>"; $env:SEED_DEMO_PASSWORD="123456"; npm run seed; npm run indexes`
+- Village positions are not in these files, so real villages have no map point and listings from them show "distance unknown" until coordinates are added.

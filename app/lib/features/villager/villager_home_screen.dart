@@ -23,7 +23,7 @@ class VillagerHomeScreen extends ConsumerWidget {
     final tokens = context.vr;
     final user = ref.watch(authControllerProvider).asData?.value;
     final categoriesAsync = ref.watch(categoriesProvider);
-    final nearbyAsync = ref.watch(searchProvider({'taluka': user?.taluka ?? 'TBK'}));
+    final nearbyAsync = ref.watch(searchProvider(stableSearchParams({if (user?.taluka != null && user!.taluka!.isNotEmpty) 'taluka': user.taluka!})));
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
 

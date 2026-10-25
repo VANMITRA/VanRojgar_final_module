@@ -14,8 +14,12 @@ const CfrClaimSchema = new mongoose.Schema({
   decision: {
     type: String,
     enum: ['approved', 'rejected', 'pending'],
-    default: 'approved'
-  }
+    default: 'pending'
+  },
+  decisionRecorded: { type: Boolean, default: true }, // false when the register has no decision for this row
+  cfrCommittee: { type: Boolean, default: false },   // a CFR management committee is recorded for the village
+  censusCode: { type: String, trim: true },
+  source: { type: String, trim: true }
 }, {
   timestamps: true
 });

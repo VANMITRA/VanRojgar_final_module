@@ -85,7 +85,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final searchAsync = ref.watch(searchProvider(_queryParams));
+    final searchAsync = ref.watch(searchProvider(stableSearchParams(_queryParams)));
 
     return Scaffold(
       appBar: AppBar(title: const VrText('वनउत्पादने शोधा • Search')),

@@ -6,7 +6,10 @@ import 'package:go_router/go_router.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/localization/app_input_hints.dart';
 import '../../core/network/app_exception.dart';
+import '../../core/geo/talukas.dart';
+import '../../shared/models/gram_sabha.dart';
 import 'auth_providers.dart';
+import 'village_providers.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   final String portal; // 'gramsabha' | 'villager' | 'buyer'
@@ -32,26 +35,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   String? _selectedVillage;
   bool _isOtherVillage = false;
 
-  static const Map<String, List<String>> _talukaVillages = {
-    'TBK': ['हरसूल', 'तोरणगण', 'अंबोली', 'वासाळी'],
-    'Peth': ['पेठ', 'जाहूर', 'कोहोर'],
-    'Surgana': ['सुरगाणा', 'बाहुर्णे', 'उंबरठाण'],
-    'IGT': ['इगतपुरी', 'भावली'],
-    'Dindori': ['दिंडोरी', 'नानाशी'],
-    'Kalvan': ['कळवण', 'अभुणा'],
-    'Nashik': ['नाशिक ग्रामीण', 'मातोरी'],
-  };
-
-  static const Map<String, String> _talukaLabels = {
-    'TBK': 'त्र्यंबकेश्वर (Trimbakeshwar)',
-    'Peth': 'पेठ (Peth)',
-    'Surgana': 'सुरगाणा (Surgana)',
-    'IGT': 'इगतपुरी (Igatpuri)',
-    'Dindori': 'दिंडोरी (Dindori)',
-    'Kalvan': 'कळवण (Kalvan)',
-    'Nashik': 'नाशिक ग्रामीण (Nashik Rural)',
-  };
-
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -67,6 +50,26 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     _cityController.dispose();
     _emailController.dispose();
     super.dispose();
+  }
+
+  /// The villages of the chosen taluka, loaded from the server. Empty until a taluka is chosen.
+  List<DropdownMenuItem<String>> _villageItems() {
+    final taluka = _selectedTaluka;
+    if (taluka == null) return const [];
+    final List<GramSabhaModel> villages = ref.watch(talukaVillagesProvider(taluka)).asData?.value ?? const [];
+    return [
+      for (final v in villages)
+        DropdownMenuItem(
+          value: v.villageMr,
+          child: Text(
+            v.villageEn != null && v.villageEn!.isNotEmpty && v.villageEn != v.villageMr
+                ? '${v.villageMr} (${v.villageEn})'
+                : v.villageMr,
+            style: const TextStyle(fontSize: 13.5),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+    ];
   }
 
   Future<void> _handleRegister() async {
@@ -208,9 +211,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     fillColor: tokens.surface,
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                   ),
-                  items: _talukaLabels.entries.map((e) => DropdownMenuItem(
-                    value: e.key,
-                    child: Text(e.value, style: const TextStyle(fontSize: 13.5)),
+                  items: nashikTalukas.map((t) => DropdownMenuItem(
+                    value: t.value,
+                    child: Text(t.label, style: const TextStyle(fontSize: 13.5)),
                   )).toList(),
                   onChanged: (val) {
                     setState(() {
@@ -226,6 +229,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 Text('गाव (Village) *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
+                  key: ValueKey('village-$_selectedTaluka'),
+                  isExpanded: true,
                   initialValue: _selectedVillage,
                   decoration: InputDecoration(
                     hintText: AppInputHints.selectVillage(context, _selectedTaluka != null),
@@ -234,11 +239,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                   ),
                   items: [
-                    if (_selectedTaluka != null && _talukaVillages[_selectedTaluka] != null)
-                      ..._talukaVillages[_selectedTaluka]!.map((v) => DropdownMenuItem(
-                        value: v,
-                        child: Text(v, style: const TextStyle(fontSize: 13.5)),
-                      )),
+                    ..._villageItems(),
                     const DropdownMenuItem(
                       value: '__other__',
                       child: Text('इतर गाव • Other Village...', style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),

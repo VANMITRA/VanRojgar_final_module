@@ -125,3 +125,19 @@
 | 5 | **Listing to report link**: the button and the route (`/gs|v/livelihood?village=&taluka=&product=`) exist, but the livelihood screen does not read those parameters yet (Soham, S9) |
 | 6 | **No test on a real phone** has been done |
 | 7 | The earlier "✅ Complete" ticks above for the app were recorded before the livelihood merge and were not re-run |
+
+---
+
+## ✅ 25 Oct 2026, evening: real CFR data and removal of invented data (what was run)
+
+| Change | Verified by |
+|---|---|
+| Real data loaded: 771 villages, 950 claims (832 approved, 61 rejected, 8 pending, 49 with no decision recorded), 680 MRSAC profiles, rights parsed to FRA clauses | `cfr_data` unit tests and a database-backed test (load, detail endpoint, load twice gives the same counts) |
+| Privacy: claimant, committee members, phones, bank name/account/IFSC and homestay owners are not in the repo. One area cell that was really an account number was blanked | A test scans the cleaned files for long numbers and bank fields |
+| **Bug fixed:** registering for an existing village created a second, fake Gram Sabha (45.5 ha invented) and attached the user to it | Integration test: no duplicate, claim filed on the real record |
+| **Invented data removed from the app:** requests and orders were silently replaced by fake ones (including wild honey and mahua) when a list was empty or the server failed; the profile screen invented 124 ha / 28 wells / 45.5 ha; the register screen had a short made-up village list with old codes (`TBK`, `IGT`) | The fake data file is deleted; lists now show what the server returned or an error with retry |
+| Register and delivery areas use the 14 real talukas; villages come from the server | `flutter analyze` clean outside `features/livelihood` |
+| Search-screen loop fixed (the buyer home called search 25 times in 9 seconds) | 2 unit tests |
+| Server tests | **41 / 41 pass** |
+
+Still open: the app cannot be built until `app/lib/features/livelihood/data/` is pushed; nothing is deployed; no real-phone test; village map points; the livelihood module items assigned to Soham.

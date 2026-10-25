@@ -1,6 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
@@ -10,8 +7,6 @@ import { AppError, ErrorCodes } from '../core/errors.js';
 import { serializeUser } from '../core/serializers.js';
 import { buildSearchTokens } from '../core/normalise.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export class AuthService {
   static async register(data) {
@@ -37,7 +32,8 @@ export class AuthService {
 
       if (gs) {
         gramSabhaId = gs._id;
-        // Seeded or unverified Gram Sabha: record formal office-bearer claim
+        // A record from the district CFR register (or a seeded demo village) is not owned by anyone yet:
+        // the first person to register files a claim, and the team approves it before they can list.
         if (gs.verificationStatus === 'verified_seed' || !gs.claim || gs.claim.status === 'none') {
           gs.claim = {
             claimantName: data.name,
@@ -51,16 +47,9 @@ export class AuthService {
           gs.verificationNote = `दावा दाखल: ${data.name} (${data.phone}) - प्रशासकीय मंजुरी प्रलंबित`;
           await gs.save();
         }
-        let coords = [73.7898, 19.9975];
-        try {
-          const villagePointsRaw = JSON.parse(fs.readFileSync(path.join(__dirname, '../seed/data/village_points.json'), 'utf-8'));
-          const match = villagePointsRaw.find(p =>
-            p.taluka?.toLowerCase() === data.taluka?.toLowerCase() &&
-            (p.villageMr === data.village || p.villageEn?.toLowerCase() === data.village?.toLowerCase())
-          ) || villagePointsRaw.find(p => p.taluka?.toLowerCase() === data.taluka?.toLowerCase());
-          if (match?.coordinates) coords = match.coordinates;
-        } catch (_) {}
-
+      } else {
+        // A village that is not in the CFR register: create an unclaimed record with nothing invented
+        // (no area, no rights, no position) for the team to review.
         gs = await GramSabha.create({
           name: { mr: `ग्रामसभा ${data.village}`, en: `Gram Sabha ${data.village}` },
           village: { mr: data.village, en: data.village },
@@ -69,21 +58,16 @@ export class AuthService {
           contactPerson: data.contactPerson || data.name,
           phone: data.phone,
           verificationStatus: 'pending',
-          location: {
-            type: 'Point',
-            coordinates: coords
-          },
-          cfr: {
-            rights: ['3(1)(c)', '3(1)(d)', '3(1)(i)'],
-            approvedAreaHa: 45.5,
-            claimCount: 1
-          },
+          verificationNote: 'Village not found in the CFR register; awaiting team review.',
+          cfr: { rights: [], approvedAreaHa: 0, claimCount: 0 },
           searchTerms: buildSearchTokens(data.village, data.taluka, 'Gram Sabha')
         });
         gramSabhaId = gs._id;
       }
     } else if (data.role === 'villager' && !gramSabhaId && data.village) {
+      // The same village name exists in several talukas, so use the taluka whenever the app sends it
       const gs = await GramSabha.findOne({
+        ...(data.taluka ? { taluka: data.taluka } : {}),
         $or: [
           { 'village.mr': data.village },
           { 'village.en': data.village }

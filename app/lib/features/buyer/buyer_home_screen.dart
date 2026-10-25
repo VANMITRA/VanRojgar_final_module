@@ -23,7 +23,7 @@ class BuyerHomeScreen extends ConsumerWidget {
     final tokens = context.vr;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final user = ref.watch(authControllerProvider).asData?.value;
-    final bulkAsync = ref.watch(searchProvider({'minQty': 50}));
+    final bulkAsync = ref.watch(searchProvider(stableSearchParams({'minQty': 50})));
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF091D12) : const Color(0xFF0C2C1C),

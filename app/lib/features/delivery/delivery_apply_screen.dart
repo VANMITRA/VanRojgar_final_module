@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../shared/widgets/vr_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/geo/talukas.dart';
 import '../../core/localization/app_input_hints.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/network/app_exception.dart';
@@ -20,13 +21,13 @@ class _DeliveryApplyScreenState extends ConsumerState<DeliveryApplyScreen> {
   final _licenceController = TextEditingController();
 
   String _vehicleType = 'bike';
-  final Set<String> _selectedTalukas = {'TBK'};
+  final Set<String> _selectedTalukas = {nashikTalukas.first.value};
   bool _isLoading = false;
   bool _isChecking = true;
   Map<String, dynamic>? _existingPartner;
   String? _errorMessage;
 
-  final List<String> _talukas = ['TBK', 'Peth', 'Surgana', 'Dindori', 'Kalvan', 'IGT', 'Nashik'];
+  final List<String> _talukas = [for (final t in nashikTalukas) t.value];
 
   @override
   void initState() {
@@ -116,7 +117,7 @@ class _DeliveryApplyScreenState extends ConsumerState<DeliveryApplyScreen> {
     if (_existingPartner != null) {
       final status = _existingPartner!['approvalStatus'] ?? 'pending';
       final vehicle = _existingPartner!['vehicle'] as Map<String, dynamic>? ?? {};
-      final talukas = (_existingPartner!['serviceTalukas'] as List?)?.join(', ') ?? 'TBK';
+      final talukas = (_existingPartner!['serviceTalukas'] as List?)?.join(', ') ?? '-';
       final isApproved = status == 'approved';
 
       return Scaffold(
@@ -288,7 +289,7 @@ class _DeliveryApplyScreenState extends ConsumerState<DeliveryApplyScreen> {
                 children: _talukas.map((t) {
                   final isSel = _selectedTalukas.contains(t);
                   return FilterChip(
-                    label: VrText(t),
+                    label: VrText(talukaLabel(t)),
                     selected: isSel,
                     onSelected: (val) {
                       setState(() {

@@ -64,6 +64,48 @@ test('search API: seeded data pages through once, nearest is ordered, and login 
   const unknown = await request(app).get('/api/v1/listings/map').query({ product: 'nothing-here' });
   assert.deepEqual(unknown.body.data.points, []);
 
+  // The real villages from the CFR register are loaded as unclaimed Gram Sabhas, with claims and MRSAC profiles.
+  const { GramSabha } = await import('../../src/models/GramSabha.js');
+  const { CfrClaim } = await import('../../src/models/CfrClaim.js');
+  const { VillageProfile } = await import('../../src/models/VillageProfile.js');
+  const { importCfr } = await import('../../src/seed/cfr.js');
+  const real = await GramSabha.countDocuments({ verificationStatus: 'pending', isDemoData: false });
+  assert.ok(real > 700, `real villages loaded: ${real}`);
+  assert.equal(await GramSabha.countDocuments({ verificationStatus: 'verified_seed' }), 10, 'the 10 demo villages are untouched');
+  const first = await importCfr({ apply: true });
+  assert.ok(first.claimsSkipped < 10, `claims skipped because a demo village has the same name: ${first.claimsSkipped}`);
+  assert.equal(await CfrClaim.countDocuments({ source: 'cfr_2026' }), 950 - first.claimsSkipped);
+  assert.equal(await VillageProfile.countDocuments(), 680);
+
+  const dahe = await GramSabha.findOne({ taluka: 'Nashik', censusCode: '550989' });
+  const detail = await request(app).get(`/api/v1/gramsabhas/${dahe._id}`);
+  assert.equal(detail.status, 200);
+  assert.equal(detail.body.data.villageProfile.forestHa, 271.5);
+  assert.equal(detail.body.data.villageProfile.wellsTotal, 58);
+  assert.ok(detail.body.data.claims.length >= 1);
+  assert.ok(detail.body.data.gramSabha.cfr.rights.length >= 1);
+  assert.equal(detail.body.data.gramSabha.claim?.claimantPhone, undefined, 'claimant phone is never public');
+
+  // Importing again changes nothing.
+  const again = await importCfr({ apply: true });
+  assert.equal(again.created, 0);
+  assert.equal(await CfrClaim.countDocuments({ source: 'cfr_2026' }), 950 - first.claimsSkipped);
+  assert.equal(await GramSabha.countDocuments({ verificationStatus: 'pending', isDemoData: false }), real);
+
+  // Registering for an existing village files a claim on THAT record and does not create a second one.
+  const before = await GramSabha.countDocuments();
+  const reg = await request(app).post('/api/v1/auth/register').send({
+    role: 'gramsabha', name: 'Test Secretary', phone: '+919800000001', password: '654321',
+    village: dahe.village.mr, taluka: 'Nashik'
+  });
+  assert.equal(reg.status, 201);
+  assert.equal(await GramSabha.countDocuments(), before, 'no duplicate Gram Sabha');
+  const claimed = await GramSabha.findById(dahe._id);
+  assert.equal(claimed.claim.status, 'pending');
+  const { User } = await import('../../src/models/User.js');
+  const newUser = await User.findOne({ phone: '+919800000001' });
+  assert.equal(String(newUser.gramSabhaId), String(dahe._id));
+
   // A wrong PIN is rejected.
   const bad = await request(app).post('/api/v1/auth/login').send({ phone: '+919822033333', password: '000000' });
   assert.equal(bad.status, 401);
