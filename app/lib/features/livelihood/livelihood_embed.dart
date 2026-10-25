@@ -10,6 +10,7 @@ import '../../core/theme/app_typography.dart';
 import 'data/livelihood_api.dart';
 import 'livelihood_routes.dart';
 import 'providers/host_hooks.dart';
+import 'providers/launch_provider.dart';
 import 'providers/livelihood_providers.dart';
 
 /// How the livelihood feature sits inside this app.
@@ -76,15 +77,38 @@ Widget embeddedLivelihoodFrame(BuildContext context, LvFrameSpec spec) {
 /// The livelihood feature with its own navigator, so its screens keep their named routes
 /// (`Navigator.pushNamed`) inside this app's router. The Android back button goes back inside the
 /// feature first, and leaves it only from its first screen.
-class LivelihoodShell extends StatefulWidget {
-  const LivelihoodShell({super.key});
+class LivelihoodShell extends ConsumerStatefulWidget {
+  const LivelihoodShell({super.key, this.launch});
+
+  /// Where the person came from (a marketplace listing), from the route's query parameters.
+  final LivelihoodLaunch? launch;
 
   @override
-  State<LivelihoodShell> createState() => _LivelihoodShellState();
+  ConsumerState<LivelihoodShell> createState() => _LivelihoodShellState();
 }
 
-class _LivelihoodShellState extends State<LivelihoodShell> {
+class _LivelihoodShellState extends ConsumerState<LivelihoodShell> {
   final GlobalKey<NavigatorState> _navigator = GlobalKey<NavigatorState>();
+
+  void _publishLaunch() {
+    final launch = widget.launch;
+    if (launch == null || launch.isEmpty) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) ref.read(livelihoodLaunchProvider.notifier).state = launch;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _publishLaunch();
+  }
+
+  @override
+  void didUpdateWidget(LivelihoodShell oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.launch != widget.launch) _publishLaunch();
+  }
 
   @override
   Widget build(BuildContext context) {

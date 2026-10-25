@@ -30,6 +30,7 @@ import '../../features/delivery/delivery_jobs_screen.dart';
 import '../../features/barter/barter_sheet.dart';
 import '../../features/barter/barter_offers_screen.dart';
 import '../../features/livelihood/livelihood_embed.dart';
+import '../../features/livelihood/providers/launch_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -194,7 +195,10 @@ final appRouter = GoRouter(
         GoRoute(path: '/gs/listings', builder: (_, __) => const GsListingsScreen()),
         GoRoute(path: '/gs/requests', builder: (_, __) => const GsRequestsScreen()),
         GoRoute(path: '/gs/orders', builder: (_, __) => const GsOrdersScreen()),
-        GoRoute(path: '/gs/livelihood', builder: (_, __) => const LivelihoodShell()),
+        GoRoute(
+          path: '/gs/livelihood',
+          builder: (_, state) => LivelihoodShell(launch: LivelihoodLaunch.fromQuery(state.uri.queryParameters)),
+        ),
         GoRoute(path: '/gs/profile', builder: (_, __) => const ProfileScreen()),
       ],
     ),
@@ -204,7 +208,10 @@ final appRouter = GoRouter(
       builder: (_, __, child) => PortalShell(portal: 'v', child: child),
       routes: [
         GoRoute(path: '/v', builder: (_, __) => const VillagerHomeScreen()),
-        GoRoute(path: '/v/livelihood', builder: (_, __) => const LivelihoodShell()),
+        GoRoute(
+          path: '/v/livelihood',
+          builder: (_, state) => LivelihoodShell(launch: LivelihoodLaunch.fromQuery(state.uri.queryParameters)),
+        ),
         GoRoute(path: '/v/search', builder: (_, __) => const SearchScreen()),
         GoRoute(path: '/v/requests', builder: (_, __) => const GsRequestsScreen()),
         GoRoute(path: '/v/orders', builder: (_, __) => const GsOrdersScreen()),
@@ -225,7 +232,10 @@ final appRouter = GoRouter(
     ),
 
     // Shared Details & Modals
-    GoRoute(path: '/gs/listings/new', builder: (_, __) => const AddEditListingScreen()),
+    GoRoute(
+      path: '/gs/listings/new',
+      builder: (_, state) => AddEditListingScreen(productCode: state.uri.queryParameters['product']),
+    ),
     GoRoute(
       path: '/gs/listings/:id/edit',
       builder: (_, state) => AddEditListingScreen(listingId: state.pathParameters['id']),

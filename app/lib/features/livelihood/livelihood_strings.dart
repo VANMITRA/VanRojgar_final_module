@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import 'livelihood_strings_extra.dart';
 import 'models/report.dart';
 
 // All text for the feature, in English (en) and Marathi (mr). Hindi and Konkani fall back to
@@ -798,7 +799,12 @@ class LivelihoodStrings {
   static LivelihoodStrings of(BuildContext context) =>
       LivelihoodStrings(Localizations.localeOf(context).languageCode);
 
-  String _raw(String key) => _text[lang]?[key] ?? _text['en']![key] ?? key;
+  String _raw(String key) =>
+      _text[lang]?[key] ??
+      extraText[lang]?[key] ??
+      _text['en']![key] ??
+      extraText['en']![key] ??
+      key;
 
   /// A plain UI string with `{name}` placeholders filled from [params].
   String t(String key, [Map<String, Object?> params = const {}]) {

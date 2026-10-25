@@ -6,11 +6,15 @@ import '../../core/theme/tokens.dart';
 import '../../core/network/app_exception.dart';
 import '../listings/listing_providers.dart';
 import '../auth/auth_providers.dart';
+import '../livelihood/product_links.dart';
 
 class AddEditListingScreen extends ConsumerStatefulWidget {
   final String? listingId;
 
-  const AddEditListingScreen({super.key, this.listingId});
+  /// A marketplace product code (honey, bamboo ...) from a livelihood idea: the form starts filled for it.
+  final String? productCode;
+
+  const AddEditListingScreen({super.key, this.listingId, this.productCode});
 
   @override
   ConsumerState<AddEditListingScreen> createState() => _AddEditListingScreenState();
@@ -40,6 +44,24 @@ class _AddEditListingScreenState extends ConsumerState<AddEditListingScreen> {
     super.initState();
     if (widget.listingId != null) {
       _loadExistingListing();
+    } else {
+      _prefillForProduct();
+    }
+  }
+
+  /// Title, unit and category for a product code. Every field stays editable; nothing is saved until the person does.
+  Future<void> _prefillForProduct() async {
+    final product = marketProducts[widget.productCode];
+    if (product == null) return;
+    _titleMrController.text = product.titleMr;
+    _titleEnController.text = product.titleEn;
+    _unit = product.unit;
+    try {
+      final categories = await ref.read(categoriesProvider.future);
+      final match = categories.where((c) => c.slug == product.categorySlug);
+      if (mounted && match.isNotEmpty) setState(() => _selectedCategoryId = match.first.id);
+    } catch (_) {
+      // the person picks the category by hand
     }
   }
 
@@ -127,6 +149,7 @@ class _AddEditListingScreenState extends ConsumerState<AddEditListingScreen> {
             : 'CFR Nashik Boundary',
         'sustainableDeclared': _sustainableDeclared,
         'fulfilment': _fulfilment,
+        if (widget.productCode != null && marketProducts.containsKey(widget.productCode)) 'productCode': widget.productCode,
       };
 
       if (widget.listingId != null) {

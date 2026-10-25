@@ -12,7 +12,9 @@ import '../models/scheme.dart';
 import '../providers/detail_providers.dart';
 import '../widgets/lv_badges.dart';
 import '../widgets/lv_colors.dart';
+import '../product_links.dart';
 import '../widgets/lv_scaffold.dart';
+import '../widgets/market_link.dart';
 import '../widgets/report_parts.dart';
 import '../widgets/resource_card.dart';
 import '../widgets/scheme_card.dart';
@@ -184,6 +186,12 @@ class _Body extends StatelessWidget {
                 ),
             ],
           ),
+        ],
+
+        // sellable produce: only for an idea that is not removed by law and has a product
+        if (!d.isRemoved && productsForIdea(card.code).isNotEmpty) ...[
+          SectionHeader(s.t('mk_list_title')),
+          MarketListButton(ideaCode: card.code),
         ],
 
         // schemes: only for an idea that is not removed by law

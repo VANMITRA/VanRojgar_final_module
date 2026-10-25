@@ -12,6 +12,7 @@ import '../providers/profile_providers.dart';
 import '../widgets/lv_action_card.dart';
 import '../widgets/lv_colors.dart';
 import '../widgets/lv_scaffold.dart';
+import '../widgets/market_link.dart';
 import '../widgets/report_parts.dart';
 
 /// Entry screen. It shows where he stands: no details yet (add them), or details saved (see the
@@ -50,6 +51,7 @@ class _LivelihoodHomeScreenState extends ConsumerState<LivelihoodHomeScreen> {
     final content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const MarketLaunchBanner(),
         // where he stands
         Container(
           padding: const EdgeInsets.all(AppSpacing.md),
