@@ -83,9 +83,9 @@ The only village data in the app is the **14 Community Forest Resource villages 
    venv\Scripts\python scripts\seed_livelihood.py --apply           # ideas (draft) and the scheme register
    venv\Scripts\python scripts\load_livelihood_resources.py app\livelihood\seed\sample_resources.geojson --apply
    ```
-   The resource file above is the labelled **SAMPLE** set (12 places near Trimbak). Real district resources: see `scripts/build_osm_resources.py` (section 8).
+   Do **not** load `sample_resources.geojson`: it is a labelled sample for a place outside the 14 villages. Without resource data a report says there are no mapped resources nearby, which is honest. Real resources: `scripts/build_osm_resources.py` (section 8).
 4. Put its address in the GitHub secret `LIVELIHOOD_API_URL` (`https://<livelihood-service>.onrender.com/api/v1`), then build the APK.
-5. A person from any village in the register gets a report. If the livelihood server has no surveyed centre for their village, it uses the **taluka town** as the centre and says so in the report's source; they get a report about their own land by saving their plot location (GPS, pin or typed).
+5. A person from any of the 14 villages gets a report. With no surveyed centre for the village, the server uses the **block town** as the centre and says so in the report's source; they get a report about their own land by saving their plot location (GPS, pin or typed).
 
 ## 8. Real resources from OpenStreetMap (optional, run from your PC)
 `livelihood_server/scripts/build_osm_resources.py` asks the public Overpass service for wells, water bodies, rivers, dams and protected areas in Nashik district and writes a GeoJSON file in the format the loader checks. Everything is labelled `confidence: low`, `check_status: to_verify` and credited to OpenStreetMap contributors (ODbL). The public service is often busy: the script retries slowly. Check the file with `load_livelihood_resources.py <file>` (validate only) before adding `--apply`.
