@@ -59,6 +59,9 @@ class OrderModel {
   final OrderLine line;
   final String orderStatus;
   final String paymentStatus;
+  final String paymentMethod; // 'upi' | 'cod'
+  final String? paymentReference;
+  final String fulfilmentMethod; // 'pickup' | 'delivery'
   final List<Map<String, dynamic>> timeline;
   final String createdAt;
 
@@ -74,6 +77,9 @@ class OrderModel {
     required this.line,
     required this.orderStatus,
     required this.paymentStatus,
+    this.paymentMethod = 'cod',
+    this.paymentReference,
+    this.fulfilmentMethod = 'pickup',
     required this.timeline,
     required this.createdAt,
   });
@@ -107,6 +113,9 @@ class OrderModel {
       line: OrderLine.fromJson(json['line'] ?? {}),
       orderStatus: json['orderStatus'] ?? 'approved',
       paymentStatus: json['paymentStatus'] ?? 'demo_pending',
+      paymentMethod: json['paymentMethod'] ?? 'cod',
+      paymentReference: (json['payment'] as Map?)?['reference'] as String?,
+      fulfilmentMethod: (json['fulfilment'] as Map?)?['method'] as String? ?? 'pickup',
       timeline: timelineRaw.map((e) => Map<String, dynamic>.from(e as Map)).toList(),
       createdAt: json['createdAt'] ?? '',
     );

@@ -14,6 +14,7 @@ Only the account steps need you. Never paste a secret into chat or commit it.
    - `MONGODB_URI`: the string from step 1
    - `JWT_SECRET`: at least 32 random characters. **The Python livelihood server must use the same value.**
    - `CORS_ORIGINS`: the website's address, or leave empty
+   - `UPI_ID` (optional): the team's UPI ID, like `name@bank`. Buyers pay this ID by UPI. **Leave it empty to switch UPI off** (cash on delivery still works). Never put it in git or in chat.
 3. When it is live, open `https://<name>.onrender.com/api/v1/health`. The free tier sleeps when idle, so open this URL a minute before any demo.
 
 ## 3. Seed the demo data (once, from any computer)

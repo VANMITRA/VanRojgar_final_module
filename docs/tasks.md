@@ -102,3 +102,24 @@
 - **App search:** typing or pasting a code in any spelling (`vr k7m2qx`) finds exactly that listing. Also `GET /api/v1/listings/code/:code`.
 - **Website:** shows the code with a Copy button. With `VITE_API_URL` set it lists real listings; otherwise it shows **Sample** listings whose codes belong to no real item (labelled). "Buy" opens the app download page (`VITE_APK_URL`).
 - **Roles:** stored values `gramsabha`, `villager` (= Farmer), `cfrholder`, `buyer`. Only `cfrholder` gets the Livelihood tab and may call the livelihood server (403 otherwise).
+
+---
+
+## Ayush's progress (26 Oct) - what was run, what was not
+
+Branch `ayush/payments-work` (from `integration`). Server: 41 tests pass. App: analyzer clean, 166 tests pass (4 need a live server and are skipped).
+
+| # | Status | Notes |
+|---|---|---|
+| A1 | Built and tested | Order has `paymentMethod` (`upi` or `cod`). The buyer picks it in the request sheet; it is copied to the order. |
+| A2 | Built; **not tried on a phone** | `GET /orders/:id/payment/upi-link` (buyer only) gives a `upi://pay?pa=&pn=&am=&tn=&cu=INR` link; the app opens it. The server test checks the link. GPay/PhonePe have not been tried. |
+| A3 | Built and tested | `awaiting_payment` -> `payment_reported` (buyer, with a reference) -> `payment_confirmed` (seller only). The screens say the seller confirms. |
+| A4 | Built and tested | Cash on delivery: the delivery partner marks cash received once the goods are on the way (a pickup order: the seller). The seller sees it on the order and in messages. |
+| A5 | Done | `UPI_ID` and `UPI_PAYEE_NAME` are server settings (Render dashboard). Empty = UPI is off and cannot be chosen. Not in git. |
+| A6 | Done by Soham | Item-code search. |
+| A7 | Done | `server/tests/integration/payments.test.js`, `app/test/payment_test.dart`. |
+| A8 | **Needs you** | The APK workflow is unchanged and works once the GitHub secrets are set (docs/DEPLOY.md section 5). A tag such as `v0.1.0` attaches the APK to a GitHub Release; that is the link for `VITE_APK_URL`. |
+
+Also fixed: the delivery jobs screen looked for statuses the server never sends (`requested`, `assigned`, `in_transit`), so a partner could not accept or move a job. It now uses the server's statuses and has an Open tab and a Mine tab.
+
+Still open: the team UPI ID; a real-phone UPI test; Marathi/Hindi wording of the new payment texts is a machine draft.

@@ -4,6 +4,7 @@ export const createRequestSchema = z.object({
   listingId: z.string().min(1, 'Listing ID is required'),
   quantity: z.coerce.number().positive('Quantity must be greater than zero'),
   deliveryPref: z.enum(['pickup', 'delivery']).default('pickup'),
+  paymentMethod: z.enum(['upi', 'cod']).default('cod'),
   dropVillage: z.string().trim().optional(),
   reason: z.string().trim().optional()
 });

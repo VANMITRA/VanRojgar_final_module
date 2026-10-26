@@ -6,6 +6,7 @@ import '../../core/utils/format_inr.dart';
 import '../../shared/widgets/status_stepper.dart';
 import '../../shared/widgets/async_value_view.dart';
 import '../trade/trade_providers.dart';
+import 'payment_card.dart';
 import '../auth/auth_providers.dart';
 
 class OrderDetailScreen extends ConsumerWidget {
@@ -84,20 +85,11 @@ class OrderDetailScreen extends ConsumerWidget {
                         ],
                       ),
 
-                        const Divider(height: 20),
-                        Row(
-                          children: [
-                            Icon(Icons.payment, size: 16, color: tokens.textMuted),
-                            const SizedBox(width: 6),
-                            Text(
-                              'पेमेंट: प्रत्यक्ष व्यवहार (Settled offline - Demo)',
-                              style: TextStyle(color: tokens.textMuted, fontSize: 12),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
+                  const SizedBox(height: 18),
+                  PaymentCard(order: order, isBuyer: isBuyer, isSeller: isSeller),
                   const SizedBox(height: 18),
                   // Vertical Status Stepper
                   Container(

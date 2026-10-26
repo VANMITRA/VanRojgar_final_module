@@ -1,4 +1,5 @@
 import { OrderService } from '../services/order.service.js';
+import { PaymentService } from '../services/payment.service.js';
 import { successEnvelope } from '../core/serializers.js';
 
 export class OrderController {
@@ -46,6 +47,46 @@ export class OrderController {
     try {
       const order = await OrderService.cancelOrder(req.params.id, req.user, req.body.note);
       return res.json(successEnvelope(order));
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async paymentOptions(req, res, next) {
+    try {
+      return res.json(successEnvelope(await PaymentService.options()));
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async upiLink(req, res, next) {
+    try {
+      return res.json(successEnvelope(await PaymentService.getUpiLink(req.params.id, req.user)));
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async reportPayment(req, res, next) {
+    try {
+      return res.json(successEnvelope(await PaymentService.reportPayment(req.params.id, req.user, req.body.reference)));
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async confirmPayment(req, res, next) {
+    try {
+      return res.json(successEnvelope(await PaymentService.confirmPayment(req.params.id, req.user)));
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async cashReceived(req, res, next) {
+    try {
+      return res.json(successEnvelope(await PaymentService.markCashReceived(req.params.id, req.user)));
     } catch (err) {
       next(err);
     }

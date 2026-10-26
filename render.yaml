@@ -20,6 +20,8 @@ services:
         sync: false
       - key: CORS_ORIGINS
         sync: false
+      - key: UPI_ID
+        sync: false   # the team UPI ID (name@bank); empty switches UPI off
 
   # The livelihood report server (Python). It must use the SAME JWT_SECRET and database as vanrozgar-api
   # (see docs/DEPLOY.md section 7). Secrets are entered in the Render dashboard, never in this file.

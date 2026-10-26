@@ -20,6 +20,9 @@ const configSchema = z.object({
   DELIVERY_RATE_PAISE_PER_KM: z.coerce.number().default(1200),
   SEED_DEMO_PASSWORD: z.string().default('123456'),
   SEED_TEAM_PASSWORD: z.string().default('VanMitraAdmin@2026'),
+  // The team's UPI ID for buyers' UPI payments. Never committed: set it in the Render dashboard. Empty = UPI is off.
+  UPI_ID: z.string().trim().regex(/^([A-Za-z0-9._-]{2,256}@[A-Za-z][A-Za-z0-9]{1,63})?$/, 'UPI_ID must look like name@bank').default(''),
+  UPI_PAYEE_NAME: z.string().trim().default('VanRozgar'),
 });
 
 const parsed = configSchema.safeParse(process.env);

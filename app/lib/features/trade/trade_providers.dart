@@ -36,3 +36,10 @@ final unreadCountProvider = FutureProvider<int>((ref) async {
   final res = await api.get('/messages/unread-count');
   return (res['unreadCount'] as num?)?.toInt() ?? 0;
 });
+
+/// Which payment methods the server offers: UPI only once the team UPI ID is set on the server.
+final paymentOptionsProvider = FutureProvider<({bool upi, bool cod})>((ref) async {
+  final api = ref.watch(apiClientProvider);
+  final res = await api.get('/orders/payment-options');
+  return (upi: res['upi'] == true, cod: res['cod'] != false);
+});

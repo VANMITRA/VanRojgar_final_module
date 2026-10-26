@@ -38,10 +38,24 @@ const OrderSchema = new mongoose.Schema({
     ],
     default: 'approved'
   },
+  // How the buyer pays: UPI (reported by the buyer, confirmed by the seller) or cash on delivery.
+  paymentMethod: { type: String, enum: ['upi', 'cod'], default: 'cod' },
   paymentStatus: {
     type: String,
-    enum: ['demo_pending', 'not_required', 'completed'],
-    default: 'demo_pending'
+    enum: [
+      'demo_pending', 'not_required', 'completed', // older orders and barter
+      'awaiting_payment', 'payment_reported', 'payment_confirmed', // UPI
+      'cod_pending', 'cash_received' // cash on delivery
+    ],
+    default: 'cod_pending'
+  },
+  payment: {
+    reference: String, // UPI transaction reference typed by the buyer; nobody has verified it
+    reportedAt: Date,
+    confirmedAt: Date,
+    confirmedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    cashReceivedAt: Date,
+    cashReceivedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   },
   timeline: [{
     status: { type: String, required: true },

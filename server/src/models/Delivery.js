@@ -23,6 +23,9 @@ const DeliverySchema = new mongoose.Schema({
   weightKg: { type: Number, required: true },
   distanceKm: { type: Number, required: true },
   feePaise: { type: Number, required: true },
+  // Cash on delivery: how much cash the partner collects from the buyer (0 = nothing to collect), and whether it was marked received
+  collectCashPaise: { type: Number, default: 0 },
+  cashCollected: { type: Boolean, default: false },
   status: {
     type: String,
     enum: ['available', 'accepted', 'picked_up', 'on_the_way', 'delivered', 'cancelled'],

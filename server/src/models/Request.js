@@ -18,6 +18,7 @@ const RequestSchema = new mongoose.Schema({
     default: 'pickup'
   },
   dropVillage: { type: String, trim: true },
+  paymentMethod: { type: String, enum: ['upi', 'cod'], default: 'cod' },
   dropLocation: {
     type: {
       type: String,
