@@ -18,6 +18,9 @@ const configSchema = z.object({
   RATE_LIMIT_LOGIN: z.string().default('120/15m'),
   RATE_LIMIT_SEARCH: z.string().default('120/1m'),
   DELIVERY_RATE_PAISE_PER_KM: z.coerce.number().default(1200),
+  // Team UPI ID for the "pay by UPI" link. Set on the server only; never commit a real one.
+  UPI_ID: z.string().default(''),
+  UPI_PAYEE_NAME: z.string().default('VanRozgar'),
   SEED_DEMO_PASSWORD: z.string().default('123456'),
   SEED_TEAM_PASSWORD: z.string().default('VanMitraAdmin@2026'),
 });

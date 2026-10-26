@@ -102,3 +102,10 @@
 - **App search:** typing or pasting a code in any spelling (`vr k7m2qx`) finds exactly that listing. Also `GET /api/v1/listings/code/:code`.
 - **Website:** shows the code with a Copy button. With `VITE_API_URL` set it lists real listings; otherwise it shows **Sample** listings whose codes belong to no real item (labelled). "Buy" opens the app download page (`VITE_APK_URL`).
 - **Roles:** stored values `gramsabha`, `villager` (= Farmer), `cfrholder`, `buyer`. Only `cfrholder` gets the Livelihood tab and may call the livelihood server (403 otherwise).
+
+## Payments (A1 to A7), built 26 Oct
+
+- **Server:** `POST /orders/:id/payment/method` (`upi` or `cod`, buyer, once), `GET /orders/:id/payment/upi` (the `upi://pay` link from `UPI_ID`), `POST .../payment/report` (buyer gives the reference), `POST .../payment/confirm` (seller), `POST .../payment/cash-received` (delivery partner on the job, or the seller for pickup, after the goods left).
+- **States:** `awaiting_payment` -> `payment_reported` -> `payment_confirmed` (UPI); `cod_pending` -> `cash_received` (cash). Only a person confirms: the app cannot see the bank, and says so.
+- **App:** payment card on the order screen; delivery partners see the cash to collect on their job card.
+- **Tests:** server unit + integration (`payments.test.js`), app `payment_test.dart`. **Not yet done:** a real phone with GPay/PhonePe, and the team `UPI_ID` set in Render.

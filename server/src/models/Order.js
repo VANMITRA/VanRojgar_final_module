@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { PAYMENT_METHODS, PAYMENT_STATUSES } from '../core/payment.js';
 
 const OrderSchema = new mongoose.Schema({
   requestId: { type: mongoose.Schema.Types.ObjectId, ref: 'Request', required: true },
@@ -40,8 +41,16 @@ const OrderSchema = new mongoose.Schema({
   },
   paymentStatus: {
     type: String,
-    enum: ['demo_pending', 'not_required', 'completed'],
+    enum: PAYMENT_STATUSES,
     default: 'demo_pending'
+  },
+  paymentMethod: { type: String, enum: PAYMENT_METHODS },
+  payment: {
+    reference: String,
+    reportedAt: Date,
+    confirmedAt: Date,
+    cashReceivedAt: Date,
+    cashReceivedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   },
   timeline: [{
     status: { type: String, required: true },

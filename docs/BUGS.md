@@ -11,6 +11,8 @@ Updated 26 Oct 2026. Owner column says who fixes what. A task is done only after
 | 3 | CI ran neither the Python tests nor the website | `.github/workflows/ci.yml` | Added `livelihood_server` (ruff + pytest, Python 3.12) and `website` (lint, test, build) jobs |
 | 4 | Website showed made-up hero numbers (12+ Gram Sabhas, 18.4L earnings, 1,420 deliveries) with no label | `website/src/sections/HeroSection.tsx` | Replaced with Raah Foundation report figures |
 
+| 15 | The website listing page said "Payment method: to be confirmed (open decision)" | `website/src/i18n/translations.ts` | Now says "Pay in the app: UPI or cash on delivery" in English, Hindi, Marathi |
+
 ## Open
 
 | # | Bug / risk | Owner | Note |
@@ -22,5 +24,6 @@ Updated 26 Oct 2026. Owner column says who fixes what. A task is done only after
 | 9 | Website barter and "demo app" still simulate orders in the browser | Kaushal | Labelled prototype; payment is not on the site |
 | 10 | Hindi and Marathi strings (new and old) are machine drafts | Soham | Native reader needed |
 | 11 | APK link defaults to the GitHub releases page; no release exists yet | Ayush | Set `VITE_APK_URL` after the first release |
-| 12 | Payments (UPI, cash on delivery) not built; the download page promises them | Ayush | Tasks A1 to A5 |
+| 12 | Payments built (tasks A1 to A5) but never run on a real phone with a real UPI app; `UPI_ID` is not set on the server yet, so "Open UPI app" answers "UPI is not set up" until it is | Soham / team | Set `UPI_ID` in the Render dashboard (the team UPI ID, never in git); test GPay and PhonePe on a phone |
+| 14 | `app/lib/features/delivery/delivery_jobs_screen.dart` (route `/delivery/jobs`) is old code that uses job statuses the server does not have (`requested`, `assigned`, `in_transit`). The working screen is `DeliveryHubScreen` at `/delivery` | Ayush | Nothing links to it in the normal flow; delete it or the route before the freeze |
 | 13 | Nothing tested on a real phone or on the deployed servers | Soham | Tasks S6, S7 |
