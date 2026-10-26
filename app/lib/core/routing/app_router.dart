@@ -23,6 +23,7 @@ import '../../features/gramsabhas/gs_profile_screen.dart';
 import '../../features/trade/order_detail_screen.dart';
 import '../../features/messages/messages_screen.dart';
 import '../../features/profile/profile_screen.dart';
+import '../../features/about/about_screen.dart';
 import '../../features/delivery/delivery_intro_screen.dart';
 import '../../features/delivery/delivery_hub_screen.dart';
 import '../../features/delivery/delivery_apply_screen.dart';
@@ -281,6 +282,7 @@ final appRouter = GoRouter(
       builder: (_, state) => OrderDetailScreen(orderId: state.pathParameters['id']!),
     ),
     GoRoute(path: '/messages', builder: (_, __) => const MessagesScreen()),
+    GoRoute(path: '/about', builder: (_, __) => const AboutScreen()),
     GoRoute(path: '/settings/language', builder: (_, __) => const LanguageScreen()),
 
     // Delivery Livelihood Flow

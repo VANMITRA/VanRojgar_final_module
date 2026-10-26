@@ -55,6 +55,12 @@ class ProfileScreen extends ConsumerWidget {
                 subtitle: 'हेल्पलाईन आणि मार्गदर्शन केंद्र',
                 onTap: () => context.push('/help/forgot-password'),
               ),
+              PreferenceCard(
+                icon: Icons.info_outline,
+                title: 'माहिती व गोपनीयता (About & Privacy)',
+                subtitle: 'श्रेय, डेटा स्रोत व गोपनीयता (Credits, data, privacy)',
+                onTap: () => context.push('/about'),
+              ),
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
