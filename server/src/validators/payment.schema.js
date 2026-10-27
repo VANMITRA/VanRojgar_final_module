@@ -1,10 +1,6 @@
 import { z } from 'zod';
-import { PAYMENT_METHODS } from '../core/payment.js';
-
-export const chooseMethodSchema = z.object({
-  method: z.enum(PAYMENT_METHODS)
-});
+import { UPI_REFERENCE } from '../services/payment.service.js';
 
 export const reportPaymentSchema = z.object({
-  reference: z.string().trim().regex(/^[A-Za-z0-9]{6,35}$/, 'Enter the UPI reference (6 to 35 letters or digits)')
+  reference: z.string().trim().regex(UPI_REFERENCE, 'Enter the payment reference shown by your UPI app (8 to 30 letters or digits)')
 });

@@ -55,6 +55,10 @@ export class TradeService {
       );
     }
 
+    if (data.paymentMethod === 'upi' && !config.UPI_ID) {
+      throw new AppError(ErrorCodes.CONFLICT, 'UPI payment is not set up yet. Choose cash on delivery.', 409);
+    }
+
     const request = await Request.create({
       listingId: listing._id,
       requesterId: user._id,
@@ -65,6 +69,7 @@ export class TradeService {
       unit: listing.unit,
       deliveryPref: data.deliveryPref || 'pickup',
       dropVillage: data.dropVillage || user.village,
+      paymentMethod: data.paymentMethod || 'cod',
       reason: data.reason,
       status: 'pending',
       history: [{
@@ -226,7 +231,8 @@ export class TradeService {
           dropLocation: request.dropLocation
         },
         orderStatus: 'approved',
-        paymentStatus: 'demo_pending',
+        paymentMethod: request.paymentMethod || 'cod',
+        paymentStatus: request.paymentMethod === 'upi' ? 'awaiting_payment' : 'cod_pending',
         timeline: [{
           status: 'approved',
           at: new Date(),
@@ -262,6 +268,7 @@ export class TradeService {
           weightKg: Math.round(weightKg * 10) / 10,
           distanceKm: 10,
           feePaise,
+          collectCashPaise: request.paymentMethod === 'cod' ? totalPaise : 0,
           status: 'available',
           timeline: [{
             status: 'available',

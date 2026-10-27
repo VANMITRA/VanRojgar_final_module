@@ -167,15 +167,6 @@ export class DeliveryService {
     if (!partner) {
       return [];
     }
-    const deliveries = await Delivery.find({ partnerId: partner._id }).sort({ createdAt: -1 }).lean();
-    // Cash on delivery: tell the partner how much cash to collect, until it is marked received
-    const orders = await Order.find({ _id: { $in: deliveries.map((d) => d.orderId) } })
-      .select('paymentMethod paymentStatus line.totalPaise').lean();
-    const byId = new Map(orders.map((o) => [o._id.toString(), o]));
-    return deliveries.map((d) => {
-      const o = byId.get(d.orderId?.toString());
-      const cashDue = o?.paymentStatus === 'cod_pending';
-      return { ...d, paymentMethod: o?.paymentMethod ?? null, cashDuePaise: cashDue ? o.line.totalPaise : null };
-    });
+    return Delivery.find({ partnerId: partner._id }).sort({ createdAt: -1 });
   }
 }

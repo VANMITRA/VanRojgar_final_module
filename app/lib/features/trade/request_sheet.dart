@@ -23,6 +23,7 @@ class _RequestSheetState extends ConsumerState<RequestSheet> {
   final _villageController = TextEditingController();
   final _reasonController = TextEditingController();
   String _deliveryPref = 'pickup'; // 'pickup' | 'delivery'
+  String _paymentMethod = 'cod'; // 'cod' | 'upi'
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -78,6 +79,7 @@ class _RequestSheetState extends ConsumerState<RequestSheet> {
         'listingId': widget.listing.id,
         'quantity': qty,
         'deliveryPref': _deliveryPref,
+        'paymentMethod': _paymentMethod,
         'dropVillage': _villageController.text.trim(),
         'reason': _reasonController.text.trim(),
       }, headers: {
@@ -104,6 +106,7 @@ class _RequestSheetState extends ConsumerState<RequestSheet> {
   @override
   Widget build(BuildContext context) {
     final tokens = context.vr;
+    final upiOffered = ref.watch(paymentOptionsProvider).asData?.value.upi ?? false;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -175,6 +178,27 @@ class _RequestSheetState extends ConsumerState<RequestSheet> {
               ],
               selected: {_deliveryPref},
               onSelectionChanged: (set) => setState(() => _deliveryPref = set.first),
+            ),
+            const SizedBox(height: 14),
+            VrText(
+              'पेमेंट पद्धत (Payment)',
+              style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 6),
+            SegmentedButton<String>(
+              segments: [
+                const ButtonSegment(value: 'cod', label: VrText('रोख (Cash on delivery)')),
+                if (upiOffered) const ButtonSegment(value: 'upi', label: VrText('UPI')),
+              ],
+              selected: {upiOffered ? _paymentMethod : 'cod'},
+              onSelectionChanged: (set) => setState(() => _paymentMethod = set.first),
+            ),
+            const SizedBox(height: 4),
+            VrText(
+              _paymentMethod == 'upi' && upiOffered
+                  ? 'विनंती मंजूर झाल्यावर तुम्ही UPI ने पैसे द्याल; विक्रेता पैसे आल्याची पुष्टी करतो. (After approval you pay with UPI; the seller confirms the money arrived.)'
+                  : 'माल मिळताना रोख द्या. (Pay in cash when the goods arrive.)',
+              style: TextStyle(color: tokens.textMuted, fontSize: 11),
             ),
             if (_deliveryPref == 'delivery') ...[
               const SizedBox(height: 12),

@@ -70,6 +70,12 @@ The numbers add up to the totals printed in the report: 2,019 hectares, 217,708 
 - **Search:** by text, category, price, distance and more.
 - **Delivery:** people can apply to be delivery partners for the 3 blocks.
 
+### Paying for an order (added 26 October)
+- When a buyer sends a request, they choose **UPI** or **cash on delivery**. UPI is offered only when the team has set its UPI ID on the server.
+- **UPI:** after the Gram Sabha approves, the buyer taps "Open UPI app" (the amount and the team UPI ID are filled in), pays in their own app, then types the payment reference. The **seller** then confirms the money arrived. The app cannot see a bank, so until the seller confirms, it says "reported, not yet confirmed".
+- **Cash on delivery:** the delivery partner marks the cash received once the goods are on the way (for a pickup, the seller does). The seller sees it on the order.
+- The delivery partner screen has an Open tab and a Mine tab and now matches the server's steps.
+
 ### Links between the two parts
 - From an **idea** in the report, a person can start a **listing** with the product already filled in.
 - From a **listing**, a person can open a report about what their land can produce.
@@ -137,7 +143,8 @@ These need a person, an account, or a real phone:
 7. **Marathi village names and Marathi/Hindi text** are machine drafts. A native reader must check them.
 8. **Scheme rows** have not been checked by a named person. The app says so.
 9. **Idea list** is a draft and has not been reviewed by an expert.
-10. **Not built:** market prices (no free reliable source), a privacy page, and a keep-awake ping for Render's free tier.
+10. **UPI has not been tried on a real phone** with GPay or PhonePe, and the team UPI ID is not set yet.
+11. **Not built:** market prices (no free reliable source), a privacy page, and a keep-awake ping for Render's free tier.
 
 ---
 

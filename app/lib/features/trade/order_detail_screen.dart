@@ -89,7 +89,7 @@ class OrderDetailScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 18),
-                  if (isBuyer || isSeller) PaymentCard(order: order, isBuyer: isBuyer, isSeller: isSeller),
+                  PaymentCard(order: order, isBuyer: isBuyer, isSeller: isSeller),
                   const SizedBox(height: 18),
                   // Vertical Status Stepper
                   Container(

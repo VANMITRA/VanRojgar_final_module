@@ -9,49 +9,14 @@ import '../../shared/widgets/vr_text.dart';
 import '../auth/auth_providers.dart';
 import 'trade_providers.dart';
 
-/// What the payment line on an order says. Nothing here claims money arrived until a person confirmed it:
-/// the app has no payment gateway and cannot see the bank.
-String paymentSummary(OrderModel o) {
-  switch (o.paymentStatus) {
-    case 'awaiting_payment':
-      return 'यूपीआयने पैसे द्यायचे आहेत • Waiting for the buyer to pay by UPI';
-    case 'payment_reported':
-      return 'खरेदीदार म्हणतो पैसे दिले; विक्रेत्याची पुष्टी बाकी • Buyer says paid; the seller must confirm the money arrived';
-    case 'payment_confirmed':
-      return 'विक्रेत्याने पैसे मिळाल्याची पुष्टी केली • Seller confirmed the UPI payment arrived';
-    case 'cod_pending':
-      return 'डिलिव्हरीवर रोख • Cash on delivery: pay when the goods arrive';
-    case 'cash_received':
-      return 'रोख रक्कम मिळाली • Cash received on delivery';
-    default:
-      return 'पेमेंट पद्धत निवडलेली नाही • Payment method not chosen yet';
-  }
-}
-
-/// The payment steps a person can take on this order, as button ids. Used by the card and by tests.
-List<String> paymentActions(OrderModel o, {required bool isBuyer, required bool isSeller}) {
-  final live = o.orderStatus != 'cancelled' && o.orderStatus != 'closed';
-  final handedOver = const ['picked_up', 'on_the_way', 'handed_over', 'delivered', 'closed'].contains(o.orderStatus);
-  switch (o.paymentStatus) {
-    case 'awaiting_payment':
-      return isBuyer ? ['pay_upi', 'report'] : [];
-    case 'payment_reported':
-      return isSeller ? ['confirm'] : [];
-    case 'cod_pending':
-      // With a delivery partner the partner marks the cash (Delivery screen); for pickup the seller does.
-      return isSeller && o.fulfilmentMethod == 'pickup' && handedOver ? ['cash'] : [];
-    case 'payment_confirmed':
-    case 'cash_received':
-      return [];
-    default:
-      return isBuyer && live && o.paymentMethod == null ? ['choose_upi', 'choose_cod'] : [];
-  }
-}
-
+/// Payment of one order: UPI (the buyer pays in their own UPI app and reports the reference; the SELLER confirms the
+/// money arrived) or cash on delivery (the delivery partner, or the seller for a pickup, marks the cash received).
+/// The app cannot see a bank, so it never says "verified" before a person has confirmed.
 class PaymentCard extends ConsumerStatefulWidget {
   final OrderModel order;
   final bool isBuyer;
   final bool isSeller;
+
   const PaymentCard({super.key, required this.order, required this.isBuyer, required this.isSeller});
 
   @override
@@ -59,143 +24,174 @@ class PaymentCard extends ConsumerStatefulWidget {
 }
 
 class _PaymentCardState extends ConsumerState<PaymentCard> {
+  final _reference = TextEditingController();
   bool _busy = false;
+  String? _error;
+  String? _upiId; // shown so the buyer can pay by hand if no UPI app opens
 
-  void _refresh() {
-    ref.invalidate(orderDetailProvider(widget.order.id));
-    ref.invalidate(ordersProvider('buying'));
-    ref.invalidate(ordersProvider('selling'));
+  @override
+  void dispose() {
+    _reference.dispose();
+    super.dispose();
   }
 
-  void _say(String text) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: VrText(text)));
-  }
-
-  Future<void> _run(Future<void> Function() step) async {
-    setState(() => _busy = true);
+  Future<void> _run(Future<void> Function() action) async {
+    setState(() {
+      _busy = true;
+      _error = null;
+    });
     try {
-      await step();
-      _refresh();
+      await action();
+      ref.invalidate(orderDetailProvider(widget.order.id));
+      ref.invalidate(ordersProvider('buying'));
+      ref.invalidate(ordersProvider('selling'));
     } catch (e) {
-      _say(e is AppException ? e.localizedMessage : 'अयशस्वी • Failed');
+      if (mounted) setState(() => _error = e is AppException ? e.localizedMessage : e.toString());
     } finally {
       if (mounted) setState(() => _busy = false);
     }
   }
 
-  Future<void> _post(String path, {Map<String, dynamic>? data}) =>
-      ref.read(apiClientProvider).post('/orders/${widget.order.id}/payment/$path', data: data);
-
-  Future<void> _payUpi() => _run(() async {
-        final res = await ref.read(apiClientProvider).get('/orders/${widget.order.id}/payment/upi');
-        final ok = await launchUrl(Uri.parse(res['link'] as String), mode: LaunchMode.externalApplication);
-        if (!ok) {
-          _say('यूपीआय अ‍ॅप सापडले नाही • No UPI app found. Choose cash on delivery or install one.');
-        } else {
-          _say('पैसे दिल्यावर परत या आणि संदर्भ क्रमांक द्या • After paying, come back and enter the reference number.');
+  Future<void> _openUpi() => _run(() async {
+        final res = await ref.read(apiClientProvider).get('/orders/${widget.order.id}/payment/upi-link');
+        final link = res['link'] as String;
+        if (mounted) setState(() => _upiId = res['upiId'] as String?);
+        final opened = await launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication).catchError((_) => false);
+        if (!opened && mounted) {
+          setState(() => _error = 'UPI अॅप उघडले नाही. वरील UPI ID वर हाताने पैसे द्या. • No UPI app opened. Pay to the UPI ID shown above by hand.');
         }
       });
 
   Future<void> _report() async {
-    final controller = TextEditingController();
-    final ref0 = await showDialog<String>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const VrText('यूपीआय संदर्भ क्रमांक • UPI reference'),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          decoration: const InputDecoration(hintText: '12-digit UTR / transaction id'),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const VrText('रद्द • Cancel')),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(ctx, controller.text.trim()),
-            child: const VrText('पाठवा • Send'),
-          ),
-        ],
-      ),
-    );
-    controller.dispose();
-    if (ref0 == null || ref0.isEmpty) return;
-    await _run(() => _post('report', data: {'reference': ref0}));
+    final ref0 = _reference.text.trim();
+    if (!RegExp(r'^[A-Za-z0-9]{8,30}$').hasMatch(ref0)) {
+      setState(() => _error = 'UPI अॅपमधील पेमेंट संदर्भ क्रमांक टाका (८ ते ३०). • Enter the payment reference from your UPI app (8 to 30 letters or digits).');
+      return;
+    }
+    await _run(() => ref.read(apiClientProvider).post('/orders/${widget.order.id}/payment/report', data: {'reference': ref0}));
   }
+
+  Future<void> _post(String path) => _run(() => ref.read(apiClientProvider).post('/orders/${widget.order.id}/payment/$path'));
 
   @override
   Widget build(BuildContext context) {
     final tokens = context.vr;
     final o = widget.order;
-    final actions = paymentActions(o, isBuyer: widget.isBuyer, isSeller: widget.isSeller);
-
-    Widget button(String label, VoidCallback onTap, {bool primary = true}) => SizedBox(
-          width: double.infinity,
-          child: primary
-              ? ElevatedButton(
-                  onPressed: _busy ? null : onTap,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: tokens.actionPrimary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  ),
-                  child: VrText(label),
-                )
-              : OutlinedButton(
-                  onPressed: _busy ? null : onTap,
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  ),
-                  child: VrText(label),
-                ),
-        );
+    final amount = formatInr(o.line.totalPaise);
+    final (title, lines, actions) = _content(tokens, o, amount);
 
     return Container(
-      key: const Key('payment_card'),
+      width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: tokens.surface,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: tokens.outline),
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(children: [
-          Icon(Icons.payments_outlined, size: 18, color: tokens.brandSecondary),
-          const SizedBox(width: 8),
-          Expanded(
-            child: VrText('पेमेंट • Payment  ${formatInr(o.line.totalPaise)}',
-                style: TextStyle(color: tokens.textPrimary, fontSize: 15, fontWeight: FontWeight.w700)),
-          ),
-        ]),
-        const SizedBox(height: 8),
-        VrText(paymentSummary(o), key: const Key('payment_summary'), style: TextStyle(color: tokens.textMuted, fontSize: 13)),
-        if (o.paymentReference != null && o.paymentReference!.isNotEmpty) ...[
-          const SizedBox(height: 4),
-          VrText('संदर्भ • Reference: ${o.paymentReference}', style: TextStyle(color: tokens.textMuted, fontSize: 12)),
-        ],
-        if (actions.isNotEmpty) const SizedBox(height: 12),
-        for (final a in actions) ...[
-          if (a == 'choose_upi')
-            button('यूपीआयने पैसे द्या • Pay by UPI', () => _run(() => _post('method', data: {'method': 'upi'})))
-          else if (a == 'choose_cod')
-            button('डिलिव्हरीवर रोख • Cash on delivery', () => _run(() => _post('method', data: {'method': 'cod'})), primary: false)
-          else if (a == 'pay_upi')
-            button('यूपीआय अ‍ॅप उघडा • Open UPI app', _payUpi)
-          else if (a == 'report')
-            button('मी पैसे दिले • I have paid', _report, primary: false)
-          else if (a == 'confirm')
-            button('पैसे मिळाले • Money received', () => _run(() => _post('confirm')))
-          else if (a == 'cash')
-            button('रोख मिळाली • Cash received', () => _run(() => _post('cash-received'))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(children: [
+            Icon(Icons.payment, size: 18, color: tokens.brandSecondary),
+            const SizedBox(width: 8),
+            Expanded(child: VrText(title, style: TextStyle(color: tokens.textPrimary, fontSize: 14, fontWeight: FontWeight.w700))),
+          ]),
           const SizedBox(height: 8),
+          for (final l in lines) Padding(padding: const EdgeInsets.only(bottom: 4), child: VrText(l, style: TextStyle(color: tokens.textMuted, fontSize: 12))),
+          if (_error != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: VrText(_error!, style: TextStyle(color: tokens.error, fontSize: 12, fontWeight: FontWeight.w600)),
+            ),
+          if (actions.isNotEmpty) const SizedBox(height: 10),
+          ...actions,
         ],
-        if (o.paymentStatus == 'awaiting_payment' || o.paymentStatus == 'payment_reported')
-          VrText(
-            'पैसे दिल्याची पुष्टी विक्रेता करतो; अ‍ॅपला बँक दिसत नाही • The seller confirms the money arrived; the app cannot see the bank.',
-            style: TextStyle(color: tokens.textMuted, fontSize: 11),
-          ),
-      ]),
+      ),
     );
+  }
+
+  Widget _button(String label, VoidCallback onTap, {Color? color}) {
+    final tokens = context.vr;
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: _busy ? null : onTap,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color ?? tokens.actionPrimary,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        ),
+        child: VrText(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
+      ),
+    );
+  }
+
+  (String, List<String>, List<Widget>) _content(VrTokens tokens, OrderModel o, String amount) {
+    final cancelled = o.orderStatus == 'cancelled';
+    switch (o.paymentStatus) {
+      case 'awaiting_payment':
+        if (cancelled) return ('UPI पेमेंट • UPI payment', ['ऑर्डर रद्द झाली. • The order was cancelled.'], const []);
+        if (!widget.isBuyer) {
+          return ('UPI पेमेंट • UPI payment', ['खरेदीदाराच्या पेमेंटची वाट पाहत आहोत. • Waiting for the buyer to pay $amount.'], const []);
+        }
+        return (
+          'UPI ने $amount द्या • Pay $amount by UPI',
+          [
+            if (_upiId != null) 'UPI ID: $_upiId',
+            'पैसे दिल्यावर संदर्भ क्रमांक खाली टाका. पैसे आल्याची पुष्टी विक्रेता करतो; हे अॅप तुमचे बँक खाते पाहू शकत नाही. • After paying, enter the reference below. The seller confirms that the money arrived; this app cannot see your bank.',
+          ],
+          [
+            _button('UPI अॅप उघडा • Open UPI app', _openUpi),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _reference,
+              enabled: !_busy,
+              textCapitalization: TextCapitalization.characters,
+              decoration: InputDecoration(
+                labelText: 'पेमेंट संदर्भ क्रमांक • Payment reference',
+                filled: true,
+                fillColor: tokens.surface,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+              ),
+            ),
+            const SizedBox(height: 10),
+            _button('मी पैसे दिले • I have paid', _report, color: tokens.success),
+          ],
+        );
+      case 'payment_reported':
+        return (
+          'पेमेंट सांगितले, पुष्टी बाकी • Payment reported, not yet confirmed',
+          [
+            'खरेदीदार म्हणतो पैसे दिले. संदर्भ: ${o.paymentReference ?? '-'}. • The buyer says $amount was paid. Reference: ${o.paymentReference ?? '-'}.',
+            if (!widget.isSeller) 'विक्रेता पैसे आल्याची पुष्टी करेल. • The seller will confirm that the money arrived.',
+          ],
+          [
+            if (widget.isSeller)
+              _button('पैसे आले, पुष्टी करा • Money arrived, confirm', () => _post('confirm'), color: tokens.success),
+          ],
+        );
+      case 'payment_confirmed':
+        return ('UPI पेमेंट: विक्रेत्याने पुष्टी केली • UPI payment: confirmed by the seller', ['$amount (संदर्भ • reference ${o.paymentReference ?? '-'})'], const []);
+      case 'cod_pending':
+        final byPartner = o.fulfilmentMethod == 'delivery';
+        return (
+          'डिलिव्हरीवर रोख • Cash on delivery',
+          [
+            byPartner
+                ? 'डिलिव्हरी करणारी व्यक्ती $amount रोख घेईल. • The delivery partner collects $amount in cash.'
+                : 'गावातून माल घेताना $amount रोख द्या. • Pay $amount in cash when you collect the goods.',
+          ],
+          [
+            if (!byPartner && widget.isSeller && !cancelled) _button('रोख मिळाली • Cash received', () => _post('cash-received'), color: tokens.success),
+          ],
+        );
+      case 'cash_received':
+        return ('रोख मिळाली • Cash received', ['$amount रोख मिळाल्याची नोंद झाली. • $amount was marked as received in cash.'], const []);
+      case 'not_required':
+        return ('पेमेंट नाही (अदलाबदल) • No payment (barter)', const [], const []);
+      default:
+        return ('पेमेंट: प्रत्यक्ष व्यवहार • Payment: settled offline', ['जुनी ऑर्डर; अॅपमध्ये पेमेंट नाही. • An older order; no payment inside the app.'], const []);
+    }
   }
 }

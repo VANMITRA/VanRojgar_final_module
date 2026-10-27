@@ -121,8 +121,6 @@ class _ApprovedView extends ConsumerWidget {
               empty: 'तुमची कामे नाहीत • No deliveries yet',
               builder: (j) {
                 final n = _next[j['status']];
-                final cashDue = (j['cashDuePaise'] as num?)?.toInt();
-                final goodsLeft = const ['picked_up', 'on_the_way', 'delivered'].contains(j['status']);
                 return _JobCard(
                   j,
                   tokens,
@@ -132,8 +130,6 @@ class _ApprovedView extends ConsumerWidget {
                       ? null
                       : () => _act(context, ref,
                           () => api.patch('/deliveries/jobs/${j['_id']}/status', data: {'status': n})),
-                  cashDuePaise: goodsLeft ? cashDue : null,
-                  onCash: () => _act(context, ref, () => api.post('/orders/${j['orderId']}/payment/cash-received')),
                 );
               },
             ),
@@ -180,9 +176,7 @@ class _JobCard extends StatelessWidget {
   final String? button;
   final String? status;
   final VoidCallback? onTap;
-  final int? cashDuePaise;
-  final VoidCallback? onCash;
-  const _JobCard(this.j, this.tokens, {this.button, this.status, this.onTap, this.cashDuePaise, this.onCash});
+  const _JobCard(this.j, this.tokens, {this.button, this.status, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -198,13 +192,6 @@ class _JobCard extends StatelessWidget {
           VrText('${j['goodsSummary'] ?? ''} • ${j['weightKg'] ?? ''} kg • ${j['distanceKm'] ?? ''} km'),
           VrText('${formatInr(((j['feePaise'] as num?) ?? 0).toInt())} (अंदाजे • estimate)'),
           if (status != null) VrText('स्थिती • Status: $status'),
-          if (cashDuePaise != null) ...[
-            const SizedBox(height: 8),
-            VrText('रोख घ्यायची: ${formatInr(cashDuePaise!)} • Collect cash: ${formatInr(cashDuePaise!)}',
-                style: const TextStyle(fontWeight: FontWeight.w700)),
-            const SizedBox(height: 6),
-            OutlinedButton(onPressed: onCash, child: const VrText('रोख मिळाली • Cash received')),
-          ],
           if (button != null) ...[
             const SizedBox(height: 8),
             ElevatedButton(
