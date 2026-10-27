@@ -47,7 +47,8 @@ test('sample data script: labelled Sample, several sellers per product, orders f
   assert.match(second.stdout, /sample requests created: 0/, second.stdout);
 
   // running the seed again must not delete the Sample products
-  await seed();
+  await seed(); // the seed disconnects when it is done
+  await connectDB();
   assert.equal((await get('/shop/home')).data.openListings, 22, 'the seed keeps Sample listings');
 
   // everything is labelled Sample and the shop looks alive
