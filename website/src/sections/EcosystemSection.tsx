@@ -27,7 +27,7 @@ export const EcosystemSection: React.FC = () => {
   ];
 
   return (
-    <section id="ecosystem" className="py-20 bg-white dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors relative overflow-hidden">
+    <section id="ecosystem" className="py-20 bg-[#F4F7F5] dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
@@ -48,8 +48,8 @@ export const EcosystemSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Pillar 1: VanMitra-AI Governance Platform */}
-          <div className="lg:col-span-5 p-6 rounded-3xl bg-[#F4F7F5] dark:bg-[#173425] border border-gray-200 dark:border-[#2B5A46] shadow-lg space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-[#2B5A46]">
+          <div className="lg:col-span-5 p-6 rounded-3xl bg-white dark:bg-[#173425] border border-gray-200/80 dark:border-[#2B5A46] shadow-xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-[#2B5A46]">
               <div>
                 <span className="text-[11px] font-bold text-[#2D765C] dark:text-[#5FAE3B] tracking-wider uppercase">
                   {language === 'hi' ? 'मूल मंच' : language === 'mr' ? 'मूळ मंच' : 'Parent Platform'}
@@ -71,7 +71,7 @@ export const EcosystemSection: React.FC = () => {
               {t.ecosystemSection.parentModules.map((m, idx) => (
                 <div
                   key={m.title}
-                  className="p-3 rounded-xl bg-white dark:bg-[#10261B] border border-gray-100 dark:border-[#2B5A46] flex items-center justify-between transition-all hover:translate-x-1"
+                  className="p-3 rounded-xl bg-[#F4F7F5] dark:bg-[#10261B] border border-gray-200/70 dark:border-[#2B5A46] flex items-center justify-between transition-all hover:translate-x-1"
                 >
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-gray-50 dark:bg-[#173425]">
