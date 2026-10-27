@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { config } from '../core/config.js';
 import { AppError, ErrorCodes } from '../core/errors.js';
 import { User } from '../models/User.js';
+import { normaliseRole } from '../core/roles.js';
 
 export async function authenticate(req, res, next) {
   try {
@@ -27,6 +28,7 @@ export async function authenticate(req, res, next) {
       throw new AppError(ErrorCodes.UNAUTHENTICATED, 'User not found or account suspended', 401);
     }
 
+    user.role = normaliseRole(user.role); // an old `villager` account acts as a CFR holder
     req.user = user;
     next();
   } catch (err) {

@@ -65,3 +65,23 @@ Render (both servers, `render.yaml`) + MongoDB Atlas. Steps in `docs/DEPLOY.md`.
 ## 9. Checks
 
 Node: `npm test`. Python: `ruff check`, `ruff format --check`, `mypy app scripts`, `pytest -q`. All must pass before a merge to `integration`.
+
+## 10. The shop (browse as a guest, sign in at checkout)
+
+Roles are **Gram Sabha**, **CFR holder** and **Buyer**. There is no Farmer role: an old `villager` account or app build is treated as a CFR holder. Only a Gram Sabha or a CFR holder sells; a Buyer (a wholesaler or business that resells) never does.
+
+| Endpoint | Who | What |
+|---|---|---|
+| `GET /shop/home` | anyone | Deals (biggest discount first), best sellers, new arrivals, and the categories that have products |
+| `GET /shop/products?q=&category=&sort=` | anyone | Products: listings grouped by product and unit, with seller count, lowest and highest price, best discount, stock. Sort: `popular`, `price_asc`, `discount_desc`, `newest` |
+| `GET /shop/products/:code/sellers` | anyone | Every seller of one product, cheapest first, with `isLowestPrice` |
+| `GET /shop/stock?ids=a,b,c` | anyone | Total, sold and left for up to 50 listings (the live "sold / left" bar) |
+| `POST /shop/cart/checkout` | signed in | Several products at once: one request per product and seller. Products that cannot be requested are returned in `failed` |
+
+Every listing carries: `mrpPerUnitPaise`, `discountPaise`, `discountPercent`, `quantityTotal`, `quantitySold`, `soldPercent`, `minOrderQuantity`, `isSample`. The seller sets the MRP and the selling price; the selling price can never be above the MRP. Lowering the price keeps the MRP, and that is the discount. The seller's minimum order is enforced when a request is made (the last units left can always be bought whole). A seller can counter a request with another quantity or price (`POST /requests/:id/counter`).
+
+Payment is per order, so a cart with two sellers means two orders, each paid and confirmed on its own.
+
+Categories (from the village stock sheet): Bamboo (`handicrafts-bamboo`), Fruit, Flowers, Nuts and seeds, Dry fruit, Other forest produce. Older categories are hidden (`active: false`), not deleted.
+
+Commands a person runs (they write to the database): `npm run seed` (loads the new categories), `node scripts/migrate_villager_to_cfrholder.js [--apply]`, `node scripts/seed_sample_shop.js --api <url> [--apply]` (labelled Sample products and requests, through the API).

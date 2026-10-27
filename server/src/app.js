@@ -19,6 +19,7 @@ import { messageRouter } from './routes/message.routes.js';
 import { searchRouter } from './routes/search.routes.js';
 import { deliveryRouter } from './routes/delivery.routes.js';
 import { barterRouter } from './routes/barter.routes.js';
+import { shopRouter } from './routes/shop.routes.js';
 import { adminRouter } from './routes/admin.routes.js';
 
 export const app = express();
@@ -64,6 +65,7 @@ apiV1.use('/requests', tradeRouter);
 apiV1.use('/orders', orderRouter);
 apiV1.use('/messages', messageRouter);
 apiV1.use('/search', searchRouter);
+apiV1.use('/shop', shopRouter);
 apiV1.use('/delivery-partners', deliveryRouter);
 apiV1.use('/deliveries', deliveryRouter);
 apiV1.use('/barter-requests', barterRouter);

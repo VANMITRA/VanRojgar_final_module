@@ -20,12 +20,15 @@ const ListingSchema = new mongoose.Schema({
   itemCode: { type: String, trim: true, uppercase: true }, // `VR-` + 6 characters, see core/itemCode.js
   productCode: { type: String, trim: true, lowercase: true }, // shared with the livelihood module, see core/productCode.js
   quantityAvailable: { type: Number, required: true, min: 0 },
+  quantityTotal: { type: Number, min: 0 }, // stock when listed (plus any restock): total minus available = sold
+  minOrderQuantity: { type: Number, min: 0, default: 1 }, // the seller's smallest order
   unit: {
     type: String,
     enum: ['kg', 'g', 'quintal', 'litre', 'piece', 'bundle', 'jar', 'bag'],
     required: true
   },
-  pricePerUnitPaise: { type: Number, required: true, min: 0 }, // integer paise
+  pricePerUnitPaise: { type: Number, required: true, min: 0 }, // selling price, integer paise
+  mrpPerUnitPaise: { type: Number, min: 0 }, // original price (MRP), set by the seller; never below the selling price
   mode: {
     type: String,
     enum: ['sell', 'barter', 'both'],
@@ -55,6 +58,7 @@ const ListingSchema = new mongoose.Schema({
   village: { type: String, required: true, trim: true },
   taluka: { type: String, required: true, trim: true },
   district: { type: String, default: 'Nashik', trim: true },
+  isSample: { type: Boolean, default: false }, // demo data: the app shows a Sample label
   imageIds: [{ type: String }],
   imageUrl: { type: String, trim: true },
   searchTerms: [{ type: String }],

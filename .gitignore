@@ -22,3 +22,6 @@ __pycache__/
 # Generated datasets and local build output
 livelihood_server/data/
 livelihood_server/venv/
+
+# Internal planning notes (not for the public repo)
+planning/

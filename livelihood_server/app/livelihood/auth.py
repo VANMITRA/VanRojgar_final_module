@@ -95,7 +95,7 @@ class StaticDirectory:
 
 # The Node server's role names -> this module's.
 _ROLE_NAMES = {
-    "villager": "villager",  # the Farmer role keeps its old stored name
+    "villager": "cfr_holder",  # the Farmer role is gone: an old account is a CFR holder
     "gramsabha": "gram_sabha",
     "cfrholder": "cfr_holder",
 }

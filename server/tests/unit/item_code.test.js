@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { generateItemCode, normaliseItemCode, ITEM_CODE_PATTERN, ITEM_CODE_ALPHABET } from '../../src/core/itemCode.js';
 import { registerSchema } from '../../src/validators/auth.schema.js';
-import { REGISTER_ROLES, FARMER_ROLES, canUseLivelihood, isFarmerRole } from '../../src/core/roles.js';
+import { REGISTER_ROLES, FARMER_ROLES, canUseLivelihood, isFarmerRole, normaliseRole, canSell } from '../../src/core/roles.js';
 
 test('item code: generated codes match the format and use no look-alike characters', () => {
   const seen = new Set();
@@ -28,12 +28,15 @@ test('item code: ordinary words and malformed codes are not item codes', () => {
   }
 });
 
-test('roles: four sign-up roles; only a CFR holder gets the livelihood report', () => {
-  assert.deepEqual([...REGISTER_ROLES].sort(), ['buyer', 'cfrholder', 'gramsabha', 'villager']);
+test('roles: three sign-up roles, no farmer; only a CFR holder gets the livelihood report', () => {
+  assert.deepEqual([...REGISTER_ROLES].sort(), ['buyer', 'cfrholder', 'gramsabha']);
   assert.ok(canUseLivelihood('cfrholder'));
-  for (const r of ['villager', 'gramsabha', 'buyer', 'team', undefined]) assert.ok(!canUseLivelihood(r), String(r));
-  assert.deepEqual(FARMER_ROLES, ['villager', 'cfrholder']);
+  assert.ok(canUseLivelihood('villager'), 'an old farmer account is a CFR holder');
+  for (const r of ['gramsabha', 'buyer', 'team', undefined]) assert.ok(!canUseLivelihood(r), String(r));
+  assert.deepEqual(FARMER_ROLES, ['cfrholder']);
   assert.ok(isFarmerRole('cfrholder') && isFarmerRole('villager') && !isFarmerRole('gramsabha') && !isFarmerRole('buyer'));
+  assert.equal(normaliseRole('villager'), 'cfrholder');
+  assert.ok(canSell('gramsabha') && canSell('cfrholder') && !canSell('buyer'), 'a buyer never sells');
 });
 
 test('roles: a CFR holder signs up like a farmer (village needed, Nashik only)', () => {
@@ -42,5 +45,6 @@ test('roles: a CFR holder signs up like a farmer (village needed, Nashik only)',
   assert.ok(!registerSchema.safeParse({ ...base, village: undefined }).success, 'village is required');
   assert.ok(!registerSchema.safeParse({ ...base, district: 'Pune' }).success, 'Nashik pilot only');
   assert.ok(!registerSchema.safeParse({ ...base, role: 'officer' }).success, 'unknown roles are refused');
-  assert.ok(registerSchema.safeParse({ ...base, role: 'villager' }).success, 'farmer keeps working');
+  const old = registerSchema.safeParse({ ...base, role: 'villager' });
+  assert.ok(old.success && old.data.role === 'cfrholder', 'an old app that still sends villager signs up as a CFR holder');
 });

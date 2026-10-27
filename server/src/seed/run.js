@@ -28,7 +28,10 @@ export async function seed() {
       { upsert: true, new: true }
     );
   }
-  logger.info(`✅ Synced ${categoriesRaw.length} categories`);
+  // A category that is no longer in the file is hidden from the shop, not deleted: old listings keep working
+  const slugs = categoriesRaw.map((c) => c.slug);
+  const hidden = await Category.updateMany({ slug: { $nin: slugs }, active: { $ne: false } }, { $set: { active: false } });
+  logger.info(`✅ Synced ${categoriesRaw.length} categories (${hidden.modifiedCount} old ones hidden)`);
 
   // 2. Restricted Items
   const restrictedRaw = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/restricted.json'), 'utf-8'));
