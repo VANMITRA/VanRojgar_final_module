@@ -2,7 +2,7 @@ import React from 'react';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { translations } from '../i18n/translations';
 import { TabId } from '../types';
-import { ChevronLeft, ChevronRight, Home, Sparkles, ShieldCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, ShieldCheck } from 'lucide-react';
 
 interface TabWindowContainerProps {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ const TAB_ORDER: TabId[] = [
 ];
 
 export const TabWindowContainer: React.FC<TabWindowContainerProps> = ({ children }) => {
-  const { language, activeTab, setActiveTab, setIsDemoOpen } = useMarketplace();
+  const { language, activeTab, setActiveTab } = useMarketplace();
   const t = translations[language];
 
   const currentIndex = TAB_ORDER.indexOf(activeTab);
@@ -61,7 +61,7 @@ export const TabWindowContainer: React.FC<TabWindowContainerProps> = ({ children
       {/* Tab Switcher Bottom Navigator */}
       <nav
         aria-label="Section Navigation"
-        className="bg-[#EAEFEA] dark:bg-[#0A1810] border-t border-[#2D765C]/25 py-6 px-4 sm:px-6 lg:px-8 transition-colors"
+        className="bg-white dark:bg-[#0A1810] border-t border-gray-200/80 dark:border-[#2D765C]/25 py-6 px-4 sm:px-6 lg:px-8 transition-colors"
       >
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Previous tab button */}
@@ -69,8 +69,11 @@ export const TabWindowContainer: React.FC<TabWindowContainerProps> = ({ children
             {prevTabId ? (
               <button
                 type="button"
-                onClick={() => setActiveTab(prevTabId)}
-                className="group flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-[#143424] border border-[#2B5A46]/30 hover:border-[#FF8D20] text-xs sm:text-sm font-semibold text-[#13202B] dark:text-[#F4F7F5] shadow-xs hover:shadow-md transition-all cursor-pointer"
+                onClick={() => {
+                  setActiveTab(prevTabId);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="group flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F4F7F5] dark:bg-[#143424] border border-gray-200/80 dark:border-[#2B5A46]/30 hover:border-[#FF8D20] text-xs sm:text-sm font-semibold text-[#13202B] dark:text-[#F4F7F5] shadow-xs hover:shadow-md transition-all cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4 text-[#FF8D20] group-hover:-translate-x-0.5 transition-transform" />
                 <div className="text-left">
@@ -88,30 +91,21 @@ export const TabWindowContainer: React.FC<TabWindowContainerProps> = ({ children
             )}
           </div>
 
-          {/* Quick jump to overview / demo */}
+          {/* Quick jump to overview */}
           <div className="flex items-center gap-3">
             {activeTab !== 'overview' && (
               <button
                 type="button"
-                onClick={() => setActiveTab('overview')}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-[#13202B] dark:text-[#F4F7F5] hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                onClick={() => {
+                  setActiveTab('overview');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-[#13202B] dark:text-[#F4F7F5] bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <Home className="w-3.5 h-3.5 text-[#2D765C] dark:text-[#5FAE3B]" />
                 <span>{t.nav.backToSite}</span>
               </button>
             )}
-
-            <button
-              type="button"
-              onClick={() => {
-                window.location.hash = '#/demo';
-                setIsDemoOpen(true);
-              }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FF8D20] hover:bg-[#D96B00] text-white shadow-xs transition-colors cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{t.nav.tryDemo}</span>
-            </button>
           </div>
 
           {/* Next tab button */}
@@ -119,8 +113,11 @@ export const TabWindowContainer: React.FC<TabWindowContainerProps> = ({ children
             {nextTabId ? (
               <button
                 type="button"
-                onClick={() => setActiveTab(nextTabId)}
-                className="group flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-[#143424] border border-[#2B5A46]/30 hover:border-[#FF8D20] text-xs sm:text-sm font-semibold text-[#13202B] dark:text-[#F4F7F5] shadow-xs hover:shadow-md transition-all cursor-pointer"
+                onClick={() => {
+                  setActiveTab(nextTabId);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="group flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F4F7F5] dark:bg-[#143424] border border-gray-200/80 dark:border-[#2B5A46]/30 hover:border-[#FF8D20] text-xs sm:text-sm font-semibold text-[#13202B] dark:text-[#F4F7F5] shadow-xs hover:shadow-md transition-all cursor-pointer"
               >
                 <div className="text-right">
                   <span className="block text-[10px] text-[#66737C] dark:text-[#AAB8B2] font-medium uppercase tracking-wider">
@@ -133,8 +130,11 @@ export const TabWindowContainer: React.FC<TabWindowContainerProps> = ({ children
             ) : (
               <button
                 type="button"
-                onClick={() => setActiveTab('overview')}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#2D765C] hover:bg-[#1E5240] text-white text-xs sm:text-sm font-semibold shadow-xs transition-all cursor-pointer"
+                onClick={() => {
+                  setActiveTab('overview');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FF8D20] hover:bg-[#D96B00] text-white text-xs sm:text-sm font-semibold shadow-xs transition-all cursor-pointer"
               >
                 <Home className="w-4 h-4" />
                 <span>{t.nav.backToSite}</span>
