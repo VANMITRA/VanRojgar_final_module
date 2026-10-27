@@ -1,283 +1,453 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { translations } from '../i18n/translations';
 import { Language, TabId } from '../types';
-import { Sun, Moon, Globe, Menu, X, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import {
+  Sun,
+  Moon,
+  Globe,
+  Menu,
+  X,
+  ShieldCheck,
+  ChevronDown,
+  Check,
+  LayoutGrid,
+  LayoutDashboard,
+  TreePine,
+  Sparkles,
+  Users,
+  ShoppingBag,
+  Scale,
+  Truck,
+  BarChart3,
+} from 'lucide-react';
+
+interface SectionItem {
+  id: TabId;
+  label: (t: typeof translations['en']) => string;
+  badge: {
+    en: string;
+    hi: string;
+    mr: string;
+  };
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const ALL_SECTIONS: SectionItem[] = [
+  {
+    id: 'overview',
+    label: (t) => t.nav.overview,
+    badge: { en: 'Portal', hi: 'मुख्य', mr: 'मुख्य' },
+    icon: LayoutDashboard,
+  },
+  {
+    id: 'ecosystem',
+    label: (t) => t.nav.ecosystem,
+    badge: { en: '5 Modules', hi: '५ घटक', mr: '५ विभाग' },
+    icon: TreePine,
+  },
+  {
+    id: 'how_it_works',
+    label: (t) => t.nav.howItWorks,
+    badge: { en: '6 Stages', hi: '६ चरण', mr: '६ टप्पे' },
+    icon: Sparkles,
+  },
+  {
+    id: 'portals',
+    label: (t) => t.nav.portals,
+    badge: { en: '3 Roles', hi: '३ भूमिका', mr: '३ भूमिका' },
+    icon: Users,
+  },
+  {
+    id: 'marketplace',
+    label: (t) => t.nav.marketplace,
+    badge: { en: 'Catalog', hi: 'बाज़ार', mr: 'बाजार' },
+    icon: ShoppingBag,
+  },
+  {
+    id: 'barter',
+    label: (t) => t.nav.barter,
+    badge: { en: 'Fair Meter', hi: 'उचित मीटर', mr: 'दर मीटर' },
+    icon: Scale,
+  },
+  {
+    id: 'delivery',
+    label: (t) => t.nav.delivery,
+    badge: { en: 'Transport', hi: 'वाहन रोज़गार', mr: 'वाहतूक रोजगार' },
+    icon: Truck,
+  },
+  {
+    id: 'impact',
+    label: (t) => t.nav.impact,
+    badge: { en: 'Metrics', hi: 'आंकड़े', mr: 'माहिती' },
+    icon: BarChart3,
+  },
+];
+
+const LANGUAGES: { id: Language; label: string; nativeName: string; short: string }[] = [
+  { id: 'en', label: 'English', nativeName: 'English', short: 'EN' },
+  { id: 'hi', label: 'Hindi', nativeName: 'हिन्दी', short: 'हिन्दी' },
+  { id: 'mr', label: 'Marathi', nativeName: 'मराठी', short: 'मराठी' },
+];
 
 export const Header: React.FC = () => {
-  const { isDark, toggleTheme, language, setLanguage, setIsDemoOpen, activeTab, setActiveTab } = useMarketplace();
+  const { isDark, toggleTheme, language, setLanguage, activeTab, setActiveTab } = useMarketplace();
   const t = translations[language];
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sectionsDropdownOpen, setSectionsDropdownOpen] = useState(false);
+  const [mobileSectionsDropdownOpen, setMobileSectionsDropdownOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+
+  const sectionsRef = useRef<HTMLDivElement>(null);
+  const sectionsBtnRef = useRef<HTMLButtonElement>(null);
+  const sectionsItemsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const mobileSectionsRef = useRef<HTMLDivElement>(null);
+
+  const langRef = useRef<HTMLDivElement>(null);
+  const langBtnRef = useRef<HTMLButtonElement>(null);
+  const langItemsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navTabs: { id: TabId; label: string; href: string }[] = [
-    { id: 'overview', label: t.nav.overview, href: '#overview' },
-    { id: 'ecosystem', label: t.nav.ecosystem, href: '#ecosystem' },
-    { id: 'how_it_works', label: t.nav.howItWorks, href: '#how-it-works' },
-    { id: 'portals', label: t.nav.portals, href: '#portals' },
-    { id: 'marketplace', label: t.nav.marketplace, href: '#marketplace' },
-    { id: 'barter', label: t.nav.barter, href: '#barter' },
-    { id: 'delivery', label: t.nav.delivery, href: '#delivery' },
-    { id: 'impact', label: t.nav.impact, href: '#impact' },
-  ];
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (sectionsRef.current && !sectionsRef.current.contains(target)) {
+        setSectionsDropdownOpen(false);
+      }
+      if (mobileSectionsRef.current && !mobileSectionsRef.current.contains(target)) {
+        setMobileSectionsDropdownOpen(false);
+      }
+      if (langRef.current && !langRef.current.contains(target)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
 
-  const handleLaunchDemo = () => {
-    window.location.hash = '#/demo';
-    setIsDemoOpen(true);
+  // Close menus on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (sectionsDropdownOpen) {
+          setSectionsDropdownOpen(false);
+          sectionsBtnRef.current?.focus();
+        }
+        if (mobileSectionsDropdownOpen) {
+          setMobileSectionsDropdownOpen(false);
+        }
+        if (langOpen) {
+          setLangOpen(false);
+          langBtnRef.current?.focus();
+        }
+        if (mobileMenuOpen) {
+          setMobileMenuOpen(false);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [sectionsDropdownOpen, mobileSectionsDropdownOpen, langOpen, mobileMenuOpen]);
+
+  const currentLangObj = LANGUAGES.find((l) => l.id === language) ?? LANGUAGES[0];
+  const activeSectionObj = ALL_SECTIONS.find((s) => s.id === activeTab) ?? ALL_SECTIONS[0];
+
+  const handleSelectSection = (tabId: TabId) => {
+    setActiveTab(tabId);
+    setSectionsDropdownOpen(false);
+    setMobileSectionsDropdownOpen(false);
     setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Keyboard navigation for Sections dropdown
+  const handleSectionsTriggerKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setSectionsDropdownOpen(true);
+      const currIdx = ALL_SECTIONS.findIndex((s) => s.id === activeTab);
+      setTimeout(() => sectionsItemsRef.current[currIdx >= 0 ? currIdx : 0]?.focus(), 15);
+    }
+  };
+
+  const handleSectionsItemKeyDown = (e: React.KeyboardEvent, index: number) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const nextIdx = (index + 1) % ALL_SECTIONS.length;
+      sectionsItemsRef.current[nextIdx]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prevIdx = (index - 1 + ALL_SECTIONS.length) % ALL_SECTIONS.length;
+      sectionsItemsRef.current[prevIdx]?.focus();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      sectionsItemsRef.current[0]?.focus();
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      sectionsItemsRef.current[ALL_SECTIONS.length - 1]?.focus();
+    } else if (e.key === 'Tab') {
+      setSectionsDropdownOpen(false);
+    }
+  };
+
+  // Keyboard navigation for Language dropdown
+  const handleLangTriggerKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setLangOpen(true);
+      const currIdx = LANGUAGES.findIndex((l) => l.id === language);
+      setTimeout(() => langItemsRef.current[currIdx >= 0 ? currIdx : 0]?.focus(), 15);
+    }
+  };
+
+  const handleLangItemKeyDown = (e: React.KeyboardEvent, index: number) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const nextIdx = (index + 1) % LANGUAGES.length;
+      langItemsRef.current[nextIdx]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prevIdx = (index - 1 + LANGUAGES.length) % LANGUAGES.length;
+      langItemsRef.current[prevIdx]?.focus();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      langItemsRef.current[0]?.focus();
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      langItemsRef.current[LANGUAGES.length - 1]?.focus();
+    } else if (e.key === 'Tab') {
+      setLangOpen(false);
+    }
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? 'bg-[#1A4331]/95 dark:bg-[#0C1B14]/95 backdrop-blur-md shadow-md py-3 border-b border-[#2D765C]/30'
-          : 'bg-[#1A4331] dark:bg-[#0C1B14] py-4 border-b border-[#2D765C]/20'
+          ? 'bg-[#1A4331]/98 dark:bg-[#0C1B14]/98 backdrop-blur-md shadow-md border-b border-[#2D765C]/40'
+          : 'bg-[#1A4331] dark:bg-[#0C1B14] border-b border-[#2D765C]/30'
       }`}
+      style={{ height: 'var(--header-h)' }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Brand Logo & Wordmark */}
-          <button
-            onClick={() => setActiveTab('overview')}
-            style={{ marginLeft: '-70px' }}
-            className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-[#FF8D20] rounded-lg p-1 text-left cursor-pointer"
-          >
-            <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#FF8D20] shadow-sm bg-white shrink-0 group-hover:scale-105 transition-transform">
-              <img
-                src="/assets/aistudio/IMG-20261006-WA0009_1_.jpg_91f800c1.jpeg"
-                alt="VanRozgar Tribal Mandala Logo"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xl font-bold tracking-tight text-white font-['Manrope']">
-                  {language === 'hi' ? 'वनरोज़गार' : language === 'mr' ? 'वनरोजगार' : 'VanRozgar'}
-                </span>
-                <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-semibold bg-[#2D765C] text-emerald-100 rounded-md tracking-wider">
-                  {language === 'hi' ? 'सीएफआर बाज़ार' : language === 'mr' ? 'सीएफआर बाजार' : 'CFR MARKETPLACE'}
-                </span>
-              </div>
-              <p className="text-[11px] text-[#AAB8B2] flex items-center gap-1 font-medium">
-                <span>
-                  {language === 'hi'
-                    ? 'वनमित्र-AI का भाग'
-                    : language === 'mr'
-                    ? 'वनमित्र-AI चा भाग'
-                    : 'A module of VanMitra-AI'}
-                </span>
-                <ShieldCheck className="w-3 h-3 text-[#5FAE3B]" />
-              </p>
-            </div>
-          </button>
-
-          {/* Desktop Navigation Tabs */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" role="tablist" aria-label="Main Section Tabs">
-            {navTabs.map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveTab(tab.id);
-                  }}
-                  className={`text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
-                    isActive
-                      ? 'bg-[#FF8D20] text-white shadow-sm font-bold scale-[1.02]'
-                      : 'text-[#F4F7F5]/85 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </nav>
-
-          {/* Header Controls (Language Toggle, Theme, Launch CTA) */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* Quick Segmented Language Toggle (English <-> Hindi <-> Marathi) */}
-            <div
-              className="flex items-center bg-[#173425]/90 border border-[#2B5A46] rounded-xl p-0.5 shadow-xs"
-              role="group"
-              aria-label="Language selection toggle"
-            >
-              <button
-                type="button"
-                onClick={() => setLanguage('en')}
-                aria-pressed={language === 'en'}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
-                  language === 'en'
-                    ? 'bg-[#FF8D20] text-white shadow-sm'
-                    : 'text-[#F4F7F5]/80 hover:text-white hover:bg-white/10'
-                }`}
-                title="Switch to English"
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                onClick={() => setLanguage('hi')}
-                aria-pressed={language === 'hi'}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
-                  language === 'hi'
-                    ? 'bg-[#FF8D20] text-white shadow-sm'
-                    : 'text-[#F4F7F5]/80 hover:text-white hover:bg-white/10'
-                }`}
-                title="हिन्दी में बदलें"
-              >
-                हिन्दी
-              </button>
-              <button
-                type="button"
-                onClick={() => setLanguage('mr')}
-                aria-pressed={language === 'mr'}
-                className={`px-2 py-1 text-[11px] font-semibold rounded-lg transition-all ${
-                  language === 'mr'
-                    ? 'bg-[#FF8D20] text-white shadow-sm'
-                    : 'text-[#F4F7F5]/70 hover:text-white hover:bg-white/10'
-                }`}
-                title="मराठी मध्ये बदला"
-              >
-                मराठी
-              </button>
-            </div>
-
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-              className="p-2 rounded-lg bg-[#2D765C]/40 hover:bg-[#2D765C]/70 text-[#F4F7F5] border border-[#2B5A46] transition-colors"
-            >
-              {isDark ? <Sun className="w-4 h-4 text-[#FF8D20]" /> : <Moon className="w-4 h-4 text-[#F4F7F5]" />}
-            </button>
-
-            {/* Primary Action Button */}
-            <button
-              onClick={handleLaunchDemo}
-              style={{ marginRight: '-70px' }}
-              className="flex items-center gap-2 bg-[#FF8D20] hover:bg-[#D96B00] active:scale-95 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-orange-950/20 transition-all focus:outline-none focus:ring-2 focus:ring-[#FF8D20]"
-            >
-              <span>{t.nav.tryDemo}</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+        
+        {/* Brand Logo & Wordmark - Branded Forest Green header per theme doc */}
+        <button
+          onClick={() => handleSelectSection('overview')}
+          className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-[#FF8D20] rounded-xl p-1 text-left cursor-pointer transition-colors"
+          aria-label="VanRozgar Home"
+        >
+          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-[#FF8D20] shadow-sm bg-white shrink-0 group-hover:scale-105 transition-transform">
+            <img
+              src="/assets/aistudio/IMG-20261006-WA0009_1_.jpg_91f800c1.jpeg"
+              alt="VanRozgar Tribal Mandala Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
-
-          {/* Mobile hamburger menu toggle */}
-          <div className="flex items-center gap-2 lg:hidden">
-            {/* Quick language toggle on mobile bar */}
-            <button
-              onClick={() => setLanguage(language === 'hi' ? 'en' : 'hi')}
-              aria-label="Toggle language English Hindi"
-              className="px-2 py-1 rounded-lg bg-[#2D765C]/40 text-[#F4F7F5] border border-[#2B5A46] text-xs font-bold flex items-center gap-1"
-            >
-              <Globe className="w-3 h-3 text-[#FF8D20]" />
-              <span>{language === 'hi' ? 'EN' : 'हिन्दी'}</span>
-            </button>
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="p-2 rounded-lg bg-[#2D765C]/40 text-[#F4F7F5]"
-            >
-              {isDark ? <Sun className="w-4 h-4 text-[#FF8D20]" /> : <Moon className="w-4 h-4" />}
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Open mobile menu"
-              className="p-2 rounded-lg bg-[#2D765C]/40 text-[#F4F7F5]"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden mt-3 pt-3 border-t border-[#2D765C]/40 pb-4 space-y-3">
-            <nav className="flex flex-col space-y-1" role="tablist" aria-label="Mobile Navigation Tabs">
-              {navTabs.map((tab) => {
-                const isActive = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => {
-                      setActiveTab(tab.id);
-                      setMobileMenuOpen(false);
-                    }}
-                    className={`w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center justify-between cursor-pointer ${
-                      isActive
-                        ? 'bg-[#FF8D20] text-white font-bold shadow-sm'
-                        : 'text-white/90 hover:bg-white/10'
-                    }`}
-                  >
-                    <span>{tab.label}</span>
-                    {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse" />}
-                  </button>
-                );
-              })}
-            </nav>
-
-            {/* Language Selection Segmented Bar for Mobile */}
-            <div className="pt-2 px-3">
-              <span className="block text-xs text-[#AAB8B2] mb-1.5 font-medium">
-                {language === 'hi' ? 'भाषा चुनें:' : language === 'mr' ? 'भाषा निवडा:' : 'Select Language:'}
+          <div>
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="text-lg sm:text-xl font-bold tracking-tight text-white font-['Manrope']">
+                {language === 'hi' ? 'वनरोज़गार' : language === 'mr' ? 'वनरोजगार' : 'VanRozgar'}
               </span>
-              <div className="grid grid-cols-3 gap-1 bg-[#173425] p-1 rounded-xl border border-[#2B5A46]">
-                <button
-                  type="button"
-                  onClick={() => setLanguage('en')}
-                  className={`py-1.5 text-xs rounded-lg font-bold transition-colors ${
-                    language === 'en' ? 'bg-[#FF8D20] text-white shadow-sm' : 'text-white/80 hover:bg-white/10'
-                  }`}
-                >
-                  English (EN)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLanguage('hi')}
-                  className={`py-1.5 text-xs rounded-lg font-bold transition-colors ${
-                    language === 'hi' ? 'bg-[#FF8D20] text-white shadow-sm' : 'text-white/80 hover:bg-white/10'
-                  }`}
-                >
-                  हिन्दी (HI)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLanguage('mr')}
-                  className={`py-1.5 text-xs rounded-lg font-bold transition-colors ${
-                    language === 'mr' ? 'bg-[#FF8D20] text-white shadow-sm' : 'text-white/80 hover:bg-white/10'
-                  }`}
-                >
-                  मराठी (MR)
-                </button>
-              </div>
+              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold bg-[#2D765C] text-emerald-100 rounded-md tracking-wider border border-emerald-400/20">
+                {language === 'hi' ? 'सीएफआर बाज़ार' : language === 'mr' ? 'सीएफआर बाजार' : 'CFR MARKETPLACE'}
+              </span>
             </div>
-
-            <div className="pt-2 px-3">
-              <button
-                onClick={handleLaunchDemo}
-                className="w-full flex items-center justify-center gap-2 bg-[#FF8D20] hover:bg-[#D96B00] text-white py-2.5 rounded-xl text-sm font-bold shadow-md"
-              >
-                <span>{t.nav.tryDemo}</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
-            </div>
+            <p className="text-[10px] sm:text-[11px] text-[#AAB8B2] flex items-center gap-1 font-medium">
+              <span>
+                {language === 'hi'
+                  ? 'वनमित्र-AI का भाग'
+                  : language === 'mr'
+                  ? 'वनमित्र-AI चा भाग'
+                  : 'A module of VanMitra-AI'}
+              </span>
+              <ShieldCheck className="w-3 h-3 text-[#5FAE3B]" />
+            </p>
           </div>
-        )}
+        </button>
+
+        {/* Top Right Controls: Language Selector, SECTIONS DROPDOWN (next to Theme Toggle), Theme Toggle */}
+        <div className="flex items-center gap-2 xl:gap-2.5">
+          
+          {/* 1. Language Dropdown */}
+          <div className="relative" ref={langRef}>
+            <button
+              ref={langBtnRef}
+              id="lang-trigger"
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded={langOpen}
+              aria-label={`Select language. Current: ${currentLangObj.label}`}
+              onClick={() => {
+                setLangOpen((prev) => !prev);
+                setSectionsDropdownOpen(false);
+              }}
+              onKeyDown={handleLangTriggerKeyDown}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold rounded-xl border transition-all cursor-pointer bg-white/10 hover:bg-white/15 text-white border-white/20 focus:outline-none focus:ring-2 focus:ring-[#FF8D20]"
+            >
+              <Globe className="w-3.5 h-3.5 text-[#FF8D20] shrink-0" />
+              <span className="whitespace-nowrap">{currentLangObj.short}</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Language Options Listbox */}
+            {langOpen && (
+              <div
+                role="listbox"
+                aria-labelledby="lang-trigger"
+                className="absolute right-0 mt-2 w-44 rounded-2xl bg-white dark:bg-[#173425] border border-gray-200 dark:border-[#2B5A46] shadow-2xl p-1.5 z-50 transition-all"
+              >
+                {LANGUAGES.map((opt, idx) => {
+                  const isSelected = language === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      ref={(el) => {
+                        langItemsRef.current[idx] = el;
+                      }}
+                      role="option"
+                      aria-selected={isSelected}
+                      onClick={() => {
+                        setLanguage(opt.id);
+                        setLangOpen(false);
+                      }}
+                      onKeyDown={(e) => handleLangItemKeyDown(e, idx)}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FF8D20] ${
+                        isSelected
+                          ? 'bg-[#FF8D20]/15 text-[#D96B00] dark:text-[#FF8D20] font-bold'
+                          : 'text-[#13202B] dark:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                      }`}
+                    >
+                      <span className="whitespace-nowrap">{opt.nativeName}</span>
+                      {isSelected ? (
+                        <Check className="w-4 h-4 text-[#FF8D20]" />
+                      ) : (
+                        <span className="text-[10px] text-[#66737C] dark:text-[#889B93] uppercase font-bold">{opt.short}</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* 2. SECTIONS DROPDOWN BUTTON - PLACED DIRECTLY NEXT TO THE THEME TOGGLE BUTTON */}
+          <div className="relative" ref={sectionsRef}>
+            <button
+              ref={sectionsBtnRef}
+              id="sections-dropdown-trigger"
+              type="button"
+              aria-haspopup="menu"
+              aria-expanded={sectionsDropdownOpen}
+              aria-label={`Jump to Section. Current section: ${activeSectionObj.label(t)}`}
+              onClick={() => {
+                setSectionsDropdownOpen((prev) => !prev);
+                setLangOpen(false);
+              }}
+              onKeyDown={handleSectionsTriggerKeyDown}
+              className={`flex items-center gap-2 px-3 py-1.5 text-xs font-bold rounded-xl border transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FF8D20] ${
+                sectionsDropdownOpen
+                  ? 'bg-white text-[#1A4331] border-white shadow-md'
+                  : 'bg-white/15 hover:bg-white/25 text-white border-white/25'
+              }`}
+            >
+              <LayoutGrid className="w-4 h-4 text-[#FF8D20] shrink-0" />
+              <span className="whitespace-nowrap font-bold hidden sm:inline">{activeSectionObj.label(t)}</span>
+              <span className="px-1.5 py-0.5 text-[9px] font-bold bg-[#FF8D20] text-white rounded-md uppercase tracking-wider">
+                {activeSectionObj.badge[language]}
+              </span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${sectionsDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Sections Dropdown Menu with all 8 buttons */}
+            {sectionsDropdownOpen && (
+              <div
+                role="menu"
+                aria-labelledby="sections-dropdown-trigger"
+                className="absolute right-0 mt-2 w-72 rounded-2xl bg-white dark:bg-[#173425] border border-gray-200 dark:border-[#2B5A46] shadow-2xl p-2 z-50 transition-all max-h-[80vh] overflow-y-auto"
+              >
+                <div className="px-3 py-2 border-b border-gray-100 dark:border-[#2B5A46]/60 mb-1 flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#1A4331] dark:text-[#5FAE3B] flex items-center gap-1.5">
+                    <LayoutGrid className="w-3.5 h-3.5 text-[#FF8D20]" />
+                    <span>{language === 'hi' ? 'सभी अनुभाग (८)' : language === 'mr' ? 'सर्व विभाग (८)' : 'All Sections (8)'}</span>
+                  </span>
+                  <span className="text-[10px] font-medium text-[#66737C] dark:text-[#AAB8B2]">
+                    {language === 'hi' ? 'सीधा जाएँ' : language === 'mr' ? 'थेट जा' : 'Jump to'}
+                  </span>
+                </div>
+
+                <div className="space-y-1">
+                  {ALL_SECTIONS.map((sec, idx) => {
+                    const Icon = sec.icon;
+                    const isActive = activeTab === sec.id;
+                    const label = sec.label(t);
+                    const badgeText = sec.badge[language];
+
+                    return (
+                      <button
+                        key={sec.id}
+                        ref={(el) => {
+                          sectionsItemsRef.current[idx] = el;
+                        }}
+                        role="menuitem"
+                        aria-current={isActive ? 'page' : undefined}
+                        onClick={() => handleSelectSection(sec.id)}
+                        onKeyDown={(e) => handleSectionsItemKeyDown(e, idx)}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FF8D20] ${
+                          isActive
+                            ? 'bg-[#FF8D20]/15 text-[#D96B00] dark:text-[#FF8D20] font-bold border border-[#FF8D20]/30 shadow-xs'
+                            : 'text-[#13202B] dark:text-white hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className={`p-1.5 rounded-lg shrink-0 ${isActive ? 'bg-[#FF8D20] text-white' : 'bg-black/5 dark:bg-white/10 text-[#2D765C] dark:text-[#5FAE3B]'}`}>
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <span className="truncate">{label}</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0 ml-2">
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-semibold ${
+                            isActive
+                              ? 'bg-[#FF8D20] text-white'
+                              : 'bg-black/5 dark:bg-white/10 text-[#66737C] dark:text-[#889B93]'
+                          }`}>
+                            {badgeText}
+                          </span>
+                          {isActive && (
+                            <Check className="w-4 h-4 text-[#FF8D20]" />
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 3. Theme Toggle Button */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={isDark ? t.nav.switchToLightMode : t.nav.switchToDarkMode}
+            title={isDark ? t.nav.switchToLightMode : t.nav.switchToDarkMode}
+            className="p-2 rounded-xl border transition-colors cursor-pointer bg-white/10 hover:bg-white/15 text-white border-white/20 focus:outline-none focus:ring-2 focus:ring-[#FF8D20]"
+          >
+            {isDark ? <Sun className="w-4 h-4 text-[#FF8D20]" /> : <Moon className="w-4 h-4 text-amber-300" />}
+          </button>
+        </div>
       </div>
     </header>
   );
