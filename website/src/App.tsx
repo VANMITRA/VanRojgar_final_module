@@ -11,7 +11,7 @@ import { TabWindowContainer } from './components/TabWindowContainer';
 import { ToastContainer } from './components/ToastContainer';
 import { ListingDetailModal } from './components/ListingDetailModal';
 import { HeroSection } from './sections/HeroSection';
-import { OverviewHubSection } from './sections/OverviewHubSection';
+import { FeaturedProductsSection } from './sections/FeaturedProductsSection';
 import { EcosystemSection } from './sections/EcosystemSection';
 import { ResourceExplorerSection } from './sections/ResourceExplorerSection';
 import { HowItWorksSection } from './sections/HowItWorksSection';
@@ -23,7 +23,6 @@ import { ImpactSection } from './sections/ImpactSection';
 import { TrustSustainabilitySection } from './sections/TrustSustainabilitySection';
 import { OpenDecisionsSection } from './sections/OpenDecisionsSection';
 import { Footer } from './sections/Footer';
-import { DemoAppModal } from './demo/DemoAppModal';
 import { VanMitraPreloader } from './components/preloader/VanMitraPreloader';
 
 function MainTabRouter() {
@@ -34,7 +33,7 @@ function MainTabRouter() {
       return (
         <TabWindowContainer>
           <HeroSection />
-          <OverviewHubSection />
+          <FeaturedProductsSection />
         </TabWindowContainer>
       );
 
@@ -94,7 +93,7 @@ function MainTabRouter() {
       return (
         <TabWindowContainer>
           <HeroSection />
-          <OverviewHubSection />
+          <FeaturedProductsSection />
         </TabWindowContainer>
       );
   }
@@ -102,12 +101,9 @@ function MainTabRouter() {
 
 function AppContent({ onReplayIntro }: { onReplayIntro: () => void }) {
   return (
-    <div className="min-h-screen bg-[#F4F7F5] dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors duration-200 flex flex-col pt-[68px] sm:pt-[72px] font-['Manrope','Noto_Sans_Devanagari',sans-serif]">
+    <div className="min-h-screen bg-[#F4F7F5] dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors duration-200 flex flex-col pt-[var(--header-h)] font-['Manrope','Noto_Sans_Devanagari',sans-serif] w-full max-w-full overflow-x-hidden">
       {/* Navigation Header (Fixed) */}
       <Header />
-
-      {/* Sticky Window Tab Bar */}
-      <WindowTabBar />
 
       {/* Main Content: Respective Separate Window Tab Section */}
       <main className="flex-grow flex flex-col">
@@ -120,7 +116,6 @@ function AppContent({ onReplayIntro }: { onReplayIntro: () => void }) {
       {/* Interactive Overlays */}
       <ListingDetailModal />
       <ToastContainer />
-      <DemoAppModal />
     </div>
   );
 }
