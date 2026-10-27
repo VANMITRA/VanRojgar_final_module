@@ -226,7 +226,7 @@ export const FeaturedProductsSection: React.FC = () => {
 
         {/* Product Cards: 4-column × 3-row desktop grid showing all listings */}
         {filteredListings.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 -mx-[170px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredListings.map((listing) => {
               const accessibleName = `${listing.title}, ₹${listing.pricePerUnit} per ${listing.unit}, ${listing.gramSabhaName}`;
 
