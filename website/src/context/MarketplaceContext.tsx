@@ -37,8 +37,6 @@ interface MarketplaceContextType {
   // Active portal & navigation
   activePortal: PortalType;
   setActivePortal: (portal: PortalType) => void;
-  isDemoOpen: boolean;
-  setIsDemoOpen: (open: boolean) => void;
   activeTab: TabId;
   setActiveTab: (tab: TabId) => void;
 
@@ -107,11 +105,8 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   });
 
-  // Active demo persona & demo route
+  // Active portal persona
   const [activePortal, setActivePortal] = useState<PortalType>('villager');
-  const [isDemoOpen, setIsDemoOpen] = useState<boolean>(() => {
-    return window.location.hash === '#/demo';
-  });
 
   const getTabFromHash = (hash: string): TabId => {
     const clean = hash.replace(/^#\/?/, '').toLowerCase();
@@ -183,11 +178,8 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash;
-      setIsDemoOpen(hash === '#/demo');
-      if (hash && hash !== '#/demo') {
-        const matched = getTabFromHash(hash);
-        setActiveTabState(matched);
-      }
+      const matched = getTabFromHash(hash);
+      setActiveTabState(matched);
     };
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
@@ -623,8 +615,6 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
         setLanguage,
         activePortal,
         setActivePortal,
-        isDemoOpen,
-        setIsDemoOpen,
         activeTab,
         setActiveTab,
         listings,
