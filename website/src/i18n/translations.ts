@@ -13,13 +13,15 @@ export interface Translations {
     barter: string;
     delivery: string;
     impact: string;
-    tryDemo: string;
+    explore: string;
     backToSite: string;
     previousTab: string;
     nextTab: string;
     activeWindow: string;
     openTab: string;
     exploreSection: string;
+    switchToDarkMode: string;
+    switchToLightMode: string;
   };
   concepts: {
     communityCommerce: string;
@@ -86,13 +88,29 @@ export interface Translations {
     headlineHighlight: string;
     headlineAfter: string;
     description: string;
-    tryDemo: string;
     howItWorks: string;
     statsActiveGs: string;
     statsRuralEarnings: string;
     statsDeliveries: string;
     driverEnRoute: string;
     routeMeta: string;
+  };
+  featuredProducts: {
+    badge: string;
+    title: string;
+    desc: string;
+    allProducts: string;
+    viewDetails: string;
+    exploreMarketplace: string;
+    showAll: string;
+    showFewer: string;
+    showingCount: string;
+    emptyTitle: string;
+    emptyDesc: string;
+    resetFilter: string;
+    verified: string;
+    groupPooled: string;
+    availableStock: string;
   };
   ecosystemSection: {
     badge: string;
@@ -162,7 +180,6 @@ export interface Translations {
     bottomTabsLabel: string;
     coreCapsLabel: string;
     restrictionsLabel: string;
-    launchInDemo: string;
     matrixTitle: string;
     matrixDesc: string;
     colFeature: string;
@@ -377,13 +394,15 @@ export const translations: Record<Language, Translations> = {
       barter: 'Barter & Fair Price',
       delivery: 'Delivery Jobs',
       impact: 'Impact',
-      tryDemo: 'Launch Demo App',
+      explore: 'Explore',
       backToSite: 'Back to Overview',
       previousTab: 'Previous Tab',
       nextTab: 'Next Tab',
       activeWindow: 'Dedicated Window View',
       openTab: 'Open Tab',
       exploreSection: 'Explore Tab',
+      switchToDarkMode: 'Switch to dark mode',
+      switchToLightMode: 'Switch to light mode',
     },
     concepts: {
       communityCommerce: 'Community Commerce',
@@ -450,13 +469,29 @@ export const translations: Record<Language, Translations> = {
       headlineHighlight: 'rural livelihoods.',
       headlineAfter: '',
       description: 'VanRozgar connects forest-stewarding Gram Sabhas, tribal producers, and ethical enterprises on a single transparent marketplace, while creating paid transport gigs for village drivers.',
-      tryDemo: 'Launch Interactive Demo',
       howItWorks: 'How it Works',
       statsActiveGs: 'CFR Gram Sabhas Active',
       statsRuralEarnings: 'Rural Earnings',
       statsDeliveries: 'Deliveries Completed',
       driverEnRoute: 'Village Driver En Route',
       routeMeta: 'MH-48 · 22 km (~₹370)',
+    },
+    featuredProducts: {
+      badge: 'Certified Community Produce',
+      title: 'Explore Forest Products',
+      desc: 'Ethically harvested forest produce, medicinal plants, handicrafts, and community resources directly from CFR Gram Sabhas.',
+      allProducts: 'All Products',
+      viewDetails: 'View Details',
+      exploreMarketplace: 'Explore Full Marketplace',
+      showAll: 'Show all ({count})',
+      showFewer: 'Show fewer',
+      showingCount: 'Showing {count} of {total} products',
+      emptyTitle: 'No products in this category',
+      emptyDesc: 'There are currently no listed items matching this category filter.',
+      resetFilter: 'Show all products',
+      verified: 'FRA Verified',
+      groupPooled: 'Group Pooled',
+      availableStock: 'Available stock:',
     },
     ecosystemSection: {
       badge: 'The VanMitra Ecosystem Architecture',
@@ -624,7 +659,6 @@ export const translations: Record<Language, Translations> = {
       bottomTabsLabel: 'Bottom Navigation Bar Tabs:',
       coreCapsLabel: 'Core Capabilities:',
       restrictionsLabel: 'Role Restrictions:',
-      launchInDemo: 'Launch Portal in Demo App',
       matrixTitle: 'Portal Permissions & Features Matrix',
       matrixDesc: 'Side-by-side comparison across the three user roles.',
       colFeature: 'Feature / Permission',
@@ -971,13 +1005,15 @@ export const translations: Record<Language, Translations> = {
       barter: 'विनिमय व उचित मूल्य',
       delivery: 'वितरण रोज़गार',
       impact: 'सामाजिक प्रभाव',
-      tryDemo: 'डेमो ऐप शुरू करें',
+      explore: 'अन्वेषण',
       backToSite: 'मुख्य पृष्ठ पर लौटें',
       previousTab: 'पिछला टैब',
       nextTab: 'अगला टैब',
       activeWindow: 'समर्पित विंडो दृश्य',
       openTab: 'टैब खोलें',
       exploreSection: 'अनुभाग देखें',
+      switchToDarkMode: 'डार्क मोड पर जाएं',
+      switchToLightMode: 'लाइट मोड पर जाएं',
     },
     concepts: {
       communityCommerce: 'सामुदायिक व्यापार',
@@ -1044,13 +1080,29 @@ export const translations: Record<Language, Translations> = {
       headlineHighlight: 'ग्रामीण आजीविका।',
       headlineAfter: '',
       description: 'वनरोज़गार वन संरक्षक ग्राम सभाओं, जनजातीय उत्पादकों और नैतिक उद्यमों को एक पारदर्शी बाज़ार से जोड़ता है, साथ ही ग्रामीण वाहन चालकों के लिए सशुल्क परिवहन रोज़गार का निर्माण करता है।',
-      tryDemo: 'इंटरैक्टिव डेमो खोलें',
       howItWorks: 'कार्य प्रणाली देखें',
       statsActiveGs: 'सक्रिय सीएफआर ग्राम सभाएं',
       statsRuralEarnings: 'सीधी ग्रामीण आय',
       statsDeliveries: 'सफल डिलीवरी यात्राएं',
       driverEnRoute: 'ग्राम वाहन चालक मार्ग पर है',
       routeMeta: 'MH-48 · २२ किमी (~₹३७०)',
+    },
+    featuredProducts: {
+      badge: 'प्रमाणित सामुदायिक वन संपदा',
+      title: 'वन उत्पाद देखें',
+      desc: 'सामुदायिक वन अधिकार (CFR) ग्राम सभाओं द्वारा सतत रूप से संकलित वनोपज, औषधीय जड़ी-बूटियां, हस्तशिल्प और प्राकृतिक संसाधन।',
+      allProducts: 'सभी उत्पाद',
+      viewDetails: 'विवरण देखें',
+      exploreMarketplace: 'संपूर्ण बाज़ार देखें',
+      showAll: 'सभी दिखाएं ({count})',
+      showFewer: 'कम दिखाएं',
+      showingCount: '{total} में से {count} उत्पाद प्रदर्शित',
+      emptyTitle: 'इस श्रेणी में कोई उत्पाद उपलब्ध नहीं',
+      emptyDesc: 'वर्तमान में इस श्रेणी फिल्टर से मेल खाने वाली कोई सूची मौजूद नहीं है।',
+      resetFilter: 'सभी उत्पाद देखें',
+      verified: 'एफआरए प्रमाणित',
+      groupPooled: 'सामूहिक संकलन',
+      availableStock: 'उपलब्ध स्टॉक:',
     },
     ecosystemSection: {
       badge: 'वनमित्र पारिस्थितिकी तंत्र वास्तुकला',
@@ -1218,7 +1270,6 @@ export const translations: Record<Language, Translations> = {
       bottomTabsLabel: 'निचले नेविगेशन बार के टैब:',
       coreCapsLabel: 'मुख्य क्षमताएं:',
       restrictionsLabel: 'भूमिका प्रतिबंध:',
-      launchInDemo: 'डेमो ऐप में यह पोर्टल खोलें',
       matrixTitle: 'पोर्टल अनुमतियां व तुलनात्मक मैट्रिक्स',
       matrixDesc: 'तीनों उपयोगकर्ता भूमिकाओं की सीधी तुलना।',
       colFeature: 'सुविधा / अनुमति',
@@ -1565,13 +1616,15 @@ export const translations: Record<Language, Translations> = {
       barter: 'विनिमय व योग्य दर',
       delivery: 'वितरण रोजगार',
       impact: 'सामाजिक प्रभाव',
-      tryDemo: 'डेमो ॲप उघडा',
+      explore: 'अधिक विभाग',
       backToSite: 'माहिती पृष्ठावर जा',
       previousTab: 'मागील टॅब',
       nextTab: 'पुढील टॅब',
       activeWindow: 'विभागाचे स्वतंत्र दृश्य',
       openTab: 'टॅब उघडा',
       exploreSection: 'विभाग पहा',
+      switchToDarkMode: 'डार्क मोडवर जा',
+      switchToLightMode: 'लाइट मोडवर जा',
     },
     concepts: {
       communityCommerce: 'सामुदायिक व्यापार',
@@ -1638,13 +1691,29 @@ export const translations: Record<Language, Translations> = {
       headlineHighlight: 'शाश्वत ग्रामीण रोजगार।',
       headlineAfter: '',
       description: 'वनरोजगार वनसंरक्षक ग्रामसभा, आदिवासी उत्पादक आणि व्यावसायिक खरेदीदारांना एका पारदर्शक व्यासपीठावर आणते, तसेच स्थानिक वाहनधारकांसाठी सशुल्क वाहतूक रोजगार निर्माण करते.',
-      tryDemo: 'थेट डेमो ॲप सुरू करा',
       howItWorks: 'कार्यपद्धती पहा',
       statsActiveGs: 'सक्रिय सीएफआर ग्रामसभा',
       statsRuralEarnings: 'थेट ग्रामीण उत्पन्न',
       statsDeliveries: 'यशस्वी वाहतूक फेऱ्या',
       driverEnRoute: 'ग्रामस्थ वाहन चालक प्रवासात आहे',
       routeMeta: 'MH-48 · २२ किमी (~₹३७०)',
+    },
+    featuredProducts: {
+      badge: 'प्रमाणित सामुदायिक वन उत्पादने',
+      title: 'वन उत्पादने पहा',
+      desc: 'सामुदायिक वन हक्क (CFR) ग्रामसभांद्वारे शाश्वत पद्धतीने संकलित केलेली वनोपज, औषधी वनस्पती, हस्तकला आणि नैसर्गिक संसाधने.',
+      allProducts: 'सर्व उत्पादने',
+      viewDetails: 'तपशील पहा',
+      exploreMarketplace: 'संपूर्ण बाजारपेठ पहा',
+      showAll: 'सर्व पहा ({count})',
+      showFewer: 'कमी पहा',
+      showingCount: '{total} पैकी {count} उत्पादने',
+      emptyTitle: 'या श्रेणीत कोणतीही उत्पादने नाहीत',
+      emptyDesc: 'सध्या या श्रेणी फिल्टरशी जुळणारे कोणतेही उत्पादन उपलब्ध नाही.',
+      resetFilter: 'सर्व उत्पादने पहा',
+      verified: 'एफआरए प्रमाणित',
+      groupPooled: 'सामूहिक संकलन',
+      availableStock: 'उपलब्ध साठा:',
     },
     ecosystemSection: {
       badge: 'वनमित्र परिसंस्था रचना',
@@ -1812,7 +1881,6 @@ export const translations: Record<Language, Translations> = {
       bottomTabsLabel: 'तळातील मेनू पर्याय:',
       coreCapsLabel: 'मुख्य वैशिष्ट्ये:',
       restrictionsLabel: 'मर्यादा:',
-      launchInDemo: 'डेमो ॲपमध्ये हे पोर्टल उघडा',
       matrixTitle: 'पोर्टल अधिकार व तुलनात्मक तक्ता',
       matrixDesc: 'तिन्ही घटकांची समोरासमोर तुलना.',
       colFeature: 'वैशिष्ट्य / अधिकार',
