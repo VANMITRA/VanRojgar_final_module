@@ -47,7 +47,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         const SizedBox(width: 12),
                         const Expanded(
                           child: VrText(
-                            'हेल्पलाईन: 1800-888-VAN\n(सोम-शनि स. ९ ते सायं ६)',
+                            'मदतीसाठी तुमच्या ग्रामसभेशी किंवा VanRozgar टीमशी संपर्क साधा • Contact your Gram Sabha or the VanRozgar team',
                             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                           ),
                         ),

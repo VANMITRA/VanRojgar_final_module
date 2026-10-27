@@ -85,7 +85,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Orders of 50 units or more require sustainable purpose reason.';
 
   @override
-  String get helpline => 'Helpline: 1800-888-VAN · FRA 2006 · Privacy Policy';
+  String get helpline => 'Forest Rights Act 2006 · Privacy Policy';
 
   @override
   String get dashboard => 'Dashboard';

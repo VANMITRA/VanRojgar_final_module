@@ -86,8 +86,7 @@ class AppLocalizationsHi extends AppLocalizations {
       '50 इकाइयों या अधिक के ऑर्डर के लिए संवहनीय उद्देश्य आवश्यक है।';
 
   @override
-  String get helpline =>
-      'हेल्पलाइन: 1800-888-VAN · वन अधिकार अधिनियम 2006 · गोपनीयता नीति';
+  String get helpline => 'वन अधिकार अधिनियम 2006 · गोपनीयता नीति';
 
   @override
   String get dashboard => 'डैशबोर्ड';

@@ -15,7 +15,7 @@ class FooterStrip extends StatelessWidget {
       color: tokens.brandPrimary,
       alignment: Alignment.center,
       child: VrText(
-        'हेल्पलाइन: 1800-209-6060 | वन हक्क कायदा 2006 | गोपनीयता धोरण',
+        'वन हक्क कायदा 2006 | गोपनीयता धोरण • Forest Rights Act 2006 | Privacy',
         style: TextStyle(
           color: tokens.onBrand,
           fontSize: 11,

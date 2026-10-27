@@ -85,8 +85,7 @@ class AppLocalizationsMr extends AppLocalizations {
       '५० एककापेक्षा जास्त खरेदीसाठी वन संवर्धन कारण आवश्यक आहे.';
 
   @override
-  String get helpline =>
-      'हेल्पलाईन: 1800-888-VAN · वन हक्क कायदा २००६ · गोपनीयता धोरण';
+  String get helpline => 'वन हक्क कायदा २००६ · गोपनीयता धोरण';
 
   @override
   String get dashboard => 'डॅशबोर्ड';

@@ -51,21 +51,21 @@ class _GsHomeScreenState extends ConsumerState<GsHomeScreen> {
     final lang = Localizations.localeOf(context).languageCode;
     if (lang == 'mr') {
       return const [
-        'तेंदू व महुआ हंगाम: ग्रामसभेची वनोपज उत्पादने तातडीने नोंदवा.',
+        'संरक्षित प्रजाती नोंदवता येत नाहीत. प्रत्येक नोंदीसाठी शाश्वत संकलनाची घोषणा आवश्यक आहे.',
         'सामूहिक वनहक्क (CFR) कलम ३(१)(क) अंतर्गत वनोपज मालकी व थेट विक्री अधिकार सुरक्षित.',
         '५० एककापेक्षा जास्त खरेदीसाठी संवर्धन कारण बंधनकारक आहे.',
-        'पायलट चाचणी: नाशिक जिल्ह्यातील १६ ग्रामसभा थेट बाजारपेठेशी जोडल्या आहेत.',
+        'पायलट: राह फाउंडेशन अहवालातील नाशिक जिल्ह्यातील १४ सीएफआर गावे थेट बाजारपेठेशी जोडली आहेत.',
       ];
     } else if (lang == 'hi') {
       return const [
-        'तेंदू और महुआ सीजन: ग्रामसभा के वनोत्पाद तुरंत पंजीकृत करें।',
+        'संरक्षित प्रजातियाँ सूचीबद्ध नहीं की जा सकतीं। हर सूची के लिए सतत संग्रह की घोषणा ज़रूरी है।',
         'सामुदायिक वन अधिकार (CFR) धारा 3(1)(ग) के तहत वनोपज स्वामित्व एवं सीधी बिक्री सुरक्षित।',
         '50 इकाइयों से अधिक खरीद के लिए संवर्धन कारण अनिवार्य है।',
-        'पायलट प्रोजेक्ट: नासिक जिले की 16 ग्रामसभाएं सीधे बाजार से जुड़ी हैं।',
+        'पायलट: राह फाउंडेशन रिपोर्ट के नासिक जिले के 14 सीएफआर गाँव सीधे बाज़ार से जुड़े हैं।',
       ];
     } else {
       return const [
-        'Tendu & Mahua season: Register Gram Sabha forest produce promptly.',
+        'Protected species cannot be listed. Every listing needs a sustainable-harvest declaration.',
         'Community Forest Rights (CFR) Sec 3(1)(c) secures forest produce ownership and direct sales.',
         'Orders of 50 units or more require sustainable purpose reason.',
         'Pilot: the 14 CFR villages of the Raah Foundation report, connected directly to the marketplace.',

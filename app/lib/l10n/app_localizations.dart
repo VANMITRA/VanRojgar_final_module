@@ -253,7 +253,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpline.
   ///
   /// In en, this message translates to:
-  /// **'Helpline: 1800-888-VAN · FRA 2006 · Privacy Policy'**
+  /// **'Forest Rights Act 2006 · Privacy Policy'**
   String get helpline;
 
   /// No description provided for @dashboard.

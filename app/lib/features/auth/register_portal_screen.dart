@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../shared/widgets/vr_text.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/tokens.dart';
+import 'auth_providers.dart';
 
-class RegisterPortalScreen extends StatelessWidget {
+class RegisterPortalScreen extends ConsumerWidget {
   const RegisterPortalScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final tokens = context.vr;
+    final lang = ref.watch(activeLocaleProvider);
 
     Widget buildPortalCard({
       required String role,
-      required String titleMr,
-      required String titleEn,
+      required String title,
       required String description,
       required IconData icon,
       required Color color,
@@ -51,8 +53,8 @@ class RegisterPortalScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    VrText(
-                      '$titleMr • $titleEn',
+                    Text(
+                      title,
                       style: TextStyle(
                         color: tokens.textPrimary,
                         fontSize: 16,
@@ -60,7 +62,7 @@ class RegisterPortalScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    VrText(
+                    Text(
                       description,
                       style: TextStyle(color: tokens.textMuted, fontSize: 12),
                     ),
@@ -76,7 +78,7 @@ class RegisterPortalScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const VrText('पोर्टल निवडा • Choose Portal'),
+        title: Text(tr3(lang, en: 'Choose Portal', hi: 'पोर्टल चुनें', mr: 'पोर्टल निवडा')),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -84,8 +86,8 @@ class RegisterPortalScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              VrText(
-                'आपली भूमिका निवडा',
+              Text(
+                tr3(lang, en: 'Choose your role', hi: 'अपनी भूमिका चुनें', mr: 'आपली भूमिका निवडा'),
                 style: TextStyle(
                   color: tokens.textPrimary,
                   fontSize: 22,
@@ -93,40 +95,51 @@ class RegisterPortalScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              VrText(
-                'Select your participation role in the VanRozgar CFR marketplace.',
+              Text(
+                tr3(lang,
+                    en: 'Select your role in the VanRozgar CFR marketplace.',
+                    hi: 'वनरोज़गार सीएफआर बाज़ार में अपनी भूमिका चुनें।',
+                    mr: 'वनरोजगार सीएफआर बाजारातील तुमची भूमिका निवडा.'),
                 style: TextStyle(color: tokens.textMuted, fontSize: 13),
               ),
               const SizedBox(height: 20),
               buildPortalCard(
                 role: 'gramsabha',
-                titleMr: 'ग्रामसभा',
-                titleEn: 'Gram Sabha',
-                description: 'सामूहिक वनहक्क (CFR) धारक गाव प्रतिनिधी. गावाच्या वनोपजांची विक्री व व्यवस्थापन.',
+                title: tr3(lang, en: 'Gram Sabha', hi: 'ग्राम सभा', mr: 'ग्रामसभा'),
+                description: tr3(lang,
+                    en: "Representative of a village with community forest rights (CFR). Lists and manages the village's forest produce.",
+                    hi: 'सामुदायिक वन अधिकार (CFR) वाले गाँव का प्रतिनिधि। गाँव की वनोपज की बिक्री और प्रबंधन।',
+                    mr: 'सामूहिक वनहक्क (CFR) धारक गाव प्रतिनिधी. गावाच्या वनोपजांची विक्री व व्यवस्थापन.'),
                 icon: Icons.account_balance,
                 color: tokens.brandSecondary,
               ),
               buildPortalCard(
                 role: 'villager',
-                titleMr: 'शेतकरी',
-                titleEn: 'Farmer',
-                description: 'CFR गावातील रहिवासी. वनोपज खरेदी, वस्तुविनिमय आणि वाहन असल्यास डिलिव्हरीद्वारे रोजगार.',
+                title: tr3(lang, en: 'Farmer', hi: 'किसान', mr: 'शेतकरी'),
+                description: tr3(lang,
+                    en: 'Resident of a CFR village. Buy produce, barter, and earn through delivery if you have a vehicle.',
+                    hi: 'CFR गाँव के निवासी। वनोपज खरीदें, वस्तु-विनिमय करें, और वाहन हो तो डिलीवरी से रोज़गार पाएँ।',
+                    mr: 'CFR गावातील रहिवासी. वनोपज खरेदी, वस्तुविनिमय आणि वाहन असल्यास डिलिव्हरीद्वारे रोजगार.'),
                 icon: Icons.person_pin,
                 color: tokens.actionPrimary,
               ),
               buildPortalCard(
                 role: 'cfrholder',
-                titleMr: 'सीएफआर धारक',
-                titleEn: 'CFR holder',
-                description: 'सामूहिक वनहक्क असलेला शेतकरी. शेतकऱ्याचे सर्व काही, तसेच उपजीविका अहवाल (Livelihood).',
+                title: tr3(lang, en: 'CFR holder', hi: 'सीएफआर धारक', mr: 'सीएफआर धारक'),
+                description: tr3(lang,
+                    en: 'Farmer with community forest rights. Everything a farmer gets, plus the livelihood report.',
+                    hi: 'सामुदायिक वन अधिकार वाले किसान। किसान की सभी सुविधाएँ, साथ में आजीविका रिपोर्ट (Livelihood)।',
+                    mr: 'सामूहिक वनहक्क असलेला शेतकरी. शेतकऱ्याचे सर्व काही, तसेच उपजीविका अहवाल (Livelihood).'),
                 icon: Icons.forest,
                 color: tokens.brandPrimary,
               ),
               buildPortalCard(
                 role: 'buyer',
-                titleMr: 'व्यापारी / खरेदीदार',
-                titleEn: 'General Buyer',
-                description: 'कंपनी, आयुर्वेदिक ब्रँड किंवा बाहेरील खरेदीदार. थेट ग्रामसभेकडून शुद्ध वनोपज खरेदी.',
+                title: tr3(lang, en: 'General Buyer', hi: 'आम खरीदार', mr: 'व्यापारी / खरेदीदार'),
+                description: tr3(lang,
+                    en: 'A company, Ayurvedic brand or outside buyer. Buy pure forest produce directly from Gram Sabhas.',
+                    hi: 'कंपनी, आयुर्वेदिक ब्रांड या बाहरी खरीदार। ग्राम सभाओं से सीधे शुद्ध वनोपज खरीदें।',
+                    mr: 'कंपनी, आयुर्वेदिक ब्रँड किंवा बाहेरील खरेदीदार. थेट ग्रामसभेकडून शुद्ध वनोपज खरेदी.'),
                 icon: Icons.storefront,
                 color: const Color(0xFF2F5FB3),
               ),

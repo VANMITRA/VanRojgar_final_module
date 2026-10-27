@@ -19,7 +19,7 @@ export const COMPONENTS = [
 ];
 
 export const NOTICES = [
-  { id: 'n1', text: 'Tendu and Mahua harvesting season active in Nashik talukas. Register your Gram Sabha listings.', active: true },
-  { id: 'n2', text: 'VanRozgar prototype operating in Nashik district (14 talukas).', active: true },
+  { id: 'n1', text: 'Protected species cannot be listed. Every listing needs a sustainable-harvest declaration.', active: true },
+  { id: 'n2', text: 'VanRozgar prototype: the 14 CFR villages of the Raah Foundation report in Nashik district.', active: true },
   { id: 'n3', text: 'Community Forest Rights Section 3(1)(c) enables sustainable MFP trade.', active: true }
 ];

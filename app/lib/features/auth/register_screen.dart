@@ -9,6 +9,7 @@ import '../../core/network/app_exception.dart';
 import '../../core/geo/talukas.dart';
 import '../../shared/models/gram_sabha.dart';
 import 'auth_providers.dart';
+import '../../shared/widgets/vr_text.dart';
 import 'village_providers.dart';
 import '../../shared/utils/roles.dart';
 
@@ -62,9 +63,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         DropdownMenuItem(
           value: v.villageMr,
           child: Text(
-            v.villageEn != null && v.villageEn!.isNotEmpty && v.villageEn != v.villageMr
-                ? '${v.villageMr} (${v.villageEn})'
-                : v.villageMr,
+            ref.watch(activeLocaleProvider) == 'en' && (v.villageEn ?? '').isNotEmpty
+                ? v.villageEn!
+                : (v.villageEn != null && v.villageEn!.isNotEmpty && v.villageEn != v.villageMr
+                    ? '${v.villageMr} (${v.villageEn})'
+                    : v.villageMr),
             style: const TextStyle(fontSize: 13.5),
             overflow: TextOverflow.ellipsis,
           ),
@@ -78,7 +81,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     final password = _passwordController.text;
 
     if (name.isEmpty || phone.isEmpty || password.isEmpty) {
-      setState(() => _errorMessage = 'कृपया सर्व आवश्यक माहिती भरा (Please fill required fields).');
+      setState(() => _errorMessage = tr3(ref.read(activeLocaleProvider),
+          en: 'Please fill in all required fields.',
+          hi: 'कृपया सभी आवश्यक जानकारी भरें।',
+          mr: 'कृपया सर्व आवश्यक माहिती भरा.'));
       return;
     }
 
@@ -91,7 +97,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     final village = _selectedVillage ?? _villageController.text.trim();
 
     if (isVillageRole(widget.portal) && village.isEmpty) {
-      setState(() => _errorMessage = 'कृपया गाव निवडा (Please select village).');
+      setState(() => _errorMessage = tr3(ref.read(activeLocaleProvider),
+          en: 'Please select your village.',
+          hi: 'कृपया अपना गाँव चुनें।',
+          mr: 'कृपया गाव निवडा.'));
       return;
     }
 
@@ -138,12 +147,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final tokens = context.vr;
+    final lang = ref.watch(activeLocaleProvider);
 
-    String portalTitle = 'नोंदणी करा';
-    if (widget.portal == 'gramsabha') portalTitle = 'ग्रामसभा नोंदणी (Gram Sabha)';
-    if (widget.portal == roleFarmer) portalTitle = 'शेतकरी नोंदणी (Farmer)';
-    if (widget.portal == roleCfrHolder) portalTitle = 'सीएफआर धारक नोंदणी (CFR holder)';
-    if (widget.portal == 'buyer') portalTitle = 'व्यापारी नोंदणी (General Buyer)';
+    String portalTitle = tr3(lang, en: 'Register', hi: 'पंजीकरण करें', mr: 'नोंदणी करा');
+    if (widget.portal == 'gramsabha') portalTitle = tr3(lang, en: 'Gram Sabha registration', hi: 'ग्राम सभा पंजीकरण', mr: 'ग्रामसभा नोंदणी');
+    if (widget.portal == roleFarmer) portalTitle = tr3(lang, en: 'Farmer registration', hi: 'किसान पंजीकरण', mr: 'शेतकरी नोंदणी');
+    if (widget.portal == roleCfrHolder) portalTitle = tr3(lang, en: 'CFR holder registration', hi: 'सीएफआर धारक पंजीकरण', mr: 'सीएफआर धारक नोंदणी');
+    if (widget.portal == 'buyer') portalTitle = tr3(lang, en: 'Buyer registration', hi: 'खरीदार पंजीकरण', mr: 'व्यापारी नोंदणी');
 
     return Scaffold(
       appBar: AppBar(title: Text(portalTitle)),
@@ -167,7 +177,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 ),
                 const SizedBox(height: 16),
               ],
-              Text('पूर्ण नाव / संस्था नाव *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+              Text(tr3(lang, en: 'Full name / organisation name *', hi: 'पूरा नाम / संस्था का नाम *', mr: 'पूर्ण नाव / संस्था नाव *'), style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               TextField(
                 controller: _nameController,
@@ -179,7 +189,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              Text('मोबाईल क्रमांक *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+              Text(tr3(lang, en: 'Mobile number *', hi: 'मोबाइल नंबर *', mr: 'मोबाईल क्रमांक *'), style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               TextField(
                 controller: _phoneController,
@@ -194,7 +204,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               ),
               const SizedBox(height: 16),
               if (isVillageRole(widget.portal)) ...[
-                Text('तालुका (Taluka) *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+                Text(tr3(lang, en: 'Taluka *', hi: 'तालुका *', mr: 'तालुका *'), style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
                   initialValue: _selectedTaluka,
@@ -218,7 +228,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                Text('गाव (Village) *', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+                Text(tr3(lang, en: 'Village *', hi: 'गाँव *', mr: 'गाव *'), style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
                   key: ValueKey('village-$_selectedTaluka'),
@@ -241,7 +251,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 const SizedBox(height: 16),
               ],
               if (widget.portal == 'gramsabha') ...[
-                Text('संपर्क व्यक्ती (सचिव / अध्यक्ष)', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+                Text(tr3(lang, en: 'Contact person (secretary / chair)', hi: 'संपर्क व्यक्ति (सचिव / अध्यक्ष)', mr: 'संपर्क व्यक्ती (सचिव / अध्यक्ष)'), style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 TextField(
                   controller: _contactPersonController,
@@ -255,7 +265,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 const SizedBox(height: 16),
               ],
               if (widget.portal == 'buyer') ...[
-                Text('कंपनी / ब्रँड नाव', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+                Text(tr3(lang, en: 'Company / brand name', hi: 'कंपनी / ब्रांड का नाम', mr: 'कंपनी / ब्रँड नाव'), style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 TextField(
                   controller: _businessController,
@@ -267,7 +277,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Text('शहर (City)', style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+                Text(tr3(lang, en: 'City', hi: 'शहर', mr: 'शहर'), style: TextStyle(color: tokens.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 TextField(
                   controller: _cityController,
@@ -308,7 +318,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 ),
                 child: _isLoading
                   ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                  : const Text('नोंदणी पूर्ण करा • Complete Registration', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+                  : Text(tr3(lang, en: 'Complete registration', hi: 'पंजीकरण पूरा करें', mr: 'नोंदणी पूर्ण करा'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
               ),
             ],
           ),

@@ -30,6 +30,10 @@ String? _pick(String a, String b, String lang) {
   return lang == 'en' ? en.trim() : mr.trim();
 }
 
+/// The text for the active language: English, Hindi or Marathi. Hindi and Marathi are drafts until a native reader checks them.
+String tr3(String lang, {required String en, required String hi, required String mr}) =>
+    lang == 'hi' ? hi : (lang == 'mr' ? mr : en);
+
 /// Drop-in replacement for [Text] that follows the app language.
 class VrText extends ConsumerWidget {
   final String data;

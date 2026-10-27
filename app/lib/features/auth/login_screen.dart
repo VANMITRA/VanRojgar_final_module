@@ -371,7 +371,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: VrText(
-                        'Your data is stored locally on your device. No personal information is shared without your consent.',
+                        'Your name, phone and village are stored on the VanRozgar server. Your PIN is stored only as a one-way hash. See About & Privacy.',
                         style: TextStyle(color: tokens.textMuted, fontSize: 11.5, height: 1.35),
                       ),
                     ),
