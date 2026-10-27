@@ -102,9 +102,10 @@ export async function seed() {
   }
   logger.info(`✅ Synced ${demoUsersRaw.length} demo accounts (passwords initialized)`);
 
-  // 5. No demo listings, requests or orders: the marketplace starts empty and holds only what people list.
+  // 5. No unlabelled demo listings: the marketplace holds only what people list, plus labelled Sample products
+  //    (scripts/seed_sample_shop.js). Running the seed again must not delete those.
   const seedOwners = [...userMap.keys()].filter((k) => k.startsWith('gs:')).map((k) => userMap.get(k)._id);
-  const removedListings = await Listing.deleteMany({ ownerId: { $in: seedOwners } });
+  const removedListings = await Listing.deleteMany({ ownerId: { $in: seedOwners }, isSample: { $ne: true } });
   logger.info(`✅ Demo listings removed: ${removedListings.deletedCount}`);
 
   logger.info('🎉 Seed completed successfully!');

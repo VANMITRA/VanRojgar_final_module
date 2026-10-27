@@ -46,6 +46,10 @@ test('sample data script: labelled Sample, several sellers per product, orders f
   assert.match(second.stdout, /listings created: 0, already there: 22/, second.stdout);
   assert.match(second.stdout, /sample requests created: 0/, second.stdout);
 
+  // running the seed again must not delete the Sample products
+  await seed();
+  assert.equal((await get('/shop/home')).data.openListings, 22, 'the seed keeps Sample listings');
+
   // everything is labelled Sample and the shop looks alive
   const products = (await get('/shop/products?limit=50')).data.products;
   assert.ok(products.length >= 14, `${products.length} products`);
