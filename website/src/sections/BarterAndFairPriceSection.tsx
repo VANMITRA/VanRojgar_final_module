@@ -43,7 +43,7 @@ export const BarterAndFairPriceSection: React.FC = () => {
       : t.barterSection.favoursSenderVerdict;
 
   return (
-    <section id="barter" className="py-20 bg-white dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors">
+    <section id="barter" className="py-20 bg-[#F4F7F5] dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
@@ -61,12 +61,12 @@ export const BarterAndFairPriceSection: React.FC = () => {
         </div>
 
         {/* Interactive Balance Meter Tool Card */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#F4F7F5] dark:bg-[#173425] border border-gray-200 dark:border-[#2B5A46] shadow-xl">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray-200 dark:border-[#2B5A46]">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#173425] border border-gray-200/80 dark:border-[#2B5A46] shadow-xl">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray-100 dark:border-[#2B5A46]">
             <div>
               <h3 className="text-xl font-bold text-[#1A4331] dark:text-white flex items-center gap-2">
                 <span>{t.barterSection.simulatorTitle}</span>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#FF8D20]/20 text-[#FF8D20]">
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#FF8D20]/20 text-[#D96B00] dark:text-[#FF8D20]">
                   {t.barterSection.liveTestBadge}
                 </span>
               </h3>
@@ -76,7 +76,7 @@ export const BarterAndFairPriceSection: React.FC = () => {
             </div>
 
             {/* "Not enough data" simulation switch */}
-            <div className="flex items-center gap-2 bg-white dark:bg-[#10261B] px-3 py-1.5 rounded-xl border border-gray-200 dark:border-[#2B5A46]">
+            <div className="flex items-center gap-2 bg-[#F4F7F5] dark:bg-[#10261B] px-3 py-1.5 rounded-xl border border-gray-200 dark:border-[#2B5A46]">
               <span className="text-xs font-semibold text-[#13202B] dark:text-white">
                 {t.barterSection.simToggleLabel}
               </span>
@@ -112,8 +112,8 @@ export const BarterAndFairPriceSection: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-6">
               
               {/* Party A (Offering) Column */}
-              <div className="lg:col-span-5 p-5 rounded-2xl bg-white dark:bg-[#10261B] border border-gray-200 dark:border-[#2B5A46] space-y-4">
-                <div className="flex items-center justify-between pb-2 border-b border-gray-100 dark:border-[#2B5A46]">
+              <div className="lg:col-span-5 p-5 rounded-2xl bg-[#F4F7F5] dark:bg-[#10261B] border border-gray-200/80 dark:border-[#2B5A46] space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-gray-200/80 dark:border-[#2B5A46]">
                   <span className="text-xs font-bold text-[#1A4331] dark:text-[#5FAE3B]">
                     {t.barterSection.partyATitle}
                   </span>
@@ -185,8 +185,8 @@ export const BarterAndFairPriceSection: React.FC = () => {
               </div>
 
               {/* Party B (Requested) Column */}
-              <div className="lg:col-span-5 p-5 rounded-2xl bg-white dark:bg-[#10261B] border border-gray-200 dark:border-[#2B5A46] space-y-4">
-                <div className="flex items-center justify-between pb-2 border-b border-gray-100 dark:border-[#2B5A46]">
+              <div className="lg:col-span-5 p-5 rounded-2xl bg-[#F4F7F5] dark:bg-[#10261B] border border-gray-200/80 dark:border-[#2B5A46] space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-gray-200/80 dark:border-[#2B5A46]">
                   <span className="text-xs font-bold text-[#FF8D20]">
                     {t.barterSection.partyBTitle}
                   </span>
