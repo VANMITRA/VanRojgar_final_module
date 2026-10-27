@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
+    --header-h: 64px;
     --brand-primary: #1A4331;
     --brand-primary-dark: #0C1B14;
     --brand-secondary: #2D765C;
@@ -22,9 +25,16 @@
     --status-info: #2F5FB3;
   }
 
-  body {
+  @media (min-width: 640px) {
+    :root {
+      --header-h: 68px;
+    }
+  }
+
+  html, body {
     font-family: 'Manrope', 'Noto Sans Devanagari', 'Mukta', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
+    max-width: 100vw;
   }
 }
 

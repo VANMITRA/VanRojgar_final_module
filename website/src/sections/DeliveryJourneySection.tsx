@@ -13,12 +13,12 @@ export const DeliveryJourneySection: React.FC = () => {
   const t = translations[language];
 
   return (
-    <section id="delivery" className="py-20 bg-white dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors">
+    <section id="delivery" className="py-20 bg-[#F4F7F5] dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF8D20]/15 text-[#FF8D20] text-xs font-bold">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF8D20]/15 text-[#D96B00] dark:text-[#FF8D20] text-xs font-bold">
             <Truck className="w-3.5 h-3.5" />
             <span>{t.deliverySection.badge}</span>
           </div>
@@ -35,7 +35,7 @@ export const DeliveryJourneySection: React.FC = () => {
           {t.deliverySection.journeySteps.map((s, idx) => (
             <div
               key={s.step}
-              className="p-5 rounded-3xl bg-[#F4F7F5] dark:bg-[#173425] border border-gray-200 dark:border-[#2B5A46] shadow-sm relative flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-white dark:bg-[#173425] border border-gray-200/80 dark:border-[#2B5A46] shadow-md relative flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -64,7 +64,7 @@ export const DeliveryJourneySection: React.FC = () => {
         </div>
 
         {/* Live Delivery Dispatch & "My Deliveries" Interface Mock */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#F4F7F5] dark:bg-[#173425] border border-gray-200 dark:border-[#2B5A46] shadow-xl mb-12">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#173425] border border-gray-200/80 dark:border-[#2B5A46] shadow-xl mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             <div className="lg:col-span-6 space-y-4 text-left">
@@ -82,26 +82,26 @@ export const DeliveryJourneySection: React.FC = () => {
               </p>
 
               <div className="grid grid-cols-2 gap-3 pt-2">
-                <div className="p-3.5 rounded-2xl bg-white dark:bg-[#10261B] border border-gray-200 dark:border-[#2B5A46]">
+                <div className="p-3.5 rounded-2xl bg-[#F4F7F5] dark:bg-[#10261B] border border-gray-200/80 dark:border-[#2B5A46]">
                   <div className="text-[10px] text-[#66737C] dark:text-[#AAB8B2]">{t.deliverySection.totalEarningsLabel}</div>
                   <div className="text-xl font-extrabold text-[#5FAE3B] mt-0.5">
                     ₹{deliveryPartner.totalEarnings.toLocaleString()}
                   </div>
-                  <div className="text-[10px] text-[#AAB8B2]">{deliveryPartner.completedJobs} {t.deliverySection.completedHaulsLabel}</div>
+                  <div className="text-[10px] text-[#66737C] dark:text-[#AAB8B2]">{deliveryPartner.completedJobs} {t.deliverySection.completedHaulsLabel}</div>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white dark:bg-[#10261B] border border-gray-200 dark:border-[#2B5A46]">
+                <div className="p-3.5 rounded-2xl bg-[#F4F7F5] dark:bg-[#10261B] border border-gray-200/80 dark:border-[#2B5A46]">
                   <div className="text-[10px] text-[#66737C] dark:text-[#AAB8B2]">{t.deliverySection.partnerRatingLabel}</div>
                   <div className="text-xl font-extrabold text-[#FF8D20] mt-0.5 flex items-center gap-1">
                     <Star className="w-4 h-4 fill-[#FF8D20]" />
                     <span>{deliveryPartner.rating}</span>
                   </div>
-                  <div className="text-[10px] text-[#AAB8B2]">{t.deliverySection.ratedByLabel}</div>
+                  <div className="text-[10px] text-[#66737C] dark:text-[#AAB8B2]">{t.deliverySection.ratedByLabel}</div>
                 </div>
               </div>
 
               {/* Driver Availability Toggle Simulation */}
-              <div className="p-3.5 rounded-2xl bg-white dark:bg-[#10261B] border border-gray-200 dark:border-[#2B5A46] flex items-center justify-between">
+              <div className="p-3.5 rounded-2xl bg-[#F4F7F5] dark:bg-[#10261B] border border-gray-200/80 dark:border-[#2B5A46] flex items-center justify-between">
                 <div>
                   <div className="text-xs font-bold text-[#13202B] dark:text-white">
                     {t.deliverySection.availabilityTitle}
@@ -135,7 +135,7 @@ export const DeliveryJourneySection: React.FC = () => {
               {deliveryJobs.map((job) => (
                 <div
                   key={job.id}
-                  className="p-4 rounded-2xl bg-white dark:bg-[#10261B] border border-gray-200 dark:border-[#2B5A46] shadow-sm flex items-center justify-between gap-3"
+                  className="p-4 rounded-2xl bg-[#F4F7F5] dark:bg-[#10261B] border border-gray-200/80 dark:border-[#2B5A46] shadow-sm flex items-center justify-between gap-3"
                 >
                   <div className="space-y-1 min-w-0">
                     <div className="flex items-center gap-2">

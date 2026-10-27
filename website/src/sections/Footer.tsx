@@ -16,7 +16,6 @@ export const Footer: React.FC<FooterProps> = ({ onReplayIntro }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div
-          style={{ marginLeft: '-70px', marginRight: '-70px' }}
           className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-[#2D765C]/30"
         >
           
@@ -161,11 +160,11 @@ export const Footer: React.FC<FooterProps> = ({ onReplayIntro }) => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#AAB8B2]">
-          <div style={{ marginLeft: '-70px' }}>
+          <div>
             {t.footer.allRightsReserved}
           </div>
 
-          <div style={{ marginRight: '-70px' }} className="flex items-center gap-4 sm:gap-6 flex-wrap">
+          <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
             {onReplayIntro && (
               <>
                 <button

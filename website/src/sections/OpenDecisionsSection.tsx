@@ -51,10 +51,10 @@ export const OpenDecisionsSection: React.FC = () => {
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="p-2 rounded-xl bg-gray-50 dark:bg-[#10261B]">
+                  <div className="p-2 rounded-xl bg-[#F4F7F5] dark:bg-[#10261B] border border-gray-200/70 dark:border-[#2B5A46]/40">
                     {icons[idx % icons.length]}
                   </div>
-                  <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-gray-100 dark:bg-[#10261B] text-[#66737C] dark:text-[#AAB8B2]">
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-[#F4F7F5] dark:bg-[#10261B] text-[#1A4331] dark:text-[#5FAE3B]">
                     {item.id}
                   </span>
                 </div>

@@ -130,7 +130,7 @@ export const OverviewHubSection: React.FC = () => {
   const t = translations[language];
 
   return (
-    <section className="py-16 sm:py-20 bg-white dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors border-t border-[#2D765C]/20">
+    <section className="py-16 sm:py-20 bg-[#F4F7F5] dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors border-t border-[#2D765C]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
@@ -159,15 +159,12 @@ export const OverviewHubSection: React.FC = () => {
               ? 'प्रत्येक विषय अपनी स्वतंत्र विंडो टैब में संरचित है ताकि आप बिना किसी रुकावट के लक्षित जानकारी देख सकें।'
               : language === 'mr'
               ? 'प्रत्येक विषय त्याच्या स्वतंत्र विंडो टॅबमध्ये मांडला आहे जेणेकरून आपण संबंधित माहिती सहजपणे पाहू शकाल.'
-              : 'Each core feature operates inside its own dedicated window tab section. Click any module below or use the top tab bar to switch instantly.'}
+              : 'Each core feature operates inside its own dedicated window tab section. Click any module below or use the top right sections dropdown to switch instantly.'}
           </p>
         </div>
 
         {/* 7 Cards Grid */}
-        <div
-          style={{ marginLeft: '-70px', marginRight: '-70px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {MODULE_CARDS.map((card, idx) => {
             const Icon = card.icon;
             const tabTitle = t.nav[card.titleKey];
@@ -178,13 +175,13 @@ export const OverviewHubSection: React.FC = () => {
             return (
               <div
                 key={card.tabId}
-                className={`relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-[#F4F7F5] dark:bg-[#143424]/90 border border-black/5 dark:border-[#2B5A46]/60 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${
+                className={`relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#173425] border border-gray-200/80 dark:border-[#2B5A46] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${
                   idx === 6 ? 'md:col-span-2 lg:col-span-1' : ''
                 }`}
               >
                 {/* Top Row: Icon + Tag */}
                 <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#10261B] border border-[#2D765C]/30 flex items-center justify-center text-[#FF8D20] shadow-xs group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-[#F4F7F5] dark:bg-[#10261B] border border-[#2D765C]/20 flex items-center justify-center text-[#FF8D20] shadow-xs group-hover:scale-110 transition-transform">
                     <Icon className="w-6 h-6 text-[#FF8D20]" />
                   </div>
                   <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#1A4331]/10 dark:bg-[#2D765C]/40 text-[#1A4331] dark:text-[#5FAE3B]">
@@ -208,8 +205,11 @@ export const OverviewHubSection: React.FC = () => {
                 {/* Action CTA */}
                 <button
                   type="button"
-                  onClick={() => setActiveTab(card.tabId)}
-                  className="w-full inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-white dark:bg-[#10261B] hover:bg-[#FF8D20] dark:hover:bg-[#FF8D20] text-[#13202B] dark:text-[#F4F7F5] hover:text-white dark:hover:text-white border border-[#2B5A46]/30 text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition-all cursor-pointer group/btn"
+                  onClick={() => {
+                    setActiveTab(card.tabId);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="w-full inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-[#F4F7F5] dark:bg-[#10261B] hover:bg-[#FF8D20] dark:hover:bg-[#FF8D20] text-[#13202B] dark:text-[#F4F7F5] hover:text-white dark:hover:text-white border border-gray-200/80 dark:border-[#2B5A46]/30 text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition-all cursor-pointer group/btn"
                 >
                   <span>
                     {language === 'hi'
@@ -227,7 +227,6 @@ export const OverviewHubSection: React.FC = () => {
 
         {/* Global Architecture Summary Callout */}
         <div
-          style={{ marginLeft: '-70px', marginRight: '-70px' }}
           className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#1A4331] to-[#10261B] text-white border border-[#2D765C]/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6"
         >
           <div className="space-y-2 text-left">

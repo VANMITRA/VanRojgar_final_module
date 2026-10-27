@@ -30,7 +30,7 @@ export const HowItWorksSection: React.FC = () => {
   const steps = t.howItWorksSection.steps;
 
   return (
-    <section id="how-it-works" className="py-20 bg-white dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors">
+    <section id="how-it-works" className="py-20 bg-[#F4F7F5] dark:bg-[#10261B] text-[#13202B] dark:text-[#F4F7F5] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
@@ -56,19 +56,19 @@ export const HowItWorksSection: React.FC = () => {
               className={`p-3 rounded-2xl text-left border transition-all cursor-pointer ${
                 activeStep === idx
                   ? 'bg-[#1A4331] text-white dark:bg-[#173425] border-[#FF8D20] shadow-lg ring-2 ring-[#FF8D20]/30'
-                  : 'bg-gray-50 dark:bg-[#0C1B14] border-gray-200 dark:border-[#2B5A46] text-[#66737C] dark:text-[#AAB8B2] hover:bg-gray-100'
+                  : 'bg-white dark:bg-[#0C1B14] border-gray-200/80 dark:border-[#2B5A46] text-[#13202B] dark:text-[#AAB8B2] hover:bg-gray-50'
               }`}
             >
               <div className="flex items-center justify-between mb-1.5">
-                <span className={`text-xs font-black ${activeStep === idx ? 'text-[#FF8D20]' : 'text-[#66737C]'}`}>
+                <span className={`text-xs font-black ${activeStep === idx ? 'text-[#FF8D20]' : 'text-[#2D765C] dark:text-[#5FAE3B]'}`}>
                   {s.step}
                 </span>
-                <div className="p-1 rounded-lg bg-white/10">{stepIcons[idx % stepIcons.length]}</div>
+                <div className="p-1 rounded-lg bg-black/5 dark:bg-white/10">{stepIcons[idx % stepIcons.length]}</div>
               </div>
               <div className="text-xs font-bold line-clamp-1">
                 {s.title}
               </div>
-              <div className="text-[10px] text-[#AAB8B2] truncate mt-0.5">
+              <div className="text-[10px] text-[#66737C] dark:text-[#AAB8B2] truncate mt-0.5">
                 {s.actor}
               </div>
             </button>
@@ -76,7 +76,7 @@ export const HowItWorksSection: React.FC = () => {
         </div>
 
         {/* Active Step Feature Display */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#F4F7F5] dark:bg-[#173425] border border-gray-200 dark:border-[#2B5A46] shadow-xl">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#173425] border border-gray-200/80 dark:border-[#2B5A46] shadow-xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             <div className="lg:col-span-7 space-y-4 text-left">

@@ -100,9 +100,9 @@ export const WindowTabBar: React.FC = () => {
   };
 
   return (
-    <div className="sticky top-[68px] sm:top-[72px] z-40 bg-white/95 dark:bg-[#0C1B14]/95 backdrop-blur-md border-b border-[#2D765C]/30 shadow-xs transition-colors">
+    <div className="sticky top-[var(--header-h)] z-40 bg-white/95 dark:bg-[#0C1B14]/95 backdrop-blur-md border-b border-[#2D765C]/20 dark:border-[#2D765C]/30 shadow-xs transition-colors w-full overflow-hidden">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-        <div className="relative flex items-center">
+        <div className="relative flex items-center min-w-0">
           {/* Left Arrow on desktop/tablet if needed */}
           <button
             type="button"
@@ -118,7 +118,7 @@ export const WindowTabBar: React.FC = () => {
             ref={scrollRef}
             role="tablist"
             aria-label="Sections Window Tabs"
-            className="flex-grow flex items-center gap-1.5 sm:gap-2 py-2.5 overflow-x-auto no-scrollbar scroll-smooth"
+            className="min-w-0 flex-grow flex items-center gap-1.5 sm:gap-2 py-2.5 overflow-x-auto no-scrollbar scroll-smooth"
           >
             {TAB_CONFIGS.map((tab) => {
               const Icon = tab.icon;
@@ -137,8 +137,8 @@ export const WindowTabBar: React.FC = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`group shrink-0 inline-flex items-center gap-2 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer select-none ${
                     isActive
-                      ? 'bg-[#FF8D20] text-white shadow-md shadow-orange-950/20 font-bold scale-[1.02]'
-                      : 'bg-black/5 dark:bg-white/5 text-[#46535E] dark:text-[#AAB8B2] hover:text-[#13202B] dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10'
+                      ? 'bg-[#1A4331] dark:bg-[#FF8D20] text-white shadow-md shadow-[#1A4331]/20 dark:shadow-orange-950/20 font-bold scale-[1.02]'
+                      : 'bg-black/[0.04] dark:bg-white/5 text-[#13202B] dark:text-[#AAB8B2] hover:text-[#1A4331] dark:hover:text-white hover:bg-[#1A4331]/10 dark:hover:bg-white/10'
                   }`}
                 >
                   <Icon
@@ -151,7 +151,7 @@ export const WindowTabBar: React.FC = () => {
                     className={`text-[10px] px-1.5 py-0.5 rounded-md font-medium tracking-wide ${
                       isActive
                         ? 'bg-white/25 text-white'
-                        : 'bg-black/5 dark:bg-white/10 text-[#66737C] dark:text-[#889B93]'
+                        : 'bg-black/5 dark:bg-white/10 text-[#46535E] dark:text-[#889B93]'
                     }`}
                   >
                     {badgeText}
