@@ -146,8 +146,5 @@ These need a person, an account, or a real phone:
 | I want to… | Open |
 |---|---|
 | Deploy the app | `docs/DEPLOY.md` |
-| See the plan and decisions | `docs/plan.md` |
-| See open questions | `docs/QUESTIONS.md` |
 | See the data credits | `CREDITS.md` |
 | See the village data | `server/src/seed/data/raah/raah_villages.json` |
-| See the Round 2 form draft | `docs/round2/` |

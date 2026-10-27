@@ -18,3 +18,7 @@ venv/
 .venv/
 .dart_tool/
 __pycache__/
+
+# Generated datasets and local build output
+livelihood_server/data/
+livelihood_server/venv/

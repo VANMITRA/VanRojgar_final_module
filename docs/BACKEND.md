@@ -1,7 +1,7 @@
 # Backend: what exists and what changes
 
 **Updated:** 26 Oct 2026. Two servers, one database, one login.
-Older, longer notes: `docs/vanrozgar/BACKEND_ARCHITECTURE.md` and `API_CONTRACT.md`. This file is the short, current version.
+This file is the short, current version of the backend notes.
 
 ## 1. The two servers
 

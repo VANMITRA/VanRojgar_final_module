@@ -224,4 +224,4 @@ Developed as an integral rural livelihood module within the **VanMitra** (वन
 ## Integration note
 This folder is a copy of Kaushal's website (source: `Sinusoidal-Meow/VanRozgar-Module`, branch `main`), brought into the
 VanRozgar monorepo on the `kaushal-website-integration` branch. The AI Studio artefact folder (`.aistudio/`) was left out.
-Wiring to the app (buy button -> APK download -> item code) is listed in `docs/tasks.md`.
+The buy button opens the app download page, which shows the item code to paste into the app's search.

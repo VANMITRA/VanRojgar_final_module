@@ -1,7 +1,7 @@
 # Frontend: what exists and what changes
 
 **Updated:** 26 Oct 2026. Two front ends: the Android app and the website.
-Older notes: `docs/vanrozgar/FRONTEND_ARCHITECTURE.md`. This file is the short, current version.
+This file is the short, current version of the front-end notes.
 
 ## 1. The Android app (`app/`)
 

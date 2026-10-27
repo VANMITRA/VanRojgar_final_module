@@ -6,9 +6,7 @@ with a **forest-produce marketplace** (who buys it). Separate from VanMitra.
 
 **What has been built so far, in simple English:** [docs/WHAT_WE_BUILT.md](docs/WHAT_WE_BUILT.md)
 
-**Working plan:** [docs/plan.md](docs/plan.md)
-
-**Read first:** [docs/final_plan.md](docs/final_plan.md) (decisions, build order) and [docs/QUESTIONS.md](docs/QUESTIONS.md) (what is still open).
+**Deploying it:** [docs/DEPLOY.md](docs/DEPLOY.md) &middot; **Privacy:** [docs/PRIVACY.md](docs/PRIVACY.md) &middot; **Data credits:** [CREDITS.md](CREDITS.md)
 
 ## Layout
 
@@ -17,7 +15,8 @@ with a **forest-produce marketplace** (who buys it). Separate from VanMitra.
 | `app/` | the Android app | Flutter, Riverpod, GoRouter. The marketplace is Ayush's; the livelihood feature is `lib/features/livelihood/` |
 | `server/` | accounts, marketplace, trade, delivery, barter | Node.js 24, Express 5, MongoDB (Mongoose) |
 | `livelihood_server/` | the livelihood report (rules, ideas, schemes, nearby resources) | Python, FastAPI, MongoDB (read-only on `users`) |
-| `docs/` | plan, questions, Ayush's original architecture notes (`docs/vanrozgar/`) | |
+| `website/` | the public website: landing page, browse listings, app download | React, Vite |
+| `docs/` | what was built, backend and frontend notes, deploy guide, privacy text | |
 
 ## How the two servers fit together
 
