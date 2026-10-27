@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { translations } from '../i18n/translations';
-import { PortalType } from '../types';
 import {
   Users,
   Home,
@@ -9,28 +8,18 @@ import {
   X,
   Smartphone,
   Layers,
-  ArrowRight,
   ShieldCheck,
   Truck,
   Scale,
 } from 'lucide-react';
 
 export const PortalsComparisonSection: React.FC = () => {
-  const { language, setIsDemoOpen, setActivePortal } = useMarketplace();
+  const { language } = useMarketplace();
   const t = translations[language];
 
   const [selectedPortalIdx, setSelectedPortalIdx] = useState<number>(0);
-  const portalTypes: PortalType[] = ['gram_sabha', 'villager', 'buyer'];
-
   const specs = t.portalsSection.portalSpecs;
   const currentSpec = specs[selectedPortalIdx];
-  const activePortalType = portalTypes[selectedPortalIdx];
-
-  const handleTestPortalInDemo = (portal: PortalType) => {
-    setActivePortal(portal);
-    window.location.hash = '#/demo';
-    setIsDemoOpen(true);
-  };
 
   return (
     <section id="portals" className="py-20 bg-[#F4F7F5] dark:bg-[#0C1B14] text-[#13202B] dark:text-[#F4F7F5] transition-colors">
@@ -59,7 +48,7 @@ export const PortalsComparisonSection: React.FC = () => {
               className={`p-5 rounded-3xl text-left border transition-all cursor-pointer ${
                 selectedPortalIdx === idx
                   ? 'bg-white dark:bg-[#173425] border-[#FF8D20] shadow-xl ring-2 ring-[#FF8D20]/20 scale-[1.02]'
-                  : 'bg-white/60 dark:bg-[#10261B] border-gray-200 dark:border-[#2B5A46] hover:bg-white dark:hover:bg-[#173425]/60'
+                  : 'bg-white dark:bg-[#10261B] border-gray-200/80 dark:border-[#2B5A46] hover:bg-[#F4F7F5] dark:hover:bg-[#173425]/60'
               }`}
             >
               <div className="flex items-center justify-between mb-2">
@@ -135,16 +124,6 @@ export const PortalsComparisonSection: React.FC = () => {
                     <span>{not}</span>
                   </div>
                 ))}
-              </div>
-
-              <div className="pt-4">
-                <button
-                  onClick={() => handleTestPortalInDemo(activePortalType)}
-                  className="flex items-center gap-2 bg-[#FF8D20] hover:bg-[#D96B00] text-white px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95 cursor-pointer"
-                >
-                  <span>{t.portalsSection.launchInDemo} ({currentSpec.title})</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
               </div>
             </div>
 
