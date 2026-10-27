@@ -1,19 +1,14 @@
 import React from 'react';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { translations } from '../i18n/translations';
-import { ArrowUpRight, ChevronDown, Sparkles, MapPin, Star, ShieldCheck, TreePine, Truck, Layers } from 'lucide-react';
+import { ChevronDown, Sparkles, MapPin, Star, ShieldCheck, TreePine, Truck, Layers } from 'lucide-react';
 import { ResourceIcon } from '../components/ResourceIcon';
 
 export const HeroSection: React.FC = () => {
-  const { language, setIsDemoOpen, setSelectedListing, listings, setActiveTab } = useMarketplace();
+  const { language, setSelectedListing, listings, setActiveTab } = useMarketplace();
   const t = translations[language];
 
   const floatingListings = listings.slice(0, 3);
-
-  const handleLaunchDemo = () => {
-    window.location.hash = '#/demo';
-    setIsDemoOpen(true);
-  };
 
   return (
     <section className="relative min-h-[85vh] flex items-center pt-10 sm:pt-14 pb-16 overflow-hidden bg-gradient-to-b from-[#1A4331] via-[#10261B] to-[#0C1B14] text-white">
@@ -49,10 +44,7 @@ export const HeroSection: React.FC = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full py-8">
-        <div
-          style={{ paddingLeft: '0px', marginLeft: '-70px', marginBottom: '0px', marginRight: '-70px' }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Hero Column */}
           <div className="lg:col-span-7 space-y-6 text-left">
@@ -109,23 +101,15 @@ export const HeroSection: React.FC = () => {
               </div>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              <button
-                onClick={handleLaunchDemo}
-                className="flex items-center gap-2.5 bg-[#FF8D20] hover:bg-[#D96B00] active:scale-95 text-white px-7 py-3.5 rounded-2xl text-sm sm:text-base font-bold shadow-xl shadow-orange-950/30 transition-all focus:outline-none focus:ring-2 focus:ring-[#FF8D20]"
-              >
-                <span>{t.hero.tryDemo}</span>
-                <ArrowUpRight className="w-5 h-5" />
-              </button>
-
+            {/* Primary Action CTA */}
+            <div className="pt-4">
               <button
                 type="button"
                 onClick={() => setActiveTab('how_it_works')}
-                className="flex items-center gap-2 bg-[#2D765C]/40 hover:bg-[#2D765C]/70 text-[#F4F7F5] px-6 py-3.5 rounded-2xl text-sm font-semibold border border-[#2B5A46] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2.5 bg-[#FF8D20] hover:bg-[#D96B00] active:scale-95 text-white px-7 py-3.5 rounded-2xl text-sm sm:text-base font-bold shadow-xl shadow-orange-950/30 transition-all focus:outline-none focus:ring-2 focus:ring-[#FF8D20] cursor-pointer"
               >
                 <span>{t.hero.howItWorks}</span>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-5 h-5" />
               </button>
             </div>
 
