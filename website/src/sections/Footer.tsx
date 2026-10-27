@@ -147,13 +147,6 @@ export const Footer: React.FC<FooterProps> = ({ onReplayIntro }) => {
                 {t.footer.backOfficeText}
               </p>
             </div>
-
-            <div className="flex items-center gap-2 text-xs text-[#AAB8B2] pt-1">
-              <span>{t.footer.helplineLabel}</span>
-              <a href="tel:18002096060" className="text-white font-bold hover:text-[#FF8D20]">
-                {t.footer.helplineNumber}
-              </a>
-            </div>
           </div>
 
         </div>

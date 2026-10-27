@@ -110,6 +110,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       'phone': phone,
       'password': password,
       'district': 'Nashik',
+      'language': ref.read(activeLocaleProvider),
     };
 
     if (widget.portal == 'gramsabha') {

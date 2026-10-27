@@ -40,7 +40,7 @@ class ProfileScreen extends ConsumerWidget {
               PreferenceCard(
                 icon: Icons.language,
                 title: 'भाषा बदला (Change Language)',
-                subtitle: user.language == 'mr' ? 'मराठी' : 'English',
+                subtitle: const {'en': 'English', 'hi': 'हिंदी', 'mr': 'मराठी'}[ref.watch(activeLocaleProvider)] ?? 'English',
                 onTap: () => context.push('/settings/language'),
               ),
               PreferenceCard(

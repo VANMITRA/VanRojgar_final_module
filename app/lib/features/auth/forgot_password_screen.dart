@@ -43,24 +43,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.phone, color: tokens.brandPrimary),
+                        Icon(Icons.support_agent, color: tokens.brandPrimary),
                         const SizedBox(width: 12),
                         const Expanded(
                           child: VrText(
                             'मदतीसाठी तुमच्या ग्रामसभेशी किंवा VanRozgar टीमशी संपर्क साधा • Contact your Gram Sabha or the VanRozgar team',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Divider(height: 24),
-                    Row(
-                      children: [
-                        Icon(Icons.email, color: tokens.brandPrimary),
-                        const SizedBox(width: 12),
-                        const Expanded(
-                          child: VrText(
-                            'सहाय्य ईमेल:\nsupport@vanrozgar.org',
                             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                           ),
                         ),

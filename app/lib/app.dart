@@ -12,13 +12,8 @@ class VanRozgarApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeLocale = ref.watch(activeLocaleProvider);
-    // Follow the logged-in user's saved language (login, register, session restore)
-    ref.listen(authControllerProvider, (prev, next) {
-      final lang = next.valueOrNull?.language;
-      if (lang != null && lang != ref.read(activeLocaleProvider)) {
-        ref.read(activeLocaleProvider.notifier).setLanguage(lang);
-      }
-    });
+    // The language chosen on this phone stays in charge. Logging in never switches it, because the demo
+    // and older accounts are stored as Marathi and that overrode what the person had just chosen.
     final themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
