@@ -1,5 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vanrozgar/ui_v2/l10n/app_strings.dart';
+import 'package:vanrozgar/ui_v2/providers/catalog_providers.dart';
 import 'package:vanrozgar/ui_v2/shell/landing_geometry.dart';
+import 'package:vanrozgar/ui_v2/shell/landing_page.dart';
+import 'package:vanrozgar/ui_v2/theme/van_rozgar_theme.dart';
+
+Widget _buildLandingApp({
+  required AppLanguage language,
+  required ThemeMode themeMode,
+  double textScale = 1.0,
+}) {
+  return ProviderScope(
+    overrides: [
+      uiV2LanguageProvider.overrideWith((ref) => language),
+      uiV2ThemeModeProvider.overrideWith((ref) => themeMode),
+    ],
+    child: MaterialApp(
+      theme: VanRozgarTheme.lightTheme,
+      darkTheme: VanRozgarTheme.darkTheme,
+      themeMode: themeMode,
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaler: TextScaler.linear(textScale),
+          disableAnimations: true,
+        ),
+        child: child!,
+      ),
+      home: const LandingPage(),
+    ),
+  );
+}
 
 void main() {
   group('LandingGeometry Unit Tests', () {
@@ -20,7 +52,8 @@ void main() {
     });
 
     test('Thin gap between Card 1 bottom and Card 2 top at right edge is ~0.007 H', () {
-      final gap = LandingGeometry.card2Reference.topRight.dy - LandingGeometry.card1Reference.bottomRight.dy;
+      final gap = LandingGeometry.card2Reference.topRight.dy -
+          LandingGeometry.card1Reference.bottomRight.dy;
       expect(gap, closeTo(0.007, 0.001));
     });
 
@@ -86,5 +119,161 @@ void main() {
       expect(blobB.topLeft.dx - card2.topLeft.dx, closeTo(-0.06, 0.0001));
       expect(blobB.topLeft.dy - card2.topLeft.dy, closeTo(0.035, 0.0001));
     });
+  });
+
+  group('Task 2: Landing Slides 1 and 3 Pulled Headline Geometry Tests', () {
+    const sizes = <Size>[
+      Size(320.0, 568.0),
+      Size(360.0, 800.0),
+      Size(430.0, 932.0),
+    ];
+
+    Map<int, List<int>> pulledIndicesForSlide1(AppLanguage lang) => switch (lang) {
+          AppLanguage.en => const {1: [1, 3]}, // "from the", "forest"
+          AppLanguage.hi => const {1: [1, 2]}, // "गाँव के", "जंगल"
+          AppLanguage.mr => const {1: [1, 2]}, // "गावच्या", "जंगलातून"
+        };
+
+    Map<int, List<int>> pulledIndicesForSlide3(AppLanguage lang) => switch (lang) {
+          AppLanguage.en => const {3: [1, 3]}, // "that stays", "village"
+          AppLanguage.hi => const {3: [0, 1]}, // "रोज़गार", "जो गाँव"
+          AppLanguage.mr => const {3: [0, 2]}, // "रोजगार", "गावातच"
+        };
+
+    testWidgets(
+      'Slides 1 and 3 pulled headline lines overlap picture card by <= 0.08 * W, '
+      'stay on screen, and subtitle/note do not touch pictures at 320x568, 360x800, 430x932 '
+      'in EN, HI, MR, light & dark, textScaler 1.5',
+      (WidgetTester tester) async {
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        for (final size in sizes) {
+          final W = size.width;
+          final H = size.height;
+          final card1Poly = LandingGeometry.getCard1(mirrored: true);
+
+          for (final lang in AppLanguage.values) {
+            final strings = AppStrings.of(lang);
+            for (final mode in [ThemeMode.light, ThemeMode.dark]) {
+              tester.view.physicalSize = Size(W * 2.0, H * 2.0);
+              tester.view.devicePixelRatio = 2.0;
+
+              await tester.pumpWidget(const SizedBox());
+              await tester.pumpWidget(
+                _buildLandingApp(
+                  language: lang,
+                  themeMode: mode,
+                  textScale: 1.5,
+                ),
+              );
+              await tester.pumpAndSettle();
+              expect(tester.takeException(), isNull);
+
+              void verifyMirroredSlide({
+                required int slideNumber,
+                required List<String> lines,
+                required List<int> pulledIndices,
+              }) {
+                final card1Rect = tester.getRect(find.byKey(const Key('landing_card_top')));
+                final card2Rect = tester.getRect(find.byKey(const Key('landing_card_bottom')));
+                final subtitleRect = tester.getRect(find.byKey(const Key('landing_subtitle')));
+                final noteRect = tester.getRect(find.byKey(const Key('landing_note')));
+
+                for (int i = 0; i < lines.length; i++) {
+                  final lineRect =
+                      tester.getRect(find.byKey(Key('landing_headline_line_$i')));
+                  // Must stay inside screen bounds
+                  expect(
+                    lineRect.left,
+                    greaterThanOrEqualTo(0.0),
+                    reason: 'Slide $slideNumber ($lang, $size, $mode) line $i went off left edge',
+                  );
+                  expect(
+                    lineRect.right,
+                    lessThanOrEqualTo(W + 0.5),
+                    reason: 'Slide $slideNumber ($lang, $size, $mode) line $i went off right edge',
+                  );
+
+                  final edgeX = LandingGeometry.innerEdgeU(
+                        card1Poly,
+                        lineRect.center.dy / H,
+                        mirrored: true,
+                      ) *
+                      W;
+                  final rectOverlap = card1Rect.right - lineRect.left;
+                  final edgeOverlap = edgeX - lineRect.left;
+
+                  if (pulledIndices.contains(i)) {
+                    // Pulled line must actually overlap the picture card (both polygon edge and card rect)
+                    expect(
+                      rectOverlap,
+                      greaterThan(0.0),
+                      reason:
+                          'Slide $slideNumber ($lang, $size, $mode) pulled line $i ("${lines[i]}") did not overlap card1Rect',
+                    );
+                    expect(
+                      edgeOverlap,
+                      greaterThan(0.0),
+                      reason:
+                          'Slide $slideNumber ($lang, $size, $mode) pulled line $i ("${lines[i]}") did not overlap polygon edge',
+                    );
+                    // Overlap must be at most 0.08 * W
+                    expect(
+                      rectOverlap,
+                      lessThanOrEqualTo(0.08 * W + 0.5),
+                      reason:
+                          'Slide $slideNumber ($lang, $size, $mode) pulled line $i ("${lines[i]}") overlapped card1Rect by more than 0.08 * W',
+                    );
+                    expect(
+                      edgeOverlap,
+                      lessThanOrEqualTo(0.08 * W + 0.5),
+                      reason:
+                          'Slide $slideNumber ($lang, $size, $mode) pulled line $i ("${lines[i]}") overlapped polygon edge by more than 0.08 * W',
+                    );
+                  } else {
+                    // Non-pulled line must NOT touch the picture card
+                    expect(
+                      edgeOverlap,
+                      lessThanOrEqualTo(0.0),
+                      reason:
+                          'Slide $slideNumber ($lang, $size, $mode) non-pulled line $i ("${lines[i]}") touched picture polygon',
+                    );
+                  }
+                }
+
+                // Subtitle and note must not touch the pictures
+                expect(subtitleRect.overlaps(card2Rect), isFalse);
+                expect(noteRect.overlaps(card1Rect), isFalse);
+                expect(noteRect.overlaps(card2Rect), isFalse);
+              }
+
+              // Check Slide 1
+              verifyMirroredSlide(
+                slideNumber: 1,
+                lines: strings.landingSlide1HeadlineLines,
+                pulledIndices: pulledIndicesForSlide1(lang)[1]!,
+              );
+
+              // Advance to Slide 2 -> Slide 3
+              await tester.tap(find.text(strings.landingNext));
+              await tester.pumpAndSettle();
+              expect(tester.takeException(), isNull);
+
+              await tester.tap(find.text(strings.landingNext));
+              await tester.pumpAndSettle();
+              expect(tester.takeException(), isNull);
+
+              // Check Slide 3
+              verifyMirroredSlide(
+                slideNumber: 3,
+                lines: strings.landingSlide3HeadlineLines,
+                pulledIndices: pulledIndicesForSlide3(lang)[3]!,
+              );
+            }
+          }
+        }
+      },
+    );
   });
 }
