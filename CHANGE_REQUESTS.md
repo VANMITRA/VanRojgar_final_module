@@ -23,3 +23,4 @@ The following items touch files outside Phase 9's allowed ownership paths (`app/
 4. **Cleanup of `ProfilePlaceholderPage` in `app/lib/ui_v2/shell/placeholder_pages.dart`:**
    - **Why:** Per Phase 9 Section 3(c), `app/lib/ui_v2/shell/placeholder_pages.dart` was not edited or deleted, and `app/test/ui_v2_smoke_test.dart` still pumps `ProfilePlaceholderPage` directly in one smoke test.
    - **Action needed after merge:** Once all phases are merged and `app/test/ui_v2_smoke_test.dart` is updated to pump `ProfilePage`, `ProfilePlaceholderPage` in `placeholder_pages.dart` can be removed.
+

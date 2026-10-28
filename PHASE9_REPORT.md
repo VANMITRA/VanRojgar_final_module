@@ -108,3 +108,4 @@ Because only `flutter analyze` and automated widget tests were run (no screen wa
 4. **Long-Form Reading Pages (`/about`, `/credits`, `/privacy`, `/more/:key`):**
    - Check card spacing, section headings, and the muted draft-translation notice box at the top when viewing `/about`, `/credits`, and `/privacy` in Hindi and Marathi.
    - Check that the top back arrow is comfortably reachable below the status bar / camera cutout and that the bottom of `/profile` scrolls clear of the floating "View cart" pill when items are in the cart.
+
