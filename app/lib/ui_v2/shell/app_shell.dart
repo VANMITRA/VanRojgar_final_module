@@ -110,6 +110,11 @@ final uiV2Router = GoRouter(
       path: '/cart',
       builder: (context, state) => const CartPage(),
     ),
+    // Temporary until Phase 6 (checkout) is merged: "Buy now" shows the cart.
+    GoRoute(
+      path: '/checkout',
+      builder: (context, state) => const CartPage(),
+    ),
     GoRoute(
       path: '/product/:code',
       builder: (context, state) => ProductPage(productCode: state.pathParameters['code'] ?? ''),

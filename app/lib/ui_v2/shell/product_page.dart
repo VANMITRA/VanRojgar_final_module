@@ -27,6 +27,9 @@ class ProductPage extends ConsumerWidget {
     final strings = AppStrings.of(language);
     final product = ref.watch(productByCodeProvider(productCode)).valueOrNull;
     final cart = ref.watch(cartQuantitiesProvider);
+    final choice = ref.watch(cartSellerChoiceProvider);
+    final pending = ref.watch(_pendingQuantityProvider(productCode));
+    final selected = product == null ? null : _selectedListing(product, choice[productCode]);
 
     final s = (MediaQuery.sizeOf(context).width / 360.0).clamp(0.85, 1.25);
 
@@ -57,14 +60,23 @@ class ProductPage extends ConsumerWidget {
               ),
             ),
             Expanded(
-              child: product == null
+              child: product == null || selected == null
                   ? const SizedBox.shrink()
-                  : _ProductBody(product: product, language: language, tokens: tokens, s: s),
+                  : _ProductBody(
+                      product: product,
+                      selected: selected,
+                      onSelect: (listing) => _selectSeller(ref, product, listing),
+                      language: language,
+                      tokens: tokens,
+                      s: s,
+                    ),
             ),
-            if (product != null)
+            if (product != null && selected != null)
               _AddBar(
                 product: product,
-                quantity: cart[product.productCode] ?? 0,
+                selected: selected,
+                inCart: cart[product.productCode],
+                pending: pending == 0 ? selected.minOrderQuantity : pending,
                 language: language,
                 tokens: tokens,
                 s: s,
@@ -76,14 +88,43 @@ class ProductPage extends ConsumerWidget {
   }
 }
 
+/// Quantity picked on this page before the product is in the cart (0 = not touched: the seller's minimum).
+final _pendingQuantityProvider = StateProvider.family<int, String>((ref, code) => 0);
+
+/// The seller the buyer picked for [product], or the cheapest one.
+ShopListing _selectedListing(ShopProduct product, String? chosenId) {
+  for (final l in product.listings) {
+    if (l.id == chosenId) return l;
+  }
+  return product.cheapestListing ?? product.listings.first;
+}
+
+/// Picks [listing] as the seller. A quantity below that seller's minimum order is raised to it.
+void _selectSeller(WidgetRef ref, ShopProduct product, ShopListing listing) {
+  final code = product.productCode;
+  ref.read(cartSellerChoiceProvider.notifier).state = {...ref.read(cartSellerChoiceProvider), code: listing.id};
+  final inCart = ref.read(cartQuantitiesProvider)[code];
+  if (inCart != null && inCart < listing.minOrderQuantity) {
+    ref.read(cartQuantitiesProvider.notifier).state = {...ref.read(cartQuantitiesProvider), code: listing.minOrderQuantity};
+  }
+  final pending = ref.read(_pendingQuantityProvider(code));
+  if (pending != 0 && pending < listing.minOrderQuantity) {
+    ref.read(_pendingQuantityProvider(code).notifier).state = listing.minOrderQuantity;
+  }
+}
+
 class _ProductBody extends StatelessWidget {
   final ShopProduct product;
+  final ShopListing selected;
+  final void Function(ShopListing) onSelect;
   final AppLanguage language;
   final VanRozgarColorTokens tokens;
   final double s;
 
   const _ProductBody({
     required this.product,
+    required this.selected,
+    required this.onSelect,
     required this.language,
     required this.tokens,
     required this.s,
@@ -93,14 +134,15 @@ class _ProductBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final strings = AppStrings.of(language);
     final unit = product.localizedUnit(language);
-    final cheapest = product.cheapestListing;
+    final cheapest = selected;
+    final isCheapestPick = selected.id == product.cheapestListing?.id && product.listings.length > 1;
     final sellers = [...product.listings]..sort((a, b) => a.pricePerUnitPaise.compareTo(b.pricePerUnitPaise));
     final soldTotal = product.totalSold;
     final left = product.totalAvailable;
     final total = soldTotal + left;
     final soldFraction = total > 0 ? soldTotal / total : 0.0;
-    final minOrder = cheapest?.minOrderQuantity ?? 1;
-    final hasDiscount = cheapest != null && cheapest.discountPaise > 0;
+    final minOrder = cheapest.minOrderQuantity;
+    final hasDiscount = cheapest.discountPaise > 0;
 
     return ListView(
       padding: EdgeInsets.fromLTRB(16.0 * s, 4.0 * s, 16.0 * s, 16.0 * s),
@@ -186,7 +228,9 @@ class _ProductBody extends StatelessWidget {
           spacing: 8.0 * s,
           children: [
             Text(
-              strings.priceFrom(formatRupees(product.startingAtPaise)),
+              isCheapestPick
+                  ? strings.priceFrom(formatRupees(selected.pricePerUnitPaise))
+                  : formatRupees(selected.pricePerUnitPaise),
               style: TextStyle(
                 fontSize: 24.0 * s,
                 fontWeight: FontWeight.w800,
@@ -257,11 +301,17 @@ class _ProductBody extends StatelessWidget {
             color: tokens.heading,
           ),
         ),
+        if (sellers.length > 1) ...[
+          SizedBox(height: 2.0 * s),
+          Text(strings.tapSeller, style: TextStyle(fontSize: 12.5 * s, color: tokens.mutedText)),
+        ],
         SizedBox(height: 10.0 * s),
         for (int i = 0; i < sellers.length; i++) ...[
           if (i > 0) SizedBox(height: 10.0 * s),
           _SellerRow(
             listing: sellers[i],
+            isSelected: sellers[i].id == selected.id,
+            onTap: () => onSelect(sellers[i]),
             isLowest: sellers.length > 1 && i == 0,
             unit: unit,
             language: language,
@@ -297,6 +347,8 @@ class _Pill extends StatelessWidget {
 
 class _SellerRow extends StatelessWidget {
   final ShopListing listing;
+  final bool isSelected;
+  final VoidCallback onTap;
   final bool isLowest;
   final String unit;
   final AppLanguage language;
@@ -305,6 +357,8 @@ class _SellerRow extends StatelessWidget {
 
   const _SellerRow({
     required this.listing,
+    required this.isSelected,
+    required this.onTap,
     required this.isLowest,
     required this.unit,
     required this.language,
@@ -317,15 +371,24 @@ class _SellerRow extends StatelessWidget {
     final strings = AppStrings.of(language);
     final seller = listing.sellerType == 'gramsabha' ? strings.sellerGramSabha : strings.sellerCfrHolder;
     final hasDiscount = listing.discountPaise > 0;
+    final fulfilment = switch (listing.fulfilment) {
+      'pickup' => strings.fulfilPickup,
+      'delivery' => strings.fulfilDelivery,
+      _ => '${strings.fulfilPickup} · ${strings.fulfilDelivery}',
+    };
 
-    return Container(
-      padding: EdgeInsets.all(12.0 * s),
-      decoration: BoxDecoration(
-        color: tokens.card,
+    return Material(
+      color: tokens.card,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0 * s),
-        border: Border.all(color: tokens.borders),
+        side: BorderSide(color: isSelected ? tokens.primaryGreen : tokens.borders, width: isSelected ? 2.0 : 1.0),
       ),
-      child: Row(
+      child: InkWell(
+        customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0 * s)),
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.all(12.0 * s),
+          child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -344,7 +407,7 @@ class _SellerRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  seller,
+                  listing.sellerName,
                   style: TextStyle(
                     fontSize: 14.0 * s,
                     fontWeight: FontWeight.w700,
@@ -352,7 +415,7 @@ class _SellerRow extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  strings.sampleVillageValue,
+                  '$seller · $fulfilment',
                   style: TextStyle(fontSize: 12.0 * s, color: tokens.mutedText),
                 ),
                 SizedBox(height: 4.0 * s),
@@ -364,13 +427,27 @@ class _SellerRow extends StatelessWidget {
                   strings.minOrderText(listing.minOrderQuantity, unit),
                   style: TextStyle(fontSize: 12.0 * s, color: tokens.mutedText),
                 ),
-                if (isLowest) ...[
+                if (isLowest || isSelected) ...[
                   SizedBox(height: 6.0 * s),
-                  _Pill(
-                    text: strings.lowestPrice,
-                    background: tokens.primaryGreen,
-                    color: tokens.onPrimaryGreen,
-                    s: s,
+                  Wrap(
+                    spacing: 6.0 * s,
+                    runSpacing: 4.0 * s,
+                    children: [
+                      if (isLowest)
+                        _Pill(
+                          text: strings.lowestPrice,
+                          background: tokens.primaryGreen,
+                          color: tokens.onPrimaryGreen,
+                          s: s,
+                        ),
+                      if (isSelected)
+                        _Pill(
+                          text: strings.sellerSelected,
+                          background: tokens.chipBg,
+                          color: tokens.chipText,
+                          s: s,
+                        ),
+                    ],
                   ),
                 ],
               ],
@@ -404,6 +481,8 @@ class _SellerRow extends StatelessWidget {
             ],
           ),
         ],
+          ),
+        ),
       ),
     );
   }
@@ -411,14 +490,18 @@ class _SellerRow extends StatelessWidget {
 
 class _AddBar extends ConsumerWidget {
   final ShopProduct product;
-  final int quantity;
+  final ShopListing selected;
+  final int? inCart;
+  final int pending;
   final AppLanguage language;
   final VanRozgarColorTokens tokens;
   final double s;
 
   const _AddBar({
     required this.product,
-    required this.quantity,
+    required this.selected,
+    required this.inCart,
+    required this.pending,
     required this.language,
     required this.tokens,
     required this.s,
@@ -427,8 +510,51 @@ class _AddBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final strings = AppStrings.of(language);
-    final minOrder = product.cheapestListing?.minOrderQuantity ?? 1;
-    final notifier = ref.read(cartQuantitiesProvider.notifier);
+    final code = product.productCode;
+    final unit = product.localizedUnit(language);
+    final minOrder = selected.minOrderQuantity;
+    final quantity = inCart ?? pending;
+    final canAddMore = quantity < selected.quantityAvailable;
+    final cart = ref.read(cartQuantitiesProvider.notifier);
+    final pendingNotifier = ref.read(_pendingQuantityProvider(code).notifier);
+
+    void setQuantity(int q) {
+      if (inCart != null) {
+        cart.state = {...ref.read(cartQuantitiesProvider), code: q};
+      } else {
+        pendingNotifier.state = q;
+      }
+    }
+
+    void putInCart() {
+      cart.add(code, quantity);
+      ref.read(lastAddedImageProvider.notifier).state = product.imageAsset;
+    }
+
+    Future<void> buyNow() async {
+      if (ref.read(authUserProvider) == null) {
+        final signIn = await _askSignIn(context, strings, tokens, s);
+        if (signIn == true && context.mounted) {
+          context.push('/signin?redirect=${Uri.encodeQueryComponent('/product/$code')}');
+        }
+        return;
+      }
+      if (inCart == null) putInCart();
+      if (context.mounted) context.push('/checkout');
+    }
+
+    ButtonStyle style(Color bg, Color fg, {Color? border}) => FilledButton.styleFrom(
+          backgroundColor: bg,
+          foregroundColor: fg,
+          minimumSize: Size(0, 48.0 * s),
+          side: border == null ? null : BorderSide(color: border, width: 1.5),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0 * s)),
+        );
+
+    Widget label(String text) => FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(text, maxLines: 1, style: TextStyle(fontSize: 15.0 * s, fontWeight: FontWeight.w800)),
+        );
 
     return Container(
       padding: EdgeInsets.fromLTRB(16.0 * s, 10.0 * s, 16.0 * s, 10.0 * s),
@@ -436,53 +562,102 @@ class _AddBar extends ConsumerWidget {
         color: tokens.card,
         border: Border(top: BorderSide(color: tokens.borders)),
       ),
-      child: Row(
-        children: [
-          if (quantity > 0) ...[
-            QuantityStepper(
-              quantity: quantity,
-              scale: s,
-              onMinus: () => decrementWithMinOrderCheck(
-                context,
-                ref,
-                productCode: product.productCode,
-                title: product.localizedTitle(language),
-                minOrder: minOrder,
-                unit: product.localizedUnit(language),
-                strings: strings,
-              ),
-              onPlus: () => notifier.increment(product.productCode),
-            ),
-            SizedBox(width: 12.0 * s),
-          ],
-          Expanded(
-            child: FilledButton(
-              onPressed: () {
-                if (quantity == 0) {
-                  notifier.add(product.productCode, minOrder);
-                  ref.read(lastAddedImageProvider.notifier).state = product.imageAsset;
-                } else {
-                  context.push('/cart');
-                }
-              },
-              style: FilledButton.styleFrom(
-                backgroundColor: tokens.primaryGreen,
-                foregroundColor: tokens.onPrimaryGreen,
-                minimumSize: Size(0, 48.0 * s),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0 * s)),
-              ),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  quantity == 0 ? strings.addToCart : strings.viewCart,
-                  maxLines: 1,
-                  style: TextStyle(fontSize: 15.0 * s, fontWeight: FontWeight.w800),
+      child: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Bill: price × quantity = total for the chosen seller
+            Row(
+              children: [
+                Text(
+                  strings.billTitle,
+                  style: TextStyle(fontSize: 13.0 * s, fontWeight: FontWeight.w800, color: tokens.heading),
                 ),
-              ),
+                SizedBox(width: 8.0 * s),
+                Expanded(
+                  child: Text(
+                    strings.billLine(formatRupees(selected.pricePerUnitPaise), quantity, unit),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 12.5 * s, color: tokens.mutedText),
+                  ),
+                ),
+                SizedBox(width: 8.0 * s),
+                Text(
+                  formatRupees(selected.pricePerUnitPaise * quantity),
+                  style: TextStyle(fontSize: 17.0 * s, fontWeight: FontWeight.w800, color: tokens.orange),
+                ),
+              ],
             ),
-          ),
-        ],
+            SizedBox(height: 8.0 * s),
+            Row(
+              children: [
+                QuantityStepper(
+                  quantity: quantity,
+                  scale: s,
+                  onMinus: () {
+                    if (inCart != null) {
+                      decrementWithMinOrderCheck(
+                        context,
+                        ref,
+                        productCode: code,
+                        title: product.localizedTitle(language),
+                        minOrder: minOrder,
+                        unit: unit,
+                        strings: strings,
+                      );
+                    } else if (quantity > minOrder) {
+                      setQuantity(quantity - 1);
+                    }
+                  },
+                  onPlus: () {
+                    if (canAddMore) setQuantity(quantity + 1);
+                  },
+                ),
+                SizedBox(width: 10.0 * s),
+                Expanded(
+                  child: FilledButton(
+                    onPressed: inCart == null ? putInCart : () => context.push('/cart'),
+                    style: style(tokens.card, tokens.primaryGreen, border: tokens.primaryGreen),
+                    child: label(inCart == null ? strings.addToCart : strings.viewCart),
+                  ),
+                ),
+                SizedBox(width: 10.0 * s),
+                Expanded(
+                  child: FilledButton(
+                    onPressed: buyNow,
+                    style: style(tokens.primaryGreen, tokens.onPrimaryGreen),
+                    child: label(strings.buyNow),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+/// Asks a guest to sign in before buying. Returns true when they choose to sign in.
+Future<bool?> _askSignIn(BuildContext context, AppStrings strings, VanRozgarColorTokens tokens, double s) {
+  return showDialog<bool>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      backgroundColor: tokens.card,
+      title: Text(strings.buyNeedsSignIn, style: TextStyle(color: tokens.heading, fontWeight: FontWeight.w800)),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(ctx).pop(false),
+          child: Text(strings.notNow, style: TextStyle(color: tokens.mutedText)),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(ctx).pop(true),
+          style: FilledButton.styleFrom(backgroundColor: tokens.primaryGreen, foregroundColor: tokens.onPrimaryGreen),
+          child: Text(strings.signInTitle),
+        ),
+      ],
+    ),
+  );
 }

@@ -27,6 +27,22 @@ extension ShopExtraStrings on AppStrings {
   String get continueShopping => _t('Continue shopping', 'खरीदारी जारी रखें', 'खरेदी सुरू ठेवा');
   String get backLabel => _t('Back', 'वापस', 'मागे');
 
+  // ---- Product page: buy now, bill, choosing a seller -----------------------------------------------
+  String get buyNow => _t('Buy now', 'अभी खरीदें', 'आता खरेदी करा');
+  String get billTitle => _t('Bill', 'बिल', 'बिल');
+  String billLine(String price, int q, String unit) => _t('$price × $q $unit', '$price × $q $unit', '$price × $q $unit');
+  String get tapSeller =>
+      _t('Tap a seller to choose', 'विक्रेता चुनने के लिए टैप करें', 'विक्रेता निवडण्यासाठी टॅप करा');
+  String get sellerSelected => _t('Selected', 'चुना गया', 'निवडला');
+  String get buyNeedsSignIn => _t(
+        'Sign in to place your order',
+        'ऑर्डर देने के लिए साइन इन करें',
+        'ऑर्डर देण्यासाठी साइन इन करा',
+      );
+  String get notNow => _t('Not now', 'अभी नहीं', 'आता नाही');
+  String get fulfilPickup => _t('Pickup', 'स्वयं उठाएँ', 'स्वतः घेऊन जा');
+  String get fulfilDelivery => _t('Delivery', 'डिलीवरी', 'डिलिव्हरी');
+
   // ---- Category page, sort and filters, quantity picker --------------------------------------------
   String get sortAndFilter => _t('Sort and filter', 'क्रमबद्ध और फ़िल्टर', 'क्रम आणि फिल्टर');
   String get sortTitle => _t('Sort by', 'क्रमबद्ध करें', 'क्रमवारी');

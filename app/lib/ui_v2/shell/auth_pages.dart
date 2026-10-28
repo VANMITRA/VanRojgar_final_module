@@ -9,6 +9,21 @@ import '../providers/catalog_providers.dart';
 import '../theme/van_rozgar_tokens.dart';
 import '../widgets/app_background.dart';
 
+/// Where to go after signing in or creating an account. A page that sends a guest here (for example the
+/// Product page after "Buy now") passes `?redirect=/product/<code>`; without it the user lands on Profile.
+String _afterAuthTarget(BuildContext context) {
+  final redirect = GoRouterState.of(context).uri.queryParameters['redirect'];
+  if (redirect != null && redirect.startsWith('/') && !redirect.startsWith('//')) return redirect;
+  return '/profile';
+}
+
+/// [path] with the current `redirect` carried over, so switching between sign in and create account keeps it.
+String _withRedirect(BuildContext context, String path) {
+  final redirect = GoRouterState.of(context).uri.queryParameters['redirect'];
+  if (redirect == null) return path;
+  return '$path?redirect=${Uri.encodeQueryComponent(redirect)}';
+}
+
 /// Shared frame of the sign-in and create-account pages: background, back arrow, language chips.
 class _AuthFrame extends ConsumerWidget {
   final String title;
@@ -189,7 +204,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       return;
     }
     ref.read(authUserProvider.notifier).state = account.user;
-    context.go('/profile');
+    context.go(_afterAuthTarget(context));
   }
 
   @override
@@ -315,7 +330,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             Text(strings.noAccount, style: TextStyle(color: tokens.mutedText, fontSize: 13.0 * s)),
             TextButton(
               key: const Key('go_signup'),
-              onPressed: () => context.pushReplacement('/signup'),
+              onPressed: () => context.pushReplacement(_withRedirect(context, '/signup')),
               style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
               child: Text(
                 strings.createAccountLink,
@@ -391,7 +406,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
         behavior: SnackBarBehavior.floating,
       ),
     );
-    context.go('/profile');
+    context.go(_afterAuthTarget(context));
   }
 
   @override
@@ -511,7 +526,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
             Text(strings.haveAccount, style: TextStyle(color: tokens.mutedText, fontSize: 13.0 * s)),
             TextButton(
               key: const Key('go_signin'),
-              onPressed: () => context.pushReplacement('/signin'),
+              onPressed: () => context.pushReplacement(_withRedirect(context, '/signin')),
               style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
               child: Text(
                 strings.signInTitle,
