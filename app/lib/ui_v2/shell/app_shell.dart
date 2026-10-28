@@ -9,6 +9,9 @@ import 'cart_page.dart';
 import 'categories_page.dart';
 import 'category_page.dart';
 import 'checkout/checkout_page.dart';
+import 'delivery/delivery_apply_page.dart';
+import 'delivery/delivery_job_page.dart';
+import 'delivery/delivery_page.dart';
 import 'home_demo_page.dart';
 import 'landing_page.dart';
 import 'orders/order_detail_page.dart';
@@ -179,6 +182,20 @@ final uiV2Router = GoRouter(
       builder: (context, state) => const CheckoutDonePage(),
     ),
     // END PHASE 6 ROUTES
+    // ROUND 2 ROUTES
+    GoRoute(
+      path: '/delivery',
+      builder: (context, state) => const DeliveryPage(),
+    ),
+    GoRoute(
+      path: '/delivery/apply',
+      builder: (context, state) => const DeliveryApplyPage(),
+    ),
+    GoRoute(
+      path: '/delivery/jobs/:id',
+      builder: (context, state) => DeliveryJobPage(jobId: state.pathParameters['id'] ?? ''),
+    ),
+    // END ROUND 2 ROUTES
 
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
