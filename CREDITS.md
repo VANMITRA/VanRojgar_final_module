@@ -5,6 +5,15 @@
 - VanMitra-AI design system and the Gram Sabha work this app grew from: the VanMitra team.
 - Data sources and licences will be listed here and on the app's Credits screen as each is added.
 
+## Pictures
+
+| What | Source | Terms |
+|---|---|---|
+| App header pictures (`header_light.png`, `header_dark.png`) | AI-generated illustration (ChatGPT), prompted by the project team | Illustration only; no real place, person or brand is shown |
+| App footer pictures (`footer_light.png`, `footer_dark.png`) | AI-generated illustration (ChatGPT), prompted by the project team | Illustration only; no real place, person or brand is shown |
+| Full-screen app background pictures (`bg_full_light.jpg`, `bg_full_dark.jpg`) | AI-generated illustration (ChatGPT), prompted by the project team | Illustration only; no real place, person or brand is shown |
+| Landing slide pictures (`assets/landing/landing_1a_bamboo.jpg`, `landing_1b_mango.jpg`, `landing_2a_herbs_fresh.jpg`, `landing_2b_herbs_dried.jpg`, `landing_3a_weaving.jpg`, `landing_3b_village_sorting.jpg`) | AI-generated images (ChatGPT), prompted by the project team | AI-generated; they look like photographs but are not. They show no real village, person or product. The dried-fruit picture still needs a check by the NGO for the correct fruits |
+
 ## Data and map credits (shown wherever the data is shown)
 
 | What | Source | Licence / terms |
