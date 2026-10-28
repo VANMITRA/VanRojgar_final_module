@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../l10n/app_strings.dart';
 import '../providers/catalog_providers.dart';
-import '../theme/van_rozgar_tokens.dart';
 import 'home_demo_page.dart';
 import 'placeholder_pages.dart';
 

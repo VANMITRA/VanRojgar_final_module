@@ -70,11 +70,11 @@ class AppStrings {
   String get sampleVillageValue {
     switch (language) {
       case AppLanguage.en:
-        return 'Sample: Trimbak CFR, Nashik';
+        return 'Sample village';
       case AppLanguage.hi:
-        return 'नमूना: त्र्यंबक सी.एफ़.आर., नासिक';
+        return 'नमूना गाँव';
       case AppLanguage.mr:
-        return 'नमुना: त्र्यंबक सी.एफ़.आर., नाशिक';
+        return 'नमुना गाव';
     }
   }
 
@@ -271,11 +271,11 @@ class AppStrings {
   String get browseSubtitle {
     switch (language) {
       case AppLanguage.en:
-        return 'Nashik District CFR Produce';
+        return 'CFR Forest Produce';
       case AppLanguage.hi:
-        return 'नासिक जिला सी.एफ़.आर. वनोपज';
+        return 'सी.एफ़.आर. वनोपज';
       case AppLanguage.mr:
-        return 'नाशिक जिल्हा सी.एफ़.आर. वनोपज';
+        return 'सी.एफ़.आर. वनोपज';
     }
   }
 
@@ -350,11 +350,11 @@ class AppStrings {
   String get placeholderCategoriesDesc {
     switch (language) {
       case AppLanguage.en:
-        return 'Browse all 8 Minor Forest Produce (MFP) and CFR categories verified by Gram Sabhas across Nashik district.';
+        return 'Browse all 8 Minor Forest Produce (MFP) and CFR categories verified by Gram Sabhas.';
       case AppLanguage.hi:
-        return 'नासिक जिले की ग्राम सभाओं द्वारा सत्यापित सभी 8 लघु वनोपज (एम.एफ़.पी.) और सी.एफ़.आर. श्रेणियाँ देखें।';
+        return 'ग्राम सभाओं द्वारा सत्यापित सभी 8 लघु वनोपज (एम.एफ़.पी.) और सी.एफ़.आर. श्रेणियाँ देखें।';
       case AppLanguage.mr:
-        return 'नाशिक जिल्ह्यातील ग्रामसभांद्वारे पडताळणी केलेल्या सर्व 8 दुय्यम वनोपज (एम.एफ़.पी.) आणि सी.एफ़.आर. वर्गवारी पहा.';
+        return 'ग्रामसभांद्वारे पडताळणी केलेल्या सर्व 8 दुय्यम वनोपज (एम.एफ़.पी.) आणि सी.एफ़.आर. वर्गवारी पहा.';
     }
   }
 

@@ -41,27 +41,13 @@ class AppShellTopArea extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          strings.appNameNative,
-                          style: theme.textTheme.headlineMedium?.copyWith(
-                            color: tokens.heading,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: -0.2,
-                          ),
-                        ),
-                        if (language != AppLanguage.en) ...[
-                          const SizedBox(width: VanRozgarTokens.space8),
-                          Text(
-                            '• ${strings.appName}',
-                            style: theme.textTheme.titleSmall?.copyWith(
-                              color: tokens.mutedText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ],
+                    Text(
+                      strings.appNameNative,
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        color: tokens.heading,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.2,
+                      ),
                     ),
                     const SizedBox(height: 2.0),
                     Text(

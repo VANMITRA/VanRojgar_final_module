@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_strings.dart';
-import '../models/catalog_models.dart';
 import '../providers/catalog_providers.dart';
 import '../theme/van_rozgar_tokens.dart';
 import '../widgets/app_background.dart';
@@ -129,6 +128,7 @@ class _HomeDemoPageState extends ConsumerState<HomeDemoPage> {
 
             // 4. Responsive Product Grid (Two columns on phone widths, expanding on wider windows)
             productsAsync.when(
+              skipLoadingOnReload: true,
               data: (products) {
                 if (products.isEmpty) {
                   return SliverFillRemaining(
