@@ -544,7 +544,7 @@ void main() {
       if (timberTab.evaluate().isNotEmpty) {
         await tester.tap(timberTab.first);
         await tester.pumpAndSettle();
-        expect(find.text('No sample sellers yet'), findsOneWidget);
+        expect(find.text('No sellers yet'), findsOneWidget);
       }
     });
 
@@ -565,7 +565,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Not for eating'), findsWidgets);
-      expect(find.text('Sample'), findsWidgets);
+      expect(find.text('Sample'), findsNothing);
     });
 
     testWidgets('Hindi and Marathi contain no English text on home page', (WidgetTester tester) async {

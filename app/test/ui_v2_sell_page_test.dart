@@ -170,7 +170,7 @@ void main() {
       expect(find.text('Mango'), findsOneWidget);
       expect(find.text('Bamboo'), findsOneWidget);
       expect(find.text('Amla'), findsOneWidget);
-      expect(find.text('Sample'), findsWidgets);
+      expect(find.text('Sample'), findsNothing);
 
       await _open(tester, _app(user: _cfrSeller), '/sell');
       expect(find.byKey(const Key('sell_add_listing_button')), findsOneWidget);

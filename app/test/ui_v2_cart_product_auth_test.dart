@@ -259,7 +259,7 @@ void main() {
       expect(find.byType(ProductPage), findsOneWidget);
       expect(find.text('Sellers (2)'), findsOneWidget);
       expect(find.text('Lowest price'), findsOneWidget);
-      expect(find.text('Sample'), findsWidgets);
+      expect(find.text('Sample'), findsNothing);
 
       await tester.tap(find.text('Add to cart'));
       await tester.pumpAndSettle();

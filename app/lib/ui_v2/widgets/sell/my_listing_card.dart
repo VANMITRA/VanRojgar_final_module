@@ -104,22 +104,6 @@ class MyListingCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (listing.isSample)
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0 * s, vertical: 3.0 * s),
-                            decoration: BoxDecoration(
-                              color: tokens.chipBg,
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                            child: Text(
-                              strings.sampleBadge,
-                              style: TextStyle(
-                                fontSize: 10.5 * s,
-                                fontWeight: FontWeight.w700,
-                                color: tokens.chipText,
-                              ),
-                            ),
-                          ),
                       ],
                     ),
                     SizedBox(height: 6.0 * s),

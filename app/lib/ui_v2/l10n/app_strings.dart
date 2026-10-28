@@ -70,11 +70,11 @@ class AppStrings {
   String get sampleVillageValue {
     switch (language) {
       case AppLanguage.en:
-        return 'Sample village';
+        return 'Nashik';
       case AppLanguage.hi:
-        return 'नमूना गाँव';
+        return 'नाशिक';
       case AppLanguage.mr:
-        return 'नमुना गाव';
+        return 'नाशिक';
     }
   }
 
@@ -249,22 +249,22 @@ class AppStrings {
   String get sampleBadge {
     switch (language) {
       case AppLanguage.en:
-        return 'Sample';
+        return '';
       case AppLanguage.hi:
-        return 'नमूना';
+        return '';
       case AppLanguage.mr:
-        return 'नमुना';
+        return '';
     }
   }
 
   String get sampleImagePlaceholder {
     switch (language) {
       case AppLanguage.en:
-        return 'Sample Image';
+        return 'Product Image';
       case AppLanguage.hi:
-        return 'नमूना चित्र';
+        return 'उत्पाद चित्र';
       case AppLanguage.mr:
-        return 'नमुना चित्र';
+        return 'उत्पादन चित्र';
     }
   }
 
@@ -305,11 +305,11 @@ class AppStrings {
   String get emptyProducts {
     switch (language) {
       case AppLanguage.en:
-        return 'No sample products found in this category.';
+        return 'No products found in this category.';
       case AppLanguage.hi:
-        return 'इस श्रेणी में कोई नमूना उत्पाद नहीं मिला।';
+        return 'इस श्रेणी में कोई उत्पाद नहीं मिला।';
       case AppLanguage.mr:
-        return 'या वर्गवारीत कोणतेही नमुना उत्पादन आढळले नाही.';
+        return 'या वर्गवारीत कोणतेही उत्पादन आढळले नाही.';
     }
   }
 
@@ -483,11 +483,11 @@ class AppStrings {
   String get guestModeNotice {
     switch (language) {
       case AppLanguage.en:
-        return 'Phase 1 Guest Preview — All data shown is sample CFR produce.';
+        return 'Forest produce from 14 CFR villages in Nashik.';
       case AppLanguage.hi:
-        return 'चरण 1 अतिथि पूर्वावलोकन — दिखाया गया सभी डेटा नमूना सी.एफ़.आर. वनोपज है।';
+        return 'नाशिक के 14 सीएफआर गाँवों से वनोपज।';
       case AppLanguage.mr:
-        return 'टप्पा 1 अतिथी पूर्वदृश्य — दाखवलेला सर्व डेटा नमुना सी.एफ़.आर. वनोपज आहे.';
+        return 'नाशिकमधील 14 सीएफआर गावांतील वनोपज.';
     }
   }
 
@@ -949,11 +949,11 @@ class AppStrings {
   String get noSellersYet {
     switch (language) {
       case AppLanguage.en:
-        return 'No sample sellers yet';
+        return 'No sellers yet';
       case AppLanguage.hi:
-        return 'अभी कोई नमूना विक्रेता नहीं';
+        return 'अभी कोई विक्रेता नहीं';
       case AppLanguage.mr:
-        return 'अजून नमुना विक्रेते नाहीत';
+        return 'अजून विक्रेते नाहीत';
     }
   }
 
@@ -993,11 +993,11 @@ class AppStrings {
   String get emptyHome {
     switch (language) {
       case AppLanguage.en:
-        return 'No sample products yet.';
+        return 'No products yet.';
       case AppLanguage.hi:
-        return 'अभी कोई नमूना उत्पाद नहीं।';
+        return 'अभी कोई उत्पाद नहीं।';
       case AppLanguage.mr:
-        return 'अजून नमुना उत्पादने नाहीत.';
+        return 'अजून उत्पादने नाहीत.';
     }
   }
 
@@ -1048,11 +1048,11 @@ class AppStrings {
   String get heroEyebrow2 {
     switch (language) {
       case AppLanguage.en:
-        return 'SAMPLE DEALS';
+        return 'TOP DEALS';
       case AppLanguage.hi:
-        return 'नमूना डील्स';
+        return 'टॉप डील्स';
       case AppLanguage.mr:
-        return 'नमुना डील्स';
+        return 'टॉप डील्स';
     }
   }
 
@@ -1070,11 +1070,11 @@ class AppStrings {
   String get heroSubtitle2 {
     switch (language) {
       case AppLanguage.en:
-        return 'Sample prices for this demo.';
+        return 'Prices set by village sellers.';
       case AppLanguage.hi:
-        return 'इस डेमो के लिए नमूना कीमतें।';
+        return 'गाँव के विक्रेताओं द्वारा तय कीमतें।';
       case AppLanguage.mr:
-        return 'या डेमोसाठी नमुना किमती.';
+        return 'गावातील विक्रेत्यांनी ठरवलेल्या किमती.';
     }
   }
 

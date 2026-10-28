@@ -76,9 +76,9 @@ extension SellStrings on AppStrings {
         'उत्पादनाचे नाव शोधा...',
       );
   String get slCatalogPhotoNote => _t(
-        'The catalog picture of this product is used on your listing (photo upload is not in this demo).',
-        'आपकी सूची में इस उत्पाद का कैटलॉग चित्र दिखाया जाएगा (इस डेमो में फोटो अपलोड नहीं है)।',
-        'तुमच्या यादीसाठी या उत्पादनाचे कॅटलॉग चित्र वापरले जाईल (या डेमोमध्ये फोटो अपलोड नाही).',
+        'The catalog picture of this product is used on your listing.',
+        'आपकी सूची में इस उत्पाद का कैटलॉग चित्र दिखाया जाएगा।',
+        'तुमच्या यादीसाठी या उत्पादनाचे कॅटलॉग चित्र वापरले जाईल.',
       );
 
   String get slStepQuantity => _t('2. Quantity', '2. मात्रा', '2. प्रमाण');

@@ -171,22 +171,6 @@ class _OrderDetailBody extends ConsumerWidget {
                     language: language,
                     scale: s,
                   ),
-                  if (order.isSample)
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0 * s, vertical: 3.0 * s),
-                      decoration: BoxDecoration(
-                        color: tokens.chipBg,
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                      child: Text(
-                        strings.sampleBadge,
-                        style: TextStyle(
-                          fontSize: 10.5 * s,
-                          fontWeight: FontWeight.w700,
-                          color: tokens.chipText,
-                        ),
-                      ),
-                    ),
                 ],
               ),
               SizedBox(height: 10.0 * s),
@@ -452,6 +436,7 @@ class _OrderDetailBody extends ConsumerWidget {
 
         // 6. Vertical status timeline
         Container(
+          key: const Key('order_detail_timeline_card'),
           padding: EdgeInsets.all(16.0 * s),
           decoration: _cardDecoration(),
           child: Column(
@@ -475,18 +460,6 @@ class _OrderDetailBody extends ConsumerWidget {
                   s: s,
                 ),
             ],
-          ),
-        ),
-        SizedBox(height: 16.0 * s),
-
-        // 7. Muted demo notice
-        Text(
-          strings.demoNote,
-          key: const Key('order_detail_demo_notice'),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 11.5 * s,
-            color: tokens.mutedText,
           ),
         ),
         ],

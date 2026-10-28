@@ -269,34 +269,13 @@ class _SellerGroupSection extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 2.0 * s),
-                        Wrap(
-                          spacing: 6.0 * s,
-                          runSpacing: 2.0 * s,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Text(
-                              sellerTypeLabel,
-                              style: TextStyle(
-                                fontSize: 12.0 * s,
-                                fontWeight: FontWeight.w600,
-                                color: tokens.mutedText,
-                              ),
-                            ),
-                            Text(
-                              '·',
-                              style: TextStyle(
-                                fontSize: 12.0 * s,
-                                color: tokens.mutedText,
-                              ),
-                            ),
-                            Text(
-                              strings.sampleVillageValue,
-                              style: TextStyle(
-                                fontSize: 12.0 * s,
-                                color: tokens.mutedText,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          sellerTypeLabel,
+                          style: TextStyle(
+                            fontSize: 12.0 * s,
+                            fontWeight: FontWeight.w600,
+                            color: tokens.mutedText,
+                          ),
                         ),
                       ],
                     ),
@@ -466,21 +445,6 @@ class _CartLineCard extends ConsumerWidget {
                   runSpacing: 4.0 * s,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0 * s, vertical: 3.0 * s),
-                      decoration: BoxDecoration(
-                        color: tokens.chipBg,
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                      child: Text(
-                        strings.sampleBadge,
-                        style: TextStyle(
-                          fontSize: 10.0 * s,
-                          fontWeight: FontWeight.w700,
-                          color: tokens.chipText,
-                        ),
-                      ),
-                    ),
                     Material(
                       color: Colors.transparent,
                       child: TextButton(

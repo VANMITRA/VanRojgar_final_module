@@ -488,15 +488,6 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                             ),
                           ),
                         ],
-                        SizedBox(height: 14.0 * s),
-                        Text(
-                          strings.demoNote,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 11.5 * s,
-                            color: tokens.mutedText,
-                          ),
-                        ),
                       ],
                     ),
             ),

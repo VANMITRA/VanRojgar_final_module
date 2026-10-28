@@ -273,16 +273,6 @@ class ProfilePage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 4.0 * s),
-                    Text(
-                      strings.pfDemoVersion,
-                      key: const Key('profile_version'),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 12.0 * s,
-                        color: tokens.mutedText,
-                      ),
-                    ),
                   ],
                 ),
               ],

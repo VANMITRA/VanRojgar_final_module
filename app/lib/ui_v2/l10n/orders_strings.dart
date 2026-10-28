@@ -295,25 +295,25 @@ extension OrdersStrings on AppStrings {
     if (gramSabhaMatch != null) {
       final numPart = gramSabhaMatch.group(1) ?? '';
       final suffix = numPart.isEmpty ? '' : ' $numPart';
-      return _t(rawName, 'नमूना ग्राम सभा$suffix', 'नमुना ग्रामसभा$suffix');
+      return _t(rawName, 'ग्राम सभा$suffix', 'ग्रामसभा$suffix');
     }
     final cfrMatch = RegExp(r'^Sample CFR holder\s*(\d*)$', caseSensitive: false).firstMatch(rawName);
     if (cfrMatch != null) {
       final numPart = cfrMatch.group(1) ?? '';
       final suffix = numPart.isEmpty ? '' : ' $numPart';
-      return _t(rawName, 'नमूना सीएफआर धारक$suffix', 'नमुना सीएफआर धारक$suffix');
+      return _t(rawName, 'सीएफआर धारक$suffix', 'सीएफआर धारक$suffix');
     }
     final sellerMatch = RegExp(r'^Sample Seller\s*(.*)$', caseSensitive: false).firstMatch(rawName);
     if (sellerMatch != null) {
       final rest = (sellerMatch.group(1) ?? '').trim();
       final suffix = rest.isEmpty ? '' : ' $rest';
-      return _t(rawName, 'नमूना विक्रेता$suffix', 'नमुना विक्रेता$suffix');
+      return _t(rawName, 'विक्रेता$suffix', 'विक्रेता$suffix');
     }
     final buyerMatch = RegExp(r'^Sample Buyer\s*(\d*)$', caseSensitive: false).firstMatch(rawName);
     if (buyerMatch != null) {
       final numPart = buyerMatch.group(1) ?? '';
       final suffix = numPart.isEmpty ? '' : ' $numPart';
-      return _t(rawName, 'नमूना खरीदार$suffix', 'नमुना खरेदीदार$suffix');
+      return _t(rawName, 'खरीदार$suffix', 'खरेदीदार$suffix');
     }
     return rawName;
   }
@@ -324,20 +324,20 @@ extension OrdersStrings on AppStrings {
       case 'Sample request for wholesale market supply':
         return _t(
           rawNote,
-          'थोक बाज़ार आपूर्ति के लिए नमूना अनुरोध',
-          'घाऊक बाजार पुरवठ्यासाठी नमुना मागणी',
+          'थोक बाज़ार आपूर्ति के लिए अनुरोध',
+          'घाऊक बाजार पुरवठ्यासाठी मागणी',
         );
       case 'Sample pickup request from village collection center':
         return _t(
           rawNote,
-          'गाँव संग्रह केंद्र से स्वयं उठाने का नमूना अनुरोध',
-          'गाव संकलन केंद्रातून स्वतः घेऊन जाण्यासाठी नमुना मागणी',
+          'गाँव संग्रह केंद्र से स्वयं उठाने का अनुरोध',
+          'गाव संकलन केंद्रातून स्वतः घेऊन जाण्यासाठी मागणी',
         );
       case 'Sample seasonal fruit order':
         return _t(
           rawNote,
-          'मौसमी फलों का नमूना ऑर्डर',
-          'हंगामी फळांची नमुना ऑर्डर',
+          'मौसमी फलों का ऑर्डर',
+          'हंगामी फळांची ऑर्डर',
         );
       case 'Current harvest stock is 20 kg at ₹90 per kg':
         return _t(
@@ -356,7 +356,7 @@ extension OrdersStrings on AppStrings {
         // if it has English words in Hindi/Marathi mode, provide a safe localized label.
         if (RegExp(r'^[0-9]+$').hasMatch(rawNote)) return rawNote;
         if (RegExp(r'[A-Za-z]').hasMatch(rawNote)) {
-          return _t(rawNote, 'नमूना विवरण', 'नमुना तपशील');
+          return _t(rawNote, 'विवरण', 'तपशील');
         }
         return rawNote;
     }

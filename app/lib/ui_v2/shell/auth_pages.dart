@@ -119,12 +119,6 @@ class _AuthFrame extends ConsumerWidget {
                           ),
                           SizedBox(height: 16.0 * s),
                           ...children,
-                          SizedBox(height: 16.0 * s),
-                          Text(
-                            strings.demoNote,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 11.5 * s, color: tokens.mutedText),
-                          ),
                         ],
                       ),
                     ),

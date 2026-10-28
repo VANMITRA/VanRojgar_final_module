@@ -192,15 +192,6 @@ class CheckoutDonePage extends ConsumerWidget {
                 ),
               ),
             ),
-            SizedBox(height: 14.0 * s),
-            Text(
-              strings.demoNote,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 11.5 * s,
-                color: tokens.mutedText,
-              ),
-            ),
           ],
         ),
       ),
@@ -311,12 +302,6 @@ class _RequestResultCard extends StatelessWidget {
             children: [
               _StatusChip(
                 text: strings.coWaitingForSeller,
-                bg: tokens.chipBg,
-                fg: tokens.chipText,
-                s: s,
-              ),
-              _StatusChip(
-                text: strings.sampleBadge,
                 bg: tokens.chipBg,
                 fg: tokens.chipText,
                 s: s,

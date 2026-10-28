@@ -675,7 +675,7 @@ void main() {
                 path,
               );
               expect(tester.takeException(), isNull, reason: '$path buyer $ctx');
-              await tester.ensureVisible(find.byKey(const Key('order_detail_demo_notice')));
+              await tester.ensureVisible(find.byKey(const Key('order_detail_timeline_card')));
               await tester.pumpAndSettle();
               expect(tester.takeException(), isNull, reason: '$path buyer bottom $ctx');
             }
