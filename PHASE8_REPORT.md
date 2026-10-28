@@ -82,3 +82,4 @@ Commands executed inside `app/`:
    - Type MRP and Selling Price values to check the green `Discount: N%` line when `price < MRP` and the inline error when `price > MRP`.
    - Inspect the `SellPreviewCard` in Step 6 as fields are edited, then press `Publish listing` and confirm the new card appears at the top of `/sell`.
 4. **Large Font & Small Screen Check:** Enable system font scaling (1.5x) on a narrow handset and scroll through `/sell`, `/sell/new` (after tapping `Publish listing` on an empty form so all error messages are visible), and the `Remove listing?` confirmation dialog to visually confirm spacing and readability above the gesture navigation bar.
+
