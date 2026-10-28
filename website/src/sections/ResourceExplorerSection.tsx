@@ -3,6 +3,9 @@ import { useMarketplace } from '../context/MarketplaceContext';
 import { translations } from '../i18n/translations';
 import { ResourceCategory, ListingMode } from '../types';
 import { ResourceIcon } from '../components/ResourceIcon';
+import { CopyCodeButton } from '../components/CopyCodeButton';
+import { appFlow } from '../i18n/appFlow';
+import { normaliseItemCode } from '../utils/itemCode';
 import {
   Search,
   SlidersHorizontal,
@@ -18,8 +21,9 @@ import {
 } from 'lucide-react';
 
 export const ResourceExplorerSection: React.FC = () => {
-  const { listings, setSelectedListing, language } = useMarketplace();
+  const { listings, dataSource, setSelectedListing, language } = useMarketplace();
   const t = translations[language];
+  const flow = appFlow[language];
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -39,7 +43,10 @@ export const ResourceExplorerSection: React.FC = () => {
     return listings
       .filter((item) => {
         // Search filter
+        const typedCode = normaliseItemCode(searchQuery);
         const matchesQuery =
+          (typedCode !== null && item.itemCode === typedCode) ||
+          item.itemCode.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
           item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           item.gramSabhaName.toLowerCase().includes(searchQuery.toLowerCase()) ||
           item.village.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -99,6 +106,21 @@ export const ResourceExplorerSection: React.FC = () => {
               <option value="rating_desc">{t.explorerSection.sortRatingDesc}</option>
             </select>
           </div>
+        </div>
+
+        {/* Where the listings come from: live from the marketplace, or labelled sample data */}
+        <div
+          role="status"
+          className={`mb-5 flex items-start gap-2 px-4 py-3 rounded-2xl text-xs font-semibold border ${
+            dataSource === 'live'
+              ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200'
+              : 'bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-200'
+          }`}
+        >
+          <span className="px-2 py-0.5 rounded-full bg-black/10 dark:bg-white/10 text-[10px] font-extrabold tracking-wider shrink-0">
+            {dataSource === 'live' ? flow.liveBadge : flow.sampleBadge}
+          </span>
+          <span>{dataSource === 'live' ? flow.liveBanner : flow.sampleBanner}</span>
         </div>
 
         {/* Search Bar & Mode Filter Row */}
@@ -235,11 +257,26 @@ export const ResourceExplorerSection: React.FC = () => {
 
                     <div className="flex items-center gap-1 text-[11px] font-medium text-[#66737C] dark:text-[#AAB8B2] shrink-0">
                       <MapPin className="w-3.5 h-3.5 text-[#FF8D20]" />
-                      <span>{listing.distanceKm} km {t.common.distance}</span>
+                      <span>{listing.source === 'sample' ? `${listing.distanceKm} km ${t.common.distance}` : listing.village}</span>
                     </div>
                   </div>
 
-                  {/* Fair Price Guide Box */}
+                  {/* Item code: paste it into the app's search */}
+                  <div className="mt-2.5 flex items-center justify-between gap-2 text-[11px]">
+                    <span className="flex items-center gap-1.5 text-[#66737C] dark:text-[#AAB8B2]">
+                      {flow.itemCode}
+                      <code className="font-extrabold tracking-wider text-[#13202B] dark:text-white">{listing.itemCode}</code>
+                      {listing.source === 'sample' && (
+                        <span className="px-1.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-[9px] font-extrabold">
+                          {flow.sampleBadge}
+                        </span>
+                      )}
+                    </span>
+                    <CopyCodeButton code={listing.itemCode} />
+                  </div>
+
+                  {/* Fair Price Guide Box (a guide for sample data only; a live listing has just its asking price) */}
+                  {listing.source === 'sample' && (
                   <div className="mt-2.5 p-2 rounded-xl bg-gray-50 dark:bg-[#10261B] text-[11px] flex items-center justify-between text-[#66737C] dark:text-[#AAB8B2]">
                     <span className="flex items-center gap-1">
                       <Scale className="w-3 h-3 text-[#FF8D20]" />
@@ -249,6 +286,7 @@ export const ResourceExplorerSection: React.FC = () => {
                       ₹{listing.fairPriceRange[0]} – ₹{listing.fairPriceRange[1]} /{listing.unit}
                     </span>
                   </div>
+                  )}
                 </div>
 
                 {/* Bottom Row: Price & Rating */}
@@ -261,11 +299,13 @@ export const ResourceExplorerSection: React.FC = () => {
                     </div>
                   </div>
 
+                  {listing.reviewCount > 0 && (
                   <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-xl text-xs font-bold text-amber-800 dark:text-[#FF8D20]">
                     <Star className="w-3.5 h-3.5 fill-[#FF8D20] text-[#FF8D20]" />
                     <span>{listing.rating}</span>
                     <span className="text-[10px] text-[#66737C] dark:text-[#AAB8B2]">({listing.reviewCount})</span>
                   </div>
+                  )}
                 </div>
               </div>
             ))}

@@ -1,6 +1,7 @@
 import { Listing, RequestItem, Order, DeliveryPartner, DeliveryJob } from '../types';
+import { sampleItemCode } from '../utils/itemCode';
 
-export const initialListings: Listing[] = [
+const sampleListings: Omit<Listing, 'itemCode' | 'source'>[] = [
   {
     id: 'list-1',
     title: 'Wild Forest Raw Honey (रान मध)',
@@ -327,6 +328,13 @@ export const initialListings: Listing[] = [
     status: 'active',
   },
 ];
+
+/** SAMPLE listings (made-up, Palghar-style demo data). Their codes are valid in format but belong to no real item. */
+export const initialListings: Listing[] = sampleListings.map((l) => ({
+  ...l,
+  itemCode: sampleItemCode(l.id),
+  source: 'sample' as const,
+}));
 
 export const initialRequests: RequestItem[] = [
   {

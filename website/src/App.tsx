@@ -10,8 +10,11 @@ import { WindowTabBar } from './components/WindowTabBar';
 import { TabWindowContainer } from './components/TabWindowContainer';
 import { ToastContainer } from './components/ToastContainer';
 import { ListingDetailModal } from './components/ListingDetailModal';
+import { AppDownloadModal } from './components/AppDownloadModal';
 import { HeroSection } from './sections/HeroSection';
 import { FeaturedProductsSection } from './sections/FeaturedProductsSection';
+import { OverviewHubSection } from './sections/OverviewHubSection';
+import { AchievedSection } from './sections/AchievedSection';
 import { EcosystemSection } from './sections/EcosystemSection';
 import { ResourceExplorerSection } from './sections/ResourceExplorerSection';
 import { HowItWorksSection } from './sections/HowItWorksSection';
@@ -34,6 +37,8 @@ function MainTabRouter() {
         <TabWindowContainer>
           <HeroSection />
           <FeaturedProductsSection />
+          <AchievedSection />
+          <OverviewHubSection />
         </TabWindowContainer>
       );
 
@@ -94,6 +99,8 @@ function MainTabRouter() {
         <TabWindowContainer>
           <HeroSection />
           <FeaturedProductsSection />
+          <AchievedSection />
+          <OverviewHubSection />
         </TabWindowContainer>
       );
   }
@@ -115,6 +122,7 @@ function AppContent({ onReplayIntro }: { onReplayIntro: () => void }) {
 
       {/* Interactive Overlays */}
       <ListingDetailModal />
+      <AppDownloadModal />
       <ToastContainer />
     </div>
   );

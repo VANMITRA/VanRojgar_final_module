@@ -264,7 +264,7 @@ export const Header: React.FC = () => {
                 {language === 'hi' ? 'सीएफआर बाज़ार' : language === 'mr' ? 'सीएफआर बाजार' : 'CFR MARKETPLACE'}
               </span>
             </div>
-            <p className="text-[10px] sm:text-[11px] text-[#AAB8B2] flex items-center gap-1 font-medium">
+            <p className="text-[10px] sm:text-[11px] text-[#AAB8B2] hidden sm:flex items-center gap-1 font-medium">
               <span>
                 {language === 'hi'
                   ? 'वनमित्र-AI का भाग'
@@ -278,7 +278,7 @@ export const Header: React.FC = () => {
         </button>
 
         {/* Top Right Controls: Language Selector, SECTIONS DROPDOWN (next to Theme Toggle), Theme Toggle */}
-        <div className="flex items-center gap-2 xl:gap-2.5">
+        <div className="flex items-center gap-1.5 sm:gap-2 xl:gap-2.5">
           
           {/* 1. Language Dropdown */}
           <div className="relative" ref={langRef}>
@@ -364,7 +364,7 @@ export const Header: React.FC = () => {
             >
               <LayoutGrid className="w-4 h-4 text-[#FF8D20] shrink-0" />
               <span className="whitespace-nowrap font-bold hidden sm:inline">{activeSectionObj.label(t)}</span>
-              <span className="px-1.5 py-0.5 text-[9px] font-bold bg-[#FF8D20] text-white rounded-md uppercase tracking-wider">
+              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] font-bold bg-[#FF8D20] text-white rounded-md uppercase tracking-wider">
                 {activeSectionObj.badge[language]}
               </span>
               <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${sectionsDropdownOpen ? 'rotate-180' : ''}`} />

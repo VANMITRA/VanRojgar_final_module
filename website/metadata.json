@@ -1,8 +1,5 @@
 {
-  "name": "Remix VanRozgar — Community Forest Resource Marketplace",
-  "description": "VanRozgar is the community-resource marketplace and livelihood module of the VanMitra ecosystem, enabling Gram Sabhas to trade natural forest produce, medicinal plants, and handicrafts while creating local delivery livelihoods.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "name": "VanRozgar - Community Forest Resource Marketplace",
+  "description": "VanRozgar is a community forest resource marketplace where Gram Sabhas sell forest produce, medicinal plants and handicrafts and create local delivery jobs.",
+  "requestFramePermissions": []
 }

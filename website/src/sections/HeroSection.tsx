@@ -1,8 +1,10 @@
 import React from 'react';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { translations } from '../i18n/translations';
-import { ChevronDown, Sparkles, MapPin, Star, ShieldCheck, TreePine, Truck, Layers } from 'lucide-react';
+import { ChevronDown, Download, Sparkles, MapPin, Star, ShieldCheck, TreePine, Truck, Layers } from 'lucide-react';
 import { ResourceIcon } from '../components/ResourceIcon';
+import { appFlow } from '../i18n/appFlow';
+import { APK_URL } from '../config';
 
 export const HeroSection: React.FC = () => {
   const { language, setSelectedListing, listings, setActiveTab } = useMarketplace();
@@ -102,7 +104,7 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Primary Action CTA */}
-            <div className="pt-4">
+            <div className="pt-4 flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={() => setActiveTab('how_it_works')}
@@ -111,21 +113,30 @@ export const HeroSection: React.FC = () => {
                 <span>{t.hero.howItWorks}</span>
                 <ChevronDown className="w-5 h-5" />
               </button>
+              <a
+                href={APK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 bg-white/10 hover:bg-white/20 active:scale-95 text-white border border-white/30 px-7 py-3.5 rounded-2xl text-sm sm:text-base font-bold transition-all focus:outline-none focus:ring-2 focus:ring-[#FF8D20]"
+              >
+                <Download className="w-5 h-5 text-[#FF8D20]" />
+                <span>{appFlow[language].download.downloadBtn}</span>
+              </a>
             </div>
 
-            {/* Live Stats Preview Bar */}
-            <div className="flex items-center gap-6 pt-3 text-xs text-[#AAB8B2]">
-              <div>
-                <span className="font-extrabold text-white text-base">12+</span> {t.hero.statsActiveGs}
-              </div>
-              <div className="w-1 h-1 rounded-full bg-[#AAB8B2]" />
-              <div>
-                <span className="font-extrabold text-[#5FAE3B] text-base">₹18.4L+</span> {t.hero.statsRuralEarnings}
-              </div>
-              <div className="w-1 h-1 rounded-full bg-[#AAB8B2]" />
-              <div>
-                <span className="font-extrabold text-[#FF8D20] text-base">1,420+</span> {t.hero.statsDeliveries}
-              </div>
+            {/* Real figures from the Raah Foundation report (1 Oct 2026), not demo numbers */}
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-3 text-xs text-[#AAB8B2]">
+              {appFlow[language].heroStats.map((stat, i) => (
+                <React.Fragment key={stat.label}>
+                  {i > 0 && <div className="w-1 h-1 rounded-full bg-[#AAB8B2]" />}
+                  <div>
+                    <span className={`font-extrabold text-base ${['text-white', 'text-[#5FAE3B]', 'text-[#FF8D20]'][i % 3]}`}>
+                      {stat.value}
+                    </span>{' '}
+                    {stat.label}
+                  </div>
+                </React.Fragment>
+              ))}
             </div>
           </div>
 
