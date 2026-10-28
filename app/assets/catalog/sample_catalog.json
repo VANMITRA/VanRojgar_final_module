@@ -25,7 +25,10 @@
    "listings": [
     {
      "id": "bamboo-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-3",
+     "sellerName": "Sample CFR holder 3",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 11200,
      "mrpPerUnitPaise": 14600,
      "quantityTotal": 150,
@@ -36,7 +39,10 @@
     },
     {
      "id": "bamboo-2",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 12800,
      "mrpPerUnitPaise": 14100,
      "quantityTotal": 100,
@@ -47,7 +53,10 @@
     },
     {
      "id": "bamboo-3",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 11600,
      "mrpPerUnitPaise": 13900,
      "quantityTotal": 100,
@@ -77,7 +86,10 @@
    "listings": [
     {
      "id": "fruit_mango-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-3",
+     "sellerName": "Sample CFR holder 3",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 9900,
      "mrpPerUnitPaise": 9900,
      "quantityTotal": 300,
@@ -88,7 +100,10 @@
     },
     {
      "id": "fruit_mango-2",
-     "sellerType": "cfrholder",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
+     "sellerType": "gramsabha",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 9400,
      "mrpPerUnitPaise": 9400,
      "quantityTotal": 150,
@@ -99,7 +114,10 @@
     },
     {
      "id": "fruit_mango-3",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 9900,
      "mrpPerUnitPaise": 9900,
      "quantityTotal": 500,
@@ -129,7 +147,10 @@
    "listings": [
     {
      "id": "fruit_awla-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 6000,
      "mrpPerUnitPaise": 6000,
      "quantityTotal": 500,
@@ -140,7 +161,10 @@
     },
     {
      "id": "fruit_awla-2",
+     "sellerId": "seller-3",
+     "sellerName": "Sample CFR holder 3",
      "sellerType": "cfrholder",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 6000,
      "mrpPerUnitPaise": 7500,
      "quantityTotal": 50,
@@ -170,7 +194,10 @@
    "listings": [
     {
      "id": "fruit_sitaphal-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 12500,
      "mrpPerUnitPaise": 16200,
      "quantityTotal": 200,
@@ -181,7 +208,10 @@
     },
     {
      "id": "fruit_sitaphal-2",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
      "sellerType": "cfrholder",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 11800,
      "mrpPerUnitPaise": 14200,
      "quantityTotal": 500,
@@ -211,7 +241,10 @@
    "listings": [
     {
      "id": "fruit_jambhul-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 11000,
      "mrpPerUnitPaise": 13200,
      "quantityTotal": 50,
@@ -222,7 +255,10 @@
     },
     {
      "id": "fruit_jambhul-2",
+     "sellerId": "seller-3",
+     "sellerName": "Sample CFR holder 3",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 11000,
      "mrpPerUnitPaise": 12100,
      "quantityTotal": 50,
@@ -233,7 +269,10 @@
     },
     {
      "id": "fruit_jambhul-3",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
+     "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 11900,
      "mrpPerUnitPaise": 13100,
      "quantityTotal": 80,
@@ -263,7 +302,10 @@
    "listings": [
     {
      "id": "fruit_bel-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-3",
+     "sellerName": "Sample CFR holder 3",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 4500,
      "mrpPerUnitPaise": 5600,
      "quantityTotal": 80,
@@ -274,7 +316,10 @@
     },
     {
      "id": "fruit_bel-2",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 5000,
      "mrpPerUnitPaise": 5000,
      "quantityTotal": 200,
@@ -285,7 +330,10 @@
     },
     {
      "id": "fruit_bel-3",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 5000,
      "mrpPerUnitPaise": 6000,
      "quantityTotal": 50,
@@ -315,7 +363,10 @@
    "listings": [
     {
      "id": "fruit_bor-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 7500,
      "mrpPerUnitPaise": 7500,
      "quantityTotal": 50,
@@ -326,7 +377,10 @@
     },
     {
      "id": "fruit_bor-2",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
      "sellerType": "cfrholder",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 6900,
      "mrpPerUnitPaise": 7600,
      "quantityTotal": 50,
@@ -337,7 +391,10 @@
     },
     {
      "id": "fruit_bor-3",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 7100,
      "mrpPerUnitPaise": 8500,
      "quantityTotal": 50,
@@ -367,7 +424,10 @@
    "listings": [
     {
      "id": "fruit_chinch-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 8500,
      "mrpPerUnitPaise": 8500,
      "quantityTotal": 50,
@@ -378,7 +438,10 @@
     },
     {
      "id": "fruit_chinch-2",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 8100,
      "mrpPerUnitPaise": 10100,
      "quantityTotal": 80,
@@ -389,7 +452,10 @@
     },
     {
      "id": "fruit_chinch-3",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 7500,
      "mrpPerUnitPaise": 9000,
      "quantityTotal": 300,
@@ -419,7 +485,10 @@
    "listings": [
     {
      "id": "fruit_karvand-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 9600,
      "mrpPerUnitPaise": 12500,
      "quantityTotal": 80,
@@ -430,7 +499,10 @@
     },
     {
      "id": "fruit_karvand-2",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
      "sellerType": "cfrholder",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 10700,
      "mrpPerUnitPaise": 13400,
      "quantityTotal": 200,
@@ -460,7 +532,10 @@
    "listings": [
     {
      "id": "fruit_kawath-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 6200,
      "mrpPerUnitPaise": 6200,
      "quantityTotal": 200,
@@ -490,7 +565,10 @@
    "listings": [
     {
      "id": "fruit_khirni-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 9700,
      "mrpPerUnitPaise": 12600,
      "quantityTotal": 500,
@@ -501,7 +579,10 @@
     },
     {
      "id": "fruit_khirni-2",
+     "sellerId": "seller-3",
+     "sellerName": "Sample CFR holder 3",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 9100,
      "mrpPerUnitPaise": 10000,
      "quantityTotal": 80,
@@ -512,7 +593,10 @@
     },
     {
      "id": "fruit_khirni-3",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 8600,
      "mrpPerUnitPaise": 9900,
      "quantityTotal": 50,
@@ -542,7 +626,10 @@
    "listings": [
     {
      "id": "nuts_kaju-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 63400,
      "mrpPerUnitPaise": 72900,
      "quantityTotal": 80,
@@ -572,7 +659,10 @@
    "listings": [
     {
      "id": "nuts_karanj-1",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 4300,
      "mrpPerUnitPaise": 4300,
      "quantityTotal": 80,
@@ -583,7 +673,10 @@
     },
     {
      "id": "nuts_karanj-2",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
      "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 4200,
      "mrpPerUnitPaise": 5000,
      "quantityTotal": 50,
@@ -594,7 +687,10 @@
     },
     {
      "id": "nuts_karanj-3",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 4300,
      "mrpPerUnitPaise": 5600,
      "quantityTotal": 300,
@@ -624,7 +720,10 @@
    "listings": [
     {
      "id": "nuts_koshimb-1",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 16200,
      "mrpPerUnitPaise": 16200,
      "quantityTotal": 200,
@@ -635,7 +734,10 @@
     },
     {
      "id": "nuts_koshimb-2",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 16300,
      "mrpPerUnitPaise": 16300,
      "quantityTotal": 50,
@@ -665,7 +767,10 @@
    "listings": [
     {
      "id": "nuts_bibba-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 18500,
      "mrpPerUnitPaise": 18500,
      "quantityTotal": 50,
@@ -695,7 +800,10 @@
    "listings": [
     {
      "id": "flowers_moh-1",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 15800,
      "mrpPerUnitPaise": 15800,
      "quantityTotal": 200,
@@ -706,7 +814,10 @@
     },
     {
      "id": "flowers_moh-2",
-     "sellerType": "cfrholder",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
+     "sellerType": "gramsabha",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 14800,
      "mrpPerUnitPaise": 19200,
      "quantityTotal": 300,
@@ -736,7 +847,10 @@
    "listings": [
     {
      "id": "flowers_hadga-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 7400,
      "mrpPerUnitPaise": 7400,
      "quantityTotal": 500,
@@ -747,7 +861,10 @@
     },
     {
      "id": "flowers_hadga-2",
+     "sellerId": "seller-3",
+     "sellerName": "Sample CFR holder 3",
      "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 7600,
      "mrpPerUnitPaise": 7600,
      "quantityTotal": 80,
@@ -777,7 +894,10 @@
    "listings": [
     {
      "id": "flowers_bakul-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
+     "sellerType": "cfrholder",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 10300,
      "mrpPerUnitPaise": 10300,
      "quantityTotal": 200,
@@ -807,7 +927,10 @@
    "listings": [
     {
      "id": "herb_behda-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 8700,
      "mrpPerUnitPaise": 11300,
      "quantityTotal": 100,
@@ -818,7 +941,10 @@
     },
     {
      "id": "herb_behda-2",
-     "sellerType": "cfrholder",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
+     "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 9100,
      "mrpPerUnitPaise": 10500,
      "quantityTotal": 100,
@@ -829,7 +955,10 @@
     },
     {
      "id": "herb_behda-3",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
+     "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 9000,
      "mrpPerUnitPaise": 9000,
      "quantityTotal": 200,
@@ -859,7 +988,10 @@
    "listings": [
     {
      "id": "herb_hirda-1",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
      "sellerType": "gramsabha",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 11100,
      "mrpPerUnitPaise": 13900,
      "quantityTotal": 300,
@@ -870,7 +1002,10 @@
     },
     {
      "id": "herb_hirda-2",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 10100,
      "mrpPerUnitPaise": 10100,
      "quantityTotal": 500,
@@ -900,7 +1035,10 @@
    "listings": [
     {
      "id": "herb_ritha-1",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 7900,
      "mrpPerUnitPaise": 8700,
      "quantityTotal": 200,
@@ -911,7 +1049,10 @@
     },
     {
      "id": "herb_ritha-2",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 7700,
      "mrpPerUnitPaise": 8500,
      "quantityTotal": 150,
@@ -941,7 +1082,10 @@
    "listings": [
     {
      "id": "herb_bahava-1",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 7200,
      "mrpPerUnitPaise": 8600,
      "quantityTotal": 300,
@@ -952,7 +1096,10 @@
     },
     {
      "id": "herb_bahava-2",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 6900,
      "mrpPerUnitPaise": 7600,
      "quantityTotal": 80,
@@ -982,7 +1129,10 @@
    "listings": [
     {
      "id": "herb_ashok-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 20700,
      "mrpPerUnitPaise": 23800,
      "quantityTotal": 500,
@@ -993,7 +1143,10 @@
     },
     {
      "id": "herb_ashok-2",
-     "sellerType": "cfrholder",
+     "sellerId": "seller-1",
+     "sellerName": "Sample Gram Sabha 1",
+     "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 20500,
      "mrpPerUnitPaise": 20500,
      "quantityTotal": 300,
@@ -1023,7 +1176,10 @@
    "listings": [
     {
      "id": "herb_tetu-1",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 12800,
      "mrpPerUnitPaise": 12800,
      "quantityTotal": 100,
@@ -1034,7 +1190,10 @@
     },
     {
      "id": "herb_tetu-2",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 12400,
      "mrpPerUnitPaise": 14900,
      "quantityTotal": 200,
@@ -1064,7 +1223,10 @@
    "listings": [
     {
      "id": "herb_gunj-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 14900,
      "mrpPerUnitPaise": 14900,
      "quantityTotal": 100,
@@ -1075,7 +1237,10 @@
     },
     {
      "id": "herb_gunj-2",
+     "sellerId": "seller-3",
+     "sellerName": "Sample CFR holder 3",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 14900,
      "mrpPerUnitPaise": 14900,
      "quantityTotal": 80,
@@ -1105,7 +1270,10 @@
    "listings": [
     {
      "id": "forest_babhul-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-2",
+     "sellerName": "Sample CFR holder 2",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 3900,
      "mrpPerUnitPaise": 5100,
      "quantityTotal": 80,
@@ -1116,7 +1284,10 @@
     },
     {
      "id": "forest_babhul-2",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
      "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 4000,
      "mrpPerUnitPaise": 4000,
      "quantityTotal": 300,
@@ -1127,7 +1298,10 @@
     },
     {
      "id": "forest_babhul-3",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
+     "sellerType": "cfrholder",
+     "fulfilment": "both",
      "pricePerUnitPaise": 4300,
      "mrpPerUnitPaise": 4700,
      "quantityTotal": 200,
@@ -1157,7 +1331,10 @@
    "listings": [
     {
      "id": "forest_kahandol-1",
-     "sellerType": "gramsabha",
+     "sellerId": "seller-6",
+     "sellerName": "Sample CFR holder 6",
+     "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 29500,
      "mrpPerUnitPaise": 29500,
      "quantityTotal": 300,
@@ -1187,7 +1364,10 @@
    "listings": [
     {
      "id": "forest_shendari-1",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 19200,
      "mrpPerUnitPaise": 22100,
      "quantityTotal": 300,
@@ -1198,7 +1378,10 @@
     },
     {
      "id": "forest_shendari-2",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
      "sellerType": "cfrholder",
+     "fulfilment": "pickup",
      "pricePerUnitPaise": 17200,
      "mrpPerUnitPaise": 22400,
      "quantityTotal": 150,
@@ -1228,7 +1411,10 @@
    "listings": [
     {
      "id": "forest_shindi-1",
+     "sellerId": "seller-4",
+     "sellerName": "Sample Gram Sabha 4",
      "sellerType": "gramsabha",
+     "fulfilment": "both",
      "pricePerUnitPaise": 9100,
      "mrpPerUnitPaise": 11400,
      "quantityTotal": 100,
@@ -1239,7 +1425,10 @@
     },
     {
      "id": "forest_shindi-2",
+     "sellerId": "seller-5",
+     "sellerName": "Sample CFR holder 5",
      "sellerType": "cfrholder",
+     "fulfilment": "delivery",
      "pricePerUnitPaise": 9100,
      "mrpPerUnitPaise": 10500,
      "quantityTotal": 150,

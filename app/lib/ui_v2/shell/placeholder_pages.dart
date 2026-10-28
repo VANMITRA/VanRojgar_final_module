@@ -4,6 +4,7 @@ import '../l10n/app_strings.dart';
 import '../providers/catalog_providers.dart';
 import '../theme/van_rozgar_tokens.dart';
 import '../widgets/app_background.dart';
+import '../widgets/profile_auth_card.dart';
 
 /// Base layout container for the guest-accessible placeholder screens.
 class _PlaceholderShell extends StatelessWidget {
@@ -162,6 +163,9 @@ class ProfilePlaceholderPage extends ConsumerWidget {
       extraContent: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Sign in / create account (guest) or the signed-in user
+          const ProfileAuthCard(),
+          const SizedBox(height: VanRozgarTokens.space16),
           const Divider(height: 1.0),
           const SizedBox(height: VanRozgarTokens.space16),
 

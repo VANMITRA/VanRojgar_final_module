@@ -116,6 +116,21 @@ class LandingGeometry {
     return mirrored ? blobBReference.mirrored() : blobBReference;
   }
 
+  /// Normalized x (u) of the edge of [polygon] that FACES THE TEXT at normalized height [v].
+  ///
+  /// The reference layout (pictures on the right) has its text on the left of the picture, so the
+  /// facing edge is the polygon's LEFT edge (topLeft to bottomLeft). A mirrored polygon (pictures on
+  /// the left) has its text on the right, so the facing edge is the RIGHT edge (topRight to
+  /// bottomRight). The edge is interpolated linearly; outside its height range the nearest end is used.
+  static double innerEdgeU(LandingPolygon polygon, double v, {required bool mirrored}) {
+    final Offset a = mirrored ? polygon.topRight : polygon.topLeft;
+    final Offset b = mirrored ? polygon.bottomRight : polygon.bottomLeft;
+    final double dv = b.dy - a.dy;
+    if (dv.abs() < 1e-9) return a.dx;
+    final double t = ((v - a.dy) / dv).clamp(0.0, 1.0);
+    return a.dx + (b.dx - a.dx) * t;
+  }
+
   /// Converts a quadrilateral list of 4 absolute points into a smooth rounded Path.
   ///
   /// For each corner, moves along both edges by radius [r], then uses [quadraticBezierTo]

@@ -493,38 +493,78 @@ class _LandingSlideView extends StatelessWidget {
 
     final blobColor = tokens.chipBg.withValues(alpha: isDark ? 0.50 : 0.75);
 
-    // Headline auto-fit calculation:
-    // If the widest line is wider than 0.50 * W, reduce font size until it fits (minimum 24 sp)
-    double headlineFontSize = math.min(0.16 * W, 0.073 * H);
-    final maxAllowedWidth = 0.50 * W;
+    final isDevanagari = language == AppLanguage.hi || language == AppLanguage.mr;
+    final double gap8 = 8.0 * (W / 360.0).clamp(0.85, 1.25);
 
-    for (int step = 0; step < 50; step++) {
-      double maxLineWidth = 0.0;
-      for (final line in headlineLines) {
-        final painter = TextPainter(
-          text: TextSpan(
-            text: line,
-            style: TextStyle(
-              fontFamily: VanRozgarTokens.fontFamily,
-              fontSize: headlineFontSize,
-              fontWeight: FontWeight.w900,
-              letterSpacing: -0.03 * headlineFontSize,
-            ),
-          ),
-          textDirection: TextDirection.ltr,
-        )..layout();
-        if (painter.width > maxLineWidth) {
-          maxLineWidth = painter.width;
-        }
-      }
-      if (maxLineWidth <= maxAllowedWidth || headlineFontSize <= 24.0) {
-        break;
-      }
-      headlineFontSize = math.max(24.0, headlineFontSize - 1.0);
+    double textWidth(String text, TextStyle style) {
+      final painter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        textDirection: TextDirection.ltr,
+        textScaler: TextScaler.noScaling,
+        maxLines: 1,
+      )..layout();
+      return painter.width;
     }
 
-    final eyebrowFontSize = 0.034 * d;
-    final isDevanagari = language == AppLanguage.hi || language == AppLanguage.mr;
+    // Headline size: the LARGEST font size at which every line's inner end goes over the picture by
+    // at most 0.06 * W. So the longest line overlaps the picture by about 0.04 to 0.06 * W, short
+    // headlines grow bigger, and the overlap never gets "too much".
+    final double headlineTop = 0.266 * H;
+    TextStyle headlineBase(double fs) => TextStyle(
+          fontFamily: VanRozgarTokens.fontFamily,
+          fontSize: fs,
+          fontWeight: FontWeight.w900,
+          height: 1.0,
+          letterSpacing: -0.03 * fs,
+        );
+    bool headlineFits(double fs) {
+      for (int i = 0; i < headlineLines.length; i++) {
+        final width = textWidth(headlineLines[i], headlineBase(fs));
+        final y = headlineTop + (i + 0.5) * fs;
+        final edge = LandingGeometry.innerEdgeU(card1Poly, y / H, mirrored: isMirrored) * W;
+        if (isMirrored) {
+          if (W - 0.065 * W - width < edge - 0.06 * W) return false;
+        } else {
+          if (0.065 * W + width > edge + 0.06 * W) return false;
+        }
+      }
+      return true;
+    }
+
+    double headlineFontSize = math.min(0.17 * W, 0.078 * H);
+    while (headlineFontSize > 24.0 && !headlineFits(headlineFontSize)) {
+      headlineFontSize -= 0.5;
+    }
+    headlineFontSize = math.max(24.0, headlineFontSize);
+
+    // Eyebrow: must fit in the free space NEXT TO the picture (never on it).
+    double eyebrowFontSize = 0.034 * d;
+    final double eyebrowCenterY = 0.228 * H + eyebrowFontSize * 0.6;
+    final double eyebrowEdge =
+        LandingGeometry.innerEdgeU(card1Poly, eyebrowCenterY / H, mirrored: isMirrored) * W;
+    final double eyebrowAllowed = math.max(
+      40.0,
+      isMirrored
+          ? (W - 0.065 * W) - (eyebrowEdge + gap8)
+          : (eyebrowEdge - gap8) - 0.065 * W,
+    );
+    TextStyle eyebrowBase(double fs, double ls) => TextStyle(
+          fontFamily: VanRozgarTokens.fontFamily,
+          fontSize: fs,
+          fontWeight: FontWeight.w600,
+          letterSpacing: ls * fs,
+        );
+    // 1) less letter spacing (not in Hindi / Marathi, where it is 0), 2) a smaller font
+    double eyebrowSpacing = isDevanagari ? 0.0 : 0.55;
+    while (!isDevanagari &&
+        eyebrowSpacing > 0.2 &&
+        textWidth(eyebrow, eyebrowBase(eyebrowFontSize, eyebrowSpacing)) > eyebrowAllowed) {
+      eyebrowSpacing -= 0.05;
+    }
+    while (eyebrowFontSize > 9.0 &&
+        textWidth(eyebrow, eyebrowBase(eyebrowFontSize, eyebrowSpacing)) > eyebrowAllowed) {
+      eyebrowFontSize -= 0.5;
+    }
 
     return Semantics(
       label: pictureLabel,
@@ -610,15 +650,18 @@ class _LandingSlideView extends StatelessWidget {
               crossAxisAlignment: isMirrored ? CrossAxisAlignment.end : CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // a) Eyebrow
-                Text(
-                  eyebrow,
-                  style: TextStyle(
-                    fontFamily: VanRozgarTokens.fontFamily,
-                    fontSize: eyebrowFontSize,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: isDevanagari ? 0.0 : 0.55 * eyebrowFontSize,
-                    color: tokens.mutedText,
+                // a) Eyebrow (fitted into the free space next to the picture, never on it)
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: eyebrowAllowed),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: isMirrored ? Alignment.centerRight : Alignment.centerLeft,
+                    child: Text(
+                      eyebrow,
+                      softWrap: false,
+                      textScaler: TextScaler.noScaling,
+                      style: eyebrowBase(eyebrowFontSize, eyebrowSpacing).copyWith(color: tokens.mutedText),
+                    ),
                   ),
                 ),
 
@@ -635,18 +678,14 @@ class _LandingSlideView extends StatelessWidget {
                       final lineText = entry.value;
                       final isHighlighted = lineIndex == highlightIndex;
 
-                      return Text(
-                        lineText,
-                        softWrap: false,
+                      // Outlined text: where a line sits on a picture it stays readable
+                      return _HaloText(
+                        text: lineText,
                         textAlign: isMirrored ? TextAlign.end : TextAlign.start,
-                        style: TextStyle(
-                          fontFamily: VanRozgarTokens.fontFamily,
-                          fontSize: headlineFontSize,
-                          fontWeight: FontWeight.w900,
-                          height: 1.0,
-                          letterSpacing: -0.03 * headlineFontSize,
-                          color: isHighlighted ? tokens.primaryGreen : inkColor,
-                        ),
+                        baseStyle: headlineBase(headlineFontSize),
+                        color: isHighlighted ? tokens.primaryGreen : inkColor,
+                        haloColor: tokens.page.withValues(alpha: 0.9),
+                        haloWidth: 0.014 * d,
                       );
                     }).toList(),
                   ),
@@ -677,38 +716,37 @@ class _LandingSlideView extends StatelessWidget {
             ),
           ),
 
-          // 6. Handwritten Note with Underline Stroke
+          // 6. Handwritten note. Its lines never wrap (a long line shrinks instead) and there is
+          // no separate dash any more (it floated loose and cut through the word "local.").
           Positioned(
             left: isMirrored ? null : (0.098 * W),
             right: isMirrored ? (0.098 * W) : null,
             top: 0.723 * H,
-            width: 0.196 * W,
-            child: KeyedSubtree(
-              key: const Key('landing_note'),
-              child: Transform.rotate(
-                angle: (isMirrored ? 14.0 : -14.0) * math.pi / 180.0,
-                child: Text(
-                  noteLines.join('\n'),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: isDevanagari ? VanRozgarTokens.fontFamily : 'cursive',
-                    fontStyle: FontStyle.italic,
-                    fontSize: 0.06 * d,
-                    height: 1.15,
-                    color: tokens.mutedText,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 0.30 * W),
+              child: KeyedSubtree(
+                key: const Key('landing_note'),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: isMirrored ? Alignment.centerRight : Alignment.centerLeft,
+                  child: Transform.rotate(
+                    angle: (isMirrored ? 14.0 : -14.0) * math.pi / 180.0,
+                    child: Text(
+                      noteLines.join('\n'),
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                      textScaler: TextScaler.noScaling,
+                      style: TextStyle(
+                        fontFamily: isDevanagari ? VanRozgarTokens.fontFamily : 'cursive',
+                        fontStyle: FontStyle.italic,
+                        fontSize: 0.06 * d,
+                        height: 1.15,
+                        color: tokens.mutedText,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-
-          // Underline stroke decoration
-          CustomPaint(
-            painter: _UnderlinePainter(
-              mirrored: isMirrored,
-              W: W,
-              H: H,
-              color: tokens.mutedText,
             ),
           ),
         ],
@@ -747,47 +785,50 @@ class _PolygonClipper extends CustomClipper<Path> {
   }
 }
 
-/// CustomPainter for the single handwritten underline stroke.
-class _UnderlinePainter extends CustomPainter {
-  final bool mirrored;
-  final double W;
-  final double H;
+/// Text with an outline (a "halo" in the page colour) so letters that sit on a picture stay readable.
+class _HaloText extends StatelessWidget {
+  final String text;
+  final TextAlign textAlign;
+  final TextStyle baseStyle; // without a colour
   final Color color;
+  final Color haloColor;
+  final double haloWidth;
 
-  _UnderlinePainter({
-    required this.mirrored,
-    required this.W,
-    required this.H,
+  const _HaloText({
+    required this.text,
+    required this.textAlign,
+    required this.baseStyle,
     required this.color,
+    required this.haloColor,
+    required this.haloWidth,
   });
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..strokeWidth = 0.008 * W
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-
-    final Offset p1;
-    final Offset p2;
-
-    if (mirrored) {
-      p1 = Offset((1.0 - 0.216) * W, 0.832 * H);
-      p2 = Offset((1.0 - 0.290) * W, 0.814 * H);
-    } else {
-      p1 = Offset(0.216 * W, 0.832 * H);
-      p2 = Offset(0.290 * W, 0.814 * H);
-    }
-
-    canvas.drawLine(p1, p2, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _UnderlinePainter oldDelegate) {
-    return oldDelegate.mirrored != mirrored ||
-        oldDelegate.W != W ||
-        oldDelegate.H != H ||
-        oldDelegate.color != color;
+  Widget build(BuildContext context) {
+    final halo = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = haloWidth
+      ..strokeJoin = StrokeJoin.round
+      ..color = haloColor;
+    return Stack(
+      children: [
+        ExcludeSemantics(
+          child: Text(
+            text,
+            softWrap: false,
+            textAlign: textAlign,
+            textScaler: TextScaler.noScaling,
+            style: baseStyle.copyWith(foreground: halo),
+          ),
+        ),
+        Text(
+          text,
+          softWrap: false,
+          textAlign: textAlign,
+          textScaler: TextScaler.noScaling,
+          style: baseStyle.copyWith(color: color),
+        ),
+      ],
+    );
   }
 }

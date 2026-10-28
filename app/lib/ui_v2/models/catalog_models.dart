@@ -26,8 +26,19 @@ class ShopListing {
   final int daysAgo;
   final bool isSample;
 
+  /// The seller who owns this listing (one seller can have many listings). Falls back to the
+  /// listing id when the data has no seller id.
+  final String sellerId;
+  final String sellerName;
+
+  /// What the seller offers: 'pickup', 'delivery' or 'both' (as on the real server).
+  final String fulfilment;
+
   const ShopListing({
     required this.id,
+    this.sellerId = '',
+    this.sellerName = '',
+    this.fulfilment = 'both',
     required this.sellerType,
     required this.pricePerUnitPaise,
     required this.mrpPerUnitPaise,
@@ -40,8 +51,12 @@ class ShopListing {
 
   factory ShopListing.fromJson(Map<String, dynamic> json) {
     final price = json['pricePerUnitPaise'] as int? ?? 0;
+    final listingId = json['id'] as String? ?? '';
     return ShopListing(
-      id: json['id'] as String? ?? '',
+      id: listingId,
+      sellerId: json['sellerId'] as String? ?? listingId,
+      sellerName: json['sellerName'] as String? ?? '',
+      fulfilment: json['fulfilment'] as String? ?? 'both',
       sellerType: json['sellerType'] as String? ?? 'gramsabha',
       pricePerUnitPaise: price,
       mrpPerUnitPaise: json['mrpPerUnitPaise'] as int? ?? price,
@@ -74,6 +89,11 @@ class ShopProduct {
   final bool notForEating;
   final List<ShopListing> listings;
 
+  /// True when the picture is marked "check later" / "confirm" in the resource list: it is an
+  /// AI illustration that must be checked against a real photo, so it is shown with an
+  /// "Illustration" tag.
+  final bool isIllustration;
+
   const ShopProduct({
     required this.productCode,
     required this.categorySlug,
@@ -82,6 +102,7 @@ class ShopProduct {
     required this.unit,
     required this.notForEating,
     required this.listings,
+    this.isIllustration = false,
   });
 
   factory ShopProduct.fromJson(Map<String, dynamic> json) {
@@ -108,6 +129,7 @@ class ShopProduct {
       unit: unit,
       notForEating: json['notForEating'] as bool? ?? false,
       listings: listings,
+      isIllustration: _noteNeedsCheck(json['pictureNote'] as String?),
     );
   }
 
@@ -173,6 +195,12 @@ class ShopProduct {
         return unit['mr'] ?? unit['en'] ?? '';
     }
   }
+}
+
+bool _noteNeedsCheck(String? note) {
+  if (note == null) return false;
+  final n = note.toLowerCase();
+  return n.contains('check later') || n.contains('confirm');
 }
 
 /// A specific listing combined with its parent product for listing-centric rows.

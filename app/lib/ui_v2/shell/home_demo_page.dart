@@ -300,7 +300,10 @@ class _HomeDemoPageState extends ConsumerState<HomeDemoPage> {
 
             // Bottom breathing space for smooth scroll above navigation bar
             SliverToBoxAdapter(
-              child: SizedBox(height: bottomInset + 24.0 * s),
+              // Extra room while the floating "View cart" pill is showing, so it never covers the last row
+              child: SizedBox(
+                height: bottomInset + 24.0 * s + (ref.watch(cartItemCountProvider) > 0 ? 76.0 * s : 0.0),
+              ),
             ),
           ],
         ),

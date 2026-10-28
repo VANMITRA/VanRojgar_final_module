@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../l10n/app_strings.dart';
+import '../l10n/shop_extra_strings.dart';
 import '../models/catalog_models.dart';
 import '../providers/catalog_providers.dart';
 import '../theme/van_rozgar_tokens.dart';
+import 'min_order_dialog.dart';
+import 'quantity_picker_sheet.dart';
+import 'quantity_stepper.dart';
 
 enum ProductCardType { topDeal, bestSeller, newArrival, grid }
+
+/// Sold share (0 to 1) of one listing, or of the whole product when no listing is given.
+double _soldFraction(ShopListing? listing, ShopProduct product) {
+  final sold = (listing?.quantitySold ?? product.totalSold).toDouble();
+  final left = (listing?.quantityAvailable ?? product.totalAvailable).toDouble();
+  final total = sold + left;
+  return total > 0 ? (sold / total).clamp(0.0, 1.0) : 0.0;
+}
 
 /// Reusable product card component conforming to Phase 3 design rules.
 class ProductCard extends ConsumerWidget {
@@ -14,12 +27,20 @@ class ProductCard extends ConsumerWidget {
   final ProductCardType cardType;
   final VoidCallback? onTap;
 
+  /// Show the live "62 kg sold · 38 kg left" bar under the name (Category page).
+  final bool showStockBar;
+
+  /// ADD opens the quantity picker sheet instead of adding the minimum at once (Category page).
+  final bool useQuantityPicker;
+
   const ProductCard({
     super.key,
     required this.product,
     this.listing,
     this.cardType = ProductCardType.grid,
     this.onTap,
+    this.showStockBar = false,
+    this.useQuantityPicker = false,
   });
 
   @override
@@ -94,7 +115,11 @@ class ProductCard extends ConsumerWidget {
         ),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: onTap,
+          // Tapping a card opens its Product page
+          onTap: onTap ??
+              () {
+                GoRouter.maybeOf(context)?.push('/product/${product.productCode}');
+              },
           borderRadius: BorderRadius.circular(16.0 * s),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,23 +150,51 @@ class ProductCard extends ConsumerWidget {
                       Positioned(
                         top: 8.0 * s,
                         left: 8.0 * s,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.0 * s,
-                            vertical: 3.0 * s,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(100.0),
-                          ),
-                          child: Text(
-                            strings.sampleBadge,
-                            style: TextStyle(
-                              fontSize: 10.0 * s,
-                              fontWeight: FontWeight.w700,
-                              color: tokens.primaryGreen,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.0 * s,
+                                vertical: 3.0 * s,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(100.0),
+                              ),
+                              child: Text(
+                                strings.sampleBadge,
+                                style: TextStyle(
+                                  fontSize: 10.0 * s,
+                                  fontWeight: FontWeight.w700,
+                                  color: tokens.primaryGreen,
+                                ),
+                              ),
                             ),
-                          ),
+                            // A picture that still has to be checked against a real photo
+                            if (product.isIllustration) ...[
+                              SizedBox(height: 4.0 * s),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8.0 * s,
+                                  vertical: 3.0 * s,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.85),
+                                  borderRadius: BorderRadius.circular(100.0),
+                                ),
+                                child: Text(
+                                  strings.illustrationTag,
+                                  style: TextStyle(
+                                    fontSize: 10.0 * s,
+                                    fontWeight: FontWeight.w700,
+                                    color: tokens.mutedText,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ],
                         ),
                       ),
                       // Bottom-left: Not for eating flag
@@ -199,7 +252,12 @@ class ProductCard extends ConsumerWidget {
                           label: '${strings.addButton} $title',
                           child: InkWell(
                             onTap: () {
+                              if (useQuantityPicker) {
+                                showQuantityPickerSheet(context, product: product, language: language);
+                                return;
+                              }
                               ref.read(cartQuantitiesProvider.notifier).add(product.productCode, minOrder);
+                              ref.read(lastAddedImageProvider.notifier).state = product.imageAsset;
                             },
                             borderRadius: BorderRadius.circular(10.0 * s),
                             child: Container(
@@ -233,65 +291,23 @@ class ProductCard extends ConsumerWidget {
                           ),
                         )
                       else
-                        Container(
-                          width: 96.0 * s,
-                          height: 34.0 * s,
-                          decoration: BoxDecoration(
-                            color: tokens.primaryGreen,
-                            borderRadius: BorderRadius.circular(10.0 * s),
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          // Fixed-size tap areas (an IconButton insists on 48 dp, which does not fit
-                          // in this 96 dp pill together with the number and pushed the "+" out of it).
-                          child: Row(
-                            children: [
-                              // Minus / Remove
-                              Semantics(
-                                button: true,
-                                label: '-',
-                                child: InkWell(
-                                  onTap: () {
-                                    ref.read(cartQuantitiesProvider.notifier).decrement(product.productCode, minOrder);
-                                  },
-                                  child: SizedBox(
-                                    width: 30.0 * s,
-                                    height: double.infinity,
-                                    child: Icon(Icons.remove, size: 16.0 * s, color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                              // Quantity display
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                    '$currentQty',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 14.0 * s,
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              // Plus
-                              Semantics(
-                                button: true,
-                                label: '+',
-                                child: InkWell(
-                                  onTap: () {
-                                    ref.read(cartQuantitiesProvider.notifier).increment(product.productCode);
-                                  },
-                                  child: SizedBox(
-                                    width: 30.0 * s,
-                                    height: double.infinity,
-                                    child: Icon(Icons.add, size: 16.0 * s, color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                        QuantityStepper(
+                          quantity: currentQty,
+                          scale: s,
+                          onMinus: () {
+                            decrementWithMinOrderCheck(
+                              context,
+                              ref,
+                              productCode: product.productCode,
+                              title: title,
+                              minOrder: minOrder,
+                              unit: unit,
+                              strings: strings,
+                            );
+                          },
+                          onPlus: () {
+                            ref.read(cartQuantitiesProvider.notifier).increment(product.productCode);
+                          },
                         ),
                     ],
                   ),
@@ -365,6 +381,40 @@ class ProductCard extends ConsumerWidget {
                   ),
                 ),
               ),
+
+              // 5b. Live stock bar: "62 kg sold · 38 kg left"
+              if (showStockBar)
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10.0 * s, 4.0 * s, 10.0 * s, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(3.0 * s),
+                        child: Stack(
+                          children: [
+                            Container(height: 6.0 * s, color: tokens.borders),
+                            FractionallySizedBox(
+                              widthFactor: _soldFraction(listing, product),
+                              child: Container(height: 6.0 * s, color: tokens.primaryGreen),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 3.0 * s),
+                      Text(
+                        strings.soldLeftBar(
+                          listing?.quantitySold ?? product.totalSold,
+                          listing?.quantityAvailable ?? product.totalAvailable,
+                          unit,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 10.5 * s, color: tokens.mutedText),
+                      ),
+                    ],
+                  ),
+                ),
 
               // 6. Last Row Pill
               Padding(

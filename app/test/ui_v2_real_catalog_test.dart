@@ -52,6 +52,22 @@ void main() {
     expect(flagged, {'nuts_bibba', 'herb_gunj'});
   });
 
+  test('every listing has a seller, and sellers own several listings (so a cart can be grouped by seller)',
+      () async {
+    final open = await SampleShopRepository().getProducts();
+    final perSeller = <String, int>{};
+    for (final p in open) {
+      for (final l in p.listings) {
+        expect(l.sellerId, isNotEmpty);
+        expect(l.sellerName, isNotEmpty);
+        expect(['pickup', 'delivery', 'both'], contains(l.fulfilment));
+        perSeller[l.sellerId] = (perSeller[l.sellerId] ?? 0) + 1;
+      }
+    }
+    expect(perSeller.length, 6);
+    expect(perSeller.values.every((n) => n > 1), isTrue);
+  });
+
   test('every picture the Home page can show exists as an asset', () async {
     final repo = SampleShopRepository();
     final open = await repo.getProducts();

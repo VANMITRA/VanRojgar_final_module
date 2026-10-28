@@ -499,8 +499,10 @@ void main() {
       await tester.tap(addFinder);
       await tester.pumpAndSettle();
 
-      // Cart badge shows 1 item
-      expect(find.byType(Badge), findsWidgets);
+      // The floating "View cart" pill appears (there is no Cart tab and no badge any more)
+      expect(find.byKey(const Key('floating_cart_pill')), findsOneWidget);
+      expect(find.text('View cart'), findsOneWidget);
+      expect(find.text('1 item'), findsOneWidget);
 
       // Stepper shows "1"
       expect(find.text('1'), findsWidgets);
@@ -515,8 +517,11 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('1'), findsWidgets);
 
-      // Tap - again at minOrderQuantity (1) removes it
+      // Tap - again at the minimum order: it does NOT remove silently, a message asks first
       await tester.tap(find.byIcon(Icons.remove).first);
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('min_order_dialog')), findsOneWidget);
+      await tester.tap(find.byKey(const Key('min_order_remove')));
       await tester.pumpAndSettle();
 
       // ADD button restored
@@ -637,10 +642,11 @@ void main() {
 
       expect(find.byType(LandingPage), findsOneWidget);
       expect(find.text('EXPLORE'), findsOneWidget);
-      expect(find.text('Straight'), findsOneWidget);
-      expect(find.text('from the'), findsOneWidget);
-      expect(find.text('village'), findsOneWidget);
-      expect(find.text('forest'), findsOneWidget);
+      // each headline line is drawn twice (an outline layer under the text), so use findsWidgets
+      expect(find.text('Straight'), findsWidgets);
+      expect(find.text('from the'), findsWidgets);
+      expect(find.text('village'), findsWidgets);
+      expect(find.text('forest'), findsWidgets);
       expect(find.text('Bamboo, mangoes and more from CFR villages in Nashik.'), findsOneWidget);
       expect(find.text('Skip'), findsOneWidget);
       expect(find.text('Next'), findsOneWidget);
@@ -658,8 +664,8 @@ void main() {
       await tester.tap(find.text('Next'));
       await tester.pumpAndSettle();
       expect(find.text('TRADITIONAL'), findsOneWidget);
-      expect(find.text('Forest'), findsOneWidget);
-      expect(find.text('herbs'), findsOneWidget);
+      expect(find.text('Forest'), findsWidgets);
+      expect(find.text('herbs'), findsWidgets);
       expect(find.text('Amla, bael, harad, baheda and more from village forests.'), findsOneWidget);
       expect(find.text('Next'), findsOneWidget);
 
@@ -667,9 +673,9 @@ void main() {
       await tester.tap(find.text('Next'));
       await tester.pumpAndSettle();
       expect(find.text('COMMUNITY'), findsOneWidget);
-      expect(find.text('Work'), findsOneWidget);
-      expect(find.text('that stays'), findsOneWidget);
-      expect(find.text('village'), findsOneWidget);
+      expect(find.text('Work'), findsWidgets);
+      expect(find.text('that stays'), findsWidgets);
+      expect(find.text('village'), findsWidgets);
       expect(find.text('Gram Sabhas and CFR holders sell direct to buyers.'), findsOneWidget);
       expect(find.text('Get Started'), findsOneWidget);
     });
