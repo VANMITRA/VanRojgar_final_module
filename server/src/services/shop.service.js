@@ -1,5 +1,6 @@
 import { Listing } from '../models/Listing.js';
 import { Category } from '../models/Category.js';
+import { User } from '../models/User.js';
 import { AppError, ErrorCodes } from '../core/errors.js';
 import { normaliseString } from '../core/normalise.js';
 import { serializeListing } from '../core/serializers.js';
@@ -22,13 +23,22 @@ function matchesQuery(listing, tokens) {
   return tokens.every((t) => hay.includes(t));
 }
 
+/** The display name of each seller (the account name), by owner id, for the rows we are about to send. */
+async function ownerNames(rows) {
+  const ids = [...new Set(rows.map((l) => String(l.ownerId)))];
+  if (ids.length === 0) return new Map();
+  const users = await User.find({ _id: { $in: ids } }).select('name');
+  return new Map(users.map((u) => [String(u._id), u.name]));
+}
+
 /** One seller row on a product page. */
-function sellerRow(listing) {
+function sellerRow(listing, names = new Map()) {
   const doc = serializeListing(listing);
   return {
     ...doc,
     seller: {
       ownerId: String(listing.ownerId),
+      name: names.get(String(listing.ownerId)) ?? null,
       type: listing.ownerType === 'villager' ? 'cfrholder' : listing.ownerType, // gramsabha | cfrholder
       village: listing.village,
       taluka: listing.taluka
@@ -99,7 +109,8 @@ export class ShopService {
     if (rows.length === 0) {
       throw new AppError(ErrorCodes.NOT_FOUND, 'No seller has this product right now', 404);
     }
-    const list = rows.map(sellerRow);
+    const names = await ownerNames(rows);
+    const list = rows.map((l) => sellerRow(l, names));
     if (sort === 'discount_desc') list.sort((a, b) => b.discountPercent - a.discountPercent || a.pricePerUnitPaise - b.pricePerUnitPaise);
     else if (sort === 'newest') list.sort(byNewest);
     else list.sort((a, b) => a.pricePerUnitPaise - b.pricePerUnitPaise || byNewest(a, b));
@@ -118,7 +129,8 @@ export class ShopService {
   /** One call for the home screen: deals, best sellers, new arrivals and the categories with counts. */
   static async home() {
     const rows = await loadOpen();
-    const cards = rows.map(sellerRow);
+    const names = await ownerNames(rows);
+    const cards = rows.map((l) => sellerRow(l, names));
     const deals = cards.filter((c) => c.discountPercent > 0)
       .sort((a, b) => b.discountPercent - a.discountPercent || b.discountPaise - a.discountPaise).slice(0, 12);
     const bestSellers = cards.filter((c) => c.quantitySold > 0)

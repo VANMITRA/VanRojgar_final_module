@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../api/v2_api_client.dart';
+import '../data/live_shop_repository.dart';
 import '../data/shop_repository.dart';
 import '../l10n/app_strings.dart';
 import '../models/catalog_models.dart';
@@ -42,8 +44,20 @@ final catalogSearchQueryProvider = StateProvider<String>((ref) {
   return '';
 });
 
-/// Shop repository provider.
+/// The address of the shop server, given when the app is built (`--dart-define=VANMITRA_SHOP_URL=https://...`).
+/// Empty in development and in tests: then the bundled catalog is used.
+const String shopServerUrl = String.fromEnvironment('VANMITRA_SHOP_URL');
+
+/// The client for the shop server; null when no address was given.
+final shopApiClientProvider = Provider<V2ApiClient?>((ref) {
+  if (shopServerUrl.isEmpty) return null;
+  return V2ApiClient(baseUrl: shopServerUrl);
+});
+
+/// Shop repository provider: real server data when an address was given, otherwise the bundled catalog.
 final shopRepositoryProvider = Provider<ShopRepository>((ref) {
+  final api = ref.watch(shopApiClientProvider);
+  if (api != null) return LiveShopRepository(api);
   return SampleShopRepository();
 });
 
