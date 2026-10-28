@@ -1,4 +1,3 @@
-import { pricingOf, stockOf, minimumOrder } from './pricing.js';
 /**
  * Serializes standard success response envelope
  */
@@ -51,8 +50,6 @@ export function serializeListing(listing, { isOwnerOrParticipant = false } = {})
   if (!isOwnerOrParticipant && doc.location) {
     doc.location = roundLocation(doc.location);
   }
-  // Shop fields every card needs: MRP and discount, sold and left, the seller's minimum order
-  Object.assign(doc, pricingOf(doc), stockOf(doc), { minOrderQuantity: minimumOrder(doc) });
   return doc;
 }
 

@@ -87,20 +87,16 @@ def test_a_node_token_for_a_cfr_holder_is_accepted(client: TestClient) -> None:
     assert r.status_code == 404  # signed in; no details saved yet
 
 
-@pytest.mark.parametrize(("user", "role"), [(GRAM_SABHA, "gramsabha"), (BUYER, "buyer")])
+@pytest.mark.parametrize(
+    ("user", "role"), [(FARMER, "villager"), (GRAM_SABHA, "gramsabha"), (BUYER, "buyer")]
+)
 def test_only_a_cfr_holder_is_served(client: TestClient, user: ObjectId, role: str) -> None:
-    # the Gram Sabha and a buyer have the marketplace only: no livelihood report
+    # a farmer, the Gram Sabha and a buyer have the marketplace only: no livelihood report
     for url in ("profile", "report/latest"):
         headers = {"Authorization": f"Bearer {token(str(user), role)}"}
         r = client.get(f"{URL}/{url}", headers=headers)
         assert r.status_code == 403, url
         assert r.json()["message_key"] == "livelihood.role_not_allowed"
-
-
-def test_an_old_farmer_account_is_served_as_a_cfr_holder(client: TestClient) -> None:
-    # there is no Farmer role any more: an account still stored as `villager` is a CFR holder
-    r = get(client, token(str(FARMER), "villager"))
-    assert r.status_code == 404  # signed in and allowed; no details saved yet
 
 
 def test_a_suspended_user_a_stranger_and_a_bad_id_are_refused(client: TestClient) -> None:
@@ -141,6 +137,6 @@ def test_the_directory_gives_the_name_the_role_and_the_village() -> None:
     assert sita is not None and sita.name == "Sita"
     assert sita.roles == {"cfr_holder"} and sita.village_id == "trimbak/harsul"
     ram = users.get(str(FARMER))
-    assert ram is not None and ram.roles == {"cfr_holder"}
+    assert ram is not None and ram.roles == {"villager"}
     office = users.get(str(GRAM_SABHA))
     assert office is not None and office.roles == {"gram_sabha"}

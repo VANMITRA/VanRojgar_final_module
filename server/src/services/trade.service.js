@@ -7,7 +7,6 @@ import { Delivery } from '../models/Delivery.js';
 import { AppError, ErrorCodes } from '../core/errors.js';
 import { config } from '../core/config.js';
 import { assertValidTransition } from './requestMachine.js';
-import { minimumOrderProblem } from '../core/pricing.js';
 
 export class TradeService {
   static getBulkThreshold(unit) {
@@ -36,11 +35,6 @@ export class TradeService {
         `Requested quantity (${data.quantity} ${listing.unit}) exceeds available stock (${listing.quantityAvailable} ${listing.unit})`,
         409
       );
-    }
-
-    const tooSmall = minimumOrderProblem(listing, data.quantity);
-    if (tooSmall) {
-      throw new AppError(ErrorCodes.VALIDATION_ERROR, tooSmall, 422, { quantity: tooSmall });
     }
 
     const threshold = this.getBulkThreshold(listing.unit);

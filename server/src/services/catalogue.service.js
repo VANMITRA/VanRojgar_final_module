@@ -12,7 +12,7 @@ function escapeRegex(str) {
 
 export class CatalogueService {
   static async getCategories() {
-    return Category.find({ active: { $ne: false } }).sort({ order: 1 });
+    return Category.find().sort({ order: 1 });
   }
 
   static async getGramSabhas({ taluka, verified, limit = 50 }) {

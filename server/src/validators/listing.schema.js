@@ -14,9 +14,6 @@ export const createListingSchema = z.object({
   quantityAvailable: z.coerce.number().positive('Quantity must be greater than zero'),
   unit: unitEnum,
   pricePerUnitRupees: z.coerce.number().min(0, 'Price must be non-negative'),
-  mrpPerUnitRupees: z.coerce.number().min(0).optional(),
-  minOrderQuantity: z.coerce.number().positive('Minimum order must be greater than zero').optional(),
-  isSample: z.boolean().optional(),
   mode: z.enum(['sell', 'barter', 'both']).default('sell'),
   barterWants: z.string().trim().optional(),
   sourceForestArea: z.string().trim().optional(),
@@ -29,12 +26,6 @@ export const createListingSchema = z.object({
   longitude: z.coerce.number().optional(),
   village: z.string().trim().optional(),
   taluka: z.string().trim().optional()
-}).refine(data => data.mrpPerUnitRupees === undefined || data.pricePerUnitRupees <= data.mrpPerUnitRupees, {
-  message: 'The selling price cannot be higher than the MRP',
-  path: ['mrpPerUnitRupees']
-}).refine(data => data.minOrderQuantity === undefined || data.minOrderQuantity <= data.quantityAvailable, {
-  message: 'The minimum order cannot be more than the quantity you are listing',
-  path: ['minOrderQuantity']
 }).refine(data => {
   if (data.mode === 'barter' || data.mode === 'both') {
     return Boolean(data.barterWants && data.barterWants.length >= 2);
@@ -52,8 +43,6 @@ export const updateListingSchema = z.object({
   productCode: productCode.optional(),
   quantityAvailable: z.coerce.number().min(0).optional(),
   pricePerUnitRupees: z.coerce.number().min(0).optional(),
-  mrpPerUnitRupees: z.coerce.number().min(0).optional(),
-  minOrderQuantity: z.coerce.number().positive().optional(),
   mode: z.enum(['sell', 'barter', 'both']).optional(),
   barterWants: z.string().trim().optional(),
   status: z.enum(['active', 'paused', 'sold_out', 'rejected']).optional(),
