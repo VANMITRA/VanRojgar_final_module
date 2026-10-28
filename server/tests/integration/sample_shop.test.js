@@ -58,6 +58,7 @@ test('sample data script: labelled Sample, several sellers per product, orders f
   assert.equal(bamboo.sellerCount, 4, 'bamboo has several sellers');
   assert.ok(bamboo.bestDiscountPercent > 0);
   const home = (await get('/shop/home')).data;
+  assert.ok(home.topDeals.length > 0 && home.topDeals.every((d) => d.startingAtPaise > 0 && d.bestDiscountPercent > 0), 'top deals with a starting-at price');
   assert.ok(home.deals.length > 0 && home.bestSellers.length > 0 && home.newArrivals.length > 0, 'no empty rows on the home screen');
   assert.equal(home.categories.length, 5, 'the five categories that have sample products (honey and herbs have none yet)');
   assert.ok(home.categories.every((c) => c.listingCount > 0), 'every category has products');

@@ -74,6 +74,8 @@ test('shop: guest browsing, MRP and discount, many sellers, minimum order, live 
   assert.equal(home.status, 200, JSON.stringify(home.body));
   assert.ok(home.body.data.deals.length >= 2, 'deals show the discounted listings');
   assert.ok(home.body.data.deals[0].discountPercent >= home.body.data.deals[1].discountPercent, 'biggest discount first');
+  const td = home.body.data.topDeals;
+  assert.ok(td.length >= 1 && td[0].bestDiscountPercent === 40 && td[0].startingAtPaise <= 12000, 'top deals: one tile per product with a starting-at price');
   assert.ok(home.body.data.categories.length >= 1 && home.body.data.categories.every((c) => c.listingCount > 0) && home.body.data.openListings >= 3);
 
   // ---- many sellers for one product

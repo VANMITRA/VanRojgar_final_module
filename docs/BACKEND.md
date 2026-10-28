@@ -72,7 +72,7 @@ Roles are **Gram Sabha**, **CFR holder** and **Buyer**. There is no Farmer role:
 
 | Endpoint | Who | What |
 |---|---|---|
-| `GET /shop/home` | anyone | Deals (biggest discount first), best sellers, new arrivals, and the categories that have products |
+| `GET /shop/home` | anyone | Deals, `topDeals` (one tile per product: lowest price as `startingAtPaise` and `bestDiscountPercent`), best sellers, new arrivals, and the categories that have products |
 | `GET /shop/products?q=&category=&sort=` | anyone | Products: listings grouped by product and unit, with seller count, lowest and highest price, best discount, stock. Sort: `popular`, `price_asc`, `discount_desc`, `newest` |
 | `GET /shop/products/:code/sellers` | anyone | Every seller of one product, cheapest first, with `isLowestPrice` |
 | `GET /shop/stock?ids=a,b,c` | anyone | Total, sold and left for up to 50 listings (the live "sold / left" bar) |

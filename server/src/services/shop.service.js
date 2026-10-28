@@ -42,38 +42,44 @@ function groupKey(listing) {
 
 const byNewest = (a, b) => new Date(b.createdAt) - new Date(a.createdAt);
 
+/** Group listings into products (same product code and unit): the lowest price, the sellers, the best discount. */
+function groupProducts(rows) {
+  const groups = new Map();
+  for (const l of rows) {
+    const key = groupKey(l);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(l);
+  }
+  return [...groups.values()].map((listings) => {
+    const cards = listings.map((l) => serializeListing(l));
+    const cheapest = cards.reduce((a, b) => (b.pricePerUnitPaise < a.pricePerUnitPaise ? b : a));
+    return {
+      productCode: listings[0].productCode ?? null,
+      listingId: listings.length === 1 ? String(listings[0]._id) : null, // a product with one seller opens that listing
+      title: cheapest.title,
+      category: listings[0].categoryId ? { slug: listings[0].categoryId.slug, name: listings[0].categoryId.name } : null,
+      unit: listings[0].unit,
+      imageUrl: cards.find((c) => c.imageUrl)?.imageUrl ?? null,
+      sellerCount: listings.length,
+      minPricePaise: Math.min(...cards.map((c) => c.pricePerUnitPaise)),
+    startingAtPaise: Math.min(...cards.map((c) => c.pricePerUnitPaise)), // "Starting at" on the deals row
+      maxPricePaise: Math.max(...cards.map((c) => c.pricePerUnitPaise)),
+      bestDiscountPercent: Math.max(...cards.map((c) => c.discountPercent)),
+      totalAvailable: cards.reduce((n, c) => n + c.quantityAvailable, 0),
+      totalSold: cards.reduce((n, c) => n + c.quantitySold, 0),
+      newestAt: cards.map((c) => c.createdAt).sort().pop()
+    };
+  });
+}
+
+
 export class ShopService {
   /** Products: listings grouped by product code and unit, with the lowest price and the number of sellers. */
   static async products({ q, category, sort = 'popular', limit = 24, cursor } = {}) {
     const tokens = normaliseString(q).split(' ').filter(Boolean);
     const rows = (await loadOpen()).filter((l) => (!category || l.categoryId?.slug === category) && matchesQuery(l, tokens));
 
-    const groups = new Map();
-    for (const l of rows) {
-      const key = groupKey(l);
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key).push(l);
-    }
-
-    let products = [...groups.values()].map((listings) => {
-      const cards = listings.map((l) => serializeListing(l));
-      const cheapest = cards.reduce((a, b) => (b.pricePerUnitPaise < a.pricePerUnitPaise ? b : a));
-      return {
-        productCode: listings[0].productCode ?? null,
-        listingId: listings.length === 1 ? String(listings[0]._id) : null, // a product with one seller opens that listing
-        title: cheapest.title,
-        category: listings[0].categoryId ? { slug: listings[0].categoryId.slug, name: listings[0].categoryId.name } : null,
-        unit: listings[0].unit,
-        imageUrl: cards.find((c) => c.imageUrl)?.imageUrl ?? null,
-        sellerCount: listings.length,
-        minPricePaise: Math.min(...cards.map((c) => c.pricePerUnitPaise)),
-        maxPricePaise: Math.max(...cards.map((c) => c.pricePerUnitPaise)),
-        bestDiscountPercent: Math.max(...cards.map((c) => c.discountPercent)),
-        totalAvailable: cards.reduce((n, c) => n + c.quantityAvailable, 0),
-        totalSold: cards.reduce((n, c) => n + c.quantitySold, 0),
-        newestAt: cards.map((c) => c.createdAt).sort().pop()
-      };
-    });
+    let products = groupProducts(rows);
 
     if (sort === 'price_asc') products.sort((a, b) => a.minPricePaise - b.minPricePaise);
     else if (sort === 'discount_desc') products.sort((a, b) => b.bestDiscountPercent - a.bestDiscountPercent || b.totalSold - a.totalSold);
@@ -130,7 +136,10 @@ export class ShopService {
     const categories = cats.map((c) => ({
       id: String(c._id), slug: c.slug, name: c.name, description: c.description ?? null, listingCount: counts.get(c.slug) ?? 0
     })).filter((c) => c.listingCount > 0);
-    return { deals, bestSellers, newArrivals, categories, openListings: rows.length };
+    // "Top deals, starting at Rs X": one tile per product, biggest discount first, with the lowest price among its sellers
+    const topDeals = groupProducts(rows).filter((p) => p.bestDiscountPercent > 0)
+      .sort((a, b) => b.bestDiscountPercent - a.bestDiscountPercent || a.startingAtPaise - b.startingAtPaise).slice(0, 12);
+    return { deals, topDeals, bestSellers, newArrivals, categories, openListings: rows.length };
   }
 
   /** The numbers for the live "sold / left" bar. Cheap: the app can ask for a few products every few seconds. */
