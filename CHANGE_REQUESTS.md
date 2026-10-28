@@ -11,3 +11,4 @@
 3. **Future live backend wiring**:
    - In accordance with Phase 7 rules, all order and request actions (`approveOrder`, `rejectOrder`, `counterOrder`, `acceptCounter`, `declineCounter`, `cancelOrder`, `reportPayment`, `confirmPayment`, `markCompleted`) operate purely in memory via `ordersProvider`, and no UPI IDs, QR codes, or payment links are shown.
    - Wiring these providers to `/api/v1/trade/requests`, `/api/v1/orders`, and `/api/v1/payments` is left to the main engineer when backend connectivity is enabled.
+

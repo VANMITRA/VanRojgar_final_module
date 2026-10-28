@@ -123,3 +123,4 @@ Output summary:
    - As a seller on `#1001` (`pending`), test **Send another offer** (checking the allowed quantity range and MRP ceiling hint) and **Reject** (confirming a reason is required).
 4. **Language Switching (`EN` / `हिं` / `मरा`)**:
    - Switch between English, Hindi, and Marathi in the top bar and visually inspect `/orders`, `/orders/:id`, and each bottom sheet to confirm natural Devanagari line height and that no stray English text appears (other than `"UPI"`).
+
