@@ -38,18 +38,18 @@ test('sample data script: labelled Sample, several sellers per product, orders f
   assert.equal((await get('/shop/home')).data.openListings, 0, 'a dry run writes nothing');
 
   const first = await run('node', [script, '--api', api, '--apply']);
-  assert.match(first.stdout, /listings created: 22, already there: 0/, first.stdout);
+  assert.match(first.stdout, /listings created: 26, already there: 0/, first.stdout);
   assert.match(first.stdout, /sample requests created: 5/, first.stdout);
   assert.doesNotMatch(first.stdout, /FAILED/, first.stdout);
 
   const second = await run('node', [script, '--api', api, '--apply']);
-  assert.match(second.stdout, /listings created: 0, already there: 22/, second.stdout);
+  assert.match(second.stdout, /listings created: 0, already there: 26/, second.stdout);
   assert.match(second.stdout, /sample requests created: 0/, second.stdout);
 
   // running the seed again must not delete the Sample products
   await seed(); // the seed disconnects when it is done
   await connectDB();
-  assert.equal((await get('/shop/home')).data.openListings, 22, 'the seed keeps Sample listings');
+  assert.equal((await get('/shop/home')).data.openListings, 26, 'the seed keeps Sample listings');
 
   // everything is labelled Sample and the shop looks alive
   const products = (await get('/shop/products?limit=50')).data.products;
@@ -60,7 +60,7 @@ test('sample data script: labelled Sample, several sellers per product, orders f
   const home = (await get('/shop/home')).data;
   assert.ok(home.topDeals.length > 0 && home.topDeals.every((d) => d.startingAtPaise > 0 && d.bestDiscountPercent > 0), 'top deals with a starting-at price');
   assert.ok(home.deals.length > 0 && home.bestSellers.length > 0 && home.newArrivals.length > 0, 'no empty rows on the home screen');
-  assert.equal(home.categories.length, 5, 'the five categories that have sample products (honey and herbs have none yet)');
+  assert.equal(home.categories.length, 8, 'all eight categories have sample products');
   assert.ok(home.categories.every((c) => c.listingCount > 0), 'every category has products');
   const all = (await get('/shop/products/bamboo/sellers')).data.sellers;
   assert.ok(all.every((s) => s.isSample === true && /\(Sample\)/.test(s.title.en)), 'every listing is labelled Sample');

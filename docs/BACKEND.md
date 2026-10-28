@@ -82,6 +82,6 @@ Every listing carries: `mrpPerUnitPaise`, `discountPaise`, `discountPercent`, `q
 
 Payment is per order, so a cart with two sellers means two orders, each paid and confirmed on its own.
 
-Categories (from the village stock sheet): Bamboo (`handicrafts-bamboo`), Fruit, Flowers, Nuts and seeds, Dry fruit, Other forest produce. Older categories are hidden (`active: false`), not deleted.
+Categories (they match the resource picture groups): Bamboo (`handicrafts-bamboo`), Fruit, Nuts and oil seeds, Flowers, Medicine and herbs (`medicinal-plants`), Forest produce, Timber trees, Shade and sacred trees. Retired categories (for example Dry fruit) are hidden (`active: false`), not deleted; `scripts/move_dry_fruit_listings.js` moves their listings.
 
 Commands a person runs (they write to the database): `npm run seed` (loads the new categories), `node scripts/migrate_villager_to_cfrholder.js [--apply]`, `node scripts/seed_sample_shop.js --api <url> [--apply]` (labelled Sample products and requests, through the API).

@@ -4,11 +4,7 @@
     "iconKey": "handshake",
     "order": 1,
     "active": true,
-    "name": {
-      "en": "Bamboo",
-      "mr": "बांबू",
-      "hi": "बाँस"
-    },
+    "name": { "en": "Bamboo", "mr": "बांबू", "hi": "बाँस" },
     "description": {
       "en": "Bamboo poles and bamboo products",
       "mr": "बांबूचे खांब आणि बांबूच्या वस्तू",
@@ -20,11 +16,7 @@
     "iconKey": "eco",
     "order": 2,
     "active": true,
-    "name": {
-      "en": "Fruit",
-      "mr": "फळे",
-      "hi": "फल"
-    },
+    "name": { "en": "Fruit", "mr": "फळे", "hi": "फल" },
     "description": {
       "en": "Mango, awla, jamun, tamarind, custard apple, ber, bael",
       "mr": "आंबा, आवळा, जांभूळ, चिंच, सीताफळ, बोर, बेल",
@@ -32,51 +24,39 @@
     }
   },
   {
-    "slug": "flowers",
-    "iconKey": "local_florist",
-    "order": 3,
-    "active": true,
-    "name": {
-      "en": "Flowers",
-      "mr": "फुले",
-      "hi": "फूल"
-    },
-    "description": {
-      "en": "Moh (mahua) flowers",
-      "mr": "मोह (मोहफूल) फुले",
-      "hi": "महुआ के फूल"
-    }
-  },
-  {
     "slug": "nuts-and-seeds",
     "iconKey": "grain",
-    "order": 4,
+    "order": 3,
     "active": true,
-    "name": {
-      "en": "Nuts and seeds",
-      "mr": "सुकामेवा आणि बिया",
-      "hi": "मेवे और बीज"
-    },
+    "name": { "en": "Nuts and oil seeds", "mr": "सुकामेवा आणि तेलबिया", "hi": "मेवे और तेल बीज" },
     "description": {
-      "en": "Cashew, karanj seeds, moh seeds",
-      "mr": "काजू, करंज बिया, मोह बिया",
-      "hi": "काजू, करंज के बीज, महुआ के बीज"
+      "en": "Cashew, karanj, koshimb and other nuts and oil seeds",
+      "mr": "काजू, करंज, कोशिंब आणि इतर सुकामेवा व तेलबिया",
+      "hi": "काजू, करंज, कोशिंब और अन्य मेवे व तेल बीज"
     }
   },
   {
-    "slug": "dry-fruit",
+    "slug": "flowers",
+    "iconKey": "local_florist",
+    "order": 4,
+    "active": true,
+    "name": { "en": "Flowers", "mr": "फुले", "hi": "फूल" },
+    "description": {
+      "en": "Moh (mahua), hadga and bakul flowers",
+      "mr": "मोह (मोहफूल), हादगा आणि बकुळ फुले",
+      "hi": "महुआ, हादगा और बकुल के फूल"
+    }
+  },
+  {
+    "slug": "medicinal-plants",
     "iconKey": "spa",
     "order": 5,
     "active": true,
-    "name": {
-      "en": "Dry fruit",
-      "mr": "सुकी फळे",
-      "hi": "सूखे फल"
-    },
+    "name": { "en": "Medicine and herbs", "mr": "औषधी वनस्पती", "hi": "औषधि और जड़ी-बूटियाँ" },
     "description": {
-      "en": "Behda and hirda dry fruit",
-      "mr": "बेहडा आणि हिरडा सुकी फळे",
-      "hi": "बहेड़ा और हरड़ सूखे फल"
+      "en": "Behda, hirda, ritha and other medicinal plants",
+      "mr": "बेहडा, हिरडा, रिठा आणि इतर औषधी वनस्पती",
+      "hi": "बहेड़ा, हरड़, रीठा और अन्य औषधीय पौधे"
     }
   },
   {
@@ -84,15 +64,35 @@
     "iconKey": "category",
     "order": 6,
     "active": true,
-    "name": {
-      "en": "Other forest produce",
-      "mr": "इतर वनोपज",
-      "hi": "अन्य वनोपज"
-    },
+    "name": { "en": "Forest produce", "mr": "वनोपज", "hi": "वनोपज" },
     "description": {
-      "en": "Honey, herbs, gum, lac and other forest produce",
-      "mr": "मध, औषधी वनस्पती, डिंक, लाख आणि इतर वनोपज",
-      "hi": "शहद, जड़ी-बूटियाँ, गोंद, लाख और अन्य वनोपज"
+      "en": "Gum, annatto, wild dates and other forest produce",
+      "mr": "डिंक, शेंदरी, शिंदी आणि इतर वनोपज",
+      "hi": "गोंद, सिंदूरी, जंगली खजूर और अन्य वनोपज"
+    }
+  },
+  {
+    "slug": "timber-trees",
+    "iconKey": "forest",
+    "order": 7,
+    "active": true,
+    "name": { "en": "Timber trees", "mr": "इमारती लाकूड झाडे", "hi": "इमारती लकड़ी के पेड़" },
+    "description": {
+      "en": "Khair, sissoo, gmelina, mahogany and other timber trees",
+      "mr": "खैर, शिसू, शिवण, महोगनी आणि इतर इमारती झाडे",
+      "hi": "खैर, शीशम, गमेलिना, महोगनी और अन्य इमारती पेड़"
+    }
+  },
+  {
+    "slug": "shade-trees",
+    "iconKey": "park",
+    "order": 8,
+    "active": true,
+    "name": { "en": "Shade and sacred trees", "mr": "सावली आणि पवित्र झाडे", "hi": "छायादार और पवित्र पेड़" },
+    "description": {
+      "en": "Banyan, peepal, shirish, coral tree and other shade trees",
+      "mr": "वड, पिंपळ, शिरीष, पांगारा आणि इतर सावलीची झाडे",
+      "hi": "बरगद, पीपल, सिरस, पांगारा और अन्य छायादार पेड़"
     }
   }
 ]

@@ -42,8 +42,12 @@ const PRODUCTS = [
   [GS(7), 'nuts-and-seeds', 'cashew', 'काजू (कच्चे)', 'Cashew nuts (raw)', 'kg', 800, 700, 40, 5, 'Raw cashew nuts'],
   [GS(13), 'nuts-and-seeds', 'karanj-seeds', 'करंज बिया', 'Karanj seeds', 'kg', 45, 45, 200, 10, 'Karanj seeds'],
   [GS(14), 'nuts-and-seeds', 'moh-seeds', 'मोह बिया', 'Moh seeds', 'kg', 75, 60, 150, 10, 'Moh seeds'],
-  [GS(4), 'dry-fruit', 'behda', 'बेहडा', 'Behda dry fruit', 'kg', 60, 60, 100, 5, 'Behda dry fruit'],
-  [GS(7), 'dry-fruit', 'hirda', 'हिरडा', 'Hirda dry fruit', 'kg', 110, 90, 60, 5, 'Hirda dry fruit'],
+  [GS(4), 'medicinal-plants', 'behda', 'बेहडा', 'Behda dry fruit', 'kg', 60, 60, 100, 5, 'Behda dry fruit'],
+  [GS(7), 'medicinal-plants', 'hirda', 'हिरडा', 'Hirda dry fruit', 'kg', 110, 90, 60, 5, 'Hirda dry fruit'],
+  [GS(10), 'medicinal-plants', 'ritha', 'रिठा', 'Ritha (soapnut)', 'kg', 130, 110, 80, 5, 'Dried ritha soapnuts'],
+  [GS(13), 'forest-produce', 'babul-gum', 'बाभूळ डिंक', 'Babul gum', 'kg', 300, 260, 40, 2, 'Babul gum'],
+  [GS(4), 'timber-trees', 'shisu', 'शिसू लाकूड', 'Shisu timber', 'piece', 900, 800, 20, 2, 'Shisu timber pieces, sold only with the forest department paperwork'],
+  [GS(6), 'shade-trees', 'banyan-sapling', 'वड रोप', 'Banyan sapling', 'piece', 60, 50, 100, 5, 'Banyan saplings for planting']
 ];
 
 // [buyer, seller, product code, quantity, what happens]
