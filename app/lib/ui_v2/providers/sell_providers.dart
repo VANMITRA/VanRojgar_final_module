@@ -348,3 +348,4 @@ final myListingsProvider = StateProvider<List<MyListing>>((ref) {
 final listingDraftProvider = StateProvider<ListingDraft>((ref) {
   return const ListingDraft();
 });
+
