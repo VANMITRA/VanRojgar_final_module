@@ -10,6 +10,8 @@ import 'categories_page.dart';
 import 'category_page.dart';
 import 'home_demo_page.dart';
 import 'landing_page.dart';
+import 'orders/order_detail_page.dart';
+import 'orders/orders_page.dart';
 import 'placeholder_pages.dart';
 import 'product_page.dart';
 
@@ -110,6 +112,11 @@ final uiV2Router = GoRouter(
       path: '/cart',
       builder: (context, state) => const CartPage(),
     ),
+    // PHASE 7 ROUTES
+    GoRoute(
+      path: '/orders/:id',
+      builder: (context, state) => OrderDetailPage(orderId: state.pathParameters['id'] ?? ''),
+    ),
     // Temporary until Phase 6 (checkout) is merged: "Buy now" shows the cart.
     GoRoute(
       path: '/checkout',
@@ -165,7 +172,7 @@ final uiV2Router = GoRouter(
           routes: [
             GoRoute(
               path: '/orders',
-              builder: (context, state) => const OrdersPlaceholderPage(),
+              builder: (context, state) => const OrdersPage(),
             ),
           ],
         ),
