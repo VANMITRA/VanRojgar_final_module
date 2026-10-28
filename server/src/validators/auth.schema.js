@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { REGISTER_ROLES, VILLAGE_ROLES } from '../core/roles.js';
+import { ACCEPTED_REGISTER_ROLES, VILLAGE_ROLES, normaliseRole } from '../core/roles.js';
 
 export const phoneSchema = z.string().trim().transform((val) => {
   const digits = val.replace(/\D/g, '');
@@ -23,7 +23,7 @@ export const passwordSchema = z.string()
   .regex(/^\d{6}$/, 'PIN must be exactly 6 digits');
 
 export const registerSchema = z.object({
-  role: z.enum(REGISTER_ROLES),
+  role: z.enum(ACCEPTED_REGISTER_ROLES).transform(normaliseRole),
   name: z.string().min(2, 'Name is required').trim(),
   phone: phoneSchema,
   password: passwordSchema,
@@ -53,7 +53,7 @@ export const registerSchema = z.object({
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ['village'],
-        message: 'Village is required for Farmer and CFR holder registration'
+        message: 'Village is required for CFR holder registration'
       });
     }
   }

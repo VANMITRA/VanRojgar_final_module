@@ -60,8 +60,8 @@ test('demo logins: one demo Gram Sabha per village, a farmer, a CFR holder and a
   const gs = accounts.filter((u) => u.role === 'gramsabha');
   assert.equal(gs.length, 14);
   for (const u of accounts.filter((u) => u.village)) assert.ok(isDatasetVillage(u.village, u.taluka), u.village);
-  assert.equal(accounts.filter((u) => u.role === 'villager').length, 1);
-  assert.equal(accounts.filter((u) => u.role === 'cfrholder').length, 1);
+  assert.equal(accounts.filter((u) => u.role === 'villager').length, 0, 'there is no farmer role');
+  assert.equal(accounts.filter((u) => u.role === 'cfrholder').length, 2);
   assert.equal(accounts.filter((u) => u.role === 'buyer').length, 1);
   assert.ok(gs[0].phone === '+919822011001' && accounts.some((u) => u.phone === '+919822022222'));
 });

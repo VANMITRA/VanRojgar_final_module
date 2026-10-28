@@ -28,7 +28,10 @@ export async function seed() {
       { upsert: true, new: true }
     );
   }
-  logger.info(`✅ Synced ${categoriesRaw.length} categories`);
+  // A category that is no longer in the file is hidden from the shop, not deleted: old listings keep working
+  const slugs = categoriesRaw.map((c) => c.slug);
+  const hidden = await Category.updateMany({ slug: { $nin: slugs }, active: { $ne: false } }, { $set: { active: false } });
+  logger.info(`✅ Synced ${categoriesRaw.length} categories (${hidden.modifiedCount} old ones hidden)`);
 
   // 2. Restricted Items
   const restrictedRaw = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/restricted.json'), 'utf-8'));
@@ -99,9 +102,10 @@ export async function seed() {
   }
   logger.info(`✅ Synced ${demoUsersRaw.length} demo accounts (passwords initialized)`);
 
-  // 5. No demo listings, requests or orders: the marketplace starts empty and holds only what people list.
+  // 5. No unlabelled demo listings: the marketplace holds only what people list, plus labelled Sample products
+  //    (scripts/seed_sample_shop.js). Running the seed again must not delete those.
   const seedOwners = [...userMap.keys()].filter((k) => k.startsWith('gs:')).map((k) => userMap.get(k)._id);
-  const removedListings = await Listing.deleteMany({ ownerId: { $in: seedOwners } });
+  const removedListings = await Listing.deleteMany({ ownerId: { $in: seedOwners }, isSample: { $ne: true } });
   logger.info(`✅ Demo listings removed: ${removedListings.deletedCount}`);
 
   logger.info('🎉 Seed completed successfully!');

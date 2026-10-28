@@ -8,6 +8,7 @@ const CategorySchema = new mongoose.Schema({
     hi: { type: String, trim: true }
   },
   iconKey: { type: String, default: 'forest' },
+  active: { type: Boolean, default: true }, // false hides a category from the shop; old listings keep it
   order: { type: Number, default: 0 },
   description: {
     mr: { type: String, trim: true },

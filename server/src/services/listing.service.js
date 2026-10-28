@@ -11,7 +11,8 @@ import { normaliseString, buildSearchTokens } from '../core/normalise.js';
 import { serializeListing, roundLocation } from '../core/serializers.js';
 import { inferProductCode } from '../core/productCode.js';
 import { generateItemCode, normaliseItemCode } from '../core/itemCode.js';
-import { isFarmerRole } from '../core/roles.js';
+import { isFarmerRole, canSell } from '../core/roles.js';
+import { stockOf } from '../core/pricing.js';
 
 /** One marker for the map layer. Coordinates are rounded to 2 decimals (about 1 km), like everywhere else in public. */
 export function toMapPoint(listing) {
@@ -53,8 +54,8 @@ export class ListingService {
   }
 
   static async create(user, data) {
-    if (user.role === 'buyer') {
-      throw new AppError(ErrorCodes.FORBIDDEN, 'Buyers cannot create listings', 403);
+    if (!canSell(user.role)) {
+      throw new AppError(ErrorCodes.FORBIDDEN, 'Only a Gram Sabha or a CFR holder can sell. A buyer buys from them.', 403);
     }
 
     if (isFarmerRole(user.role) && !config.ALLOW_VILLAGER_LISTINGS) {
@@ -102,7 +103,8 @@ export class ListingService {
     // Rights hint check (D-9)
     let rightsNotOnRecord = false;
     const category = await Category.findById(data.categoryId);
-    const isMfp = category && (category.slug.includes('produce') || category.slug.includes('medicinal'));
+    // Everything sold here (bamboo, fruit, flowers, seeds, dry fruit, other produce) is minor forest produce
+    const isMfp = Boolean(category) && category.slug !== 'water-land-resources';
     if (isMfp && (!gramSabha.cfr || !gramSabha.cfr.rights || !gramSabha.cfr.rights.includes('3(1)(c)'))) {
       rightsNotOnRecord = true;
     }
@@ -137,8 +139,12 @@ export class ListingService {
       description: data.description,
       productCode: data.productCode || inferProductCode(data.titleEn, data.titleMr) || undefined,
       quantityAvailable: data.quantityAvailable,
+      quantityTotal: data.quantityAvailable,
+      minOrderQuantity: data.minOrderQuantity ?? 1,
+      isSample: data.isSample === true,
       unit: data.unit,
       pricePerUnitPaise,
+      mrpPerUnitPaise: data.mrpPerUnitRupees !== undefined ? Math.round(data.mrpPerUnitRupees * 100) : pricePerUnitPaise,
       mode: data.mode,
       barterWants: data.barterWants,
       provenance: {
@@ -223,14 +229,28 @@ export class ListingService {
     if (updateData.titleEn) listing.title.en = updateData.titleEn;
     if (updateData.description !== undefined) listing.description = updateData.description;
     if (updateData.quantityAvailable !== undefined) {
+      // What was already sold stays sold: the total moves with the quantity the seller now has
+      const { quantitySold } = stockOf(listing);
       listing.quantityAvailable = updateData.quantityAvailable;
+      listing.quantityTotal = updateData.quantityAvailable + quantitySold;
       if (listing.quantityAvailable === 0 && listing.status === 'active') {
         listing.status = 'sold_out';
       }
     }
-    if (updateData.pricePerUnitRupees !== undefined) {
-      listing.pricePerUnitPaise = Math.round(updateData.pricePerUnitRupees * 100);
+    if (updateData.pricePerUnitRupees !== undefined || updateData.mrpPerUnitRupees !== undefined) {
+      const oldPrice = listing.pricePerUnitPaise;
+      const newPrice = updateData.pricePerUnitRupees !== undefined ? Math.round(updateData.pricePerUnitRupees * 100) : oldPrice;
+      // The MRP stays where it was when the seller lowers the price: that is the discount
+      const newMrp = updateData.mrpPerUnitRupees !== undefined
+        ? Math.round(updateData.mrpPerUnitRupees * 100)
+        : (listing.mrpPerUnitPaise ?? oldPrice);
+      if (newPrice > newMrp) {
+        throw new AppError(ErrorCodes.VALIDATION_ERROR, 'The selling price cannot be higher than the MRP. Raise the MRP too if the product costs more now.', 422);
+      }
+      listing.pricePerUnitPaise = newPrice;
+      listing.mrpPerUnitPaise = newMrp;
     }
+    if (updateData.minOrderQuantity !== undefined) listing.minOrderQuantity = updateData.minOrderQuantity;
     if (updateData.mode) listing.mode = updateData.mode;
     if (updateData.barterWants !== undefined) listing.barterWants = updateData.barterWants;
     if (updateData.status) listing.status = updateData.status;

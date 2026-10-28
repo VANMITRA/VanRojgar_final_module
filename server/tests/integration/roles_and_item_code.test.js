@@ -44,7 +44,7 @@ test('roles and item codes: CFR holder signs up, a new listing gets a code, the 
   assert.equal(demo.status, 200);
   assert.equal(demo.body.data.user.role, 'cfrholder');
   const farmer = await request(app).post('/api/v1/auth/login').send({ phone: '+919822022222', password: '123456' });
-  assert.equal(farmer.body.data.user.role, 'villager');
+  assert.equal(farmer.body.data.user.role, 'cfrholder', 'the old demo farmer is a CFR holder now');
 
   // A CFR holder can apply as a delivery partner like a farmer; a buyer cannot
   const apply = { vehicleType: 'bike', vehicleNumber: 'MH15AB1234', capacityKg: 40, licenceNumber: 'MH1520260001', serviceTalukas: ['Trimbakeshwar'] };

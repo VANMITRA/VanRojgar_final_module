@@ -4,7 +4,7 @@ import { User } from '../models/User.js';
 import { GramSabha } from '../models/GramSabha.js';
 import { config } from '../core/config.js';
 import { AppError, ErrorCodes } from '../core/errors.js';
-import { VILLAGE_ROLES, isFarmerRole } from '../core/roles.js';
+import { VILLAGE_ROLES, isFarmerRole, normaliseRole } from '../core/roles.js';
 import { serializeUser } from '../core/serializers.js';
 import { loadRaah, gramSabhaFields, SOURCE as RAAH_SOURCE } from '../seed/raah.js';
 
@@ -130,6 +130,7 @@ export class AuthService {
       throw new AppError(ErrorCodes.UNAUTHENTICATED, 'Invalid phone number or password', 401);
     }
 
+    user.role = normaliseRole(user.role); // an old `villager` account signs in as a CFR holder
     const token = jwt.sign(
       { sub: user._id.toString(), role: user.role },
       config.JWT_SECRET,
