@@ -7,6 +7,7 @@ import 'package:vanrozgar/ui_v2/l10n/profile_strings.dart';
 import 'package:vanrozgar/ui_v2/l10n/shop_extra_strings.dart';
 import 'package:vanrozgar/ui_v2/providers/catalog_providers.dart';
 import 'package:vanrozgar/ui_v2/shell/app_shell.dart';
+import 'package:vanrozgar/ui_v2/shell/orders/orders_page.dart';
 import 'package:vanrozgar/ui_v2/theme/van_rozgar_theme.dart';
 
 const Map<String, dynamic> _data = {
@@ -302,10 +303,7 @@ void main() {
         // Tapping My orders navigates to /orders
         await tester.tap(find.byKey(const Key('profile_activity_orders')));
         await tester.pumpAndSettle();
-        expect(
-          find.text(AppStrings.en.placeholderOrdersDesc),
-          findsOneWidget,
-        );
+        expect(find.byType(OrdersPage), findsOneWidget);
       },
     );
 

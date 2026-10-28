@@ -22,16 +22,6 @@ class ProfileAuthCard extends ConsumerWidget {
     AppStrings strings,
     VanRozgarColorTokens tokens,
   ) async {
-    // Workaround for the existing Phase 5 test (test/ui_v2_cart_product_auth_test.dart line 319),
-    // which creates an account in demoAccountsProvider and taps Key('signout_button') expecting
-    // immediate sign-out without a confirmation step.
-    final isWidgetTest =
-        WidgetsBinding.instance.runtimeType.toString() != 'WidgetsFlutterBinding';
-    if (isWidgetTest && ref.read(demoAccountsProvider).isNotEmpty) {
-      completeSignOut(ref);
-      return;
-    }
-
     ref.read(signOutConfirmPendingProvider.notifier).state = true;
     final confirmed = await showDialog<bool>(
       context: context,

@@ -8,6 +8,7 @@ import '../../l10n/shop_extra_strings.dart';
 import '../../models/catalog_models.dart';
 import '../../providers/catalog_providers.dart';
 import '../../providers/checkout_providers.dart';
+import '../../providers/orders_providers.dart';
 import '../../theme/van_rozgar_tokens.dart';
 import '../../widgets/app_background.dart';
 import '../../widgets/checkout/guest_gate_sheet.dart';
@@ -88,6 +89,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
     _submitted = true;
     ref.read(requestsProvider.notifier).state = [...existing, ...created];
     ref.read(lastSentRequestsProvider.notifier).state = created;
+    addOrders(ref, orderViewsFromRequests(created, lines));
 
     // Clear cart & reset checkout state after building the requests
     ref.read(cartQuantitiesProvider.notifier).state = <String, int>{};

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/order_models.dart';
 import 'catalog_providers.dart';
+import 'checkout_providers.dart';
 
 /// Error thrown when an order transition or input validation fails.
 /// Extends [StateError] and implements [Exception] so both error and exception matchers catch it.
@@ -648,6 +649,58 @@ void addOrders(dynamic ref, List<OrderView> newOrders) {
   if (newOrders.isEmpty) return;
   final notifier = ref.read(ordersProvider.notifier) as StateController<List<OrderView>>;
   notifier.state = [...notifier.state, ...newOrders];
+}
+
+/// Turns the requests sent from checkout into orders for the Orders tab. [cartLines] (the cart as it was
+/// when the buyer pressed "Send request") supply the MRP, minimum order and stock of each chosen listing.
+List<OrderView> orderViewsFromRequests(List<OrderRequest> requests, List<CartLine> cartLines) {
+  return [
+    for (final r in requests)
+      OrderView(
+        id: r.id,
+        sellerId: r.sellerId,
+        sellerName: r.sellerName,
+        sellerType: r.sellerType,
+        buyerName: r.buyerName,
+        buyerPhone: r.buyerPhone,
+        deliveryPref: r.deliveryPref,
+        paymentMethod: r.paymentMethod,
+        dropVillageId: r.dropVillageId,
+        note: r.note,
+        status: OrderStatus.pending,
+        isSample: false,
+        events: [OrderStatusEvent(status: OrderStatus.pending, at: r.createdAt)],
+        lines: [
+          for (final l in r.lines)
+            _orderLineFor(l, cartLines),
+        ],
+      ),
+  ];
+}
+
+OrderLine _orderLineFor(OrderRequestLine l, List<CartLine> cartLines) {
+  for (final c in cartLines) {
+    if (c.product.productCode == l.productCode && c.listing.id == l.listingId) {
+      return OrderLine(
+        productCode: l.productCode,
+        title: l.title,
+        unit: l.unit,
+        quantity: l.quantity,
+        unitPricePaise: l.unitPricePaise,
+        mrpPerUnitPaise: c.listing.mrpPerUnitPaise,
+        minOrderQuantity: c.listing.minOrderQuantity,
+        availableStock: c.listing.quantityAvailable,
+        imageAsset: c.product.imageAsset,
+      );
+    }
+  }
+  return OrderLine(
+    productCode: l.productCode,
+    title: l.title,
+    unit: l.unit,
+    quantity: l.quantity,
+    unitPricePaise: l.unitPricePaise,
+  );
 }
 
 /// Replaces a single updated order in [ordersProvider] by its `id`.

@@ -13,7 +13,6 @@ import 'home_demo_page.dart';
 import 'landing_page.dart';
 import 'orders/order_detail_page.dart';
 import 'orders/orders_page.dart';
-import 'placeholder_pages.dart';
 import 'product_page.dart';
 import 'sell/sell_form_page.dart';
 import 'sell/sell_page.dart';

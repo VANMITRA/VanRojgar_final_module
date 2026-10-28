@@ -318,6 +318,8 @@ void main() {
 
       await tester.tap(find.byKey(const Key('signout_button')));
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('signout_confirm')));
+      await tester.pumpAndSettle();
       expect(find.text('You are browsing as a guest'), findsOneWidget);
 
       // sign in: wrong PIN, unknown number, then the right PIN

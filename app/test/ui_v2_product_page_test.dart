@@ -5,7 +5,7 @@ import 'package:vanrozgar/ui_v2/data/shop_repository.dart';
 import 'package:vanrozgar/ui_v2/l10n/app_strings.dart';
 import 'package:vanrozgar/ui_v2/providers/catalog_providers.dart';
 import 'package:vanrozgar/ui_v2/shell/app_shell.dart';
-import 'package:vanrozgar/ui_v2/shell/cart_page.dart';
+import 'package:vanrozgar/ui_v2/shell/checkout/checkout_page.dart';
 import 'package:vanrozgar/ui_v2/shell/product_page.dart';
 import 'package:vanrozgar/ui_v2/theme/van_rozgar_theme.dart';
 
@@ -150,8 +150,8 @@ void main() {
       await _open(tester, _app(signedIn: true), '/product/fruit_mango');
       await tester.tap(find.text('Buy now'));
       await tester.pumpAndSettle();
-      expect(find.byType(CartPage), findsOneWidget);
-      final container = ProviderScope.containerOf(tester.element(find.byType(CartPage)));
+      expect(find.byType(CheckoutPage), findsOneWidget);
+      final container = ProviderScope.containerOf(tester.element(find.byType(CheckoutPage)));
       expect(container.read(cartQuantitiesProvider)['fruit_mango'], 2);
     });
   });
