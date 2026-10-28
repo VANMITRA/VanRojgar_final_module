@@ -20,6 +20,25 @@ class AppShellScaffold extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final language = ref.watch(uiV2LanguageProvider);
     final strings = AppStrings.of(language);
+    final cartItemCount = ref.watch(cartItemCountProvider);
+
+    final Widget cartIcon = cartItemCount > 0
+        ? Badge.count(
+            count: cartItemCount,
+            child: const Icon(Icons.shopping_cart_outlined),
+          )
+        : const Icon(Icons.shopping_cart_outlined);
+
+    final Widget cartSelectedIcon = cartItemCount > 0
+        ? Badge.count(
+            count: cartItemCount,
+            child: const Icon(Icons.shopping_cart),
+          )
+        : const Icon(Icons.shopping_cart);
+
+    final String cartLabel = cartItemCount > 0
+        ? strings.cartSemantic(cartItemCount)
+        : strings.navCart;
 
     return Scaffold(
       body: navigationShell,
@@ -43,9 +62,16 @@ class AppShellScaffold extends ConsumerWidget {
             label: strings.navCategories,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            selectedIcon: const Icon(Icons.shopping_cart),
+            icon: Semantics(
+              label: cartLabel,
+              child: cartIcon,
+            ),
+            selectedIcon: Semantics(
+              label: cartLabel,
+              child: cartSelectedIcon,
+            ),
             label: strings.navCart,
+            tooltip: cartLabel,
           ),
           NavigationDestination(
             icon: const Icon(Icons.receipt_long_outlined),

@@ -1,0 +1,1506 @@
+{
+ "note": "Sample catalog for the UI demo. Product names and pictures come from componets/manifest.csv. Hindi and Marathi names are machine drafts. Prices, sellers, stock and dates are MADE UP and must be shown as Sample.",
+ "village": {
+  "en": "Sample village",
+  "hi": "नमूना गाँव",
+  "mr": "नमुना गाव"
+ },
+ "products": [
+  {
+   "productCode": "bamboo",
+   "categorySlug": "handicrafts-bamboo",
+   "image": "assets/catalog/bamboo.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Bamboo",
+    "hi": "बाँस",
+    "mr": "बांबू"
+   },
+   "unit": {
+    "en": "piece",
+    "hi": "नग",
+    "mr": "नग"
+   },
+   "listings": [
+    {
+     "id": "bamboo-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 11200,
+     "mrpPerUnitPaise": 14600,
+     "quantityTotal": 150,
+     "quantitySold": 60,
+     "minOrderQuantity": 2,
+     "daysAgo": 6,
+     "isSample": true
+    },
+    {
+     "id": "bamboo-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 12800,
+     "mrpPerUnitPaise": 14100,
+     "quantityTotal": 100,
+     "quantitySold": 25,
+     "minOrderQuantity": 2,
+     "daysAgo": 10,
+     "isSample": true
+    },
+    {
+     "id": "bamboo-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 11600,
+     "mrpPerUnitPaise": 13900,
+     "quantityTotal": 100,
+     "quantitySold": 40,
+     "minOrderQuantity": 2,
+     "daysAgo": 12,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_mango",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_mango.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Mango",
+    "hi": "आम",
+    "mr": "आंबा"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_mango-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 9900,
+     "mrpPerUnitPaise": 9900,
+     "quantityTotal": 300,
+     "quantitySold": 75,
+     "minOrderQuantity": 5,
+     "daysAgo": 13,
+     "isSample": true
+    },
+    {
+     "id": "fruit_mango-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 9400,
+     "mrpPerUnitPaise": 9400,
+     "quantityTotal": 150,
+     "quantitySold": 15,
+     "minOrderQuantity": 5,
+     "daysAgo": 3,
+     "isSample": true
+    },
+    {
+     "id": "fruit_mango-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 9900,
+     "mrpPerUnitPaise": 9900,
+     "quantityTotal": 500,
+     "quantitySold": 50,
+     "minOrderQuantity": 5,
+     "daysAgo": 8,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_awla",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_awla.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Amla",
+    "hi": "आँवला",
+    "mr": "आवळा"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_awla-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 6000,
+     "mrpPerUnitPaise": 6000,
+     "quantityTotal": 500,
+     "quantitySold": 50,
+     "minOrderQuantity": 5,
+     "daysAgo": 13,
+     "isSample": true
+    },
+    {
+     "id": "fruit_awla-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 6000,
+     "mrpPerUnitPaise": 7500,
+     "quantityTotal": 50,
+     "quantitySold": 40,
+     "minOrderQuantity": 5,
+     "daysAgo": 5,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_sitaphal",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_sitaphal.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Custard apple",
+    "hi": "सीताफल",
+    "mr": "सीताफळ"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_sitaphal-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 12500,
+     "mrpPerUnitPaise": 16200,
+     "quantityTotal": 200,
+     "quantitySold": 160,
+     "minOrderQuantity": 5,
+     "daysAgo": 3,
+     "isSample": true
+    },
+    {
+     "id": "fruit_sitaphal-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 11800,
+     "mrpPerUnitPaise": 14200,
+     "quantityTotal": 500,
+     "quantitySold": 300,
+     "minOrderQuantity": 5,
+     "daysAgo": 8,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_jambhul",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_jambhul.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Jamun",
+    "hi": "जामुन",
+    "mr": "जांभूळ"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_jambhul-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 11000,
+     "mrpPerUnitPaise": 13200,
+     "quantityTotal": 50,
+     "quantitySold": 5,
+     "minOrderQuantity": 5,
+     "daysAgo": 15,
+     "isSample": true
+    },
+    {
+     "id": "fruit_jambhul-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 11000,
+     "mrpPerUnitPaise": 12100,
+     "quantityTotal": 50,
+     "quantitySold": 20,
+     "minOrderQuantity": 5,
+     "daysAgo": 10,
+     "isSample": true
+    },
+    {
+     "id": "fruit_jambhul-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 11900,
+     "mrpPerUnitPaise": 13100,
+     "quantityTotal": 80,
+     "quantitySold": 8,
+     "minOrderQuantity": 5,
+     "daysAgo": 0,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_bel",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_bel.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Bael",
+    "hi": "बेल",
+    "mr": "बेल"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_bel-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 4500,
+     "mrpPerUnitPaise": 5600,
+     "quantityTotal": 80,
+     "quantitySold": 8,
+     "minOrderQuantity": 5,
+     "daysAgo": 4,
+     "isSample": true
+    },
+    {
+     "id": "fruit_bel-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 5000,
+     "mrpPerUnitPaise": 5000,
+     "quantityTotal": 200,
+     "quantitySold": 20,
+     "minOrderQuantity": 5,
+     "daysAgo": 9,
+     "isSample": true
+    },
+    {
+     "id": "fruit_bel-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 5000,
+     "mrpPerUnitPaise": 6000,
+     "quantityTotal": 50,
+     "quantitySold": 12,
+     "minOrderQuantity": 5,
+     "daysAgo": 0,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_bor",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_bor.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": false,
+   "title": {
+    "en": "Ber",
+    "hi": "बेर",
+    "mr": "बोर"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_bor-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 7500,
+     "mrpPerUnitPaise": 7500,
+     "quantityTotal": 50,
+     "quantitySold": 30,
+     "minOrderQuantity": 5,
+     "daysAgo": 16,
+     "isSample": true
+    },
+    {
+     "id": "fruit_bor-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 6900,
+     "mrpPerUnitPaise": 7600,
+     "quantityTotal": 50,
+     "quantitySold": 5,
+     "minOrderQuantity": 5,
+     "daysAgo": 7,
+     "isSample": true
+    },
+    {
+     "id": "fruit_bor-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 7100,
+     "mrpPerUnitPaise": 8500,
+     "quantityTotal": 50,
+     "quantitySold": 30,
+     "minOrderQuantity": 5,
+     "daysAgo": 13,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_chinch",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_chinch.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Tamarind",
+    "hi": "इमली",
+    "mr": "चिंच"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_chinch-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 8500,
+     "mrpPerUnitPaise": 8500,
+     "quantityTotal": 50,
+     "quantitySold": 12,
+     "minOrderQuantity": 5,
+     "daysAgo": 15,
+     "isSample": true
+    },
+    {
+     "id": "fruit_chinch-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 8100,
+     "mrpPerUnitPaise": 10100,
+     "quantityTotal": 80,
+     "quantitySold": 0,
+     "minOrderQuantity": 5,
+     "daysAgo": 7,
+     "isSample": true
+    },
+    {
+     "id": "fruit_chinch-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 7500,
+     "mrpPerUnitPaise": 9000,
+     "quantityTotal": 300,
+     "quantitySold": 30,
+     "minOrderQuantity": 5,
+     "daysAgo": 19,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_karvand",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_karvand.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": false,
+   "title": {
+    "en": "Karonda",
+    "hi": "करौंदा",
+    "mr": "करवंद"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_karvand-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 9600,
+     "mrpPerUnitPaise": 12500,
+     "quantityTotal": 80,
+     "quantitySold": 48,
+     "minOrderQuantity": 5,
+     "daysAgo": 16,
+     "isSample": true
+    },
+    {
+     "id": "fruit_karvand-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 10700,
+     "mrpPerUnitPaise": 13400,
+     "quantityTotal": 200,
+     "quantitySold": 20,
+     "minOrderQuantity": 5,
+     "daysAgo": 12,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_kawath",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_kawath.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Wood apple",
+    "hi": "कैथ",
+    "mr": "कवठ"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_kawath-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 6200,
+     "mrpPerUnitPaise": 6200,
+     "quantityTotal": 200,
+     "quantitySold": 20,
+     "minOrderQuantity": 5,
+     "daysAgo": 20,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "fruit_khirni",
+   "categorySlug": "fruit",
+   "image": "assets/catalog/fruit_khirni.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": false,
+   "title": {
+    "en": "Khirni",
+    "hi": "खिरनी",
+    "mr": "खिरणी"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "fruit_khirni-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 9700,
+     "mrpPerUnitPaise": 12600,
+     "quantityTotal": 500,
+     "quantitySold": 200,
+     "minOrderQuantity": 5,
+     "daysAgo": 0,
+     "isSample": true
+    },
+    {
+     "id": "fruit_khirni-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 9100,
+     "mrpPerUnitPaise": 10000,
+     "quantityTotal": 80,
+     "quantitySold": 32,
+     "minOrderQuantity": 5,
+     "daysAgo": 4,
+     "isSample": true
+    },
+    {
+     "id": "fruit_khirni-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 8600,
+     "mrpPerUnitPaise": 9900,
+     "quantityTotal": 50,
+     "quantitySold": 0,
+     "minOrderQuantity": 5,
+     "daysAgo": 11,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "nuts_kaju",
+   "categorySlug": "nuts-and-seeds",
+   "image": "assets/catalog/nuts_kaju.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Cashew",
+    "hi": "काजू",
+    "mr": "काजू"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "nuts_kaju-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 63400,
+     "mrpPerUnitPaise": 72900,
+     "quantityTotal": 80,
+     "quantitySold": 0,
+     "minOrderQuantity": 5,
+     "daysAgo": 13,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "nuts_karanj",
+   "categorySlug": "nuts-and-seeds",
+   "image": "assets/catalog/nuts_karanj.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": false,
+   "title": {
+    "en": "Karanj seeds",
+    "hi": "करंज के बीज",
+    "mr": "करंज बिया"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "nuts_karanj-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 4300,
+     "mrpPerUnitPaise": 4300,
+     "quantityTotal": 80,
+     "quantitySold": 32,
+     "minOrderQuantity": 5,
+     "daysAgo": 2,
+     "isSample": true
+    },
+    {
+     "id": "nuts_karanj-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 4200,
+     "mrpPerUnitPaise": 5000,
+     "quantityTotal": 50,
+     "quantitySold": 5,
+     "minOrderQuantity": 5,
+     "daysAgo": 17,
+     "isSample": true
+    },
+    {
+     "id": "nuts_karanj-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 4300,
+     "mrpPerUnitPaise": 5600,
+     "quantityTotal": 300,
+     "quantitySold": 75,
+     "minOrderQuantity": 5,
+     "daysAgo": 5,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "nuts_koshimb",
+   "categorySlug": "nuts-and-seeds",
+   "image": "assets/catalog/nuts_koshimb.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": false,
+   "title": {
+    "en": "Kusum seeds",
+    "hi": "कुसुम के बीज",
+    "mr": "कोशिंब बिया"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "nuts_koshimb-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 16200,
+     "mrpPerUnitPaise": 16200,
+     "quantityTotal": 200,
+     "quantitySold": 160,
+     "minOrderQuantity": 5,
+     "daysAgo": 4,
+     "isSample": true
+    },
+    {
+     "id": "nuts_koshimb-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 16300,
+     "mrpPerUnitPaise": 16300,
+     "quantityTotal": 50,
+     "quantitySold": 40,
+     "minOrderQuantity": 5,
+     "daysAgo": 15,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "nuts_bibba",
+   "categorySlug": "nuts-and-seeds",
+   "image": "assets/catalog/nuts_bibba.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": true,
+   "title": {
+    "en": "Marking nut",
+    "hi": "भिलावा",
+    "mr": "बिब्बा"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "nuts_bibba-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 18500,
+     "mrpPerUnitPaise": 18500,
+     "quantityTotal": 50,
+     "quantitySold": 5,
+     "minOrderQuantity": 5,
+     "daysAgo": 8,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "flowers_moh",
+   "categorySlug": "flowers",
+   "image": "assets/catalog/flowers_moh.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Mahua flowers",
+    "hi": "महुआ फूल",
+    "mr": "मोह फुले"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "flowers_moh-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 15800,
+     "mrpPerUnitPaise": 15800,
+     "quantityTotal": 200,
+     "quantitySold": 160,
+     "minOrderQuantity": 5,
+     "daysAgo": 15,
+     "isSample": true
+    },
+    {
+     "id": "flowers_moh-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 14800,
+     "mrpPerUnitPaise": 19200,
+     "quantityTotal": 300,
+     "quantitySold": 30,
+     "minOrderQuantity": 5,
+     "daysAgo": 2,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "flowers_hadga",
+   "categorySlug": "flowers",
+   "image": "assets/catalog/flowers_hadga.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Agati flowers",
+    "hi": "अगस्त फूल",
+    "mr": "हादगा फुले"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "flowers_hadga-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 7400,
+     "mrpPerUnitPaise": 7400,
+     "quantityTotal": 500,
+     "quantitySold": 200,
+     "minOrderQuantity": 5,
+     "daysAgo": 15,
+     "isSample": true
+    },
+    {
+     "id": "flowers_hadga-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 7600,
+     "mrpPerUnitPaise": 7600,
+     "quantityTotal": 80,
+     "quantitySold": 8,
+     "minOrderQuantity": 5,
+     "daysAgo": 5,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "flowers_bakul",
+   "categorySlug": "flowers",
+   "image": "assets/catalog/flowers_bakul.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Bakul flowers",
+    "hi": "बकुल फूल",
+    "mr": "बकुळ फुले"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "flowers_bakul-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 10300,
+     "mrpPerUnitPaise": 10300,
+     "quantityTotal": 200,
+     "quantitySold": 80,
+     "minOrderQuantity": 5,
+     "daysAgo": 19,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "herb_behda",
+   "categorySlug": "medicinal-plants",
+   "image": "assets/catalog/herb_behda.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Baheda",
+    "hi": "बहेड़ा",
+    "mr": "बेहडा"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "herb_behda-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 8700,
+     "mrpPerUnitPaise": 11300,
+     "quantityTotal": 100,
+     "quantitySold": 25,
+     "minOrderQuantity": 5,
+     "daysAgo": 18,
+     "isSample": true
+    },
+    {
+     "id": "herb_behda-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 9100,
+     "mrpPerUnitPaise": 10500,
+     "quantityTotal": 100,
+     "quantitySold": 0,
+     "minOrderQuantity": 5,
+     "daysAgo": 3,
+     "isSample": true
+    },
+    {
+     "id": "herb_behda-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 9000,
+     "mrpPerUnitPaise": 9000,
+     "quantityTotal": 200,
+     "quantitySold": 50,
+     "minOrderQuantity": 5,
+     "daysAgo": 13,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "herb_hirda",
+   "categorySlug": "medicinal-plants",
+   "image": "assets/catalog/herb_hirda.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": false,
+   "title": {
+    "en": "Harad",
+    "hi": "हरड़",
+    "mr": "हिरडा"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "herb_hirda-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 11100,
+     "mrpPerUnitPaise": 13900,
+     "quantityTotal": 300,
+     "quantitySold": 120,
+     "minOrderQuantity": 5,
+     "daysAgo": 10,
+     "isSample": true
+    },
+    {
+     "id": "herb_hirda-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 10100,
+     "mrpPerUnitPaise": 10100,
+     "quantityTotal": 500,
+     "quantitySold": 50,
+     "minOrderQuantity": 5,
+     "daysAgo": 20,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "herb_ritha",
+   "categorySlug": "medicinal-plants",
+   "image": "assets/catalog/herb_ritha.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Soapnut",
+    "hi": "रीठा",
+    "mr": "रिठा"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "herb_ritha-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 7900,
+     "mrpPerUnitPaise": 8700,
+     "quantityTotal": 200,
+     "quantitySold": 80,
+     "minOrderQuantity": 5,
+     "daysAgo": 9,
+     "isSample": true
+    },
+    {
+     "id": "herb_ritha-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 7700,
+     "mrpPerUnitPaise": 8500,
+     "quantityTotal": 150,
+     "quantitySold": 90,
+     "minOrderQuantity": 5,
+     "daysAgo": 12,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "herb_bahava",
+   "categorySlug": "medicinal-plants",
+   "image": "assets/catalog/herb_bahava.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Amaltas",
+    "hi": "अमलतास",
+    "mr": "बहावा"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "herb_bahava-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 7200,
+     "mrpPerUnitPaise": 8600,
+     "quantityTotal": 300,
+     "quantitySold": 30,
+     "minOrderQuantity": 5,
+     "daysAgo": 8,
+     "isSample": true
+    },
+    {
+     "id": "herb_bahava-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 6900,
+     "mrpPerUnitPaise": 7600,
+     "quantityTotal": 80,
+     "quantitySold": 0,
+     "minOrderQuantity": 5,
+     "daysAgo": 7,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "herb_ashok",
+   "categorySlug": "medicinal-plants",
+   "image": "assets/catalog/herb_ashok.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Ashoka bark",
+    "hi": "अशोक छाल",
+    "mr": "अशोक साल"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "herb_ashok-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 20700,
+     "mrpPerUnitPaise": 23800,
+     "quantityTotal": 500,
+     "quantitySold": 0,
+     "minOrderQuantity": 5,
+     "daysAgo": 6,
+     "isSample": true
+    },
+    {
+     "id": "herb_ashok-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 20500,
+     "mrpPerUnitPaise": 20500,
+     "quantityTotal": 300,
+     "quantitySold": 120,
+     "minOrderQuantity": 5,
+     "daysAgo": 14,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "herb_tetu",
+   "categorySlug": "medicinal-plants",
+   "image": "assets/catalog/herb_tetu.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": false,
+   "title": {
+    "en": "Oroxylum",
+    "hi": "सोनपाठा",
+    "mr": "टेटू"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "herb_tetu-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 12800,
+     "mrpPerUnitPaise": 12800,
+     "quantityTotal": 100,
+     "quantitySold": 25,
+     "minOrderQuantity": 5,
+     "daysAgo": 2,
+     "isSample": true
+    },
+    {
+     "id": "herb_tetu-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 12400,
+     "mrpPerUnitPaise": 14900,
+     "quantityTotal": 200,
+     "quantitySold": 80,
+     "minOrderQuantity": 5,
+     "daysAgo": 4,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "herb_gunj",
+   "categorySlug": "medicinal-plants",
+   "image": "assets/catalog/herb_gunj.jpg",
+   "pictureNote": "ready",
+   "notForEating": true,
+   "title": {
+    "en": "Gunj (Abrus)",
+    "hi": "गुंजा",
+    "mr": "गुंज वेल"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "herb_gunj-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 14900,
+     "mrpPerUnitPaise": 14900,
+     "quantityTotal": 100,
+     "quantitySold": 25,
+     "minOrderQuantity": 5,
+     "daysAgo": 6,
+     "isSample": true
+    },
+    {
+     "id": "herb_gunj-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 14900,
+     "mrpPerUnitPaise": 14900,
+     "quantityTotal": 80,
+     "quantitySold": 20,
+     "minOrderQuantity": 5,
+     "daysAgo": 11,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "forest_babhul",
+   "categorySlug": "forest-produce",
+   "image": "assets/catalog/forest_babhul.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Babul",
+    "hi": "बबूल",
+    "mr": "बाभूळ"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "forest_babhul-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 3900,
+     "mrpPerUnitPaise": 5100,
+     "quantityTotal": 80,
+     "quantitySold": 0,
+     "minOrderQuantity": 5,
+     "daysAgo": 16,
+     "isSample": true
+    },
+    {
+     "id": "forest_babhul-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 4000,
+     "mrpPerUnitPaise": 4000,
+     "quantityTotal": 300,
+     "quantitySold": 75,
+     "minOrderQuantity": 5,
+     "daysAgo": 15,
+     "isSample": true
+    },
+    {
+     "id": "forest_babhul-3",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 4300,
+     "mrpPerUnitPaise": 4700,
+     "quantityTotal": 200,
+     "quantitySold": 20,
+     "minOrderQuantity": 5,
+     "daysAgo": 17,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "forest_kahandol",
+   "categorySlug": "forest-produce",
+   "image": "assets/catalog/forest_kahandol.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Gum karaya",
+    "hi": "कुल्लू गोंद",
+    "mr": "कहांडोळ"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "forest_kahandol-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 29500,
+     "mrpPerUnitPaise": 29500,
+     "quantityTotal": 300,
+     "quantitySold": 75,
+     "minOrderQuantity": 5,
+     "daysAgo": 10,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "forest_shendari",
+   "categorySlug": "forest-produce",
+   "image": "assets/catalog/forest_shendari.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Annatto",
+    "hi": "सिंदूरी",
+    "mr": "शेंद्री"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "forest_shendari-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 19200,
+     "mrpPerUnitPaise": 22100,
+     "quantityTotal": 300,
+     "quantitySold": 30,
+     "minOrderQuantity": 5,
+     "daysAgo": 2,
+     "isSample": true
+    },
+    {
+     "id": "forest_shendari-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 17200,
+     "mrpPerUnitPaise": 22400,
+     "quantityTotal": 150,
+     "quantitySold": 120,
+     "minOrderQuantity": 5,
+     "daysAgo": 18,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "forest_shindi",
+   "categorySlug": "forest-produce",
+   "image": "assets/catalog/forest_shindi.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Wild date palm",
+    "hi": "जंगली खजूर",
+    "mr": "शिंदी"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": [
+    {
+     "id": "forest_shindi-1",
+     "sellerType": "gramsabha",
+     "pricePerUnitPaise": 9100,
+     "mrpPerUnitPaise": 11400,
+     "quantityTotal": 100,
+     "quantitySold": 10,
+     "minOrderQuantity": 5,
+     "daysAgo": 10,
+     "isSample": true
+    },
+    {
+     "id": "forest_shindi-2",
+     "sellerType": "cfrholder",
+     "pricePerUnitPaise": 9100,
+     "mrpPerUnitPaise": 10500,
+     "quantityTotal": 150,
+     "quantitySold": 0,
+     "minOrderQuantity": 5,
+     "daysAgo": 7,
+     "isSample": true
+    }
+   ]
+  },
+  {
+   "productCode": "timber_pandhara_khair",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_pandhara_khair.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "White khair",
+    "hi": "सफेद खैर",
+    "mr": "पांढरा खैर"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "timber_tambda_khair",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_tambda_khair.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Red khair (catechu)",
+    "hi": "लाल खैर",
+    "mr": "तांबडा खैर"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "timber_shisu",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_shisu.jpg",
+   "pictureNote": "ready, confirm name",
+   "notForEating": false,
+   "title": {
+    "en": "Sissoo",
+    "hi": "शिसू",
+    "mr": "शिसू"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "timber_shivan",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_shivan.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Gmelina",
+    "hi": "गम्हार",
+    "mr": "शिवण"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "timber_ain",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_ain.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Asan",
+    "hi": "असन",
+    "mr": "ऐन"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "timber_anjan",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_anjan.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Anjan",
+    "hi": "अंजन",
+    "mr": "अंजन"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "timber_maharukh",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_maharukh.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Ailanthus",
+    "hi": "महारुख",
+    "mr": "महारुख"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "timber_mahogani",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_mahogani.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Mahogany",
+    "hi": "महोगनी",
+    "mr": "महोगनी"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "timber_bhendi",
+   "categorySlug": "timber-trees",
+   "image": "assets/catalog/timber_bhendi.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Portia tree",
+    "hi": "पारस पीपल",
+    "mr": "भेंडी"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "shade_banyan",
+   "categorySlug": "shade-trees",
+   "image": "assets/catalog/shade_banyan.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Banyan",
+    "hi": "बरगद",
+    "mr": "वड"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "shade_peepal",
+   "categorySlug": "shade-trees",
+   "image": "assets/catalog/shade_peepal.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Peepal",
+    "hi": "पीपल",
+    "mr": "पिंपळ"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "shade_shami",
+   "categorySlug": "shade-trees",
+   "image": "assets/catalog/shade_shami.jpg",
+   "pictureNote": "ready, check later",
+   "notForEating": false,
+   "title": {
+    "en": "Shami",
+    "hi": "शमी",
+    "mr": "शमी"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "shade_shirish",
+   "categorySlug": "shade-trees",
+   "image": "assets/catalog/shade_shirish.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Siris",
+    "hi": "सिरिस",
+    "mr": "शिरीष"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  },
+  {
+   "productCode": "shade_kate_pangara",
+   "categorySlug": "shade-trees",
+   "image": "assets/catalog/shade_kate_pangara.jpg",
+   "pictureNote": "ready",
+   "notForEating": false,
+   "title": {
+    "en": "Coral tree",
+    "hi": "पांगारा",
+    "mr": "काटे पांगारा"
+   },
+   "unit": {
+    "en": "kg",
+    "hi": "किग्रा",
+    "mr": "किलो"
+   },
+   "listings": []
+  }
+ ]
+}

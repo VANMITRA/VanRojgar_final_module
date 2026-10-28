@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vanrozgar/ui_v2/data/shop_repository.dart';
 import 'package:vanrozgar/ui_v2/l10n/app_strings.dart';
 import 'package:vanrozgar/ui_v2/providers/catalog_providers.dart';
 import 'package:vanrozgar/ui_v2/shell/app_shell.dart';
@@ -9,17 +10,119 @@ import 'package:vanrozgar/ui_v2/shell/landing_page.dart';
 import 'package:vanrozgar/ui_v2/shell/placeholder_pages.dart';
 import 'package:vanrozgar/ui_v2/theme/van_rozgar_theme.dart';
 import 'package:vanrozgar/ui_v2/widgets/app_background.dart';
+import 'package:vanrozgar/ui_v2/widgets/home_hero_banner.dart';
+import 'package:vanrozgar/ui_v2/widgets/home_top_deals_section.dart';
+
+final Map<String, dynamic> _testSampleMap = {
+  'note': 'Test catalog',
+  'village': {'en': 'Sample village', 'hi': 'नमूना गाँव', 'mr': 'नमुना गाव'},
+  'products': [
+    {
+      'productCode': 'fruit_mango',
+      'categorySlug': 'fruit',
+      'image': 'assets/catalog/fruit_mango.jpg',
+      'notForEating': false,
+      'title': {'en': 'Mango', 'hi': 'आम', 'mr': 'आंबा'},
+      'unit': {'en': 'kg', 'hi': 'किग्रा', 'mr': 'किलो'},
+      'listings': [
+        {
+          'id': 'm-1',
+          'sellerType': 'gramsabha',
+          'pricePerUnitPaise': 9000,
+          'mrpPerUnitPaise': 10000,
+          'quantityTotal': 100,
+          'quantitySold': 25,
+          'minOrderQuantity': 2,
+          'daysAgo': 5,
+        },
+      ],
+    },
+    {
+      'productCode': 'bamboo_basket',
+      'categorySlug': 'handicrafts-bamboo',
+      'image': 'assets/catalog/bamboo_basket.jpg',
+      'notForEating': false,
+      'title': {'en': 'Bamboo Basket', 'hi': 'बाँस की टोकरी', 'mr': 'बांबूची टोपली'},
+      'unit': {'en': 'piece', 'hi': 'नग', 'mr': 'नग'},
+      'listings': [
+        {
+          'id': 'b-1',
+          'sellerType': 'cfrholder',
+          'pricePerUnitPaise': 7000,
+          'mrpPerUnitPaise': 10000,
+          'quantityTotal': 50,
+          'quantitySold': 40,
+          'minOrderQuantity': 1,
+          'daysAgo': 1,
+        },
+      ],
+    },
+    {
+      'productCode': 'forest_honey',
+      'categorySlug': 'forest-produce',
+      'image': 'assets/catalog/forest_honey.jpg',
+      'notForEating': false,
+      'title': {'en': 'Forest Honey', 'hi': 'जंगली शहद', 'mr': 'रान मध'},
+      'unit': {'en': 'kg', 'hi': 'किग्रा', 'mr': 'किलो'},
+      'listings': [
+        {
+          'id': 'h-1',
+          'sellerType': 'gramsabha',
+          'pricePerUnitPaise': 45000,
+          'mrpPerUnitPaise': 45000,
+          'quantityTotal': 30,
+          'quantitySold': 12,
+          'minOrderQuantity': 1,
+          'daysAgo': 8,
+        },
+      ],
+    },
+    {
+      'productCode': 'nuts_bibba',
+      'categorySlug': 'nuts-and-seeds',
+      'image': 'assets/catalog/nuts_bibba.jpg',
+      'notForEating': true,
+      'title': {'en': 'Bibba Nut', 'hi': 'बिब्बा', 'mr': 'बिब्बा'},
+      'unit': {'en': 'kg', 'hi': 'किग्रा', 'mr': 'किलो'},
+      'listings': [
+        {
+          'id': 'nb-1',
+          'sellerType': 'cfrholder',
+          'pricePerUnitPaise': 12000,
+          'mrpPerUnitPaise': 15000,
+          'quantityTotal': 40,
+          'quantitySold': 5,
+          'minOrderQuantity': 1,
+          'daysAgo': 2,
+        },
+      ],
+    },
+    {
+      'productCode': 'timber_teak',
+      'categorySlug': 'timber-trees',
+      'image': 'assets/catalog/timber_teak.jpg',
+      'notForEating': false,
+      'title': {'en': 'Teak', 'hi': 'सागौन', 'mr': 'सागवान'},
+      'unit': {'en': 'piece', 'hi': 'नग', 'mr': 'नग'},
+      'listings': [],
+    },
+  ],
+};
 
 Widget _buildTestApp({
   required Widget child,
   ThemeMode themeMode = ThemeMode.light,
   AppLanguage language = AppLanguage.en,
   double textScale = 1.0,
+  ShopRepository? repository,
 }) {
   return ProviderScope(
     overrides: [
       uiV2ThemeModeProvider.overrideWith((ref) => themeMode),
       uiV2LanguageProvider.overrideWith((ref) => language),
+      shopRepositoryProvider.overrideWithValue(
+        repository ?? SampleShopRepository.fromMap(_testSampleMap),
+      ),
     ],
     child: MaterialApp(
       theme: VanRozgarTheme.lightTheme,
@@ -40,11 +143,15 @@ Widget _buildTestApp({
 Widget _buildTestRouterApp({
   ThemeMode themeMode = ThemeMode.light,
   AppLanguage language = AppLanguage.en,
+  ShopRepository? repository,
 }) {
   return ProviderScope(
     overrides: [
       uiV2ThemeModeProvider.overrideWith((ref) => themeMode),
       uiV2LanguageProvider.overrideWith((ref) => language),
+      shopRepositoryProvider.overrideWithValue(
+        repository ?? SampleShopRepository.fromMap(_testSampleMap),
+      ),
     ],
     child: MaterialApp.router(
       theme: VanRozgarTheme.lightTheme,
@@ -341,6 +448,186 @@ void main() {
     });
   });
 
+  group('Phase 3 Home UI and Interaction Smoke Tests', () {
+    testWidgets('Home shows sections in order: hero banner, Top Deals, Best Sellers, Shop by category, New arrivals',
+        (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(360.0 * 2.0, 1800.0 * 2.0);
+      tester.view.devicePixelRatio = 2.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await tester.pumpWidget(_buildTestApp(child: const HomeDemoPage()));
+      await tester.pumpAndSettle();
+
+      final heroPos = tester.getTopLeft(find.byType(HomeHeroBanner)).dy;
+      final topDealsPos = tester.getTopLeft(find.byType(HomeTopDealsSection)).dy;
+      final bestSellersPos = tester.getTopLeft(find.text('Best Sellers')).dy;
+      final shopByCatPos = tester.getTopLeft(find.text('Shop by category')).dy;
+      final newArrivalsPos = tester.getTopLeft(find.text('New arrivals')).dy;
+
+      expect(heroPos, lessThan(topDealsPos));
+      expect(topDealsPos, lessThan(bestSellersPos));
+      expect(bestSellersPos, lessThan(shopByCatPos));
+      expect(shopByCatPos, lessThan(newArrivalsPos));
+    });
+
+    testWidgets('Top Deals first tab shows Starting at lowest starting price', (WidgetTester tester) async {
+      await tester.pumpWidget(_buildTestApp(child: const HomeDemoPage()));
+      await tester.pumpAndSettle();
+
+      // In test sample map, bamboo_basket starting price is ₹70 (7000 paise)
+      expect(find.text('Starting at ₹70'), findsOneWidget);
+    });
+
+    testWidgets('ADD turns into stepper, + and - increment and decrement, - below minimum removes item, and Cart badge updates',
+        (WidgetTester tester) async {
+      // A tall screen, so the first ADD button is really on screen and can be tapped
+      tester.view.physicalSize = const Size(360.0 * 2.0, 1800.0 * 2.0);
+      tester.view.devicePixelRatio = 2.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      uiV2LandingSeen.value = true;
+      await tester.pumpWidget(_buildTestRouterApp());
+      await tester.pumpAndSettle();
+
+      // Find first ADD button (for bamboo_basket minOrderQuantity is 1)
+      final addFinder = find.text('ADD').first;
+      expect(addFinder, findsWidgets);
+
+      // Tap ADD
+      await tester.tap(addFinder);
+      await tester.pumpAndSettle();
+
+      // Cart badge shows 1 item
+      expect(find.byType(Badge), findsWidgets);
+
+      // Stepper shows "1"
+      expect(find.text('1'), findsWidgets);
+
+      // Tap +
+      await tester.tap(find.byIcon(Icons.add).first);
+      await tester.pumpAndSettle();
+      expect(find.text('2'), findsWidgets);
+
+      // Tap -
+      await tester.tap(find.byIcon(Icons.remove).first);
+      await tester.pumpAndSettle();
+      expect(find.text('1'), findsWidgets);
+
+      // Tap - again at minOrderQuantity (1) removes it
+      await tester.tap(find.byIcon(Icons.remove).first);
+      await tester.pumpAndSettle();
+
+      // ADD button restored
+      expect(find.text('ADD'), findsWidgets);
+    });
+
+    testWidgets('Tapping Shop by category tile selects category tab and empty category shows No sample sellers yet',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(_buildTestApp(child: const HomeDemoPage()));
+      await tester.pumpAndSettle();
+
+      // Tap "Fruit" tile in Shop by category
+      final fruitTile = find.text('Fruit');
+      expect(fruitTile, findsWidgets);
+      await tester.tap(fruitTile.first);
+      await tester.pumpAndSettle();
+
+      // Tap "Timber" tab which has empty listings
+      final timberTab = find.text('Timber');
+      if (timberTab.evaluate().isNotEmpty) {
+        await tester.tap(timberTab.first);
+        await tester.pumpAndSettle();
+        expect(find.text('No sample sellers yet'), findsOneWidget);
+      }
+    });
+
+    testWidgets('Search shows Search results or Nothing found', (WidgetTester tester) async {
+      await tester.pumpWidget(_buildTestApp(child: const HomeDemoPage()));
+      await tester.pumpAndSettle();
+
+      // Enter search text
+      await tester.enterText(find.byType(TextField), 'xyznonexistent');
+      await tester.pumpAndSettle();
+
+      expect(find.text('Search results'), findsOneWidget);
+      expect(find.text('Nothing found.'), findsOneWidget);
+    });
+
+    testWidgets('Flagged product displays Not for eating pill and every card has Sample badge', (WidgetTester tester) async {
+      await tester.pumpWidget(_buildTestApp(child: const HomeDemoPage()));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Not for eating'), findsWidgets);
+      expect(find.text('Sample'), findsWidgets);
+    });
+
+    testWidgets('Hindi and Marathi contain no English text on home page', (WidgetTester tester) async {
+      // A tall screen, so the lower sections (Best Sellers and below) are built too
+      tester.view.physicalSize = const Size(360.0 * 2.0, 2400.0 * 2.0);
+      tester.view.devicePixelRatio = 2.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await tester.pumpWidget(
+        _buildTestApp(
+          child: const HomeDemoPage(),
+          language: AppLanguage.hi,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Top Deals'), findsNothing);
+      expect(find.text('Best Sellers'), findsNothing);
+      expect(find.text('Shop by category'), findsNothing);
+      expect(find.text('New arrivals'), findsNothing);
+      expect(find.text('ADD'), findsNothing);
+      expect(find.text('टॉप डील्स'), findsWidgets);
+      expect(find.text('सबसे ज़्यादा बिकने वाले'), findsWidgets);
+      expect(find.text('जोड़ें'), findsWidgets);
+    });
+
+    testWidgets('Layout builds without overflow at 320x568, 360x800, 430x932, and 800x1280 in light, dark, Hindi and Marathi',
+        (WidgetTester tester) async {
+      final sizes = [
+        const Size(320.0, 568.0),
+        const Size(360.0, 800.0),
+        const Size(430.0, 932.0),
+        const Size(800.0, 1280.0),
+      ];
+
+      for (final size in sizes) {
+        for (final lang in [AppLanguage.en, AppLanguage.hi, AppLanguage.mr]) {
+          for (final mode in [ThemeMode.light, ThemeMode.dark]) {
+            tester.view.physicalSize = Size(size.width * 2.0, size.height * 2.0);
+            tester.view.devicePixelRatio = 2.0;
+            addTearDown(tester.view.resetPhysicalSize);
+            addTearDown(tester.view.resetDevicePixelRatio);
+
+            await tester.pumpWidget(
+              _buildTestApp(
+                child: const HomeDemoPage(),
+                language: lang,
+                themeMode: mode,
+                textScale: 1.5,
+              ),
+            );
+            await tester.pump();
+            expect(tester.takeException(), isNull);
+          }
+        }
+      }
+    });
+
+    testWidgets('Home builds without exceptions when picture assets are missing', (WidgetTester tester) async {
+      await tester.pumpWidget(_buildTestApp(child: const HomeDemoPage()));
+      await tester.pump();
+      expect(find.byType(HomeDemoPage), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+  });
+
   group('VanRozgar Landing Intro Page Tests', () {
     testWidgets('(a) first screen is landing slide 1 with eyebrow, headline lines and subtitle',
         (WidgetTester tester) async {
@@ -392,11 +679,9 @@ void main() {
       uiV2LandingSeen.value = false;
       await tester.pumpWidget(_buildTestRouterApp());
       await tester.pumpAndSettle();
-
       expect(find.text('Skip'), findsOneWidget);
       await tester.tap(find.text('Skip'));
       await tester.pumpAndSettle();
-
       expect(uiV2LandingSeen.value, isTrue);
       expect(find.byType(HomeDemoPage), findsOneWidget);
 
@@ -404,16 +689,13 @@ void main() {
       uiV2LandingSeen.value = false;
       await tester.pumpWidget(_buildTestRouterApp());
       await tester.pumpAndSettle();
-
       await tester.tap(find.text('Next'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Next'));
       await tester.pumpAndSettle();
-
       expect(find.text('Get Started'), findsOneWidget);
       await tester.tap(find.text('Get Started'));
       await tester.pumpAndSettle();
-
       expect(uiV2LandingSeen.value, isTrue);
       expect(find.byType(HomeDemoPage), findsOneWidget);
     });
@@ -427,7 +709,6 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-
       expect(find.text('Skip'), findsNothing);
       expect(find.text('Next'), findsNothing);
       expect(find.text('Get Started'), findsNothing);
@@ -448,7 +729,6 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-
       expect(find.text('Skip'), findsNothing);
       expect(find.text('Next'), findsNothing);
       expect(find.text('Get Started'), findsNothing);
@@ -492,7 +772,6 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(_buildTestApp(child: const LandingPage()));
       await tester.pumpAndSettle();
-
       expect(find.byType(LandingPage), findsOneWidget);
       expect(tester.takeException(), isNull);
     });

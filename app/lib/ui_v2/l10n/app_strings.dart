@@ -749,4 +749,354 @@ class AppStrings {
         return '$total पैकी स्लाइड $current';
     }
   }
+
+  // Phase 3 Shop Home Strings
+  String get sectionTopDeals {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Top Deals';
+      case AppLanguage.hi:
+      case AppLanguage.mr:
+        return 'टॉप डील्स';
+    }
+  }
+
+  String startingAtTag(String p) {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Starting at $p';
+      case AppLanguage.hi:
+        return '$p से शुरू';
+      case AppLanguage.mr:
+        return '$p पासून सुरू';
+    }
+  }
+
+  String upToOffTag(int n) {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Up to $n% off';
+      case AppLanguage.hi:
+        return '$n% तक की छूट';
+      case AppLanguage.mr:
+        return '$n% पर्यंत सूट';
+    }
+  }
+
+  String get sectionBestSellers {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Best Sellers';
+      case AppLanguage.hi:
+        return 'सबसे ज़्यादा बिकने वाले';
+      case AppLanguage.mr:
+        return 'सर्वाधिक विक्री';
+    }
+  }
+
+  String get viewAll {
+    switch (language) {
+      case AppLanguage.en:
+        return 'View all';
+      case AppLanguage.hi:
+        return 'सभी देखें';
+      case AppLanguage.mr:
+        return 'सर्व पहा';
+    }
+  }
+
+  String get sectionShopByCategory {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Shop by category';
+      case AppLanguage.hi:
+        return 'श्रेणी के अनुसार खरीदें';
+      case AppLanguage.mr:
+        return 'श्रेणीनुसार खरेदी करा';
+    }
+  }
+
+  String get sectionNewArrivals {
+    switch (language) {
+      case AppLanguage.en:
+        return 'New arrivals';
+      case AppLanguage.hi:
+        return 'नया माल';
+      case AppLanguage.mr:
+        return 'नवीन आगमन';
+    }
+  }
+
+  String get seeAllProducts {
+    switch (language) {
+      case AppLanguage.en:
+        return 'See all products';
+      case AppLanguage.hi:
+        return 'सभी उत्पाद देखें';
+      case AppLanguage.mr:
+        return 'सर्व उत्पादने पहा';
+    }
+  }
+
+  String get addButton {
+    switch (language) {
+      case AppLanguage.en:
+        return 'ADD';
+      case AppLanguage.hi:
+        return 'जोड़ें';
+      case AppLanguage.mr:
+        return 'जोडा';
+    }
+  }
+
+  String priceFrom(String p) {
+    switch (language) {
+      case AppLanguage.en:
+        return 'From $p';
+      case AppLanguage.hi:
+        return '$p से';
+      case AppLanguage.mr:
+        return '$p पासून';
+    }
+  }
+
+  String perUnit(String unit) {
+    switch (language) {
+      case AppLanguage.en:
+        return 'per $unit';
+      case AppLanguage.hi:
+      case AppLanguage.mr:
+        return 'प्रति $unit';
+    }
+  }
+
+  String offRupees(String x) {
+    switch (language) {
+      case AppLanguage.en:
+        return '$x OFF';
+      case AppLanguage.hi:
+        return '$x की छूट';
+      case AppLanguage.mr:
+        return '$x सूट';
+    }
+  }
+
+  String offPercent(int n) {
+    switch (language) {
+      case AppLanguage.en:
+        return '$n% OFF';
+      case AppLanguage.hi:
+        return '$n% छूट';
+      case AppLanguage.mr:
+        return '$n% सूट';
+    }
+  }
+
+  String sellersCount(int n) {
+    switch (language) {
+      case AppLanguage.en:
+        return n == 1 ? '1 seller' : '$n sellers';
+      case AppLanguage.hi:
+        return '$n विक्रेता';
+      case AppLanguage.mr:
+        return n == 1 ? '1 विक्रेता' : '$n विक्रेते';
+    }
+  }
+
+  String soldQty(int q, String unit) {
+    switch (language) {
+      case AppLanguage.en:
+        return '$q $unit sold';
+      case AppLanguage.hi:
+        return '$q $unit बिका';
+      case AppLanguage.mr:
+        return '$q $unit विकले';
+    }
+  }
+
+  String get sellerGramSabha {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Gram Sabha';
+      case AppLanguage.hi:
+        return 'ग्राम सभा';
+      case AppLanguage.mr:
+        return 'ग्रामसभा';
+    }
+  }
+
+  String get sellerCfrHolder {
+    switch (language) {
+      case AppLanguage.en:
+        return 'CFR holder';
+      case AppLanguage.hi:
+      case AppLanguage.mr:
+        return 'सीएफआर धारक';
+    }
+  }
+
+  String get notForEating {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Not for eating';
+      case AppLanguage.hi:
+        return 'खाने के लिए नहीं';
+      case AppLanguage.mr:
+        return 'खाण्यासाठी नाही';
+    }
+  }
+
+  String get noSellersYet {
+    switch (language) {
+      case AppLanguage.en:
+        return 'No sample sellers yet';
+      case AppLanguage.hi:
+        return 'अभी कोई नमूना विक्रेता नहीं';
+      case AppLanguage.mr:
+        return 'अजून नमुना विक्रेते नाहीत';
+    }
+  }
+
+  String get allProductsTitle {
+    switch (language) {
+      case AppLanguage.en:
+        return 'All products';
+      case AppLanguage.hi:
+        return 'सभी उत्पाद';
+      case AppLanguage.mr:
+        return 'सर्व उत्पादने';
+    }
+  }
+
+  String get searchResultsTitle {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Search results';
+      case AppLanguage.hi:
+        return 'खोज परिणाम';
+      case AppLanguage.mr:
+        return 'शोध निकाल';
+    }
+  }
+
+  String get nothingFound {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Nothing found.';
+      case AppLanguage.hi:
+        return 'कुछ नहीं मिला।';
+      case AppLanguage.mr:
+        return 'काही सापडले नाही.';
+    }
+  }
+
+  String get emptyHome {
+    switch (language) {
+      case AppLanguage.en:
+        return 'No sample products yet.';
+      case AppLanguage.hi:
+        return 'अभी कोई नमूना उत्पाद नहीं।';
+      case AppLanguage.mr:
+        return 'अजून नमुना उत्पादने नाहीत.';
+    }
+  }
+
+  String get heroEyebrow1 {
+    switch (language) {
+      case AppLanguage.en:
+        return 'FROM CFR VILLAGES';
+      case AppLanguage.hi:
+        return 'सीएफआर गाँवों से';
+      case AppLanguage.mr:
+        return 'सीएफआर गावांतून';
+    }
+  }
+
+  String get heroTitle1 {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Forest produce, straight from the village';
+      case AppLanguage.hi:
+        return 'वनोपज, सीधे गाँव से';
+      case AppLanguage.mr:
+        return 'वनउपज, थेट गावातून';
+    }
+  }
+
+  String get heroSubtitle1 {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Bamboo, mangoes, herbs and more.';
+      case AppLanguage.hi:
+        return 'बाँस, आम, जड़ी-बूटियाँ और बहुत कुछ।';
+      case AppLanguage.mr:
+        return 'बांबू, आंबे, वनौषधी आणि बरेच काही.';
+    }
+  }
+
+  String get heroCta1 {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Shop now';
+      case AppLanguage.hi:
+        return 'अभी खरीदें';
+      case AppLanguage.mr:
+        return 'आता खरेदी करा';
+    }
+  }
+
+  String get heroEyebrow2 {
+    switch (language) {
+      case AppLanguage.en:
+        return 'SAMPLE DEALS';
+      case AppLanguage.hi:
+        return 'नमूना डील्स';
+      case AppLanguage.mr:
+        return 'नमुना डील्स';
+    }
+  }
+
+  String heroTitle2(int n) {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Up to $n% off';
+      case AppLanguage.hi:
+        return '$n% तक की छूट';
+      case AppLanguage.mr:
+        return '$n% पर्यंत सूट';
+    }
+  }
+
+  String get heroSubtitle2 {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Sample prices for this demo.';
+      case AppLanguage.hi:
+        return 'इस डेमो के लिए नमूना कीमतें।';
+      case AppLanguage.mr:
+        return 'या डेमोसाठी नमुना किमती.';
+    }
+  }
+
+  String get heroCta2 {
+    switch (language) {
+      case AppLanguage.en:
+        return 'See deals';
+      case AppLanguage.hi:
+        return 'डील्स देखें';
+      case AppLanguage.mr:
+        return 'डील्स पहा';
+    }
+  }
+
+  String cartSemantic(int n) {
+    switch (language) {
+      case AppLanguage.en:
+        return 'Cart, $n items';
+      case AppLanguage.hi:
+        return 'कार्ट, $n वस्तुएँ';
+      case AppLanguage.mr:
+        return 'कार्ट, $n वस्तू';
+    }
+  }
 }
