@@ -8,6 +8,7 @@ import 'auth_pages.dart';
 import 'cart_page.dart';
 import 'categories_page.dart';
 import 'category_page.dart';
+import 'checkout/checkout_page.dart';
 import 'home_demo_page.dart';
 import 'landing_page.dart';
 import 'orders/order_detail_page.dart';
@@ -157,11 +158,6 @@ final uiV2Router = GoRouter(
         featureKey: state.pathParameters['key'] ?? '',
       ),
     ),
-    // Temporary until Phase 6 (checkout) is merged: "Buy now" shows the cart.
-    GoRoute(
-      path: '/checkout',
-      builder: (context, state) => const CartPage(),
-    ),
     GoRoute(
       path: '/product/:code',
       builder: (context, state) => ProductPage(productCode: state.pathParameters['code'] ?? ''),
@@ -174,6 +170,16 @@ final uiV2Router = GoRouter(
       path: '/signup',
       builder: (context, state) => const SignUpPage(),
     ),
+    // PHASE 6 ROUTES
+    GoRoute(
+      path: '/checkout',
+      builder: (context, state) => const CheckoutPage(),
+    ),
+    GoRoute(
+      path: '/checkout/done',
+      builder: (context, state) => const CheckoutDonePage(),
+    ),
+    // END PHASE 6 ROUTES
 
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
