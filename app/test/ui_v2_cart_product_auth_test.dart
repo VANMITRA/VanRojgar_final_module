@@ -372,6 +372,60 @@ void main() {
       expect(find.text('Buyer'), findsNothing);
       expect(find.text('खरीदार'), findsOneWidget);
     });
+
+    testWidgets('show/hide PIN button, searchable village bottom sheet, and 3 role cards work properly',
+        (tester) async {
+      _tall(tester);
+      await _open(tester, _app(), '/signin');
+
+      // 1. Show/hide PIN on Sign-in page
+      expect(tester.widget<TextField>(find.byKey(const Key('signin_pin'))).obscureText, isTrue);
+      await tester.tap(find.byKey(const Key('signin_pin_toggle')));
+      await tester.pump();
+      expect(tester.widget<TextField>(find.byKey(const Key('signin_pin'))).obscureText, isFalse);
+      await tester.tap(find.byKey(const Key('signin_pin_toggle')));
+      await tester.pump();
+      expect(tester.widget<TextField>(find.byKey(const Key('signin_pin'))).obscureText, isTrue);
+
+      // 2. Navigate to Create-account page: 3 role cards with icons and descriptions
+      await tester.tap(find.byKey(const Key('go_signup')));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('role_buyer')), findsOneWidget);
+      expect(find.byKey(const Key('role_gramsabha')), findsOneWidget);
+      expect(find.byKey(const Key('role_cfrholder')), findsOneWidget);
+      expect(find.text('Forest produce, straight from the village'), findsOneWidget);
+      expect(find.text('Gram Sabhas and CFR holders sell direct to buyers.'), findsOneWidget);
+      expect(find.text('Prices set by village sellers.'), findsOneWidget);
+
+      // Show/hide PIN on Sign-up page
+      expect(tester.widget<TextField>(find.byKey(const Key('signup_pin'))).obscureText, isTrue);
+      await tester.tap(find.byKey(const Key('signup_pin_toggle')));
+      await tester.pump();
+      expect(tester.widget<TextField>(find.byKey(const Key('signup_pin'))).obscureText, isFalse);
+
+      // 3. Select CFR holder role -> searchable village bottom sheet
+      await tester.tap(find.byKey(const Key('role_cfrholder')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('signup_village')), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('signup_village')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('village_picker_sheet')), findsOneWidget);
+      expect(find.byKey(const Key('village_search_field')), findsOneWidget);
+
+      // Search for "Bhatode" inside the village sheet
+      await tester.enterText(find.byKey(const Key('village_search_field')), 'Bhatode');
+      await tester.pumpAndSettle();
+      expect(find.text('Bhatode, Dindori'), findsOneWidget);
+      expect(find.text('Dongargaon, Deola'), findsNothing);
+
+      // Tap "Bhatode, Dindori" -> sheet closes and field shows selected village
+      await tester.tap(find.text('Bhatode, Dindori'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('village_picker_sheet')), findsNothing);
+      expect(find.text('Bhatode, Dindori'), findsOneWidget);
+    });
   });
 
   group('No overflow on the new pages', () {
