@@ -5,10 +5,11 @@ import 'package:go_router/go_router.dart';
 import '../l10n/app_strings.dart';
 import '../providers/catalog_providers.dart';
 import '../theme/van_rozgar_tokens.dart';
+import '../widgets/brand_logo.dart';
 import 'app_shell.dart';
 import 'landing_geometry.dart';
 
-/// The pixel-accurate VanRozgar Landing (onboarding) Page with custom rounded-quadrilateral
+/// The pixel-accurate VanMitra Landing (onboarding) Page with custom rounded-quadrilateral
 /// image cards, overlapping text, handwritten note accents, and fixed controls.
 class LandingPage extends ConsumerStatefulWidget {
   const LandingPage({super.key});
@@ -225,12 +226,8 @@ class _LandingPageState extends ConsumerState<LandingPage> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.eco,
-                    size: 0.07 * d,
-                    color: tokens.heading,
-                  ),
-                  const SizedBox(width: 4.0),
+                  BrandLogo(size: 0.1 * d),
+                  const SizedBox(width: 6.0),
                   Text(
                     strings.appNameNative,
                     maxLines: 1,

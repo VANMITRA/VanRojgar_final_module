@@ -94,7 +94,7 @@ extension ShopExtraStrings on AppStrings {
   // ---- Sign in and create account --------------------------------------------------------------
   String get signInTitle => _t('Sign in', 'साइन इन करें', 'साइन इन करा');
   String get signInSubtitle =>
-      _t('Welcome to VanRozgar', 'वनरोजगार में आपका स्वागत है', 'वनरोजगारमध्ये आपले स्वागत आहे');
+      _t('Welcome to VanMitra', 'वनमित्र में आपका स्वागत है', 'वनमित्रमध्ये आपले स्वागत आहे');
   String get continueWithGoogle =>
       _t('Continue with Google', 'Google के साथ जारी रखें', 'Google सह सुरू ठेवा');
   String get googleSoon => _t(

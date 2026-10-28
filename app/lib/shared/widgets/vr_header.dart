@@ -14,7 +14,7 @@ class VrHeader extends StatelessWidget implements PreferredSizeWidget {
 
   const VrHeader({
     super.key,
-    this.title = 'VanRozgar • वनरोजगार',
+    this.title = 'VanMitra • वनमित्र',
     this.subtitle,
     this.showBack = false,
     this.onBack,

@@ -9,7 +9,7 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appTitle => 'वनरोजगार';
+  String get appTitle => 'वनमित्र';
 
   @override
   String get motto => 'संसाधनों का व्यापार। आजीविका का निर्माण।';

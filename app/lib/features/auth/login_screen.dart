@@ -164,12 +164,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Top Brand Header (VanRozgar) with Language Switcher
+              // Top Brand Header (VanMitra) with Language Switcher
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   VrText(
-                    'वनरोजगार | VanRozgar',
+                    'वनमित्र | VanMitra',
                     style: TextStyle(
                       color: tokens.brandSecondary,
                       fontSize: 14,
@@ -241,7 +241,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               const SizedBox(height: 4),
               VrText(
-                'Sign In to VanRozgar • वनरोजगार',
+                'Sign In to VanMitra • वनमित्र',
                 style: TextStyle(
                   color: tokens.textMuted,
                   fontSize: 13,
@@ -371,7 +371,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: VrText(
-                        'Your name, phone and village are stored on the VanRozgar server. Your PIN is stored only as a one-way hash. See About & Privacy.',
+                        'Your name, phone and village are stored on the VanMitra server. Your PIN is stored only as a one-way hash. See About & Privacy.',
                         style: TextStyle(color: tokens.textMuted, fontSize: 11.5, height: 1.35),
                       ),
                     ),

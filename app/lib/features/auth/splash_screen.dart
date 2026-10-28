@@ -98,7 +98,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 ),
                 const SizedBox(height: 28),
                 const VrText(
-                  'वनरोजगार',
+                  'वनमित्र',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 32,
@@ -108,7 +108,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 ),
                 const SizedBox(height: 4),
                 VrText(
-                  'VanRozgar',
+                  'VanMitra',
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.9),
                     fontSize: 16,

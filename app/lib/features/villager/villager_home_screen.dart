@@ -83,7 +83,7 @@ class VillagerHomeScreen extends ConsumerWidget {
                     children: [
                         const SizedBox(height: 14),
                         const NoticeStrip(notices: [
-                          'वनरोजगार: आपल्या गावातील वनसंपत्तीचा थेट व्यापार.',
+                          'वनमित्र: आपल्या गावातील वनसंपत्तीचा थेट व्यापार.',
                           'वाहन आहे? डिलिव्हरी पार्टनर बना आणि नियमित रोजगार मिळवा.',
                         ]),
                         Padding(

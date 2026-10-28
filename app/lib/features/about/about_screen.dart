@@ -36,7 +36,7 @@ const List<AboutSection> aboutSections = [
     'Listings are public. Their position is rounded to about 1 km. Your phone number is never shown on a listing.',
     'Your phone location is used only if you allow it, to place your plot. You can type a position instead.',
     'No advertising and no analytics are in this app. Map pictures come from OpenStreetMap, which can see your network address when tiles load.',
-    'To have your account and report deleted, contact the VanRozgar team.',
+    'To have your account and report deleted, contact the VanMitra team.',
   ]),
 ];
 

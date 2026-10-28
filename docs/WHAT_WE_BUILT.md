@@ -1,6 +1,6 @@
 # What we have built so far (in simple English)
 
-**App name:** VanRozgar | वनरोजगार
+**App name:** VanMitra | वनमित्र
 **Updated:** 25 October 2026
 **What it is:** One Android app for forest communities in Nashik district. It helps people find ways to earn from their forest land, and it lets them sell forest products to buyers.
 

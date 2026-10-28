@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'van_rozgar_tokens.dart';
 
-/// Builder for VanRozgar Light & Dark Material 3 Themes.
+/// Builder for VanMitra Light & Dark Material 3 Themes.
 class VanRozgarTheme {
   VanRozgarTheme._();
 

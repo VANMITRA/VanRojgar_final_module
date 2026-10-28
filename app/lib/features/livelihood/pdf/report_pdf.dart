@@ -176,9 +176,9 @@ Future<List<Uint8List>> captureBlocks(BuildContext context, List<Widget> blocks,
 }
 
 /// A4 pages from the block pictures. Latin text only is drawn by the `pdf` package (the page footer).
-Future<Uint8List> assemblePdf(List<Uint8List> blockPngs, {String footer = 'VanRozgar'}) async {
+Future<Uint8List> assemblePdf(List<Uint8List> blockPngs, {String footer = 'VanMitra'}) async {
   const margin = 32.0;
-  final doc = pw.Document(title: 'VanRozgar livelihood report', creator: 'VanRozgar');
+  final doc = pw.Document(title: 'VanMitra livelihood report', creator: 'VanMitra');
   doc.addPage(
     pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
@@ -202,7 +202,7 @@ Future<void> exportReportPdf(BuildContext context, WidgetRef ref, Report report)
   final pngs = await captureBlocks(context, reportBlocks(report, s));
   final bytes = await assemblePdf(pngs);
   final stamp = _date(report.generatedAt).replaceAll('-', '');
-  await ref.read(pdfSaverProvider)(bytes, 'VanRozgar-livelihood-report-$stamp-${s.lang}.pdf');
+  await ref.read(pdfSaverProvider)(bytes, 'VanMitra-livelihood-report-$stamp-${s.lang}.pdf');
 }
 
 /// The "Save as PDF" button on the report screen.

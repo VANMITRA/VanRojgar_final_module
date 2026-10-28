@@ -13,7 +13,7 @@ import '../widgets/home_hero_banner.dart';
 import '../widgets/home_top_deals_section.dart';
 import '../widgets/product_card.dart';
 
-/// Phase 3 Home Page of the VanRozgar Shop on realistic sample data.
+/// Phase 3 Home Page of the VanMitra Shop on realistic sample data.
 class HomeDemoPage extends ConsumerStatefulWidget {
   const HomeDemoPage({super.key});
 

@@ -27,7 +27,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               VrText(
-                'नाशिक पायलट आवृत्तीमध्ये सुरक्षिततेसाठी थेट एसएमएस ओटीपीऐवजी ग्रामसभा सचिव किंवा वनरोजगार समन्वयकाकडून पडताळणी केली जाते.',
+                'नाशिक पायलट आवृत्तीमध्ये सुरक्षिततेसाठी थेट एसएमएस ओटीपीऐवजी ग्रामसभा सचिव किंवा वनमित्र समन्वयकाकडून पडताळणी केली जाते.',
                 style: TextStyle(color: tokens.textMuted, fontSize: 14, height: 1.4),
                 textAlign: TextAlign.center,
               ),
@@ -47,7 +47,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         const SizedBox(width: 12),
                         const Expanded(
                           child: VrText(
-                            'मदतीसाठी तुमच्या ग्रामसभेशी किंवा VanRozgar टीमशी संपर्क साधा • Contact your Gram Sabha or the VanRozgar team',
+                            'मदतीसाठी तुमच्या ग्रामसभेशी किंवा VanMitra टीमशी संपर्क साधा • Contact your Gram Sabha or the VanMitra team',
                             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                           ),
                         ),

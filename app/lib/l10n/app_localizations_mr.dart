@@ -9,7 +9,7 @@ class AppLocalizationsMr extends AppLocalizations {
   AppLocalizationsMr([String locale = 'mr']) : super(locale);
 
   @override
-  String get appTitle => 'वनरोजगार';
+  String get appTitle => 'वनमित्र';
 
   @override
   String get motto => 'संसाधनांचा व्यापार. रोजगाराची निर्मिती.';
@@ -94,7 +94,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get syncStatus => '१००% सिंक · ऑफलाईन सक्षम';
 
   @override
-  String get forestProduceAndTrade => 'वनरोजगार उत्पादने व व्यापार';
+  String get forestProduceAndTrade => 'वनमित्र उत्पादने व व्यापार';
 
   @override
   String get viewAll => 'सर्व पहा';

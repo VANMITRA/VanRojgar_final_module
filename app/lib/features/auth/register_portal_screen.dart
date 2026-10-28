@@ -97,9 +97,9 @@ class RegisterPortalScreen extends ConsumerWidget {
               const SizedBox(height: 4),
               Text(
                 tr3(lang,
-                    en: 'Select your role in the VanRozgar CFR marketplace.',
+                    en: 'Select your role in the VanMitra CFR marketplace.',
                     hi: 'वनरोज़गार सीएफआर बाज़ार में अपनी भूमिका चुनें।',
-                    mr: 'वनरोजगार सीएफआर बाजारातील तुमची भूमिका निवडा.'),
+                    mr: 'वनमित्र सीएफआर बाजारातील तुमची भूमिका निवडा.'),
                 style: TextStyle(color: tokens.textMuted, fontSize: 13),
               ),
               const SizedBox(height: 20),

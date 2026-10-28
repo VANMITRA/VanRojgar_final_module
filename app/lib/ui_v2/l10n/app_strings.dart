@@ -1,4 +1,4 @@
-/// Supported languages in VanRozgar Phase 1.
+/// Supported languages in VanMitra Phase 1.
 enum AppLanguage {
   en('English'),
   hi('हिंदी'),
@@ -8,7 +8,7 @@ enum AppLanguage {
   const AppLanguage(this.nativeLabel);
 }
 
-/// Centralized strings collection for VanRozgar Phase 1.
+/// Centralized strings collection for VanMitra Phase 1.
 ///
 /// Contains genuine English, Hindi, and Marathi translations.
 /// No widget contains hard-coded text.
@@ -33,14 +33,14 @@ class AppStrings {
   }
 
   // Branding
-  String get appName => 'VanRozgar';
+  String get appName => 'VanMitra';
   String get appNameNative {
     switch (language) {
       case AppLanguage.en:
-        return 'VanRozgar';
+        return 'VanMitra';
       case AppLanguage.hi:
       case AppLanguage.mr:
-        return 'वनरोजगार';
+        return 'वनमित्र';
     }
   }
 
@@ -416,11 +416,11 @@ class AppStrings {
   String get placeholderProfileDesc {
     switch (language) {
       case AppLanguage.en:
-        return 'You are currently browsing VanRozgar as a Guest. Adjust theme and language settings below.';
+        return 'You are currently browsing VanMitra as a Guest. Adjust theme and language settings below.';
       case AppLanguage.hi:
-        return 'आप वर्तमान में अतिथि के रूप में वनरोजगार देख रहे हैं। नीचे थीम और भाषा सेटिंग्स बदलें।';
+        return 'आप वर्तमान में अतिथि के रूप में वनमित्र देख रहे हैं। नीचे थीम और भाषा सेटिंग्स बदलें।';
       case AppLanguage.mr:
-        return 'आपण सध्या अतिथी म्हणून वनरोजगार पाहत आहात. खाली थीम आणि भाषा सेटिंग्ज बदला.';
+        return 'आपण सध्या अतिथी म्हणून वनमित्र पाहत आहात. खाली थीम आणि भाषा सेटिंग्ज बदला.';
     }
   }
 

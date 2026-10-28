@@ -174,7 +174,7 @@ class _PortalShellState extends ConsumerState<PortalShell> {
 
     return Scaffold(
       appBar: VrHeader(
-        title: 'VanRozgar | वनरोजगार',
+        title: 'VanMitra | वनमित्र',
         subtitle: sub,
         activeLanguage: activeLocale,
         onLanguageChanged: (lang) => ref.read(activeLocaleProvider.notifier).setLanguage(lang),

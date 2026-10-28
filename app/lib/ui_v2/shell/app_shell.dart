@@ -82,7 +82,7 @@ class AppShellScaffold extends ConsumerWidget {
 /// (In-memory for this demo; persistent storage will be integrated later).
 final ValueNotifier<bool> uiV2LandingSeen = ValueNotifier<bool>(false);
 
-/// GoRouter configuration for the VanRozgar guest-browseable shell, the intro landing flow and the
+/// GoRouter configuration for the VanMitra guest-browseable shell, the intro landing flow and the
 /// full-screen pages (cart, product, sign in, create account).
 final uiV2Router = GoRouter(
   initialLocation: '/',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Design tokens for the VanRozgar Phase 1 UI.
+/// Design tokens for the VanMitra Phase 1 UI.
 ///
 /// Contains exact light/dark palettes, spacing, typography, radiuses, and
 /// elevations as required by the specification.

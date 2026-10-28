@@ -40,7 +40,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
               // Top Brand Header (video 01:14)
               Center(
                 child: VrText(
-                  'वनरोजगार | VanRozgar',
+                  'वनमित्र | VanMitra',
                   style: TextStyle(
                     color: tokens.brandSecondary,
                     fontSize: 14,

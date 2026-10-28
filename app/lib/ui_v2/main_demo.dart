@@ -5,7 +5,7 @@ import 'shell/app_shell.dart';
 import 'theme/van_rozgar_theme.dart';
 import 'widgets/app_background.dart';
 
-/// Entry point for running the VanRozgar Phase 1 UI demo.
+/// Entry point for running the VanMitra Phase 1 UI demo.
 ///
 /// Run with:
 /// ```bash
@@ -46,7 +46,7 @@ class _VanRozgarDemoAppState extends ConsumerState<VanRozgarDemoApp> {
     final themeMode = ref.watch(uiV2ThemeModeProvider);
 
     return MaterialApp.router(
-      title: 'VanRozgar',
+      title: 'VanMitra',
       debugShowCheckedModeBanner: false,
       theme: VanRozgarTheme.lightTheme,
       darkTheme: VanRozgarTheme.darkTheme,

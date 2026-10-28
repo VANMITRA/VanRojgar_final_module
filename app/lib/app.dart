@@ -17,7 +17,7 @@ class VanRozgarApp extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
-      title: 'VanRozgar • वनरोजगार',
+      title: 'VanMitra • वनमित्र',
       debugShowCheckedModeBanner: false,
       theme: VrTheme.light(),
       darkTheme: VrTheme.dark(),

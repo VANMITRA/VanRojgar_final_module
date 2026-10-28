@@ -49,4 +49,5 @@ flutter:
     - assets/backgrounds/
     - assets/landing/
     - assets/catalog/
+    - assets/brand/
   generate: true

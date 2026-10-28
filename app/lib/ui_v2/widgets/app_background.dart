@@ -8,7 +8,7 @@ const double backgroundVeilAlphaLight = 0.45;
 /// Readability veil alpha opacity in dark mode. Tune here.
 const double backgroundVeilAlphaDark = 0.35;
 
-/// Reusable full-screen visual background widget for VanRozgar.
+/// Reusable full-screen visual background widget for VanMitra.
 ///
 /// Features:
 /// - Flat page colour base layer (light #F7F2E8, dark #1C2619).

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../l10n/app_strings.dart';
 import '../theme/van_rozgar_tokens.dart';
+import 'brand_logo.dart';
 
-/// Top branding, village picker, and search bar component for the VanRozgar shell.
+/// Top branding, village picker, and search bar component for the VanMitra shell.
 class AppShellTopArea extends StatelessWidget {
   final AppLanguage language;
   final ValueChanged<String>? onSearchChanged;
@@ -33,11 +34,16 @@ class AppShellTopArea extends StatelessWidget {
         children: [
           const SizedBox(height: VanRozgarTokens.space8),
 
-          // 1. Top Branding: VanRozgar & Tagline + Compact Village Picker Pill
+          // 1. Top Branding: VanMitra & Tagline + Compact Village Picker Pill
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
+                child: Row(
+                  children: [
+                    const BrandLogo(size: 40.0),
+                    const SizedBox(width: 10.0),
+                    Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -64,6 +70,9 @@ class AppShellTopArea extends StatelessWidget {
                         color: tokens.mutedText,
                         fontWeight: FontWeight.w600,
                       ),
+                    ),
+                  ],
+                ),
                     ),
                   ],
                 ),

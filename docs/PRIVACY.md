@@ -12,6 +12,6 @@ Same text as the app's **About & Privacy** screen (`app/lib/features/about/about
 
 **Third parties:** no advertising and no analytics in the app. Map pictures come from OpenStreetMap (it can see the network address when tiles load). Typical weather comes from Open-Meteo, fetched by our server for the village position only.
 
-**Deletion:** to have an account and report deleted, contact the VanRozgar team. There is no self-service delete yet (open item).
+**Deletion:** to have an account and report deleted, contact the VanMitra team. There is no self-service delete yet (open item).
 
 **To confirm before the judges:** a named contact for deletion requests; that no other SDK collects data in the APK build.

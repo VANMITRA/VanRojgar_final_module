@@ -212,7 +212,7 @@ void main() {
     uiV2LandingSeen.value = true;
   });
 
-  group('VanRozgar Shell and Catalog Smoke Tests', () {
+  group('VanMitra Shell and Catalog Smoke Tests', () {
     testWidgets(
         '(a) the village picker and the search field are found on Home in light and dark at 320x568, 360x800, 430x932 and 800x1280',
         (WidgetTester tester) async {
@@ -633,7 +633,7 @@ void main() {
     });
   });
 
-  group('VanRozgar Landing Intro Page Tests', () {
+  group('VanMitra Landing Intro Page Tests', () {
     testWidgets('(a) first screen is landing slide 1 with eyebrow, headline lines and subtitle',
         (WidgetTester tester) async {
       uiV2LandingSeen.value = false;
