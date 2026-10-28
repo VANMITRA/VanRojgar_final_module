@@ -16,6 +16,11 @@ import 'placeholder_pages.dart';
 import 'product_page.dart';
 import 'sell/sell_form_page.dart';
 import 'sell/sell_page.dart';
+import 'profile/about_page.dart';
+import 'profile/credits_page.dart';
+import 'profile/more_feature_page.dart';
+import 'profile/privacy_page.dart';
+import 'profile/profile_page.dart';
 
 /// Top-level shell widget with a Material 3 NavigationBar for the 4 destinations
 /// (Home, Categories, Orders, Profile). The cart is NOT a tab: a floating "View cart" pill
@@ -133,6 +138,25 @@ final uiV2Router = GoRouter(
       builder: (context, state) => SellFormPage(editingId: state.pathParameters['id']),
     ),
     // END PHASE 8 ROUTES
+    // PHASE 9 ROUTES
+    GoRoute(
+      path: '/about',
+      builder: (context, state) => const AboutPage(),
+    ),
+    GoRoute(
+      path: '/credits',
+      builder: (context, state) => const CreditsPage(),
+    ),
+    GoRoute(
+      path: '/privacy',
+      builder: (context, state) => const PrivacyPage(),
+    ),
+    GoRoute(
+      path: '/more/:key',
+      builder: (context, state) => MoreFeaturePage(
+        featureKey: state.pathParameters['key'] ?? '',
+      ),
+    ),
     // Temporary until Phase 6 (checkout) is merged: "Buy now" shows the cart.
     GoRoute(
       path: '/checkout',
@@ -198,7 +222,7 @@ final uiV2Router = GoRouter(
           routes: [
             GoRoute(
               path: '/profile',
-              builder: (context, state) => const ProfilePlaceholderPage(),
+              builder: (context, state) => const ProfilePage(),
             ),
           ],
         ),
