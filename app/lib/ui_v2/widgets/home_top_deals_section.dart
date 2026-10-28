@@ -177,99 +177,132 @@ class _HomeTopDealsSectionState extends ConsumerState<HomeTopDealsSection> {
           ),
           SizedBox(height: 12.0 * s),
 
-          // Horizontal Folder Tabs Strip (height 84 s)
+          // Horizontal Folder Tabs Strip (height 86 s)
           SizedBox(
-            height: 84.0 * s,
+            height: 86.0 * s,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
+              clipBehavior: Clip.none,
               itemCount: tabs.length,
               separatorBuilder: (context, index) => SizedBox(width: 8.0 * s),
               itemBuilder: (context, index) {
                 final tab = tabs[index];
                 final isSelected = index == activeIndex;
-                final tabWidth = 112.0 * s;
+                final tabWidth = 116.0 * s;
+                final topRadius = Radius.circular(16.0 * s);
 
-                return InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selectedTabIndex = index;
-                    });
-                  },
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16.0 * s),
-                    topRight: Radius.circular(16.0 * s),
-                  ),
-                  child: Container(
-                    width: tabWidth,
-                    decoration: BoxDecoration(
-                      color: isSelected ? tokens.card : tokens.chipBg.withValues(alpha: 0.6),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16.0 * s),
-                        topRight: Radius.circular(16.0 * s),
-                      ),
-                      border: Border.all(color: tokens.borders, width: 1.0),
+                final stripBg = isSelected ? tokens.primaryGreen : tokens.chipBg;
+                final stripFg = isSelected ? tokens.onPrimaryGreen : tokens.chipText;
+                final bodyBg = isSelected ? tokens.card : tokens.chipBg;
+                final labelFg = isSelected ? tokens.heading : tokens.chipText;
+
+                return Transform.translate(
+                  offset: Offset(0.0, isSelected ? 1.5 : 0.0),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: isSelected ? 0.0 : 4.0 * s,
+                      bottom: isSelected ? 0.0 : 4.0 * s,
                     ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      children: [
-                        // Top label strip (height 20 s)
-                        Container(
-                          height: 20.0 * s,
-                          width: double.infinity,
-                          color: isSelected ? tokens.heading : Colors.transparent,
-                          alignment: Alignment.center,
-                          child: Text(
-                            isSelected
-                                ? strings.startingAtTag(formatRupees(tab.startingPrice))
-                                : strings.upToOffTag(tab.maxDiscount),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 11.0 * s,
-                              fontWeight: FontWeight.w700,
-                              color: isSelected ? Colors.white : tokens.primaryGreen,
-                            ),
-                          ),
+                    child: CustomPaint(
+                      foregroundPainter: _FolderTabBorderPainter(
+                        isSelected: isSelected,
+                        hasLeftEar: isSelected && index > 0,
+                        hasRightEar: isSelected,
+                        fillColor: bodyBg,
+                        borderColor: tokens.borders,
+                        topRadius: 16.0 * s,
+                        earRadius: 10.0 * s,
+                      ),
+                      child: Material(
+                        key: Key('top_deal_tab_$index'),
+                        color: bodyBg,
+                        borderRadius: BorderRadius.only(
+                          topLeft: topRadius,
+                          topRight: topRadius,
+                          bottomLeft: isSelected ? Radius.zero : Radius.circular(10.0 * s),
+                          bottomRight: isSelected ? Radius.zero : Radius.circular(10.0 * s),
                         ),
-                        // Tab body (height 64 s)
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 6.0 * s),
-                            child: Row(
+                        clipBehavior: Clip.antiAlias,
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedTabIndex = index;
+                            });
+                          },
+                          child: SizedBox(
+                            width: tabWidth,
+                            child: Column(
                               children: [
+                                // Top label strip (height 22 s)
                                 Container(
-                                  width: 36.0 * s,
-                                  height: 36.0 * s,
-                                  decoration: BoxDecoration(
-                                    color: VanRozgarTokens.picturePanel,
-                                    borderRadius: BorderRadius.circular(8.0 * s),
-                                  ),
-                                  clipBehavior: Clip.antiAlias,
-                                  child: Image.asset(
-                                    tab.imageAsset,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Center(
-                                        child: Icon(
-                                          Icons.eco_outlined,
-                                          size: 18.0 * s,
-                                          color: tokens.primaryGreen.withValues(alpha: 0.6),
-                                        ),
-                                      );
-                                    },
+                                  key: Key('top_deal_tab_strip_$index'),
+                                  height: 22.0 * s,
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(horizontal: 4.0 * s),
+                                  color: stripBg,
+                                  alignment: Alignment.center,
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      isSelected
+                                          ? strings.startingAtTag(formatRupees(tab.startingPrice))
+                                          : strings.upToOffTag(tab.maxDiscount),
+                                      key: Key('top_deal_tab_tag_$index'),
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        fontSize: 11.0 * s,
+                                        fontWeight: FontWeight.w700,
+                                        color: stripFg,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                SizedBox(width: 6.0 * s),
+                                // Tab body
                                 Expanded(
-                                  child: Text(
-                                    tab.label,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 12.0 * s,
-                                      fontWeight: FontWeight.w600,
-                                      color: tokens.heading,
-                                      height: 1.15,
+                                  child: Container(
+                                    key: Key('top_deal_tab_body_$index'),
+                                    color: bodyBg,
+                                    padding: EdgeInsets.symmetric(horizontal: 6.0 * s),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 34.0 * s,
+                                          height: 34.0 * s,
+                                          decoration: BoxDecoration(
+                                            color: VanRozgarTokens.picturePanel,
+                                            borderRadius: BorderRadius.circular(8.0 * s),
+                                          ),
+                                          clipBehavior: Clip.antiAlias,
+                                          child: Image.asset(
+                                            tab.imageAsset,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return Center(
+                                                child: Icon(
+                                                  Icons.eco_outlined,
+                                                  size: 18.0 * s,
+                                                  color: tokens.primaryGreen.withValues(alpha: 0.6),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(width: 6.0 * s),
+                                        Expanded(
+                                          child: Text(
+                                            tab.label,
+                                            key: Key('top_deal_tab_label_$index'),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 11.5 * s,
+                                              fontWeight: FontWeight.w700,
+                                              color: labelFg,
+                                              height: 1.12,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -277,7 +310,7 @@ class _HomeTopDealsSectionState extends ConsumerState<HomeTopDealsSection> {
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 );
@@ -287,9 +320,12 @@ class _HomeTopDealsSectionState extends ConsumerState<HomeTopDealsSection> {
 
           // Container below strip holding horizontal card row + See all products pill
           Container(
+            key: const Key('top_deals_panel'),
             decoration: BoxDecoration(
               color: tokens.card,
               borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(activeIndex == 0 ? 0.0 : 16.0 * s),
+                topRight: Radius.circular(16.0 * s),
                 bottomLeft: Radius.circular(16.0 * s),
                 bottomRight: Radius.circular(16.0 * s),
               ),
@@ -398,5 +434,104 @@ class _HomeTopDealsSectionState extends ConsumerState<HomeTopDealsSection> {
         ],
       ),
     );
+  }
+}
+
+class _FolderTabBorderPainter extends CustomPainter {
+  final bool isSelected;
+  final bool hasLeftEar;
+  final bool hasRightEar;
+  final Color fillColor;
+  final Color borderColor;
+  final double topRadius;
+  final double earRadius;
+
+  const _FolderTabBorderPainter({
+    required this.isSelected,
+    required this.hasLeftEar,
+    required this.hasRightEar,
+    required this.fillColor,
+    required this.borderColor,
+    required this.topRadius,
+    required this.earRadius,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final strokePaint = Paint()
+      ..color = borderColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0;
+
+    if (!isSelected) {
+      final rrect = RRect.fromRectAndCorners(
+        Offset.zero & size,
+        topLeft: Radius.circular(topRadius),
+        topRight: Radius.circular(topRadius),
+        bottomLeft: Radius.circular(earRadius),
+        bottomRight: Radius.circular(earRadius),
+      );
+      canvas.drawRRect(rrect, strokePaint);
+      return;
+    }
+
+    final fillPaint = Paint()
+      ..color = fillColor
+      ..style = PaintingStyle.fill;
+
+    final w = size.width;
+    final h = size.height;
+    final r = topRadius;
+    final er = earRadius;
+
+    // Outward concave fillets ("folder tab ears") at bottom corners
+    if (hasLeftEar) {
+      final leftEarPath = Path()
+        ..moveTo(-er, h)
+        ..quadraticBezierTo(0.0, h, 0.0, h - er)
+        ..lineTo(0.0, h)
+        ..close();
+      canvas.drawPath(leftEarPath, fillPaint);
+    }
+
+    if (hasRightEar) {
+      final rightEarPath = Path()
+        ..moveTo(w, h - er)
+        ..quadraticBezierTo(w, h, w + er, h)
+        ..lineTo(w, h)
+        ..close();
+      canvas.drawPath(rightEarPath, fillPaint);
+    }
+
+    // Open-bottom folder tab outline that smoothly joins the panel border below
+    final borderPath = Path();
+    if (hasLeftEar) {
+      borderPath.moveTo(-er, h - 1.5);
+      borderPath.quadraticBezierTo(0.5, h - 1.5, 0.5, h - er);
+    } else {
+      borderPath.moveTo(0.5, h);
+    }
+    borderPath.lineTo(0.5, r);
+    borderPath.quadraticBezierTo(0.5, 0.5, r, 0.5);
+    borderPath.lineTo(w - r, 0.5);
+    borderPath.quadraticBezierTo(w - 0.5, 0.5, w - 0.5, r);
+    if (hasRightEar) {
+      borderPath.lineTo(w - 0.5, h - er);
+      borderPath.quadraticBezierTo(w - 0.5, h - 1.5, w + er, h - 1.5);
+    } else {
+      borderPath.lineTo(w - 0.5, h);
+    }
+    canvas.drawPath(borderPath, strokePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _FolderTabBorderPainter oldDelegate) {
+    return oldDelegate.isSelected != isSelected ||
+        oldDelegate.hasLeftEar != hasLeftEar ||
+        oldDelegate.hasRightEar != hasRightEar ||
+        oldDelegate.fillColor != fillColor ||
+        oldDelegate.borderColor != borderColor ||
+        oldDelegate.topRadius != topRadius ||
+        oldDelegate.earRadius != earRadius;
   }
 }
