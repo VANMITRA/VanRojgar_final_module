@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../api/v2_api_client.dart';
 import '../data/live_shop_repository.dart';
 import '../data/shop_repository.dart';
+import '../data/token_storage.dart';
 import '../l10n/app_strings.dart';
 import '../models/catalog_models.dart';
 
@@ -51,8 +52,11 @@ const String shopServerUrl = String.fromEnvironment('VANMITRA_SHOP_URL');
 /// The client for the shop server; null when no address was given.
 final shopApiClientProvider = Provider<V2ApiClient?>((ref) {
   if (shopServerUrl.isEmpty) return null;
-  return V2ApiClient(baseUrl: shopServerUrl);
+  return V2ApiClient(baseUrl: shopServerUrl, tokenProvider: ref.watch(tokenStorageProvider).read);
 });
+
+/// Where the sign-in token is kept (the phone's secure storage).
+final tokenStorageProvider = Provider<V2TokenStorage>((ref) => const SecureTokenStorage());
 
 /// Shop repository provider: real server data when an address was given, otherwise the bundled catalog.
 final shopRepositoryProvider = Provider<ShopRepository>((ref) {

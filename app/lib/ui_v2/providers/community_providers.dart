@@ -1,47 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../data/community_repositories.dart';
+import '../data/live_community_repositories.dart';
 import '../models/community_models.dart';
+import 'catalog_providers.dart' show shopApiClientProvider;
 
-/// Delivery partner data (`/delivery-partners`, `/deliveries`).
-abstract class DeliveryRepository {
-  /// The signed-in user's partner profile, or null when they have not applied.
-  Future<DeliveryPartnerProfile?> myProfile();
-  Future<void> apply(DeliveryApplication application);
-  Future<void> setAvailable(bool available);
-
-  /// Open jobs an approved partner can take.
-  Future<List<DeliveryJob>> openJobs();
-  Future<void> acceptJob(String jobId);
-
-  /// [status]: picked_up, on_the_way or delivered.
-  Future<void> updateJobStatus(String jobId, String status, {String? note});
-
-  /// The jobs this partner has taken.
-  Future<List<DeliveryJob>> myJobs();
-}
-
-/// Notices from the server (`/messages`).
-abstract class MessagesRepository {
-  Future<List<AppMessage>> messages();
-  Future<int> unreadCount();
-  Future<void> markRead(List<String> messageIds);
-}
-
-/// Barter offers (`/barter-requests`).
-abstract class BarterRepository {
-  /// [incoming] true = offers made to my listings, false = offers I made.
-  Future<List<BarterOffer>> offers({required bool incoming});
-  Future<void> create(NewBarterOffer offer);
-
-  /// [action]: accept, reject or counter. A counter gives a new offered title/quantity and/or wanted quantity.
-  Future<void> respond(
-    String offerId,
-    String action, {
-    String? counterOfferedTitle,
-    int? counterOfferedQuantity,
-    int? counterWantedQuantity,
-    String? note,
-  });
-}
+export '../data/community_repositories.dart';
 
 /// Until the live servers are connected (and in tests that do not override them) these repositories say
 /// that nothing is available. The screens show their "nothing here yet" state, never made-up data.
@@ -86,9 +49,18 @@ class _EmptyBarter implements BarterRepository {
       throw StateError('Barter is not connected');
 }
 
-final deliveryRepositoryProvider = Provider<DeliveryRepository>((ref) => const _EmptyDelivery());
-final messagesRepositoryProvider = Provider<MessagesRepository>((ref) => const _EmptyMessages());
-final barterRepositoryProvider = Provider<BarterRepository>((ref) => const _EmptyBarter());
+final deliveryRepositoryProvider = Provider<DeliveryRepository>((ref) {
+  final api = ref.watch(shopApiClientProvider);
+  return api == null ? const _EmptyDelivery() : LiveDeliveryRepository(api);
+});
+final messagesRepositoryProvider = Provider<MessagesRepository>((ref) {
+  final api = ref.watch(shopApiClientProvider);
+  return api == null ? const _EmptyMessages() : LiveMessagesRepository(api);
+});
+final barterRepositoryProvider = Provider<BarterRepository>((ref) {
+  final api = ref.watch(shopApiClientProvider);
+  return api == null ? const _EmptyBarter() : LiveBarterRepository(api);
+});
 
 /// The signed-in user's delivery partner profile (null = never applied). Invalidate it after applying or changing availability.
 final deliveryProfileProvider = FutureProvider.autoDispose<DeliveryPartnerProfile?>(

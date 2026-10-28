@@ -1,28 +1,10 @@
 import '../api/order_mapping.dart';
 import '../api/v2_api_client.dart';
 import '../providers/catalog_providers.dart' show AuthUser;
+import 'token_storage.dart';
 import 'villages.dart';
 
-/// Where the sign-in token is kept between app starts.
-abstract class V2TokenStorage {
-  Future<String?> read();
-  Future<void> write(String token);
-  Future<void> clear();
-}
-
-/// Keeps the token in memory only (tests, and the fallback when secure storage is not available).
-class MemoryTokenStorage implements V2TokenStorage {
-  String? _token;
-
-  @override
-  Future<String?> read() async => _token;
-
-  @override
-  Future<void> write(String token) async => _token = token;
-
-  @override
-  Future<void> clear() async => _token = null;
-}
+export 'token_storage.dart';
 
 /// Sign in, create an account and sign out against the shop server.
 class AuthRepository {

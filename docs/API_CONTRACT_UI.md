@@ -45,6 +45,11 @@ Pictures: `imageUrl` is not filled yet and uploads (`/images`) answer 501 "not i
 | `PATCH /listings/:id/status` | `status`: active, paused, sold_out, rejected |
 | `GET /listings/:id`, `GET /listings/code/:code`, `GET /listings/map` | read |
 There is no delete: "remove" = status `paused` (or `sold_out`).
+**Rules the server applies when a listing is created** (read from `listing.service.js`):
+1. A CFR holder may only list when the server setting `ALLOW_VILLAGER_LISTINGS` is on (it answers 403 "Villager direct listings are currently disabled in this pilot" otherwise). The owner of the server must switch it on.
+2. A Gram Sabha account must be linked to a Gram Sabha record (found by its village). A Gram Sabha whose claim is still "pending" cannot list until the VanRozgar team approves the claim (403).
+3. Titles are checked against a restricted-items list (protected forest produce); a match is refused (422) with the reason.
+4. The seller must confirm `sustainableDeclared: true`.
 
 ## 5. Requests (the checkout and the seller's decision) (`/requests`, `/shop/cart/checkout`)
 - `POST /shop/cart/checkout` (signed in): `{ items:[{listingId, quantity}], deliveryPref: pickup|delivery, paymentMethod: upi|cod (default cod), dropVillage, reason }`. Result `{ created:[{listingId, quantity, request}], failed:[{listingId, code, message}] }`. One request per listing. Not available: below the seller's minimum order, above stock. A big quantity needs a `reason` of 5+ characters.
@@ -78,7 +83,7 @@ Message text exists in Marathi and English only (no Hindi): the Hindi screen sho
 
 ## 9. Barter (`/barter-requests`)
 `POST /barter-requests` `{ toListId, fromListId?, offeredTitle, offeredQuantity, offeredUnit, wantedQuantity, note }`; `GET /barter-requests?scope=mine|incoming`; `POST /barter-requests/:id/respond` `{ action: accept|reject|counter, counterOfferedTitle?, counterOfferedQuantity?, counterWantedQuantity?, note }`. Statuses: `pending, accepted, rejected, countered`; each side accepts the same version.
-A listing is barterable when `mode` is `barter` or `both` (it then carries `barterWants`).
+A listing is barterable when `mode` is `barter` or `both` (it then carries `barterWants`). A buyer account cannot barter (403), nobody can barter with themselves (403), a listing that is not barterable answers 409.
 
 ## 10. Livelihood report (separate server, `cfrholder` only)
 `GET/PUT/DELETE /profile` (the person's answers), `POST /report` (build a report), `GET /report/latest`, `GET /ideas/{code}`, `GET /schemes` (10 government schemes, official links only), `POST /resources/nearby`, `GET /meta`. Radius default 5 km, capped at 10 km. Rules that never break (from `docs/BACKEND.md`): no harm to wildlife; community forest = use only through the Gram Sabha; labels only, no numbers; missing facts show "not available"; each result carries source and date; ideas are drafts.
