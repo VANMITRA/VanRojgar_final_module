@@ -156,6 +156,7 @@ class ProfileMenuRow extends StatelessWidget {
   final VoidCallback onTap;
   final VanRozgarColorTokens tokens;
   final double scale;
+  final Widget? trailing;
 
   const ProfileMenuRow({
     super.key,
@@ -165,6 +166,7 @@ class ProfileMenuRow extends StatelessWidget {
     required this.onTap,
     required this.tokens,
     required this.scale,
+    this.trailing,
   });
 
   @override
@@ -212,7 +214,10 @@ class ProfileMenuRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 8.0 * s),
+                if (trailing != null) ...[
+                  trailing!,
+                  SizedBox(width: 8.0 * s),
+                ],
                 Icon(
                   Icons.chevron_right,
                   size: 22.0 * s,

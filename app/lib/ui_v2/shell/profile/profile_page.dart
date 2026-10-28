@@ -6,6 +6,7 @@ import '../../l10n/profile_strings.dart';
 import '../../l10n/shop_extra_strings.dart';
 import '../../providers/catalog_providers.dart';
 import '../../providers/profile_providers.dart';
+import '../../providers/community_providers.dart';
 import '../../theme/van_rozgar_tokens.dart';
 import '../../widgets/app_background.dart';
 import '../../widgets/brand_logo.dart';
@@ -328,13 +329,35 @@ class ProfilePage extends ConsumerWidget {
           scale: s,
         );
       case 'messages':
-        return ProfileMenuRow(
-          rowKey: const Key('profile_more_messages'),
-          icon: Icons.notifications_none,
-          title: strings.pfMoreMessagesTitle,
-          onTap: () => context.push('/more/messages'),
-          tokens: tokens,
-          scale: s,
+        return Consumer(
+          builder: (context, ref, _) {
+            final unread = ref.watch(unreadMessagesProvider).asData?.value ?? 0;
+            return ProfileMenuRow(
+              rowKey: const Key('profile_more_messages'),
+              icon: Icons.notifications_none,
+              title: strings.pfMoreMessagesTitle,
+              onTap: () => context.push('/more/messages'),
+              tokens: tokens,
+              scale: s,
+              trailing: unread > 0
+                  ? Container(
+                      key: const Key('profile_messages_badge'),
+                      padding: EdgeInsets.symmetric(horizontal: 7.0 * s, vertical: 2.0 * s),
+                      decoration: BoxDecoration(
+                        color: tokens.primaryGreen,
+                        borderRadius: BorderRadius.circular(12.0 * s),
+                      ),
+                      child: Text(unread.toString(),
+                        style: TextStyle(
+                          fontSize: 11.5 * s,
+                          fontWeight: FontWeight.w800,
+                          color: tokens.onPrimaryGreen,
+                        ),
+                      ),
+                    )
+                  : null,
+            );
+          },
         );
       case 'barter':
         return ProfileMenuRow(

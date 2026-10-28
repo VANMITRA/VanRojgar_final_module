@@ -12,6 +12,7 @@ import 'checkout/checkout_page.dart';
 import 'delivery/delivery_apply_page.dart';
 import 'delivery/delivery_job_page.dart';
 import 'delivery/delivery_page.dart';
+import 'messages/messages_page.dart';
 import 'home_demo_page.dart';
 import 'landing_page.dart';
 import 'orders/order_detail_page.dart';
@@ -194,6 +195,10 @@ final uiV2Router = GoRouter(
     GoRoute(
       path: '/delivery/jobs/:id',
       builder: (context, state) => DeliveryJobPage(jobId: state.pathParameters['id'] ?? ''),
+    ),
+    GoRoute(
+      path: '/messages',
+      builder: (context, state) => const MessagesPage(),
     ),
     // END ROUND 2 ROUTES
 
