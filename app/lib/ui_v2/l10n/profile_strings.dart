@@ -130,7 +130,7 @@ extension ProfileStrings on AppStrings {
       );
 
   // ---- Footer -----------------------------------------------------------------------------------
-  String get pfDemoVersion => _t('Demo version', 'डेमो संस्करण', 'डेमो आवृत्ती');
+  String get pfDemoVersion => _t('', '', '');
 
   // ---- Older feature pages (/more/:key) ---------------------------------------------------------
   String get pfOpensInFullApp => _t(
@@ -146,9 +146,9 @@ extension ProfileStrings on AppStrings {
       );
 
   String get pfUnknownMoreBody => _t(
-        'This section is not part of the demo.',
-        'यह अनुभाग इस डेमो का हिस्सा नहीं है।',
-        'हा विभाग या डेमोचा भाग नाही.',
+        'This section is not available right now.',
+        'यह अनुभाग अभी उपलब्ध नहीं है।',
+        'हा विभाग सध्या उपलब्ध नाही.',
       );
 
   String pfMorePageTitle(String key) {
@@ -248,9 +248,9 @@ extension ProfileStrings on AppStrings {
           'सीएफआर धारकांसाठी या ॲपमध्ये जवळील संसाधनांचा नकाशा, सरासरी मासिक पाऊस व तापमान आणि शासकीय योजनांच्या माहितीसह मसुदा उपजीविका अहवाल देखील आहे.',
         ),
         _t(
-          'The app works in three languages—English, Hindi, and Marathi—and all products, prices, and sellers in this demo are sample data.',
-          'यह ऐप तीन भाषाओं—अंग्रेज़ी, हिन्दी और मराठी—में काम करता है और इस डेमो के सभी उत्पाद, कीमतें और विक्रेता नमूना डेटा हैं।',
-          'हे ॲप इंग्रजी, हिन्दी आणि मराठी या तीन भाषांमध्ये चालते आणि या डेमोमधील सर्व उत्पादने, किमती आणि विक्रेते नमुना डेटा आहेत.',
+          'The app works in three languages—English, Hindi, and Marathi.',
+          'यह ऐप तीन भाषाओं—अंग्रेज़ी, हिन्दी और मराठी—में काम करता है।',
+          'हे ॲप इंग्रजी, हिन्दी आणि मराठी या तीन भाषांमध्ये चालते.',
         ),
       ];
 
@@ -329,9 +329,9 @@ extension ProfileStrings on AppStrings {
             ),
             ProfileCreditItem(
               what: _t(
-                'Product pictures (43 catalog items) and sample catalog data',
-                'उत्पाद चित्र (43 कैटलॉग वस्तुएँ) और नमूना कैटलॉग डेटा',
-                'उत्पादन चित्रे (43 कॅटलॉग वस्तू) आणि नमुना कॅटलॉग डेटा',
+                'Product pictures (43 catalog items) and catalog data',
+                'उत्पाद चित्र (43 कैटलॉग वस्तुएँ) और कैटलॉग डेटा',
+                'उत्पादन चित्रे (43 कॅटलॉग वस्तू) आणि कॅटलॉग डेटा',
               ),
               source: _t(
                 'AI-generated resource pictures made for the project; product names from the resource manifest',
@@ -339,9 +339,9 @@ extension ProfileStrings on AppStrings {
                 'प्रकल्पासाठी तयार केलेली कृत्रिम बुद्धिमत्ता संसाधन चित्रे; संसाधन यादीतील उत्पादन नावे',
               ),
               terms: _t(
-                'AI-generated, not photographs of real products. Several items are marked to be checked against real photos. Prices, sellers, stock, and dates in the sample catalog are made up and shown as Sample. Bibba and Gunj Vel are not for eating.',
-                'ये वास्तविक उत्पादों की तस्वीरें नहीं बल्कि कृत्रिम चित्रण हैं। कई चित्रों को वास्तविक तस्वीरों से जाँचा जाना बाकी है। नमूना कैटलॉग में कीमतें, विक्रेता, स्टॉक और तिथियाँ काल्पनिक हैं और नमूना के रूप में दिखाई जाती हैं। बिब्बा और गुंज वेल खाने के लिए नहीं हैं।',
-                'ही खऱ्या उत्पादनांची छायाचित्रे नसून कृत्रिम चित्रे आहेत. काही चित्रे खऱ्या छायाचित्रांशी पडताळणे बाकी आहे. नमुना कॅटलॉगमधील किमती, विक्रेते, साठा आणि तारखा काल्पनिक असून नमुना म्हणून दाखवल्या आहेत. बिब्बा आणि गुंज वेल खाण्यासाठी नाहीत.',
+                'AI-generated, not photographs of real products. Several items are marked to be checked against real photos. Bibba and Gunj Vel are not for eating.',
+                'ये वास्तविक उत्पादों की तस्वीरें नहीं बल्कि कृत्रिम चित्रण हैं। कई चित्रों को वास्तविक तस्वीरों से जाँचा जाना बाकी है। बिब्बा और गुंज वेल खाने के लिए नहीं हैं।',
+                'ही खऱ्या उत्पादनांची छायाचित्रे नसून कृत्रिम चित्रे आहेत. काही चित्रे खऱ्या छायाचित्रांशी पडताळणे बाकी आहे. बिब्बा आणि गुंज वेल खाण्यासाठी नाहीत.',
               ),
             ),
             ProfileCreditItem(

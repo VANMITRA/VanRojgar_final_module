@@ -147,9 +147,9 @@ extension ShopExtraStrings on AppStrings {
       );
   String get errWrongPin => _t('Wrong PIN.', 'गलत पिन।', 'चुकीचा पिन.');
   String get demoNote => _t(
-        'Demo: nothing is sent to a server yet.',
-        'डेमो: अभी कुछ भी सर्वर को नहीं भेजा जाता।',
-        'डेमो: अजून काहीही सर्व्हरला पाठवले जात नाही.',
+        '',
+        '',
+        '',
       );
   String helloName(String name) => _t('Hello, $name', 'नमस्ते, $name', 'नमस्कार, $name');
   String get signOut => _t('Sign out', 'साइन आउट', 'साइन आउट');

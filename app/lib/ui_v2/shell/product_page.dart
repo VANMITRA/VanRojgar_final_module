@@ -168,25 +168,17 @@ class _ProductBody extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
-                    top: 12.0 * s,
-                    left: 12.0 * s,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _Pill(text: strings.sampleBadge, background: Colors.white, color: tokens.primaryGreen, s: s),
-                        if (product.isIllustration) ...[
-                          SizedBox(height: 4.0 * s),
-                          _Pill(
-                            text: strings.illustrationTag,
-                            background: Colors.white.withValues(alpha: 0.85),
-                            color: tokens.mutedText,
-                            s: s,
-                          ),
-                        ],
-                      ],
+                  if (product.isIllustration)
+                    Positioned(
+                      top: 12.0 * s,
+                      left: 12.0 * s,
+                      child: _Pill(
+                        text: strings.illustrationTag,
+                        background: Colors.white.withValues(alpha: 0.85),
+                        color: tokens.mutedText,
+                        s: s,
+                      ),
                     ),
-                  ),
                   if (product.notForEating)
                     Positioned(
                       bottom: 12.0 * s,

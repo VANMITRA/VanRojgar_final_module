@@ -91,11 +91,11 @@ extension CheckoutStrings on AppStrings {
     if (!RegExp(r'[A-Za-z]').hasMatch(trimmed)) {
       return trimmed;
     }
-    final hasSample = trimmed.toLowerCase().contains('sample');
+    // Check digits in rawName or sellerId.
     final digitsMatch = RegExp(r'\d+').firstMatch(trimmed) ?? RegExp(r'\d+').firstMatch(sellerId);
     final digits = digitsMatch != null ? ' ${digitsMatch.group(0)}' : '';
-    final prefix = hasSample ? '$sampleBadge ' : '';
-    return '$prefix$typeLabel$digits';
+    // Never prefix sampleBadge to localized seller names.
+    return '$typeLabel$digits';
   }
 
   // ---- Checkout page (/checkout) -------------------------------------------------------------

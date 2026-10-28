@@ -112,6 +112,12 @@ class _LandingPageState extends ConsumerState<LandingPage> {
                   eyebrow: strings.landingSlide1Eyebrow,
                   headlineLines: strings.landingSlide1HeadlineLines,
                   highlightIndex: strings.landingSlide1HighlightIndex,
+                  highlightFontScale: 1.14,
+                  linePullFractions: switch (language) {
+                    AppLanguage.en => const [0.0, 0.055, 0.0, 0.065],
+                    AppLanguage.hi => const [0.0, 0.055, 0.065, 0.0],
+                    AppLanguage.mr => const [0.0, 0.055, 0.060],
+                  },
                   subtitle: strings.landingSlide1Subtitle,
                   noteLines: strings.landingSlide1NoteLines,
                   pictureLabel: strings.landingSlide1PictureLabel,
@@ -150,6 +156,11 @@ class _LandingPageState extends ConsumerState<LandingPage> {
                   eyebrow: strings.landingSlide3Eyebrow,
                   headlineLines: strings.landingSlide3HeadlineLines,
                   highlightIndex: strings.landingSlide3HighlightIndex,
+                  linePullFractions: switch (language) {
+                    AppLanguage.en => const [0.0, 0.050, 0.0, 0.070],
+                    AppLanguage.hi => const [0.055, 0.065, 0.0, 0.0],
+                    AppLanguage.mr => const [0.055, 0.0, 0.065, 0.0],
+                  },
                   subtitle: strings.landingSlide3Subtitle,
                   noteLines: strings.landingSlide3NoteLines,
                   pictureLabel: strings.landingSlide3PictureLabel,
@@ -398,29 +409,33 @@ class _LandingPageState extends ConsumerState<LandingPage> {
                 borderRadius: BorderRadius.circular(0.033 * W),
                 child: Container(
                   height: buttonHeight,
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   decoration: BoxDecoration(
                     color: buttonFill,
                     borderRadius: BorderRadius.circular(0.033 * W),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        buttonLabel,
-                        style: TextStyle(
-                          fontFamily: VanRozgarTokens.fontFamily,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w600,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          buttonLabel,
+                          style: TextStyle(
+                            fontFamily: VanRozgarTokens.fontFamily,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w600,
+                            color: buttonTextColor,
+                          ),
+                        ),
+                        const SizedBox(width: 24.0),
+                        Icon(
+                          Icons.east,
+                          size: 22.0,
                           color: buttonTextColor,
                         ),
-                      ),
-                      const SizedBox(width: 24.0),
-                      Icon(
-                        Icons.east,
-                        size: 22.0,
-                        color: buttonTextColor,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -439,6 +454,8 @@ class _LandingSlideView extends StatelessWidget {
   final String eyebrow;
   final List<String> headlineLines;
   final int highlightIndex;
+  final double highlightFontScale;
+  final List<double> linePullFractions;
   final String subtitle;
   final List<String> noteLines;
   final String pictureLabel;
@@ -456,6 +473,8 @@ class _LandingSlideView extends StatelessWidget {
     required this.eyebrow,
     required this.headlineLines,
     required this.highlightIndex,
+    this.highlightFontScale = 1.0,
+    this.linePullFractions = const [],
     required this.subtitle,
     required this.noteLines,
     required this.pictureLabel,
@@ -514,13 +533,34 @@ class _LandingSlideView extends StatelessWidget {
           height: 1.0,
           letterSpacing: -0.03 * fs,
         );
+    double lineFontSize(int index, double baseFs) =>
+        index == highlightIndex ? baseFs * highlightFontScale : baseFs;
+    double lineCenterY(int index, double baseFs) {
+      double y = headlineTop;
+      for (int j = 0; j < index; j++) {
+        y += lineFontSize(j, baseFs);
+      }
+      return y + 0.5 * lineFontSize(index, baseFs);
+    }
+
     bool headlineFits(double fs) {
       for (int i = 0; i < headlineLines.length; i++) {
-        final width = textWidth(headlineLines[i], headlineBase(fs));
-        final y = headlineTop + (i + 0.5) * fs;
+        final lineFs = lineFontSize(i, fs);
+        final width = textWidth(headlineLines[i], headlineBase(lineFs));
+        final y = lineCenterY(i, fs);
         final edge = LandingGeometry.innerEdgeU(card1Poly, y / H, mirrored: isMirrored) * W;
         if (isMirrored) {
-          if (W - 0.065 * W - width < edge - 0.06 * W) return false;
+          if (linePullFractions.isNotEmpty) {
+            final unpulledLeft = W - 0.065 * W - width;
+            final isPulled = i < linePullFractions.length && linePullFractions[i] > 0.0;
+            if (isPulled) {
+              if (unpulledLeft < card1Rect.right - 0.075 * W) return false;
+            } else {
+              if (unpulledLeft < edge + 1.5) return false;
+            }
+          } else {
+            if (W - 0.065 * W - width < edge - 0.06 * W) return false;
+          }
         } else {
           if (0.065 * W + width > edge + 0.06 * W) return false;
         }
@@ -529,10 +569,10 @@ class _LandingSlideView extends StatelessWidget {
     }
 
     double headlineFontSize = math.min(0.17 * W, 0.078 * H);
-    while (headlineFontSize > 24.0 && !headlineFits(headlineFontSize)) {
+    while (headlineFontSize > 12.0 && !headlineFits(headlineFontSize)) {
       headlineFontSize -= 0.5;
     }
-    headlineFontSize = math.max(24.0, headlineFontSize);
+    headlineFontSize = math.max(12.0, headlineFontSize);
 
     // Eyebrow: must fit in the free space NEXT TO the picture (never on it).
     double eyebrowFontSize = 0.034 * d;
@@ -674,15 +714,45 @@ class _LandingSlideView extends StatelessWidget {
                       final lineIndex = entry.key;
                       final lineText = entry.value;
                       final isHighlighted = lineIndex == highlightIndex;
+                      final lineFs = lineFontSize(lineIndex, headlineFontSize);
+
+                      double pullPx = 0.0;
+                      if (isMirrored &&
+                          lineIndex < linePullFractions.length &&
+                          linePullFractions[lineIndex] > 0.0) {
+                        final rawPull = linePullFractions[lineIndex] * W;
+                        final width = textWidth(lineText, headlineBase(lineFs));
+                        final unpulledLeft = W - 0.065 * W - width;
+                        final y = lineCenterY(lineIndex, headlineFontSize);
+                        final edge =
+                            LandingGeometry.innerEdgeU(card1Poly, y / H, mirrored: true) * W;
+                        final minLineLeft = math.max(4.0, card1Rect.right - 0.075 * W);
+                        final maxLineLeft = math.max(
+                          minLineLeft,
+                          math.min(edge - 0.015 * W, card1Rect.right - 0.035 * W),
+                        );
+                        final targetLeft =
+                            (unpulledLeft - rawPull).clamp(minLineLeft, maxLineLeft);
+                        pullPx = math.max(0.0, unpulledLeft - targetLeft);
+                      }
 
                       // Outlined text: where a line sits on a picture it stays readable
-                      return _HaloText(
-                        text: lineText,
-                        textAlign: isMirrored ? TextAlign.end : TextAlign.start,
-                        baseStyle: headlineBase(headlineFontSize),
-                        color: isHighlighted ? tokens.primaryGreen : inkColor,
-                        haloColor: tokens.page.withValues(alpha: 0.9),
-                        haloWidth: 0.014 * d,
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          right: isMirrored ? pullPx : 0.0,
+                          left: isMirrored ? 0.0 : pullPx,
+                        ),
+                        child: KeyedSubtree(
+                          key: Key('landing_headline_line_$lineIndex'),
+                          child: _HaloText(
+                            text: lineText,
+                            textAlign: isMirrored ? TextAlign.end : TextAlign.start,
+                            baseStyle: headlineBase(lineFs),
+                            color: isHighlighted ? tokens.primaryGreen : inkColor,
+                            haloColor: tokens.page.withValues(alpha: 0.9),
+                            haloWidth: 0.014 * d,
+                          ),
+                        ),
                       );
                     }).toList(),
                   ),

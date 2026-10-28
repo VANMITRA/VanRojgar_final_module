@@ -102,7 +102,7 @@ class ProductCard extends ConsumerWidget {
         break;
     }
 
-    final semanticsLabel = '$title, $priceStr, ${strings.perUnit(unit)}, ${strings.sampleBadge}';
+    final semanticsLabel = '$title, $priceStr, ${strings.perUnit(unit)}';
 
     return Semantics(
       button: true,
@@ -146,57 +146,30 @@ class ProductCard extends ConsumerWidget {
                           );
                         },
                       ),
-                      // Top-left: Sample Badge Pill
-                      Positioned(
-                        top: 8.0 * s,
-                        left: 8.0 * s,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0 * s,
-                                vertical: 3.0 * s,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(100.0),
-                              ),
-                              child: Text(
-                                strings.sampleBadge,
-                                style: TextStyle(
-                                  fontSize: 10.0 * s,
-                                  fontWeight: FontWeight.w700,
-                                  color: tokens.primaryGreen,
-                                ),
+                      // Top-left: Illustration tag if needed
+                      if (product.isIllustration)
+                        Positioned(
+                          top: 8.0 * s,
+                          left: 8.0 * s,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.0 * s,
+                              vertical: 3.0 * s,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.85),
+                              borderRadius: BorderRadius.circular(100.0),
+                            ),
+                            child: Text(
+                              strings.illustrationTag,
+                              style: TextStyle(
+                                fontSize: 10.0 * s,
+                                fontWeight: FontWeight.w700,
+                                color: tokens.mutedText,
                               ),
                             ),
-                            // A picture that still has to be checked against a real photo
-                            if (product.isIllustration) ...[
-                              SizedBox(height: 4.0 * s),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 8.0 * s,
-                                  vertical: 3.0 * s,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.85),
-                                  borderRadius: BorderRadius.circular(100.0),
-                                ),
-                                child: Text(
-                                  strings.illustrationTag,
-                                  style: TextStyle(
-                                    fontSize: 10.0 * s,
-                                    fontWeight: FontWeight.w700,
-                                    color: tokens.mutedText,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ],
+                          ),
                         ),
-                      ),
                       // Bottom-left: Not for eating flag
                       if (product.notForEating)
                         Positioned(

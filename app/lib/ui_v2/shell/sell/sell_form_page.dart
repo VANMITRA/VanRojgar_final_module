@@ -562,7 +562,7 @@ class _SellFormPageState extends ConsumerState<SellFormPage> {
                                     SellPreviewCard(
                                       product: previewProduct,
                                       sellerRole: user?.role ?? 'gramsabha',
-                                      sellerName: user?.name ?? strings.sampleBadge,
+                                      sellerName: user?.name ?? strings.sellerGramSabha,
                                       quantityTotal: parseWholeNumber(_quantityController.text) ?? 50,
                                       quantitySold: _quantitySold,
                                       mrpPaise: mrpPaise ?? 10000,
@@ -598,13 +598,6 @@ class _SellFormPageState extends ConsumerState<SellFormPage> {
                                         ),
                                       ),
                                     ),
-                                  ),
-
-                                  SizedBox(height: 14.0 * s),
-                                  Text(
-                                    strings.demoNote,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 11.5 * s, color: tokens.mutedText),
                                   ),
                                 ],
                               ),

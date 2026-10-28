@@ -290,11 +290,11 @@ void main() {
       );
       expect(
         AppStrings.hi.coSellerName('Sample Gram Sabha 1', 'gramsabha', 'seller-1'),
-        'नमूना ग्राम सभा 1',
+        'ग्राम सभा 1',
       );
       expect(
         AppStrings.mr.coSellerName('Sample CFR holder 3', 'cfrholder', 'seller-3'),
-        'नमुना सीएफआर धारक 3',
+        'सीएफआर धारक 3',
       );
     });
   });

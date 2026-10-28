@@ -260,7 +260,7 @@ class _SellerOptionCard extends StatelessWidget {
                     ),
                     SizedBox(height: 2.0 * s),
                     Text(
-                      '$sellerTypeLabel · ${strings.sampleVillageValue}',
+                      sellerTypeLabel,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

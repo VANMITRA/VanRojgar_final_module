@@ -175,7 +175,7 @@ void main() {
     testWidgets('a category without sellers shows the empty state', (tester) async {
       _tall(tester);
       await _open(tester, _app(), '/categories/timber-trees');
-      expect(find.text('No sample sellers yet'), findsOneWidget);
+      expect(find.text('No sellers yet'), findsOneWidget);
     });
 
     testWidgets('sort and filters through the sheet: order, only discounted, price range, clear', (tester) async {
