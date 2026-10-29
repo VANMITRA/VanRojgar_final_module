@@ -4,17 +4,6 @@ import '../data/villages.dart';
 import '../l10n/app_strings.dart';
 import 'catalog_providers.dart';
 
-/// All valid keys for the `/more/:key` routes representing older app features.
-const Set<String> knownMoreFeatureKeys = {
-  'messages',
-  'barter',
-  'delivery',
-  'livelihood',
-};
-
-/// Returns true when [key] is one of the four supported `/more/:key` routes.
-bool isKnownMoreFeatureKey(String key) => knownMoreFeatureKeys.contains(key);
-
 /// Extracts the avatar initial from a user's [name], falling back to '?' when blank.
 String profileInitial(String name) {
   final trimmed = name.trim();

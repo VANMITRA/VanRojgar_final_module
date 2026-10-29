@@ -84,3 +84,4 @@ Widget tests check layout geometry, bounding-box overlap math, contrast ratios, 
 1. **Landing Slides 1 and 3 headline-on-photo legibility**: How the `0.014 * d` page-colored outline halo around the pulled words (`"from the"` / `"forest"` on Slide 1, `"that stays"` / `"village"` on Slide 3, and their Hindi/Marathi counterparts) looks over the actual bamboo, mango, and basket photographs in both light and dark modes.
 2. **Top Deals folder-tab curve and border join**: How the concave bottom fillets (`_FolderTabBorderPainter`) and open-bottom overlap of the active tab blend visually into the `top_deals_panel` card border across different device pixel ratios.
 3. **Sign-in and Create-account visual balance and keyboard ergonomics**: How the round logo header, the 3 role cards, the searchable village bottom sheet when the soft keyboard opens, and the sticky bottom submit bar feel during one-handed use.
+

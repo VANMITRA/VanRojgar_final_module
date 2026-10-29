@@ -352,9 +352,9 @@ void main() {
     );
   });
 
-  group('4. About, Credits, Privacy, and /more/:key navigation & back arrow', () {
+  group('4. About, Credits, Privacy, and new feature routes navigation & back arrow', () {
     testWidgets(
-      'All More rows open their subpage with content from profile_strings and return via back arrow',
+      'About, Credits, Privacy open their subpage with content from profile_strings and return via back arrow',
       (tester) async {
         _tall(tester);
         await _open(tester, _app(user: _cfrHolderUser), '/profile');
@@ -364,14 +364,6 @@ void main() {
           'profile_more_credits':
               AppStrings.en.pfCreditGroups.first.items.first.what,
           'profile_more_privacy': AppStrings.en.pfPrivacySections.first.body,
-          'profile_more_messages':
-              AppStrings.en.pfMorePageSentences('messages').first,
-          'profile_more_barter':
-              AppStrings.en.pfMorePageSentences('barter').first,
-          'profile_more_delivery':
-              AppStrings.en.pfMorePageSentences('delivery').first,
-          'profile_more_livelihood':
-              AppStrings.en.pfMorePageSentences('livelihood').first,
         };
 
         for (final entry in rowToExpectedText.entries) {
@@ -393,18 +385,30 @@ void main() {
     );
 
     testWidgets(
-      'Unknown /more/xyz route shows friendly empty page without error',
+      'Profile rows open real features: Delivery, Messages, Barter, Livelihood',
       (tester) async {
         _tall(tester);
-        await _open(tester, _app(), '/more/xyz');
+        await _open(tester, _app(user: _cfrHolderUser), '/profile');
 
-        expect(tester.takeException(), isNull);
-        expect(find.byKey(const Key('more_unknown_card')), findsOneWidget);
-        expect(find.text(AppStrings.en.pfUnknownMoreBody), findsOneWidget);
+        final rowToRoute = <String, String>{
+          'profile_more_delivery': '/delivery',
+          'profile_more_messages': '/messages',
+          'profile_more_barter': '/barter',
+          'profile_more_livelihood': '/livelihood',
+        };
 
-        await tester.tap(find.byKey(const Key('more_unknown_back_button')));
-        await tester.pumpAndSettle();
-        expect(find.byKey(const Key('profile_scroll_view')), findsOneWidget);
+        for (final entry in rowToRoute.entries) {
+          final rowFinder = find.byKey(Key(entry.key));
+          await tester.ensureVisible(rowFinder);
+          await tester.tap(rowFinder);
+          await tester.pumpAndSettle();
+
+          expect(find.byKey(const Key('community_back')), findsOneWidget);
+          await tester.tap(find.byKey(const Key('community_back')));
+          await tester.pumpAndSettle();
+
+          expect(find.byKey(const Key('profile_scroll_view')), findsOneWidget);
+        }
       },
     );
   });
@@ -456,11 +460,6 @@ void main() {
             '/about',
             '/credits',
             '/privacy',
-            '/more/messages',
-            '/more/barter',
-            '/more/delivery',
-            '/more/livelihood',
-            '/more/xyz',
           ];
 
           _tall(tester);
@@ -542,7 +541,6 @@ void main() {
           '/about',
           '/credits',
           '/privacy',
-          '/more/messages',
         ];
 
         for (final size in sizes) {

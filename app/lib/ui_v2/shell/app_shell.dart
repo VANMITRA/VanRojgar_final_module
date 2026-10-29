@@ -9,6 +9,21 @@ import 'cart_page.dart';
 import 'categories_page.dart';
 import 'category_page.dart';
 import 'checkout/checkout_page.dart';
+import 'delivery/delivery_apply_page.dart';
+import 'delivery/delivery_job_page.dart';
+import 'delivery/delivery_page.dart';
+import 'barter/barter_detail_page.dart';
+import 'barter/barter_new_page.dart';
+import 'barter/barter_page.dart';
+import 'livelihood/livelihood_details_page.dart';
+import 'livelihood/livelihood_home_page.dart';
+import 'livelihood/livelihood_idea_page.dart';
+import 'livelihood/livelihood_map_page.dart';
+import 'livelihood/livelihood_policy_page.dart';
+import 'livelihood/livelihood_report_page.dart';
+import 'livelihood/livelihood_resources_page.dart';
+import 'livelihood/livelihood_schemes_page.dart';
+import 'messages/messages_page.dart';
 import 'home_demo_page.dart';
 import 'landing_page.dart';
 import 'orders/order_detail_page.dart';
@@ -18,7 +33,6 @@ import 'sell/sell_form_page.dart';
 import 'sell/sell_page.dart';
 import 'profile/about_page.dart';
 import 'profile/credits_page.dart';
-import 'profile/more_feature_page.dart';
 import 'profile/privacy_page.dart';
 import 'profile/profile_page.dart';
 
@@ -152,12 +166,6 @@ final uiV2Router = GoRouter(
       builder: (context, state) => const PrivacyPage(),
     ),
     GoRoute(
-      path: '/more/:key',
-      builder: (context, state) => MoreFeaturePage(
-        featureKey: state.pathParameters['key'] ?? '',
-      ),
-    ),
-    GoRoute(
       path: '/product/:code',
       builder: (context, state) => ProductPage(productCode: state.pathParameters['code'] ?? ''),
     ),
@@ -179,6 +187,72 @@ final uiV2Router = GoRouter(
       builder: (context, state) => const CheckoutDonePage(),
     ),
     // END PHASE 6 ROUTES
+    // ROUND 2 ROUTES
+    GoRoute(
+      path: '/delivery',
+      builder: (context, state) => const DeliveryPage(),
+    ),
+    GoRoute(
+      path: '/delivery/apply',
+      builder: (context, state) => const DeliveryApplyPage(),
+    ),
+    GoRoute(
+      path: '/delivery/jobs/:id',
+      builder: (context, state) => DeliveryJobPage(jobId: state.pathParameters['id'] ?? ''),
+    ),
+    GoRoute(
+      path: '/messages',
+      builder: (context, state) => const MessagesPage(),
+    ),
+    GoRoute(
+      path: '/barter',
+      builder: (context, state) => const BarterPage(),
+    ),
+    GoRoute(
+      path: '/barter/new',
+      builder: (context, state) => BarterNewPage(
+        listingId: state.uri.queryParameters['listing'],
+        title: state.uri.queryParameters['title'],
+        unit: state.uri.queryParameters['unit'],
+      ),
+    ),
+    GoRoute(
+      path: '/barter/:id',
+      builder: (context, state) => BarterDetailPage(offerId: state.pathParameters['id'] ?? ''),
+    ),
+    GoRoute(
+      path: '/livelihood',
+      builder: (context, state) => const LivelihoodHomePage(),
+    ),
+    GoRoute(
+      path: '/livelihood/details',
+      builder: (context, state) => const LivelihoodDetailsPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/report',
+      builder: (context, state) => const LivelihoodReportPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/idea/:code',
+      builder: (context, state) => LivelihoodIdeaPage(code: state.pathParameters['code'] ?? ''),
+    ),
+    GoRoute(
+      path: '/livelihood/schemes',
+      builder: (context, state) => const LivelihoodSchemesPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/resources',
+      builder: (context, state) => const LivelihoodResourcesPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/map',
+      builder: (context, state) => const LivelihoodMapPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/policy',
+      builder: (context, state) => const LivelihoodPolicyPage(),
+    ),
+    // END ROUND 2 ROUTES
 
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {

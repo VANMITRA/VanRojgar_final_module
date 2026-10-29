@@ -6,6 +6,10 @@ import '../../l10n/profile_strings.dart';
 import '../../l10n/shop_extra_strings.dart';
 import '../../providers/catalog_providers.dart';
 import '../../providers/profile_providers.dart';
+import '../../providers/community_providers.dart';
+import '../../../../features/livelihood/providers/profile_providers.dart' as lh_profile;
+import '../../l10n/livelihood_ui_strings.dart';
+import '../../widgets/community/community_widgets.dart';
 import '../../theme/van_rozgar_tokens.dart';
 import '../../widgets/app_background.dart';
 import '../../widgets/brand_logo.dart';
@@ -203,6 +207,62 @@ class ProfilePage extends ConsumerWidget {
                 if (activityKeys.isNotEmpty) ...[
                   SizedBox(height: 20.0 * s),
                   sectionHeading(strings.pfMyActivityTitle),
+                  if (user != null && isCfrHolderRole(user.role)) ...[
+                    Consumer(
+                      builder: (context, ref, _) {
+                        final lhProf = ref.watch(lh_profile.profileProvider);
+                        final hasDetails = lhProf?.hasDetails ?? false;
+                        final lhStrings = LivelihoodUiStrings.of(context, language);
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 12.0 * s),
+                          child: cardContainer(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 36.0 * s,
+                                      height: 36.0 * s,
+                                      decoration: BoxDecoration(
+                                        color: tokens.primaryGreen.withValues(alpha: 0.15),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(Icons.forest_outlined, size: 20.0 * s, color: tokens.primaryGreen),
+                                    ),
+                                    SizedBox(width: 10.0 * s),
+                                    Expanded(
+                                      child: Text(
+                                        lhStrings.lhTitle,
+                                        style: TextStyle(
+                                          fontSize: 15.0 * s,
+                                          fontWeight: FontWeight.w800,
+                                          color: tokens.heading,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10.0 * s),
+                                if (!hasDetails)
+                                  CommunityPrimaryButton(
+                                    key: const Key('profile_livelihood_create_btn'),
+                                    label: lhStrings.lhCreateReport,
+                                    onPressed: () => context.push('/livelihood/details'),
+                                  )
+                                else
+                                  CommunityPrimaryButton(
+                                    key: const Key('profile_livelihood_view_btn'),
+                                    label: lhStrings.lhViewReport,
+                                    onPressed: () => context.push('/livelihood/report'),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                   cardContainer(
                     padding: EdgeInsets.zero,
                     child: Column(
@@ -323,25 +383,48 @@ class ProfilePage extends ConsumerWidget {
           rowKey: const Key('profile_more_livelihood'),
           icon: Icons.agriculture_outlined,
           title: strings.pfMoreLivelihoodTitle,
-          onTap: () => context.push('/more/livelihood'),
+          onTap: () => context.push('/livelihood'),
           tokens: tokens,
           scale: s,
         );
       case 'messages':
-        return ProfileMenuRow(
-          rowKey: const Key('profile_more_messages'),
-          icon: Icons.notifications_none,
-          title: strings.pfMoreMessagesTitle,
-          onTap: () => context.push('/more/messages'),
-          tokens: tokens,
-          scale: s,
+        return Consumer(
+          builder: (context, ref, _) {
+            final unread = ref.watch(unreadMessagesProvider).asData?.value ?? 0;
+            return ProfileMenuRow(
+              rowKey: const Key('profile_more_messages'),
+              icon: Icons.notifications_none,
+              title: strings.pfMoreMessagesTitle,
+              onTap: () => context.push('/messages'),
+              tokens: tokens,
+              scale: s,
+              trailing: unread > 0
+                  ? Container(
+                      key: const Key('profile_messages_badge'),
+                      padding: EdgeInsets.symmetric(horizontal: 7.0 * s, vertical: 2.0 * s),
+                      decoration: BoxDecoration(
+                        color: tokens.primaryGreen,
+                        borderRadius: BorderRadius.circular(12.0 * s),
+                      ),
+                      child: Text(
+                        unread.toString(),
+                        style: TextStyle(
+                          fontSize: 11.5 * s,
+                          fontWeight: FontWeight.w800,
+                          color: tokens.onPrimaryGreen,
+                        ),
+                      ),
+                    )
+                  : null,
+            );
+          },
         );
       case 'barter':
         return ProfileMenuRow(
           rowKey: const Key('profile_more_barter'),
           icon: Icons.swap_horiz,
           title: strings.pfMoreBarterTitle,
-          onTap: () => context.push('/more/barter'),
+          onTap: () => context.push('/barter'),
           tokens: tokens,
           scale: s,
         );
@@ -351,7 +434,7 @@ class ProfilePage extends ConsumerWidget {
           rowKey: const Key('profile_more_delivery'),
           icon: Icons.two_wheeler,
           title: strings.pfMoreDeliveryTitle,
-          onTap: () => context.push('/more/delivery'),
+          onTap: () => context.push('/delivery'),
           tokens: tokens,
           scale: s,
         );

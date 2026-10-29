@@ -8,7 +8,7 @@ import '../../providers/catalog_providers.dart';
 import '../../theme/van_rozgar_tokens.dart';
 import '../app_background.dart';
 
-/// Shared full-screen frame for `/about`, `/credits`, `/privacy`, and `/more/:key`.
+/// Shared full-screen frame for `/about`, `/credits`, and `/privacy`.
 /// Includes `AppBackground`, a top bar with a 48x48 back button, a muted draft-translation
 /// banner in Hindi and Marathi modes, and a scrollable content area that works with large fonts.
 class ProfileSubpageScaffold extends ConsumerWidget {
@@ -156,6 +156,7 @@ class ProfileMenuRow extends StatelessWidget {
   final VoidCallback onTap;
   final VanRozgarColorTokens tokens;
   final double scale;
+  final Widget? trailing;
 
   const ProfileMenuRow({
     super.key,
@@ -165,6 +166,7 @@ class ProfileMenuRow extends StatelessWidget {
     required this.onTap,
     required this.tokens,
     required this.scale,
+    this.trailing,
   });
 
   @override
@@ -212,7 +214,10 @@ class ProfileMenuRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 8.0 * s),
+                if (trailing != null) ...[
+                  trailing!,
+                  SizedBox(width: 8.0 * s),
+                ],
                 Icon(
                   Icons.chevron_right,
                   size: 22.0 * s,
