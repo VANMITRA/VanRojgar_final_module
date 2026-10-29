@@ -1,12 +1,13 @@
 import {useEffect,useState} from 'react';
 import {useApp} from '../store';
-import {Pic,Foot,byId,loc,unit} from '../helpers';
-import {Crumb,cost,today,useNeedLogin} from './common';
+import {Pic,Foot,byId,loc,tv,unit} from '../helpers';
+import {Crumb,costText,today,useNeedLogin} from './common';
 import {Req} from './mock';
+import {useT} from '../i18n';
 
 const WHY=['Resale in my shop','My own use','Processing or making products','Craft or construction','Other'];
 
-export default function RequestForm({pid,village}:{pid:string,village:string}){
+export default function RequestForm({pid,village}:{pid:string,village:string}){const t=useT();
   const a=useApp();const out=useNeedLogin();
   const p=byId[pid],row=p?.v.find((r:any)=>r[0]===village);
   const [f,setF]=useState({qty:'',why:'',note:'',need:'',how:'Pick up',addr:'',pin:''}),[errs,setErrs]=useState<Record<string,string>>({});
@@ -37,39 +38,39 @@ export default function RequestForm({pid,village}:{pid:string,village:string}){
     const C=Tag as any;
     return <C id={'f-'+k} value={(f as any)[k]} onChange={(ev:any)=>set(k)(ev.target.value)} aria-invalid={!!errs[k]} aria-describedby={errs[k]?'e-'+k:undefined} {...props}>{kids}</C>;
   };
-  const err=(k:string)=>errs[k]?<div className="rq-err" id={'e-'+k} role="alert">{errs[k]}</div>:null;
+  const err=(k:string)=>errs[k]?<div className="rq-err" id={'e-'+k} role="alert">{t(errs[k])}</div>:null;
 
   return <div className="rq-page">
-    <Crumb>Home › {p.n} › {village} › Request</Crumb>
-    <h1>Request {p.pr.toLowerCase()}</h1>
-    <div className="sub">Tell the Gram Sabha what you need. They will accept, counter or reject your request.</div>
+    <Crumb>{t("Home › {name} › {village} › Request",{name:t(p.n),village})}</Crumb>
+    <h1>{t("Request {name}",{name:t(p.pr).toLowerCase()})}</h1>
+    <div className="sub">{t("Tell the Gram Sabha what you need. They will accept, counter or reject your request.")}</div>
     <div className="rq-g">
       <div className="rq-card">
-        <div style={{fontSize:12.5,color:'var(--mut)'}}>Sending as <b style={{color:'var(--h)',fontWeight:500}}>your name</b>, +91 98XXXXXX10</div>
-        <label htmlFor="f-qty">How much do you need?</label>
-        <div className="row" style={{flexWrap:'nowrap'}}>{fld('qty',{type:'number',min:1,placeholder:'Quantity'})}<span style={{whiteSpace:'nowrap'}}>{u}</span></div>
-        <div className="rq-hint">Available now (estimate): {row[2]}</div>{err('qty')}
-        <label htmlFor="f-why">Why do you need it?</label>
-        {fld('why',{},'select',<><option value="">Choose</option>{WHY.map(w=><option key={w}>{w}</option>)}</>)}{err('why')}
-        <label htmlFor="f-note">Tell the Gram Sabha more <span className="rq-opt">(required if you chose Other)</span></label>
-        {fld('note',{placeholder:'For example: I make baskets and need poles of even thickness.'},'textarea')}{err('note')}
-        <label htmlFor="f-need">When do you need it?</label>
+        <div style={{fontSize:12.5,color:'var(--mut)'}}>{t("Sending as {name}, +91 {phone}",{name:a.profile.name||t("your name"),phone:a.phone||"—"})}</div>
+        <label htmlFor="f-qty">{t("How much do you need?")}</label>
+        <div className="row" style={{flexWrap:'nowrap'}}>{fld('qty',{type:'number',min:1,placeholder:t('Quantity')})}<span style={{whiteSpace:'nowrap'}}>{t(u)}</span></div>
+        <div className="rq-hint">{t("Available now (estimate): {qty}",{qty:tv(row[2],t)})}</div>{err('qty')}
+        <label htmlFor="f-why">{t("Why do you need it?")}</label>
+        {fld('why',{},'select',<><option value="">{t("Choose")}</option>{WHY.map(w=><option key={w} value={w}>{t(w)}</option>)}</>)}{err('why')}
+        <label htmlFor="f-note">{t("Tell the Gram Sabha more")} <span className="rq-opt">{t("(required if you chose Other)")}</span></label>
+        {fld('note',{placeholder:t('For example: I make baskets and need poles of even thickness.')},'textarea')}{err('note')}
+        <label htmlFor="f-need">{t("When do you need it?")}</label>
         {fld('need',{type:'date',min:today()})}{err('need')}
-        <label id="how-l">How do you want to get it?</label>
-        <div className="row" role="group" aria-labelledby="how-l">{[['Pick up','I will pick it up'],['Deliver to me','Deliver to me']].map(x=><button key={x[0]} type="button" className={`fc${f.how===x[0]?' on':''}`} aria-pressed={f.how===x[0]} onClick={()=>set('how')(x[0])}>{x[1]}</button>)}</div>
-        {dl&&<><label htmlFor="f-addr">Delivery address</label>{fld('addr',{style:{minHeight:56}},'textarea')}{err('addr')}
-          <label htmlFor="f-pin">PIN code</label>{fld('pin',{inputMode:'numeric',maxLength:6,style:{maxWidth:160}})}{err('pin')}</>}
-        <button type="button" className="b1 rq-full" onClick={send}>Send request</button>
-        <div className="rq-hint" style={{textAlign:'center',marginTop:8}}>The Gram Sabha will review your request. You can follow it in My requests.</div>
+        <label id="how-l">{t("How do you want to get it?")}</label>
+        <div className="row" role="group" aria-labelledby="how-l">{[['Pick up','I will pick it up'],['Deliver to me','Deliver to me']].map(x=><button key={x[0]} type="button" className={`fc${f.how===x[0]?' on':''}`} aria-pressed={f.how===x[0]} onClick={()=>set('how')(x[0])}>{t(x[1])}</button>)}</div>
+        {dl&&<><label htmlFor="f-addr">{t("Delivery address")}</label>{fld('addr',{style:{minHeight:56}},'textarea')}{err('addr')}
+          <label htmlFor="f-pin">{t("PIN code")}</label>{fld('pin',{inputMode:'numeric',maxLength:6,style:{maxWidth:160}})}{err('pin')}</>}
+        <button type="button" className="b1 rq-full" onClick={send}>{t("Send request")}</button>
+        <div className="rq-hint" style={{textAlign:'center',marginTop:8}}>{t("The Gram Sabha will review your request. You can follow it in My requests.")}</div>
       </div>
       <div className="rq-card" style={{alignSelf:'start'}}>
         <div className="rq-im"><Pic k={p.i} kind={p.k} col={p.c}/></div>
-        <h2 style={{fontSize:15}}>{p.pr}</h2>
-        <div className="kv"><span>Gram Sabha</span><span>{village}</span></div>
-        <div className="kv"><span>Place</span><span>{loc(village).replace(village+', ','')}</span></div>
-        <div className="kv"><span>Price</span><span>&#8377;{p.p} / {p.u}</span></div>
-        <div className="kv"><span>Estimated cost</span><span><b>{+f.qty>0?cost(pid,+f.qty):<>&#8377;0</>}</b></span></div>
-        <div className="rq-hint">The Gram Sabha confirms the final amount.</div>
+        <h2 style={{fontSize:15}}>{t(p.pr)}</h2>
+        <div className="kv"><span>{t("Gram Sabha")}</span><span>{village}</span></div>
+        <div className="kv"><span>{t("Place")}</span><span>{loc(village,t).replace(village+', ','')}</span></div>
+        <div className="kv"><span>{t("Price")}</span><span>&#8377;{p.p} / {tv(p.u,t)}</span></div>
+        <div className="kv"><span>{t("Estimated cost")}</span><span><b>{+f.qty>0?costText(pid,+f.qty,t):<>&#8377;0</>}</b></span></div>
+        <div className="rq-hint">{t("The Gram Sabha confirms the final amount.")}</div>
       </div>
     </div>
     <Foot/>
