@@ -46,7 +46,7 @@ Pictures: `imageUrl` is not filled yet and uploads (`/images`) answer 501 "not i
 | `GET /listings/:id`, `GET /listings/code/:code`, `GET /listings/map` | read |
 There is no delete: "remove" = status `paused` (or `sold_out`).
 **Rules the server applies when a listing is created** (read from `listing.service.js`):
-1. A CFR holder may only list when the server setting `ALLOW_VILLAGER_LISTINGS` is on (it answers 403 "Villager direct listings are currently disabled in this pilot" otherwise). The owner of the server must switch it on.
+1. A CFR holder may list unless the server setting `ALLOW_VILLAGER_LISTINGS` is set to `false` (it is on by default; 403 "Villager direct listings are currently disabled in this pilot" otherwise).
 2. A Gram Sabha account must be linked to a Gram Sabha record (found by its village). A Gram Sabha whose claim is still "pending" cannot list until the VanRozgar team approves the claim (403).
 3. Titles are checked against a restricted-items list (protected forest produce); a match is refused (422) with the reason.
 4. The seller must confirm `sustainableDeclared: true`.

@@ -53,7 +53,11 @@ export async function seed() {
   await GramSabha.updateMany({ _id: { $in: [...gsMap.values()].map((g) => g._id) } }, { $set: { verificationStatus: 'verified_seed', verificationNote: 'Village facts: Raah Foundation report (1 Oct 2026). The login attached to this record is a demo account; position is the block town (approximate).' } });
 
   // 4. Demo Accounts
-  const demoUsersRaw = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/demo_accounts.json'), 'utf-8'));
+  // SEED_DEMO_ACCOUNTS=false (the final app): no demo logins are created, and none are touched or removed.
+  const withDemoAccounts = process.env.SEED_DEMO_ACCOUNTS !== 'false';
+  const demoUsersRaw = withDemoAccounts
+    ? JSON.parse(fs.readFileSync(path.join(__dirname, 'data/demo_accounts.json'), 'utf-8'))
+    : [];
   const userMap = new Map();
 
   for (const u of demoUsersRaw) {
@@ -94,7 +98,9 @@ export async function seed() {
   }
   // Remove stale demo Gram Sabha secretaries (and their listings) from earlier seeds
   const newPhones = demoUsersRaw.map((u) => u.phone);
-  const staleUsers = await User.find({ role: 'gramsabha', phone: { $regex: /^\+91982201/, $nin: newPhones } });
+  const staleUsers = withDemoAccounts
+    ? await User.find({ role: 'gramsabha', phone: { $regex: /^\+91982201/, $nin: newPhones } })
+    : [];
   if (staleUsers.length) {
     const ids = staleUsers.map((u) => u._id);
     await Listing.deleteMany({ ownerId: { $in: ids } });
@@ -105,7 +111,9 @@ export async function seed() {
   // 5. No unlabelled demo listings: the marketplace holds only what people list, plus labelled Sample products
   //    (scripts/seed_sample_shop.js). Running the seed again must not delete those.
   const seedOwners = [...userMap.keys()].filter((k) => k.startsWith('gs:')).map((k) => userMap.get(k)._id);
-  const removedListings = await Listing.deleteMany({ ownerId: { $in: seedOwners }, isSample: { $ne: true } });
+  const removedListings = seedOwners.length
+    ? await Listing.deleteMany({ ownerId: { $in: seedOwners }, isSample: { $ne: true } })
+    : { deletedCount: 0 };
   logger.info(`✅ Demo listings removed: ${removedListings.deletedCount}`);
 
   logger.info('🎉 Seed completed successfully!');
