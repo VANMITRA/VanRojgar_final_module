@@ -40,10 +40,10 @@ export const appFlow: Record<Language, AppFlowText> = {
     itemCode: 'Item code',
     copy: 'Copy',
     copied: 'Copied',
-    sampleBadge: 'SAMPLE',
+    sampleBadge: 'PREVIEW',
     liveBadge: 'LIVE',
     sampleBanner:
-      'These are sample listings (demo data). Their codes will not be found in the app. Real items appear here once Gram Sabhas list them.',
+      'These are preview listings. Their codes will not be found in the app. Real items appear here once Gram Sabhas list them.',
     liveBanner: 'These listings are live from the VanRozgar marketplace. Copy an item code and paste it into the app search.',
     buyInApp: 'Buy in the app',
     download: {
@@ -58,7 +58,7 @@ export const appFlow: Record<Language, AppFlowText> = {
       downloadBtn: 'Download the app (APK)',
       codeHeading: 'Your item code',
       paymentNote: 'Payment is made inside the app, by UPI or cash on delivery. This website never takes payment.',
-      sampleNote: 'This is a sample item: its code is not in the app. Real items have codes that the app finds.',
+      sampleNote: 'This is a preview item: its code is not in the app. Real items have codes that the app finds.',
       close: 'Close',
     },
     achieved: {
@@ -93,10 +93,10 @@ export const appFlow: Record<Language, AppFlowText> = {
     itemCode: 'आइटम कोड',
     copy: 'कॉपी',
     copied: 'कॉपी हुआ',
-    sampleBadge: 'नमूना',
+    sampleBadge: 'पूर्वावलोकन',
     liveBadge: 'लाइव',
     sampleBanner:
-      'ये नमूना सूचियाँ हैं (डेमो डेटा)। इनके कोड ऐप में नहीं मिलेंगे। ग्राम सभाओं के सूचीबद्ध करते ही असली वस्तुएँ यहाँ दिखेंगी।',
+      'ये पूर्वावलोकन सूचियाँ हैं। इनके कोड ऐप में नहीं मिलेंगे। ग्राम सभाओं के सूचीबद्ध करते ही असली वस्तुएँ यहाँ दिखेंगी।',
     liveBanner: 'ये सूचियाँ वनरोजगार बाज़ार से लाइव हैं। आइटम कोड कॉपी करें और ऐप की खोज में डालें।',
     buyInApp: 'ऐप में खरीदें',
     download: {
@@ -111,7 +111,7 @@ export const appFlow: Record<Language, AppFlowText> = {
       downloadBtn: 'ऐप डाउनलोड करें (APK)',
       codeHeading: 'आपका आइटम कोड',
       paymentNote: 'भुगतान ऐप के अंदर यूपीआई या डिलीवरी पर नकद से होता है। यह वेबसाइट कभी भुगतान नहीं लेती।',
-      sampleNote: 'यह नमूना वस्तु है: इसका कोड ऐप में नहीं है। असली वस्तुओं के कोड ऐप में मिलते हैं।',
+      sampleNote: 'यह पूर्वावलोकन वस्तु है: इसका कोड ऐप में नहीं है। असली वस्तुओं के कोड ऐप में मिलते हैं।',
       close: 'बंद करें',
     },
     achieved: {
@@ -146,10 +146,10 @@ export const appFlow: Record<Language, AppFlowText> = {
     itemCode: 'वस्तू कोड',
     copy: 'कॉपी',
     copied: 'कॉपी झाले',
-    sampleBadge: 'नमुना',
+    sampleBadge: 'पूर्वावलोकन',
     liveBadge: 'लाइव्ह',
     sampleBanner:
-      'ही नमुना यादी आहे (डेमो डेटा). या कोडचा अॅपमध्ये शोध लागणार नाही. ग्रामसभांनी यादी केल्यावर खऱ्या वस्तू येथे दिसतील.',
+      'ही पूर्वावलोकन यादी आहे. या कोडचा अॅपमध्ये शोध लागणार नाही. ग्रामसभांनी यादी केल्यावर खऱ्या वस्तू येथे दिसतील.',
     liveBanner: 'ही यादी वनरोजगार बाजारातून थेट आहे. वस्तू कोड कॉपी करून अॅपच्या शोधात टाका.',
     buyInApp: 'अॅपमध्ये खरेदी करा',
     download: {
@@ -164,7 +164,7 @@ export const appFlow: Record<Language, AppFlowText> = {
       downloadBtn: 'अॅप डाउनलोड करा (APK)',
       codeHeading: 'तुमचा वस्तू कोड',
       paymentNote: 'पैसे अॅपमध्येच यूपीआय किंवा डिलिव्हरीवर रोख देऊन भरले जातात. ही वेबसाइट कधीही पैसे घेत नाही.',
-      sampleNote: 'ही नमुना वस्तू आहे: तिचा कोड अॅपमध्ये नाही. खऱ्या वस्तूंचे कोड अॅपमध्ये सापडतात.',
+      sampleNote: 'ही पूर्वावलोकन वस्तू आहे: तिचा कोड अॅपमध्ये नाही. खऱ्या वस्तूंचे कोड अॅपमध्ये सापडतात.',
       close: 'बंद करा',
     },
     achieved: {

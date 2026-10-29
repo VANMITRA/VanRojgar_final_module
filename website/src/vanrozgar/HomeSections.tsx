@@ -136,7 +136,7 @@ function AppBand(){
   const a=useApp();
   return <div className="band hs-app" style={{margin:'0 calc(-1 * var(--gut))',padding:'28px var(--gut)'}}><div className="row" style={{justifyContent:'space-between',alignItems:'center'}}>
     <div><h2 style={{fontSize:22}}>Get the VanRozgar app</h2><p style={{margin:'4px 0 0'}}>Shop and follow your requests from your phone.</p></div>
-    <a className="b1" style={{textDecoration:'none',display:'inline-flex',alignItems:'center',gap:6,height:40,padding:'0 18px',borderRadius:8}} href={APK_URL} onClick={e=>{if(APK_URL==='#'){e.preventDefault();a.toast('The APK link will be added here.')}}}><i className="ti ti-download"></i> Download the app</a></div></div>;
+    <a className="b1" style={{textDecoration:'none',display:'inline-flex',alignItems:'center',gap:6,height:40,padding:'0 18px',borderRadius:8}} href={APK_URL} onClick={e=>{if(APK_URL==='#'){e.preventDefault();a.toast('The APK link is coming soon.')}}}><i className="ti ti-download"></i> Download the app</a></div></div>;
 }
 
 export default function HomeSections(){

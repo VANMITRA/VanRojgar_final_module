@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {P,R,IM,TAL} from './data';
 
-export const NQ='Quantity not entered yet',NC='Count not available',APK_URL='#'; /* TODO: real APK link */
+export const NQ='Quantity not entered yet',NC='Count not available',APK_URL:string='https://github.com/VANMITRA/VanRojgar_final_module/releases/latest'
 export const nf=(n:number|string)=>Number(n).toLocaleString('en-US');
 export const loc=(v:string)=>`${v}, ${TAL[v]||'Trimbakeshwar'}, Nashik`;
 export const byId:Record<string,any>=Object.fromEntries(P.map((p:any)=>[p.i,p]));
