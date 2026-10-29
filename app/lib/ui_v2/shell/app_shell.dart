@@ -12,6 +12,9 @@ import 'checkout/checkout_page.dart';
 import 'delivery/delivery_apply_page.dart';
 import 'delivery/delivery_job_page.dart';
 import 'delivery/delivery_page.dart';
+import 'barter/barter_detail_page.dart';
+import 'barter/barter_new_page.dart';
+import 'barter/barter_page.dart';
 import 'messages/messages_page.dart';
 import 'home_demo_page.dart';
 import 'landing_page.dart';
@@ -199,6 +202,22 @@ final uiV2Router = GoRouter(
     GoRoute(
       path: '/messages',
       builder: (context, state) => const MessagesPage(),
+    ),
+    GoRoute(
+      path: '/barter',
+      builder: (context, state) => const BarterPage(),
+    ),
+    GoRoute(
+      path: '/barter/new',
+      builder: (context, state) => BarterNewPage(
+        listingId: state.uri.queryParameters['listing'],
+        title: state.uri.queryParameters['title'],
+        unit: state.uri.queryParameters['unit'],
+      ),
+    ),
+    GoRoute(
+      path: '/barter/:id',
+      builder: (context, state) => BarterDetailPage(offerId: state.pathParameters['id'] ?? ''),
     ),
     // END ROUND 2 ROUTES
 
