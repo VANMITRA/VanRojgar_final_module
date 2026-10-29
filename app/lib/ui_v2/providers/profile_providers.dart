@@ -2,7 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/villages.dart';
 import '../l10n/app_strings.dart';
+import 'auth_providers.dart';
 import 'catalog_providers.dart';
+import 'orders_providers.dart';
 
 /// Extracts the avatar initial from a user's [name], falling back to '?' when blank.
 String profileInitial(String name) {
@@ -66,6 +68,10 @@ final signOutConfirmPendingProvider = StateProvider<bool>((ref) => false);
 /// Completes sign-out by clearing [signOutConfirmPendingProvider] and setting [authUserProvider] to null.
 void completeSignOut(WidgetRef ref) {
   ref.read(signOutConfirmPendingProvider.notifier).state = false;
+  ref.read(authRepositoryProvider)?.signOut();
   ref.read(authUserProvider.notifier).state = null;
+  if (ref.read(ordersRepositoryProvider) != null) {
+    ref.read(ordersProvider.notifier).state = const [];
+  }
 }
 

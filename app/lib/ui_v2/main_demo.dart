@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'providers/auth_providers.dart';
 import 'providers/catalog_providers.dart';
+import 'providers/live_feedback.dart';
 import 'shell/app_shell.dart';
 import 'theme/van_rozgar_theme.dart';
 import 'widgets/app_background.dart';
@@ -32,6 +34,18 @@ class _VanRozgarDemoAppState extends ConsumerState<VanRozgarDemoApp> {
   bool _artworkPrecached = false;
 
   @override
+  void initState() {
+    super.initState();
+    // Stay signed in between app starts: ask the server who the saved token belongs to.
+    final repo = ref.read(authRepositoryProvider);
+    if (repo != null) {
+      repo.restore().then((user) {
+        if (user != null && mounted) ref.read(authUserProvider.notifier).state = user;
+      }).catchError((_) {});
+    }
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_artworkPrecached) {
@@ -47,6 +61,7 @@ class _VanRozgarDemoAppState extends ConsumerState<VanRozgarDemoApp> {
 
     return MaterialApp.router(
       title: 'VanMitra',
+      scaffoldMessengerKey: uiV2MessengerKey,
       debugShowCheckedModeBanner: false,
       theme: VanRozgarTheme.lightTheme,
       darkTheme: VanRozgarTheme.darkTheme,

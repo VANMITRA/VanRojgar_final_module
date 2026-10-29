@@ -3,11 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../data/villages.dart';
 import '../../l10n/app_strings.dart';
+import '../../api/v2_api_client.dart';
+import '../../data/live_orders_repository.dart';
 import '../../l10n/checkout_strings.dart';
+import '../../l10n/live_strings.dart';
 import '../../l10n/shop_extra_strings.dart';
 import '../../models/catalog_models.dart';
 import '../../providers/catalog_providers.dart';
 import '../../providers/checkout_providers.dart';
+import '../../providers/live_feedback.dart';
 import '../../providers/orders_providers.dart';
 import '../../theme/van_rozgar_tokens.dart';
 import '../../widgets/app_background.dart';
@@ -31,6 +35,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
   bool _showVillageError = false;
   bool _showBoundsError = false;
   bool _submitted = false;
+  bool _sending = false;
 
   @override
   void initState() {
@@ -74,6 +79,17 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
       return;
     }
 
+    final repo = ref.read(ordersRepositoryProvider);
+    if (repo != null) {
+      _sendToServer(
+        repo: repo,
+        lines: lines,
+        deliveryPref: effectiveDeliveryPref,
+        choices: choices,
+      );
+      return;
+    }
+
     final existing = ref.read(requestsProvider);
     final created = buildOrderRequests(
       lines: lines,
@@ -99,6 +115,71 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
     ref.read(checkoutChoicesProvider.notifier).reset();
 
     context.go('/checkout/done');
+  }
+
+  /// Sends the cart to the server. The products the server could not request stay in the cart.
+  Future<void> _sendToServer({
+    required LiveOrdersRepository repo,
+    required List<CartLine> lines,
+    required String deliveryPref,
+    required CheckoutChoices choices,
+  }) async {
+    if (_sending) return;
+    final user = ref.read(authUserProvider);
+    if (user == null) return;
+    final strings = AppStrings.of(ref.read(uiV2LanguageProvider));
+    setState(() => _sending = true);
+    try {
+      final outcome = await repo.checkout(
+        items: [for (final l in lines) CheckoutItem(l.listing.id, l.quantity)],
+        deliveryPref: deliveryPref,
+        paymentMethod: choices.paymentMethod,
+        dropVillageId: choices.dropVillageId,
+        note: choices.note,
+      );
+      if (!mounted) return;
+
+      final sentLines = [for (final l in lines) if (!outcome.failedMessages.containsKey(l.listing.id)) l];
+      final created = buildOrderRequests(
+        lines: sentLines,
+        deliveryPref: deliveryPref,
+        paymentMethod: choices.paymentMethod,
+        dropVillageId: choices.dropVillageId,
+        note: choices.note,
+        buyer: user,
+        startSequence: ref.read(requestsProvider).length + 1,
+        createdAt: DateTime.now(),
+      );
+      ref.read(requestsProvider.notifier).state = [...ref.read(requestsProvider), ...created];
+      ref.read(lastSentRequestsProvider.notifier).state = created;
+
+      // Only what was sent leaves the cart.
+      final cart = {...ref.read(cartQuantitiesProvider)};
+      final choice = {...ref.read(cartSellerChoiceProvider)};
+      for (final l in sentLines) {
+        cart.remove(l.product.productCode);
+        choice.remove(l.product.productCode);
+      }
+      ref.read(cartQuantitiesProvider.notifier).state = cart;
+      ref.read(cartSellerChoiceProvider.notifier).state = choice;
+      if (cart.isEmpty) ref.read(lastAddedImageProvider.notifier).state = null;
+      ref.read(cartLineClampNoticeProvider.notifier).state = const {};
+      ref.read(checkoutChoicesProvider.notifier).reset();
+
+      // Stock and orders have changed on the server.
+      ref.invalidate(shopRepositoryProvider);
+      ref.invalidate(liveOrdersLoadProvider);
+
+      _submitted = true;
+      if (outcome.hasFailures) showLiveMessage(strings.lvSomeNotSent);
+      context.go('/checkout/done');
+    } on V2NetworkException {
+      showLiveMessage(strings.lvNetworkError);
+    } catch (_) {
+      showLiveMessage(strings.lvSendFailed);
+    } finally {
+      if (mounted) setState(() => _sending = false);
+    }
   }
 
   @override
@@ -503,7 +584,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                     width: double.infinity,
                     child: FilledButton(
                       key: const Key('checkout_send_button'),
-                      onPressed: availability.bothDisabled
+                      onPressed: (availability.bothDisabled || _sending)
                           ? null
                           : () => _handleSendRequest(
                                 lines: lines,

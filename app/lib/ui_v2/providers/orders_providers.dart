@@ -1,7 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../data/live_orders_repository.dart';
+import '../l10n/app_strings.dart';
+import '../l10n/live_strings.dart';
 import '../models/order_models.dart';
 import 'catalog_providers.dart';
 import 'checkout_providers.dart';
+import 'live_feedback.dart';
 
 /// Error thrown when an order transition or input validation fails.
 /// Extends [StateError] and implements [Exception] so both error and exception matchers catch it.
@@ -640,7 +644,25 @@ final List<OrderView> sampleSeedOrders = List<OrderView>.unmodifiable([
 
 /// In-memory orders provider seeded with 8 sample orders across all statuses.
 final ordersProvider = StateProvider<List<OrderView>>((ref) {
-  return sampleSeedOrders;
+  // With a server the orders come from it; the bundled sample orders are for development and tests only.
+  return ref.watch(ordersRepositoryProvider) == null ? sampleSeedOrders : const <OrderView>[];
+});
+
+/// Requests and orders on the shop server; null when no server address was given.
+final ordersRepositoryProvider = Provider<LiveOrdersRepository?>((ref) {
+  final api = ref.watch(shopApiClientProvider);
+  return api == null ? null : LiveOrdersRepository(api);
+});
+
+/// Loads the signed-in user's orders from the server into [ordersProvider]: the requests that came in to a
+/// Gram Sabha or CFR holder, or the requests a buyer sent. Does nothing without a server or a signed-in user.
+final liveOrdersLoadProvider = FutureProvider.autoDispose<void>((ref) async {
+  final repo = ref.watch(ordersRepositoryProvider);
+  final user = ref.watch(authUserProvider);
+  if (repo == null || user == null) return;
+  final isSeller = user.role == 'gramsabha' || user.role == 'cfrholder';
+  final orders = isSeller ? await repo.asSeller() : await repo.asBuyer();
+  ref.read(ordersProvider.notifier).state = orders;
 });
 
 /// Appends newly created orders (for example from checkout at merge time) to [ordersProvider].
@@ -703,19 +725,84 @@ OrderLine _orderLineFor(OrderRequestLine l, List<CartLine> cartLines) {
   );
 }
 
-/// Replaces a single updated order in [ordersProvider] by its `id`.
+/// Replaces a single updated order in [ordersProvider] by its `id`. With a server, the step the screen just took
+/// (approve, reject, counter, pay, ...) is also sent to it; if the server refuses, the order goes back to how it was.
 void replaceOrderInState(WidgetRef ref, OrderView updated) {
   final notifier = ref.read(ordersProvider.notifier);
+  OrderView? previous;
+  for (final existing in notifier.state) {
+    if (existing.id == updated.id) previous = existing;
+  }
   notifier.state = [
     for (final existing in notifier.state)
       if (existing.id == updated.id) updated else existing,
   ];
+  final repo = ref.read(ordersRepositoryProvider);
+  if (repo != null && previous != null) {
+    _sendOrderChange(ref, repo, previous, updated);
+  }
 }
 
-/// Orders visible to the currently signed-in user according to [ordersForUser].
-final visibleOrdersProvider = Provider<List<OrderView>>((ref) {
+Future<void> _sendOrderChange(WidgetRef ref, LiveOrdersRepository repo, OrderView before, OrderView after) async {
+  final user = ref.read(authUserProvider);
+  final isSeller = user != null && (user.role == 'gramsabha' || user.role == 'cfrholder');
+  final strings = AppStrings.of(ref.read(uiV2LanguageProvider));
+  try {
+    await sendOrderStepToServer(repo, before, after, isSeller: isSeller);
+    ref.invalidate(liveOrdersLoadProvider);
+  } catch (e) {
+    final notifier = ref.read(ordersProvider.notifier);
+    notifier.state = [
+      for (final existing in notifier.state)
+        if (existing.id == before.id) before else existing,
+    ];
+    showLiveMessage(strings.lvErrorText(e));
+  }
+}
+
+/// Works out which server step turns [before] into [after] and sends it. Throws when there is no such step.
+Future<void> sendOrderStepToServer(LiveOrdersRepository repo, OrderView before, OrderView after, {required bool isSeller}) async {
+  final id = before.id;
+  final from = before.status;
+  final to = after.status;
+  if (from == to) return;
+  switch (to) {
+    case OrderStatus.approved:
+      if (from == OrderStatus.pending) return repo.approve(id);
+      if (from == OrderStatus.countered) return repo.acceptCounter(id);
+    case OrderStatus.rejected:
+      if (from == OrderStatus.pending) return repo.reject(id, after.rejectionReason ?? '');
+      if (from == OrderStatus.countered) return repo.declineCounter(id);
+    case OrderStatus.countered:
+      final offer = after.counterOffer;
+      if (from == OrderStatus.pending && offer != null) {
+        return repo.counter(id, quantity: offer.quantity, unitPricePaise: offer.unitPricePaise, note: offer.note);
+      }
+    case OrderStatus.cancelled:
+      if (from == OrderStatus.countered) return repo.declineCounter(id);
+      return repo.cancel(id);
+    case OrderStatus.paymentReported:
+      if (from == OrderStatus.approved) return repo.reportPayment(id, after.paymentReference ?? '');
+    case OrderStatus.paymentConfirmed:
+      if (after.paymentMethod == 'upi') return repo.confirmPayment(id);
+      return repo.cashReceived(id);
+    case OrderStatus.completed:
+      return isSeller ? repo.handOver(id) : repo.confirmReceived(id);
+    case OrderStatus.pending:
+      break;
+  }
+  throw StateError('No server step from ${from.wireName} to ${to.wireName}');
+}
+
+/// Orders visible to the currently signed-in user. With a server they are already the user's own; without one
+/// (development and tests) the demo rule [ordersForUser] picks them.
+final visibleOrdersProvider = Provider.autoDispose<List<OrderView>>((ref) {
   final user = ref.watch(authUserProvider);
   final all = ref.watch(ordersProvider);
+  if (ref.watch(ordersRepositoryProvider) != null) {
+    ref.watch(liveOrdersLoadProvider);
+    return user == null ? const <OrderView>[] : all;
+  }
   return ordersForUser(user, all);
 });
 

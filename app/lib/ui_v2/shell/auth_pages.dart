@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../api/v2_api_client.dart';
 import '../data/villages.dart';
 import '../l10n/app_strings.dart';
+import '../l10n/live_strings.dart';
 import '../l10n/shop_extra_strings.dart';
+import '../providers/auth_providers.dart';
 import '../providers/catalog_providers.dart';
 import '../theme/van_rozgar_tokens.dart';
 import '../widgets/app_background.dart';
@@ -302,6 +305,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   final _phone = TextEditingController();
   final _pin = TextEditingController();
   bool _obscurePin = true;
+  bool _busy = false;
   String? _phoneError;
   String? _pinError;
 
@@ -312,7 +316,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     super.dispose();
   }
 
-  void _submit(AppStrings strings) {
+  Future<void> _submit(AppStrings strings) async {
     final phone = _phone.text.trim();
     final pin = _pin.text.trim();
     setState(() {
@@ -320,6 +324,27 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       _pinError = _pinRe.hasMatch(pin) ? null : strings.errPin;
     });
     if (_phoneError != null || _pinError != null) return;
+
+    final repo = ref.read(authRepositoryProvider);
+    if (repo != null) {
+      if (_busy) return;
+      setState(() => _busy = true);
+      try {
+        final user = await repo.signIn(phone: phone, pin: pin);
+        if (!mounted) return;
+        ref.read(authUserProvider.notifier).state = user;
+        context.go(_afterAuthTarget(context));
+      } on V2ApiException catch (e) {
+        if (!mounted) return;
+        setState(() => _pinError = (e.statusCode == 401 || e.statusCode == 403) ? strings.lvSignInFailed : strings.lvActionFailed);
+      } on V2NetworkException {
+        if (!mounted) return;
+        setState(() => _pinError = strings.lvNetworkError);
+      } finally {
+        if (mounted) setState(() => _busy = false);
+      }
+      return;
+    }
 
     final account = ref.read(demoAccountsProvider)[phone];
     if (account == null) {
@@ -458,6 +483,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   final _phone = TextEditingController();
   final _pin = TextEditingController();
   bool _obscurePin = true;
+  bool _busy = false;
   String _role = 'buyer';
   String? _villageId;
   String? _nameError;
@@ -498,7 +524,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     }
   }
 
-  void _submit(AppStrings strings) {
+  Future<void> _submit(AppStrings strings) async {
     final name = _name.text.trim();
     final phone = _phone.text.trim();
     final pin = _pin.text.trim();
@@ -510,6 +536,34 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
       _villageError = (!needsVillage || _villageId != null) ? null : strings.errVillage;
     });
     if (_nameError != null || _phoneError != null || _pinError != null || _villageError != null) return;
+
+    final repo = ref.read(authRepositoryProvider);
+    if (repo != null) {
+      if (_busy) return;
+      setState(() => _busy = true);
+      try {
+        final created = await repo.signUp(
+          role: _role,
+          name: name,
+          phone: phone,
+          pin: pin,
+          language: ref.read(uiV2LanguageProvider).name,
+          villageId: needsVillage ? _villageId : null,
+        );
+        if (!mounted) return;
+        ref.read(authUserProvider.notifier).state = created;
+        context.go(_afterAuthTarget(context));
+      } on V2ApiException {
+        if (!mounted) return;
+        setState(() => _pinError = strings.lvSignUpFailed);
+      } on V2NetworkException {
+        if (!mounted) return;
+        setState(() => _pinError = strings.lvNetworkError);
+      } finally {
+        if (mounted) setState(() => _busy = false);
+      }
+      return;
+    }
 
     final user = AuthUser(
       name: name,
