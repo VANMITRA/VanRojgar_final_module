@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+:root {
+  --orange: #F0A15A;
+  --orange-deep: #E58A3C;
+  --orange-soft: rgba(240, 161, 90, 0.16);
+  --orange-glow: rgba(240, 161, 90, 0.35);
+}
+
+@layer base {
+  html {
+    background-color: #172213;
+    color: #E9EFDC;
+    font-family: "Inter", "Noto Sans Devanagari", system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: #172213;
+    color: #E9EFDC;
+    overflow-x: clip;
+    margin: 0;
+  }
+}
+
+.btn-orange-primary {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-deep) 100%);
+  color: #1C2619;
+  box-shadow: 0 8px 26px var(--orange-glow), inset 0 1px 1px rgba(255, 255, 255, 0.32);
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-orange-primary:hover {
+  filter: brightness(1.07);
+  transform: scale(1.04);
+  box-shadow: 0 10px 32px rgba(240, 161, 90, 0.46), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.btn-app-orange {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(240, 161, 90, 0.6);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-app-orange:hover {
+  background: rgba(240, 161, 90, 0.09);
+  border-color: var(--orange);
+  box-shadow: 0 6px 20px rgba(240, 161, 90, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.16);
+}
+
+@media (min-width: 768px) {
+  .card-hover-green {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .card-hover-green:hover {
+    border-color: rgba(141, 184, 90, 0.65);
+    box-shadow: 0 14px 34px rgba(141, 184, 90, 0.2);
+  }
+
+  .card-hover-green.liquid-glass:hover::before {
+    background: linear-gradient(
+      180deg,
+      rgba(141, 184, 90, 0.78) 0%,
+      rgba(141, 184, 90, 0.22) 50%,
+      rgba(141, 184, 90, 0.78) 100%
+    );
+  }
+
+  .card-hover-orange {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .card-hover-orange:hover {
+    border-color: rgba(240, 161, 90, 0.72);
+    box-shadow: 0 14px 34px var(--orange-glow);
+  }
+
+  .card-hover-orange.liquid-glass:hover::before {
+    background: linear-gradient(
+      180deg,
+      rgba(240, 161, 90, 0.85) 0%,
+      rgba(240, 161, 90, 0.26) 50%,
+      rgba(240, 161, 90, 0.85) 100%
+    );
+  }
+}
+
+.font-serif-accent {
+  font-family: "Instrument Serif", "Noto Serif Devanagari", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.font-serif-display {
+  font-family: "Instrument Serif", "Noto Serif Devanagari", Georgia, serif;
+  font-weight: 400;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.font-devanagari {
+  font-family: "Noto Sans Devanagari", "Inter", sans-serif;
+}
+
+.font-devanagari-serif {
+  font-family: "Noto Serif Devanagari", "Instrument Serif", serif;
+}
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hero-island-mask {
+  -webkit-mask-image: radial-gradient(ellipse at center, black 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, black 62%, transparent 100%);
+}
+
+@keyframes slowFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-island-float {
+  animation: slowFloat 6s ease-in-out infinite;
+}
+
+@keyframes pulseFlow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+.animate-connector-flow {
+  animation: pulseFlow 3.2s ease-in-out infinite;
+}
+
+@keyframes produceSway {
+  0%, 100% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+.animate-produce-sway {
+  animation-name: produceSway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-island-float,
+  .animate-connector-flow,
+  .animate-produce-sway {
+    animation: none !important;
+  }
+}
+
