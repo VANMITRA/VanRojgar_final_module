@@ -1,3 +1,4 @@
+import '../api/server_mapping.dart';
 import '../api/v2_api_client.dart';
 import '../models/catalog_models.dart';
 import '../models/sell_models.dart';
@@ -36,7 +37,7 @@ class LiveListingsRepository {
     final price = _int(l['pricePerUnitPaise']);
     return MyListing(
       id: (l['_id'] ?? l['id'] ?? '').toString(),
-      productCode: (l['productCode'] ?? '').toString(),
+      productCode: appProductCode((l['productCode'] ?? '').toString()),
       quantityTotal: _int(l['quantityTotal']),
       quantitySold: _int(l['quantitySold']),
       mrpPaise: l['mrpPerUnitPaise'] == null ? price : _int(l['mrpPerUnitPaise']),
@@ -76,7 +77,7 @@ class LiveListingsRepository {
       'titleMr': product.title['mr'] ?? product.title['en'] ?? '',
       'titleEn': product.title['en'] ?? product.title['mr'] ?? '',
       'categoryId': categoryId,
-      'productCode': product.productCode,
+      'productCode': serverProductCode(product.productCode),
       'quantityAvailable': quantity,
       'unit': serverUnitFor(product),
       'pricePerUnitRupees': pricePaise / 100,

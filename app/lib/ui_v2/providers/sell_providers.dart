@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'catalog_providers.dart' show shopApiClientProvider;
 import '../l10n/app_strings.dart';
 import '../l10n/sell_strings.dart';
 import '../models/sell_models.dart';
@@ -339,9 +340,10 @@ final List<MyListing> initialSampleMyListings = <MyListing>[
   ),
 ];
 
-/// In-memory seller listings provider seeded with 3 sample listings.
+/// The seller's listings, kept in memory.
 final myListingsProvider = StateProvider<List<MyListing>>((ref) {
-  return initialSampleMyListings;
+  // With a server the listings come from it (see sell_live.dart); the bundled ones are for development and tests only.
+  return ref.watch(shopApiClientProvider) == null ? initialSampleMyListings : const <MyListing>[];
 });
 
 /// Provider keeping the in-progress new-listing draft across navigation.

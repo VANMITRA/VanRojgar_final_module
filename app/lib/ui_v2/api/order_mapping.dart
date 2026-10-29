@@ -70,7 +70,7 @@ OrderView orderViewFromServer(Map<String, dynamic> request, {Map<String, dynamic
   final line = order != null && order['line'] is Map ? Map<String, dynamic>.from(order['line'] as Map) : null;
 
   final unit = (request['unit'] ?? listing['unit'] ?? '').toString();
-  final code = (listing['productCode'] ?? '').toString();
+  final code = appProductCode((listing['productCode'] ?? '').toString());
   final quantity = line != null ? _int(line['quantity']) : _int(request['quantity']);
   final price = line != null ? _int(line['pricePerUnitPaise']) : _int(listing['pricePerUnitPaise']);
   final status = orderStatusFrom((request['status'] ?? 'pending').toString(), order);

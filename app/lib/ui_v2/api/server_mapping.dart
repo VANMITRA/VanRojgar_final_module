@@ -15,17 +15,17 @@ const Map<String, Map<String, String>> _unitNames = {
 /// The unit in the three languages (an unknown unit is shown as it is).
 Map<String, String> unitNames(String unit) => _unitNames[unit] ?? {'en': unit, 'hi': unit, 'mr': unit};
 
-int _wholeNumber(Object? v) => v is num ? v.round() : int.tryParse('$v') ?? 0;
+// The app names its products with underscores (`fruit_mango`, the names of its pictures); the server only accepts
+// lowercase letters and hyphens in a product code (`fruit-mango`). These two convert between them.
+final RegExp _groupedCode = RegExp(r'^(fruit|nuts|flowers|herb|forest|timber|shade)[-_]');
 
-Map<String, String> _titleOf(Object? raw) {
-  final m = raw is Map ? raw : const {};
-  final en = (m['en'] ?? m['mr'] ?? m['hi'] ?? '').toString();
-  return {
-    'en': en,
-    'hi': (m['hi'] ?? en).toString(),
-    'mr': (m['mr'] ?? en).toString(),
-  };
-}
+/// The code the server stores for an app product code.
+String serverProductCode(String appCode) => appCode.replaceAll('_', '-');
+
+/// The app's product code for a code the server sent.
+String appProductCode(String serverCode) => _groupedCode.hasMatch(serverCode) ? serverCode.replaceAll('-', '_') : serverCode;
+
+int _wholeNumber(Object? v) => v is num ? v.round() : int.tryParse('$v') ?? 0;
 
 /// One listing of the server (a seller row, as sent by /shop/products/:code/sellers) as a catalog listing map.
 Map<String, dynamic> listingMapFromServer(Map<String, dynamic> l, {DateTime? now}) {
@@ -54,17 +54,31 @@ Map<String, dynamic> listingMapFromServer(Map<String, dynamic> l, {DateTime? now
 }
 
 /// One product (a card of /shop/products) and its sellers (the `sellers` of /shop/products/:code/sellers)
-/// as a catalog product map. The picture is the one the app carries for that product code.
-Map<String, dynamic> productMapFromServer(Map<String, dynamic> card, List<Map<String, dynamic>> sellers, {DateTime? now}) {
-  final code = (card['productCode'] ?? '').toString();
+/// as a catalog product map. The picture and the Hindi and Marathi names come from the product list the app carries
+/// ([bundled], by app product code); what the server sends wins where it has a value.
+Map<String, dynamic> productMapFromServer(
+  Map<String, dynamic> card,
+  List<Map<String, dynamic>> sellers, {
+  DateTime? now,
+  Map<String, Map<String, dynamic>> bundled = const {},
+}) {
+  final code = appProductCode((card['productCode'] ?? '').toString());
+  final known = bundled[code];
   final category = card['category'] is Map ? (card['category'] as Map)['slug'] : null;
+  final serverTitle = card['title'] is Map ? Map<String, dynamic>.from(card['title'] as Map) : <String, dynamic>{};
+  final knownTitle = known != null && known['title'] is Map ? Map<String, dynamic>.from(known['title'] as Map) : <String, dynamic>{};
+  final title = {
+    'en': (serverTitle['en'] ?? knownTitle['en'] ?? serverTitle['mr'] ?? '').toString(),
+    'mr': (serverTitle['mr'] ?? knownTitle['mr'] ?? serverTitle['en'] ?? '').toString(),
+    'hi': (serverTitle['hi'] ?? knownTitle['hi'] ?? serverTitle['en'] ?? '').toString(),
+  };
   return {
     'productCode': code,
-    'categorySlug': (category ?? 'forest-produce').toString(),
-    'image': 'assets/catalog/$code.jpg',
-    'pictureNote': '',
-    'notForEating': false,
-    'title': _titleOf(card['title']),
+    'categorySlug': (category ?? known?['categorySlug'] ?? 'forest-produce').toString(),
+    'image': (known?['image'] ?? 'assets/catalog/$code.jpg').toString(),
+    'pictureNote': (known?['pictureNote'] ?? '').toString(),
+    'notForEating': known?['notForEating'] == true,
+    'title': title,
     'unit': unitNames((card['unit'] ?? '').toString()),
     'listings': [for (final s in sellers) listingMapFromServer(s, now: now)],
   };

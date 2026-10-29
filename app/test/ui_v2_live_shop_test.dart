@@ -6,6 +6,7 @@ import 'package:vanrozgar/ui_v2/api/server_mapping.dart';
 import 'package:vanrozgar/ui_v2/api/v2_api_client.dart';
 import 'package:vanrozgar/ui_v2/data/live_shop_repository.dart';
 import 'package:vanrozgar/ui_v2/l10n/app_strings.dart';
+import 'package:vanrozgar/ui_v2/models/catalog_models.dart';
 
 /// The shop with real server data: the answers of the server (faked here) become the products the screens read.
 
@@ -96,6 +97,41 @@ void main() {
     test('units are named in three languages', () {
       expect(unitNames('kg'), {'en': 'kg', 'hi': 'किग्रा', 'mr': 'किलो'});
       expect(unitNames('xyz')['hi'], 'xyz');
+    });
+  });
+
+  group('product codes and the product list the app carries', () {
+    test('app codes with underscores and server codes with hyphens convert both ways', () {
+      expect(serverProductCode('fruit_mango'), 'fruit-mango');
+      expect(appProductCode('fruit-mango'), 'fruit_mango');
+      expect(appProductCode('timber-pandhara-khair'), 'timber_pandhara_khair');
+      expect(appProductCode('bamboo'), 'bamboo');
+      expect(appProductCode('honey'), 'honey');
+      expect(appProductCode('leaf-plate'), 'leaf-plate');
+    });
+
+    test('the Hindi name and the picture come from the app, what the server sends wins', () {
+      final m = productMapFromServer(
+        {'productCode': 'fruit-mango', 'title': {'en': 'Mango', 'mr': 'आंबा'}, 'category': {'slug': 'fruit'}, 'unit': 'kg'},
+        const [],
+        bundled: {
+          'fruit_mango': {
+            'image': 'assets/catalog/fruit_mango.jpg',
+            'pictureNote': 'ready, check later',
+            'title': {'en': 'Mango (old)', 'hi': 'आम', 'mr': 'आम'},
+          },
+        },
+      );
+      expect(m['productCode'], 'fruit_mango');
+      expect(m['image'], 'assets/catalog/fruit_mango.jpg');
+      expect(m['title'], {'en': 'Mango', 'mr': 'आंबा', 'hi': 'आम'});
+      expect(ShopProduct.fromJson(m).isIllustration, true);
+    });
+
+    test('a product the app has no picture for still works', () {
+      final m = productMapFromServer({'productCode': 'honey', 'title': {'en': 'Honey'}, 'unit': 'kg'}, const []);
+      expect(m['image'], 'assets/catalog/honey.jpg');
+      expect(m['title'], {'en': 'Honey', 'mr': 'Honey', 'hi': 'Honey'});
     });
   });
 

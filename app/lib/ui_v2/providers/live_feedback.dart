@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 final GlobalKey<ScaffoldMessengerState> uiV2MessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 void showLiveMessage(String text) {
-  final messenger = uiV2MessengerKey.currentState;
+  ScaffoldMessengerState? messenger;
+  try {
+    messenger = uiV2MessengerKey.currentState;
+  } catch (_) {
+    return; // no widget tree (for example a plain unit test)
+  }
   if (messenger == null) return;
   messenger
     ..hideCurrentSnackBar()

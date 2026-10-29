@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:vanrozgar/ui_v2/api/v2_api_client.dart';
+import 'package:vanrozgar/ui_v2/data/live_shop_repository.dart';
 import 'package:vanrozgar/ui_v2/data/token_storage.dart';
 import 'package:vanrozgar/ui_v2/l10n/app_strings.dart';
 import 'package:vanrozgar/ui_v2/models/order_models.dart';
@@ -106,6 +107,10 @@ Widget _app(_FakeServer server, {Map<String, int>? cart}) {
             tokenProvider: MemoryTokenStorage().read,
             client: MockClient(server.handle),
           )),
+      // the product list the app carries is read from an asset file, which a widget test cannot wait for
+      shopRepositoryProvider.overrideWith(
+        (ref) => LiveShopRepository(ref.watch(shopApiClientProvider)!, bundledProducts: () async => const {}),
+      ),
       tokenStorageProvider.overrideWithValue(MemoryTokenStorage()),
       if (cart != null) cartQuantitiesProvider.overrideWith((ref) => cart),
     ],
