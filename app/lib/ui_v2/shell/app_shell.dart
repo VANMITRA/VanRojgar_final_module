@@ -15,6 +15,14 @@ import 'delivery/delivery_page.dart';
 import 'barter/barter_detail_page.dart';
 import 'barter/barter_new_page.dart';
 import 'barter/barter_page.dart';
+import 'livelihood/livelihood_details_page.dart';
+import 'livelihood/livelihood_home_page.dart';
+import 'livelihood/livelihood_idea_page.dart';
+import 'livelihood/livelihood_map_page.dart';
+import 'livelihood/livelihood_policy_page.dart';
+import 'livelihood/livelihood_report_page.dart';
+import 'livelihood/livelihood_resources_page.dart';
+import 'livelihood/livelihood_schemes_page.dart';
 import 'messages/messages_page.dart';
 import 'home_demo_page.dart';
 import 'landing_page.dart';
@@ -218,6 +226,38 @@ final uiV2Router = GoRouter(
     GoRoute(
       path: '/barter/:id',
       builder: (context, state) => BarterDetailPage(offerId: state.pathParameters['id'] ?? ''),
+    ),
+    GoRoute(
+      path: '/livelihood',
+      builder: (context, state) => const LivelihoodHomePage(),
+    ),
+    GoRoute(
+      path: '/livelihood/details',
+      builder: (context, state) => const LivelihoodDetailsPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/report',
+      builder: (context, state) => const LivelihoodReportPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/idea/:code',
+      builder: (context, state) => LivelihoodIdeaPage(code: state.pathParameters['code'] ?? ''),
+    ),
+    GoRoute(
+      path: '/livelihood/schemes',
+      builder: (context, state) => const LivelihoodSchemesPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/resources',
+      builder: (context, state) => const LivelihoodResourcesPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/map',
+      builder: (context, state) => const LivelihoodMapPage(),
+    ),
+    GoRoute(
+      path: '/livelihood/policy',
+      builder: (context, state) => const LivelihoodPolicyPage(),
     ),
     // END ROUND 2 ROUTES
 

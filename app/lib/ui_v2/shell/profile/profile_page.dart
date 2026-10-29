@@ -7,6 +7,9 @@ import '../../l10n/shop_extra_strings.dart';
 import '../../providers/catalog_providers.dart';
 import '../../providers/profile_providers.dart';
 import '../../providers/community_providers.dart';
+import '../../../../features/livelihood/providers/profile_providers.dart' as lh_profile;
+import '../../l10n/livelihood_ui_strings.dart';
+import '../../widgets/community/community_widgets.dart';
 import '../../theme/van_rozgar_tokens.dart';
 import '../../widgets/app_background.dart';
 import '../../widgets/brand_logo.dart';
@@ -204,6 +207,62 @@ class ProfilePage extends ConsumerWidget {
                 if (activityKeys.isNotEmpty) ...[
                   SizedBox(height: 20.0 * s),
                   sectionHeading(strings.pfMyActivityTitle),
+                  if (user != null && isCfrHolderRole(user.role)) ...[
+                    Consumer(
+                      builder: (context, ref, _) {
+                        final lhProf = ref.watch(lh_profile.profileProvider);
+                        final hasDetails = lhProf?.hasDetails ?? false;
+                        final lhStrings = LivelihoodUiStrings.of(context, language);
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 12.0 * s),
+                          child: cardContainer(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 36.0 * s,
+                                      height: 36.0 * s,
+                                      decoration: BoxDecoration(
+                                        color: tokens.primaryGreen.withValues(alpha: 0.15),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(Icons.forest_outlined, size: 20.0 * s, color: tokens.primaryGreen),
+                                    ),
+                                    SizedBox(width: 10.0 * s),
+                                    Expanded(
+                                      child: Text(
+                                        lhStrings.lhTitle,
+                                        style: TextStyle(
+                                          fontSize: 15.0 * s,
+                                          fontWeight: FontWeight.w800,
+                                          color: tokens.heading,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10.0 * s),
+                                if (!hasDetails)
+                                  CommunityPrimaryButton(
+                                    key: const Key('profile_livelihood_create_btn'),
+                                    label: lhStrings.lhCreateReport,
+                                    onPressed: () => context.push('/livelihood/details'),
+                                  )
+                                else
+                                  CommunityPrimaryButton(
+                                    key: const Key('profile_livelihood_view_btn'),
+                                    label: lhStrings.lhViewReport,
+                                    onPressed: () => context.push('/livelihood/report'),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                   cardContainer(
                     padding: EdgeInsets.zero,
                     child: Column(
