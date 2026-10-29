@@ -34,9 +34,18 @@ export const AppDownloadModal: React.FC = () => {
           >
             <X className="w-5 h-5" />
           </button>
-          <h2 id="download-title" className="text-xl font-bold font-['Manrope'] pr-10">
-            {text.title}
-          </h2>
+          <div className="flex items-center gap-3 pr-10">
+            <img
+              src="/logo-192.png"
+              alt="VanMitra"
+              width={40}
+              height={40}
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shrink-0"
+            />
+            <h2 id="download-title" className="text-xl font-bold font-['Manrope']">
+              {text.title}
+            </h2>
+          </div>
           <p className="text-xs text-white/80 mt-1">{text.subtitle}</p>
         </div>
 

@@ -25,12 +25,14 @@ export const Footer: React.FC<FooterProps> = ({ onReplayIntro }) => {
               <button
                 type="button"
                 onClick={() => setActiveTab('overview')}
-                className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#FF8D20] bg-white shrink-0 hover:scale-105 transition-transform text-left cursor-pointer"
+                className="shrink-0 hover:scale-105 transition-transform text-left cursor-pointer"
               >
                 <img
-                  src="/assets/aistudio/IMG-20261006-WA0009_1_.jpg_91f800c1.jpeg"
+                  src="/logo-192.png"
                   alt="VanMitra Tribal Mandala Logo"
-                  className="w-full h-full object-cover"
+                  width={40}
+                  height={40}
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
                 />
               </button>
               <div>

@@ -248,13 +248,13 @@ export const Header: React.FC = () => {
           className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-[#FF8D20] rounded-xl p-1 text-left cursor-pointer transition-colors"
           aria-label="VanMitra Home"
         >
-          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-[#FF8D20] shadow-sm bg-white shrink-0 group-hover:scale-105 transition-transform">
-            <img
-              src="/assets/aistudio/IMG-20261006-WA0009_1_.jpg_91f800c1.jpeg"
-              alt="VanMitra Tribal Mandala Logo"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <img
+            src="/logo-192.png"
+            alt="VanMitra Tribal Mandala Logo"
+            width={40}
+            height={40}
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shrink-0 group-hover:scale-105 transition-transform"
+          />
           <div>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <span className="text-lg sm:text-xl font-bold tracking-tight text-white font-['Manrope']">

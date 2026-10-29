@@ -242,3 +242,5 @@
 .vr .hb-up h1{max-width:none;font-size:clamp(26px,2.9vw,44px)}
 .vr .hb-up p{max-width:640px;font-size:16px}
 @media(max-width:700px){.vr .hb-up .hb-in{width:100%}}
+.lm-img{display:block;flex:none;width:40px;height:40px;border-radius:50%;object-fit:cover}
+@media (max-width:640px){.lm-img{width:32px;height:32px}}
