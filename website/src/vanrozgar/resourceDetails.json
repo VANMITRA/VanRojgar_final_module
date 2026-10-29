@@ -1,0 +1,517 @@
+[
+ {
+  "id": "bamboo",
+  "name": "Bamboo",
+  "product": "Bamboo poles",
+  "about": "Bamboo is a fast-growing giant grass, not a tree. Each clump sends up new poles every year, so the village can cut poles again and again without killing the plant. Bamboo is light, very strong for its weight, and has been used for building and crafts for centuries.",
+  "facts": [
+   [
+    "Species",
+    "Two kinds are common in Maharashtra: Dendrocalamus strictus (nearly solid, strong poles, locally called kalak) and Bambusa bambos (tall, hollow and thorny, locally called mes). Local names can differ from village to village. Some bamboo in these villages is tissue-cultured (TCM)."
+   ],
+   [
+    "Sold as",
+    "Whole poles. The price shown is for 5 poles."
+   ],
+   [
+    "Ready to cut",
+    "A clump gives its first poles about 4 to 6 years after planting. Mature poles are cut in the dry months, and the young ones are left to grow."
+   ]
+  ],
+  "uses": [
+   [
+    "Fencing and farm structures",
+    "Strong poles make fences, cattle sheds, vegetable and creeper frames and crop supports."
+   ],
+   [
+    "House and shed building",
+    "Used for roof frames, walls, ladders and scaffolding."
+   ],
+   [
+    "Handicrafts",
+    "Split poles are woven into baskets, mats, trays and winnowing fans. Craft makers also buy bamboo for lamps and furniture."
+   ],
+   [
+    "Plant stakes",
+    "Thin poles hold up tomato, bean and banana plants."
+   ],
+   [
+    "Sell to craft makers",
+    "Artisans pay more for straight, mature poles of even thickness."
+   ]
+  ],
+  "note": "Choose straight poles of one colour with no cracks. Store them flat, off the ground and out of the rain, so insects and rot do not spoil them."
+ },
+ {
+  "id": "moh",
+  "name": "Moh",
+  "product": "Moh flowers and seeds",
+  "about": "Moh (mahua) is a large forest tree that is very important to village life. In spring its fleshy cream-yellow flowers drop early in the morning and are picked up from the ground. Later, the tree makes green fruits whose seeds are pressed for oil.",
+  "facts": [
+   [
+    "Species",
+    "Madhuca longifolia (also written Madhuca indica)."
+   ],
+   [
+    "Sold as",
+    "Dried flowers and dried seeds, by kg. The price shown is per kg."
+   ],
+   [
+    "Season",
+    "Flowers fall in spring, roughly March to April. Fruits ripen a few months later."
+   ]
+  ],
+  "uses": [
+   [
+    "Food from dried flowers",
+    "Dried flowers are eaten as a sweet snack, cooked with grain, and added to flour and laddoos."
+   ],
+   [
+    "Seed oil",
+    "The oil is used for cooking in some villages, and for soap, lamps and skin care."
+   ],
+   [
+    "Oil cake",
+    "What is left after pressing the seeds is a good manure for fields."
+   ],
+   [
+    "Sell to processors",
+    "Food and soap makers buy flowers and seeds in bulk."
+   ]
+  ],
+  "note": "Dry the flowers fully in the sun for several days and store them in dry sacks, because damp flowers go mouldy. Making or selling alcohol from mahua needs a licence, so ask your Gram Sabha before selling flowers for that purpose."
+ },
+ {
+  "id": "tamarind",
+  "name": "Tamarind",
+  "product": "Tamarind pods",
+  "about": "Tamarind is a tall, long-living tree with fine feathery leaves. Its brown pods hold a sticky, sour-sweet pulp around hard, shiny seeds. Tamarind is part of everyday Indian cooking.",
+  "facts": [
+   [
+    "Species",
+    "Tamarindus indica."
+   ],
+   [
+    "Sold as",
+    "Whole dried pods, by kg."
+   ],
+   [
+    "Season",
+    "Pods ripen in the dry season, about February to April."
+   ]
+  ],
+  "uses": [
+   [
+    "Cooking",
+    "Gives the sour taste to sambar, rasam, chutneys and curries."
+   ],
+   [
+    "Pulp blocks and paste",
+    "Pods are shelled, de-seeded and pressed into blocks that keep for months."
+   ],
+   [
+    "Candy and drinks",
+    "Used for tamarind candy, sherbet and sweet-sour sauces."
+   ],
+   [
+    "Seed powder",
+    "Ground seeds are used as a thickener and in textile and paper glue."
+   ]
+  ],
+  "note": "Keep pods dry and away from the ground. Pressed pulp lasts much longer than whole pods."
+ },
+ {
+  "id": "awla",
+  "name": "Awla",
+  "product": "Awla fruit",
+  "about": "Awla (amla, Indian gooseberry) is a small tree with feathery leaves. Its pale green, ribbed, round fruits are very sour with a slightly bitter taste, and they are eaten fresh, dried or preserved.",
+  "facts": [
+   [
+    "Species",
+    "Phyllanthus emblica (also called Emblica officinalis)."
+   ],
+   [
+    "Sold as",
+    "Fresh fruit, by kg. Dried slices and powder also sell well."
+   ],
+   [
+    "Season",
+    "Ripens in winter, about November to February."
+   ]
+  ],
+  "uses": [
+   [
+    "Eat fresh",
+    "Eaten with salt and chilli as a snack."
+   ],
+   [
+    "Preserves",
+    "Made into murabba (sweet preserve), candy, pickle and chutney."
+   ],
+   [
+    "Juice and powder",
+    "Pressed for juice, or sliced, dried and ground into powder."
+   ],
+   [
+    "Ayurvedic mixes",
+    "One of the three fruits in Triphala, and used in chyawanprash, a traditional tonic."
+   ],
+   [
+    "Hair care",
+    "Used in traditional hair oils and shampoos."
+   ]
+  ],
+  "note": "Fresh awla keeps for a few days. For longer storage, slice and dry it in the sun. This is traditional use, not medical advice."
+ },
+ {
+  "id": "cashew",
+  "name": "Cashew",
+  "product": "Raw cashew nuts",
+  "about": "Cashew is a spreading evergreen tree. The fleshy cashew apple carries one grey, kidney-shaped nut at its bottom. What we sell is the raw nut in its hard shell, before shelling and roasting.",
+  "facts": [
+   [
+    "Species",
+    "Anacardium occidentale."
+   ],
+   [
+    "Sold as",
+    "Raw nuts in the shell, by kg."
+   ],
+   [
+    "Season",
+    "Fruits ripen in summer, about March to May."
+   ]
+  ],
+  "uses": [
+   [
+    "Roasted kernels",
+    "Processors shell and roast the nuts to make cashew kernels."
+   ],
+   [
+    "Cashew apple",
+    "The juicy apple is eaten fresh or made into juice, jam and pickle."
+   ],
+   [
+    "Shell oil",
+    "The shell holds an oil that industry uses in paints, varnish and brake linings."
+   ],
+   [
+    "Sell to processors",
+    "Cashew factories buy raw nuts in bulk."
+   ]
+  ],
+  "note": "Be careful: the raw shell has a caustic oil that can burn the skin. Do not crack raw shells by hand. Store the nuts dry and in the shade."
+ },
+ {
+  "id": "mango",
+  "name": "Mango",
+  "product": "Mango",
+  "about": "Mango is a large evergreen tree. Villages grow both grafted trees, which give fruit of a known variety and start bearing early, and older seedling trees. The fruit is eaten raw or ripe.",
+  "facts": [
+   [
+    "Species",
+    "Mangifera indica."
+   ],
+   [
+    "Sold as",
+    "Fruit, by kg. This card covers both Amba and grafted Amba."
+   ],
+   [
+    "Season",
+    "Fruits ripen in summer, about April to June."
+   ]
+  ],
+  "uses": [
+   [
+    "Eat ripe",
+    "Eaten fresh, or as aamras, in milkshakes and in sweets."
+   ],
+   [
+    "Raw mango",
+    "Raw fruit makes pickle, chutney and the summer drink panha."
+   ],
+   [
+    "Dried mango",
+    "Raw slices are dried and ground into amchur powder, and ripe pulp is dried into aam papad."
+   ],
+   [
+    "Leaves",
+    "Fresh leaves are used as festival toran."
+   ]
+  ],
+  "note": "Mangoes bruise easily. Pack them in single layers with straw or paper, and sell ripe fruit quickly."
+ },
+ {
+  "id": "behda",
+  "name": "Behda",
+  "product": "Behda dry fruit",
+  "about": "Behda (baheda) is a tall forest tree with large leaves. Its round, greyish fruits are dried and used in Ayurveda. It is one of the three fruits of Triphala, with hirda and awla.",
+  "facts": [
+   [
+    "Species",
+    "Terminalia bellirica."
+   ],
+   [
+    "Sold as",
+    "Dried fruit, by kg."
+   ],
+   [
+    "Season",
+    "Fruits ripen in winter, about November to January."
+   ]
+  ],
+  "uses": [
+   [
+    "Triphala",
+    "Dried behda is ground with hirda and awla to make Triphala powder."
+   ],
+   [
+    "Herbal makers",
+    "Ayurvedic and herbal companies buy dried fruit in bulk."
+   ],
+   [
+    "Kernel oil",
+    "The kernel gives an oil used in hair and skin care in some regions."
+   ],
+   [
+    "Natural dye and tanning",
+    "The fruit contains tannin, used for dyeing cloth and tanning leather."
+   ]
+  ],
+  "note": "Pick fully ripe fruit, remove the stalk, and dry it well in the sun. Damp fruit gets mould. This is traditional use, not medical advice."
+ },
+ {
+  "id": "hirda",
+  "name": "Hirda",
+  "product": "Hirda dry fruit",
+  "about": "Hirda (harad) is a medium-sized forest tree. Its small, ribbed fruits, yellow to dark brown when dry, are among the most used herbs in Ayurveda.",
+  "facts": [
+   [
+    "Species",
+    "Terminalia chebula."
+   ],
+   [
+    "Sold as",
+    "Dried fruit, by kg."
+   ],
+   [
+    "Season",
+    "Fruits ripen in winter, about November to January."
+   ]
+  ],
+  "uses": [
+   [
+    "Triphala",
+    "Dried hirda is one of the three fruits ground together to make Triphala powder."
+   ],
+   [
+    "Herbal powders and tablets",
+    "Used in many traditional herbal powders and tablets."
+   ],
+   [
+    "Natural dye and ink",
+    "Rich in tannin, used in dyeing, tanning and traditional ink."
+   ],
+   [
+    "Sell to herbal makers",
+    "Ayurvedic and herbal companies buy dried fruit in bulk."
+   ]
+  ],
+  "note": "Dry the fruit fully in the sun and store it in dry sacks. This is traditional use, not medical advice."
+ },
+ {
+  "id": "custard",
+  "name": "Custard apple",
+  "product": "Custard apple",
+  "about": "Sitaphal (custard apple) is a small tree that grows well on dry, stony land. The green, bumpy fruit has sweet, creamy white pulp with shiny black seeds.",
+  "facts": [
+   [
+    "Species",
+    "Annona squamosa."
+   ],
+   [
+    "Sold as",
+    "Fruit, by kg."
+   ],
+   [
+    "Season",
+    "Ripens after the rains, about September to December."
+   ]
+  ],
+  "uses": [
+   [
+    "Eat fresh",
+    "Scoop out the pulp and eat it. Spit out the seeds."
+   ],
+   [
+    "Desserts",
+    "Pulp is used for ice cream, milkshakes, rabdi and kulfi."
+   ],
+   [
+    "Frozen pulp",
+    "Pulp is separated and frozen so it can be sold out of season."
+   ],
+   [
+    "Sell to dessert makers",
+    "Ice cream and sweet makers buy ripe fruit."
+   ]
+  ],
+  "note": "Pick when the skin between the bumps turns pale, and ripen the fruit at home for a few days. The seeds are poisonous: never crush or eat them."
+ },
+ {
+  "id": "jamun",
+  "name": "Jamun",
+  "product": "Jamun fruit",
+  "about": "Jamun (jambhul) is a large evergreen tree with glossy leaves. Its oval, dark purple fruit is sweet and a little sour, and it stains the tongue purple.",
+  "facts": [
+   [
+    "Species",
+    "Syzygium cumini."
+   ],
+   [
+    "Sold as",
+    "Fresh fruit, by kg."
+   ],
+   [
+    "Season",
+    "Fruits ripen at the start of the rains, about May to July."
+   ]
+  ],
+  "uses": [
+   [
+    "Eat fresh",
+    "Eaten with a pinch of black salt."
+   ],
+   [
+    "Juice and squash",
+    "Pressed into juice, squash and syrup."
+   ],
+   [
+    "Vinegar, jam and jelly",
+    "Jamun vinegar, jam and jelly are popular."
+   ],
+   [
+    "Seed powder",
+    "Dried seeds are ground into a powder sold as a traditional herbal product."
+   ]
+  ],
+  "note": "Ripe jamun bruises and spoils in a day or two, so sell or process it quickly. Pack it in shallow baskets, not deep sacks."
+ },
+ {
+  "id": "bael",
+  "name": "Bael",
+  "product": "Bael fruit",
+  "about": "Bael (bel) is a thorny, medium-sized tree, sacred in many villages. Its round fruit has a hard, woody shell and sticky, fragrant, orange pulp.",
+  "facts": [
+   [
+    "Species",
+    "Aegle marmelos."
+   ],
+   [
+    "Sold as",
+    "Whole fruit, ripe or as dried slices, by kg."
+   ],
+   [
+    "Season",
+    "Fruits ripen in summer, about March to June."
+   ]
+  ],
+  "uses": [
+   [
+    "Sherbet",
+    "Ripe pulp mixed with water and jaggery or sugar makes the cooling bael sherbet."
+   ],
+   [
+    "Jam and candy",
+    "The pulp is cooked into jam and candy."
+   ],
+   [
+    "Dried slices and powder",
+    "Raw fruit is sliced and dried for Ayurvedic use."
+   ],
+   [
+    "Leaves for worship",
+    "Three-part bael leaves are used in puja. Ask your Gram Sabha before selling them."
+   ]
+  ],
+  "note": "Break the shell gently. Ripe fruit is sweet and sticky. Dried slices keep for months in a dry container."
+ },
+ {
+  "id": "ber",
+  "name": "Ber",
+  "product": "Ber fruit",
+  "about": "Ber (Indian jujube) is a hardy, thorny tree that grows on poor, dry soil. Its small, round to oval fruits are sweet and tangy, with one hard stone.",
+  "facts": [
+   [
+    "Species",
+    "Ziziphus mauritiana."
+   ],
+   [
+    "Sold as",
+    "Fresh or dried fruit, by kg."
+   ],
+   [
+    "Season",
+    "Fruits ripen in winter, about January to March."
+   ]
+  ],
+  "uses": [
+   [
+    "Eat fresh",
+    "Eaten raw, often with salt and chilli."
+   ],
+   [
+    "Dried ber",
+    "Sun-dried and sold as a sweet-sour snack and as ber churan."
+   ],
+   [
+    "Chutney and candy",
+    "Cooked into chutney and candy."
+   ],
+   [
+    "Goat fodder",
+    "The leaves are good feed for goats and sheep."
+   ]
+  ],
+  "note": "Fresh ber keeps only a few days. Spread it in the sun for about a week to dry it, and store it in a dry container."
+ },
+ {
+  "id": "karanj",
+  "name": "Karanj",
+  "product": "Karanj seeds",
+  "about": "Karanj (pongamia) is a shady tree with glossy leaves and clusters of small pink-white flowers. Its flat brown pods hold one or two seeds that are full of oil.",
+  "facts": [
+   [
+    "Species",
+    "Pongamia pinnata (also called Millettia pinnata)."
+   ],
+   [
+    "Sold as",
+    "Dried seeds, by kg."
+   ],
+   [
+    "Season",
+    "Pods ripen in the hot, dry months."
+   ]
+  ],
+  "uses": [
+   [
+    "Karanj oil",
+    "Pressed from the seeds and used in lamps, soap and farm pest sprays."
+   ],
+   [
+    "Biofuel",
+    "Companies buy seeds to make biodiesel."
+   ],
+   [
+    "Seed cake",
+    "The cake left after pressing is used as manure."
+   ],
+   [
+    "Shade and soil",
+    "The tree is also planted for shade and to hold soil."
+   ]
+  ],
+  "note": "Karanj seeds and oil are bitter and not for eating. Keep seeds dry: damp seeds go mouldy and lose their oil."
+ }
+]

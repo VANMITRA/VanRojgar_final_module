@@ -1,0 +1,18 @@
+import {useApp} from './store';
+import {Foot,Pic,S,byId} from './helpers';
+
+const SW=[['Take Harsh','bamboo','Dongargaon','tamarind'],['Pahine','bamboo','Kanchane','mango'],['Chakore','bamboo','Dongargaon','custard'],['Devgaon','moh','Kanchane','tamarind'],['Ambaee','moh','Varshi','custard'],['Met Chandrachi','jamun','Kanchane','mango']];
+const qv=(v:string,id:string)=>S[v].find(x=>x[0]===id)![1];
+
+export default function Barter(){
+  const a=useApp();
+  const g=a.role==='gs'?['ok','You are logged in as a Gram Sabha member. You can start a swap.']:a.role==='out'?['warn','Log in as a Gram Sabha to start a swap.']:['warn','Barter is for Gram Sabha accounts. You can still send a request for produce from the Resources page.'];
+  return <>
+    <div className="band" style={{margin:'0 calc(-1 * var(--gut))',padding:'26px var(--gut)'}}><div className="hero"><div><div className="eyebrow">Gram Sabha to Gram Sabha</div><h1>Swap, do not pay</h1><p style={{margin:'0 0 14px'}}>One village gives what it has plenty of and gets what it needs. Gram Sabhas swap forest produce directly with each other.</p><button className="b1" onClick={()=>a.swapStart()}><i className="ti ti-arrows-exchange"></i> Start a swap</button></div>
+      <div className="row" style={{flexWrap:'nowrap',justifyContent:'center'}}><div className="mini" style={{width:110}}><Pic k="bamboo" kind="bamboo" col=""/></div><i className="ti ti-arrows-exchange" style={{fontSize:30,color:'var(--or)'}}></i><div className="mini" style={{width:110}}><Pic k="tamarind" kind="tree" col="#8A5A36"/></div></div></div><div className={`box ${g[0]}`}>{g[1]}</div></div>
+    <div className="sec" style={{border:0}}><h2>How a swap works</h2><div className="sub">Four steps, and no money changes hands for the produce.</div><div className="g4">{[['ti-basket','1. Pick what you give','Choose a product from your own village stock.'],['ti-search','2. Pick what you want','Choose a product from another Gram Sabha.'],['ti-users','3. Agree the amounts','Both Gram Sabhas agree how much each gives.'],['ti-truck-delivery','4. Hand over','Pick up yourselves, or use an approved delivery partner.']].map(x=><div key={x[1]} className="st"><div className="ic"><i className={`ti ${x[0]}`}></i></div><b>{x[1]}</b><div className="meaning">{x[2]}</div></div>)}</div></div>
+    <div className="sec"><h2>Swap ideas from the stock data</h2><div className="sub">Villages where one has what the other lacks. These are suggestions, and quantities are estimates.</div><div className="g2">{SW.map(s=>{const p=byId[s[1]],b=byId[s[3]];return <div key={s[0]+s[2]} className="st"><div className="row" style={{flexWrap:'nowrap',justifyContent:'space-around',textAlign:'center'}}><div><div className="mini" style={{margin:'0 auto'}}><Pic k={p.i} kind={p.k} col={p.c}/></div><b>{s[0]}</b><div className="lc">gives {p.pr}</div><div className="qt">{qv(s[0],s[1])}</div></div><i className="ti ti-arrows-exchange" style={{fontSize:24,color:'var(--or)'}}></i><div><div className="mini" style={{margin:'0 auto'}}><Pic k={b.i} kind={b.k} col={b.c}/></div><b>{s[2]}</b><div className="lc">gives {b.pr}</div><div className="qt">{qv(s[2],s[3])}</div></div></div><button className="b2" style={{width:'100%',justifyContent:'center',marginTop:10}} onClick={()=>a.swapStart(s[2],s[3])}>Start a swap like this</button></div>})}</div></div>
+    <div className="sec"><h2>Good to know</h2><div className="st">Only verified Gram Sabha accounts can swap. There is no fixed exchange rate: the two Gram Sabhas agree the amounts. Both must accept before anything moves. Delivery can be pick-up or an approved delivery partner.</div></div>
+    
+  </>;
+}
