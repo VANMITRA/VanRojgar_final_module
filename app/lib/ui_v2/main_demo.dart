@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers/auth_providers.dart';
 import 'providers/catalog_providers.dart';
 import 'providers/live_feedback.dart';
+import 'providers/live_wiring.dart';
 import 'shell/app_shell.dart';
 import 'theme/van_rozgar_theme.dart';
 import 'widgets/app_background.dart';
@@ -16,8 +17,9 @@ import 'widgets/app_background.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    const ProviderScope(
-      child: VanRozgarDemoApp(),
+    ProviderScope(
+      overrides: liveServerOverrides,
+      child: const VanRozgarDemoApp(),
     ),
   );
 }
