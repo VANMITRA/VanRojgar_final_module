@@ -1,25 +1,9 @@
 import {useState} from 'react';
 import {P,R,IM,TAL} from './data';
-import {TFn,getLang,useT} from './i18n';
 
 export const NQ='Quantity not entered yet',NC='Count not available',APK_URL='#'; /* TODO: real APK link */
 export const nf=(n:number|string)=>Number(n).toLocaleString('en-US');
-export const loc=(v:string,t?:TFn)=>`${v}, ${t?t(TAL[v]||'Trimbakeshwar'):TAL[v]||'Trimbakeshwar'}, ${t?t('Nashik'):'Nashik'}`;
-/* A text with a number and a unit, for example "52,500 poles" or "2,020.1 ha": the unit is translated */
-/* Words in the land, water and road texts */
-const PH=['Reserved forest','government forest','a conservation reserve','Dense scrub','open scrub','stony waste','water bodies','water body','Village road','major district road','other district road','state highway','National highway','solar unit wells','solar unit well','solar unit farm pond','solar units','solar unit','Moderately deep','Shallow','deep','very severe','severe','moderate','slight','erosion','classes','class',' and '];
-export const tv=(s:any,t:TFn)=>{
-  const x=String(s),y=t(x);if(y!==x)return y;
-  let z=x.replace(/(\d)\s?(ha|km|poles|kg|trees|tree)\b/g,(_m,d,u)=>d+' '+t(u));
-  if(getLang()!=='en')for(const p of PH)if(z.includes(p)){const r=t(p);if(r!==p)z=z.split(p).join(r)}
-  return z;
-};
-/* A date such as "27 Oct 2026" or "2026-11-10" in the chosen language */
-export const dateText=(s:string)=>{
-  const l=getLang();if(l==='en')return /^\d{4}-/.test(s)?new Date(s+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):s;
-  const d=/^\d{4}-/.test(s)?new Date(s+'T00:00:00'):new Date(s);
-  return isNaN(+d)?s:d.toLocaleDateString(l==='hi'?'hi-IN':'mr-IN',{day:'numeric',month:'long',year:'numeric'});
-};
+export const loc=(v:string)=>`${v}, ${TAL[v]||'Trimbakeshwar'}, Nashik`;
 export const byId:Record<string,any>=Object.fromEntries(P.map((p:any)=>[p.i,p]));
 export const VIL:string[]=Object.keys(R);
 export const TOP=['bamboo','moh','tamarind','awla','cashew','mango','behda','hirda','custard','jamun','bael','ber','karanj'];
@@ -34,7 +18,7 @@ export const NAV=[['','Home'],['resources','Resources'],['gram-sabhas','Gram Sab
 /* Columns so the last row is never half empty: the largest divisor of n that fits, else the last row stretches */
 const pick=(n:number,max:number)=>{for(let d=Math.min(max,n);d>=2;d--)if(n%d===0)return d;return max};
 export const fgs=(n:number):any=>({'--cw':pick(n,5),'--ct':pick(n,3),'--cp':pick(n,2)});
-export const sum=(i:number)=>VIL.reduce((a,v)=>a+R[v][i+1],0);
+export const sum=(i:number)=>VIL.reduce((a,v)=>a+R[v][i+1],0); /* R[v][0] is the block name */
 export const IMK:Record<string,string>=IM;
 export const unit=(id:string)=>!byId[id]?'trees':byId[id].u==='kg'?'kg':'poles';
 export const prod=(id:string)=>byId[id]||{i:id,n:id,pr:id+' saplings',k:'sap',c:'#9CCB6B',p:0,u:'tree',v:[] as any[]};
@@ -53,7 +37,8 @@ export function Pic({k,kind,col}:{k:string,kind:string,col?:string}){
   return f?<img src={`assets/resources/${IM[k]}.jpg`} alt="" loading="lazy" decoding="async" onError={()=>setBad(true)}/>:<PlantSvg kind={kind} col={col}/>;
 }
 
-export const Chips=({list,sel,onPick}:{list:string[],sel:string,onPick:(c:string)=>void})=>{const t=useT();return <>{list.map(c=><span key={c} className={`fc${c===sel?' on':''}`} onClick={()=>onPick(c)}>{t(c)}</span>)}</>};
-export const Kv=({a,b}:{a:any,b:any})=>{const t=useT();return <div className="kv"><span>{t(String(a))}</span><span>{tv(b,t)}</span></div>};
-export const Tile=({x}:{x:any[]})=>{const t=useT();return <div className="st"><div className="big">{tv(x[0],t)}</div><div><b>{t(x[1])}</b></div><div className="meaning">{x[2]?t(x[2]):''}</div></div>};
+export const Chips=({list,sel,onPick}:{list:string[],sel:string,onPick:(c:string)=>void})=>
+  <>{list.map(c=><span key={c} className={`fc${c===sel?' on':''}`} onClick={()=>onPick(c)}>{c}</span>)}</>;
+export const Kv=({a,b}:{a:any,b:any})=><div className="kv"><span>{a}</span><span>{b}</span></div>;
+export const Tile=({x}:{x:any[]})=><div className="st"><div className="big">{x[0]}</div><div><b>{x[1]}</b></div><div className="meaning">{x[2]||''}</div></div>;
 export const Foot=(_:{s?:string})=>null; /* the big footer is in SiteFooter */

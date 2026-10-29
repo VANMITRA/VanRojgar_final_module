@@ -33,7 +33,7 @@
 
   html, body {
     font-family: 'Manrope', 'Noto Sans Devanagari', 'Mukta', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    overflow-x: hidden;
+    overflow-x: clip; /* not hidden: hidden turns body into a scroll container and breaks the sticky header */
     max-width: 100vw;
   }
 }
