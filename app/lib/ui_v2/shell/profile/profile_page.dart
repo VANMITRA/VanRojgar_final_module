@@ -383,7 +383,7 @@ class ProfilePage extends ConsumerWidget {
           rowKey: const Key('profile_more_livelihood'),
           icon: Icons.agriculture_outlined,
           title: strings.pfMoreLivelihoodTitle,
-          onTap: () => context.push('/more/livelihood'),
+          onTap: () => context.push('/livelihood'),
           tokens: tokens,
           scale: s,
         );
@@ -395,7 +395,7 @@ class ProfilePage extends ConsumerWidget {
               rowKey: const Key('profile_more_messages'),
               icon: Icons.notifications_none,
               title: strings.pfMoreMessagesTitle,
-              onTap: () => context.push('/more/messages'),
+              onTap: () => context.push('/messages'),
               tokens: tokens,
               scale: s,
               trailing: unread > 0
@@ -406,7 +406,8 @@ class ProfilePage extends ConsumerWidget {
                         color: tokens.primaryGreen,
                         borderRadius: BorderRadius.circular(12.0 * s),
                       ),
-                      child: Text(unread.toString(),
+                      child: Text(
+                        unread.toString(),
                         style: TextStyle(
                           fontSize: 11.5 * s,
                           fontWeight: FontWeight.w800,
@@ -423,7 +424,7 @@ class ProfilePage extends ConsumerWidget {
           rowKey: const Key('profile_more_barter'),
           icon: Icons.swap_horiz,
           title: strings.pfMoreBarterTitle,
-          onTap: () => context.push('/more/barter'),
+          onTap: () => context.push('/barter'),
           tokens: tokens,
           scale: s,
         );
@@ -433,7 +434,7 @@ class ProfilePage extends ConsumerWidget {
           rowKey: const Key('profile_more_delivery'),
           icon: Icons.two_wheeler,
           title: strings.pfMoreDeliveryTitle,
-          onTap: () => context.push('/more/delivery'),
+          onTap: () => context.push('/delivery'),
           tokens: tokens,
           scale: s,
         );

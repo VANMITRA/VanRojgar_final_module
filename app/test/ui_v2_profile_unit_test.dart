@@ -71,13 +71,6 @@ void main() {
       );
     });
 
-    test('isKnownMoreFeatureKey validates the 4 older feature keys', () {
-      for (final key in ['messages', 'barter', 'delivery', 'livelihood']) {
-        expect(isKnownMoreFeatureKey(key), isTrue);
-      }
-      expect(isKnownMoreFeatureKey('xyz'), isFalse);
-      expect(isKnownMoreFeatureKey(''), isFalse);
-    });
   });
 
   group('ProfileStrings content and language rules', () {
@@ -102,10 +95,6 @@ void main() {
         for (final section in s.pfPrivacySections) {
           expect(section.heading.trim(), isNotEmpty);
           expect(section.body.trim(), isNotEmpty);
-        }
-        for (final key in ['messages', 'barter', 'delivery', 'livelihood', 'xyz']) {
-          expect(s.pfMorePageTitle(key).trim(), isNotEmpty);
-          expect(s.pfMorePageSentences(key), isNotEmpty);
         }
       }
     });
@@ -135,9 +124,6 @@ void main() {
           s.pfMoreBarterTitle,
           s.pfMoreDeliveryTitle,
           s.pfDemoVersion,
-          s.pfOpensInFullApp,
-          s.pfUnknownMoreTitle,
-          s.pfUnknownMoreBody,
           s.pfCreditsSourceLabel,
           s.pfCreditsTermsLabel,
           ...s.pfAboutSentences,
@@ -146,10 +132,6 @@ void main() {
             for (final item in g.items) ...[item.what, item.source, item.terms],
           ],
           for (final sec in s.pfPrivacySections) ...[sec.heading, sec.body],
-          for (final k in ['messages', 'barter', 'delivery', 'livelihood', 'xyz']) ...[
-            s.pfMorePageTitle(k),
-            ...s.pfMorePageSentences(k),
-          ],
         ];
         for (final text in allTexts) {
           expect(latin.hasMatch(text), isFalse, reason: '$lang had Latin in: $text');
@@ -168,7 +150,6 @@ void main() {
         for (final g in s.pfCreditGroups)
           for (final item in g.items) ...[item.what, item.source, item.terms],
         for (final sec in s.pfPrivacySections) ...[sec.heading, sec.body],
-        for (final k in ['messages', 'barter', 'delivery', 'livelihood']) ...s.pfMorePageSentences(k),
       ];
       for (final text in allEn) {
         expect(forbidden.hasMatch(text), isFalse, reason: 'Forbidden word in: $text');

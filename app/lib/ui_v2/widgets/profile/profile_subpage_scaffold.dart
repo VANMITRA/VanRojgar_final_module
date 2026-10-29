@@ -8,7 +8,7 @@ import '../../providers/catalog_providers.dart';
 import '../../theme/van_rozgar_tokens.dart';
 import '../app_background.dart';
 
-/// Shared full-screen frame for `/about`, `/credits`, `/privacy`, and `/more/:key`.
+/// Shared full-screen frame for `/about`, `/credits`, and `/privacy`.
 /// Includes `AppBackground`, a top bar with a 48x48 back button, a muted draft-translation
 /// banner in Hindi and Marathi modes, and a scrollable content area that works with large fonts.
 class ProfileSubpageScaffold extends ConsumerWidget {

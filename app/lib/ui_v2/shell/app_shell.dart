@@ -33,7 +33,6 @@ import 'sell/sell_form_page.dart';
 import 'sell/sell_page.dart';
 import 'profile/about_page.dart';
 import 'profile/credits_page.dart';
-import 'profile/more_feature_page.dart';
 import 'profile/privacy_page.dart';
 import 'profile/profile_page.dart';
 
@@ -165,12 +164,6 @@ final uiV2Router = GoRouter(
     GoRoute(
       path: '/privacy',
       builder: (context, state) => const PrivacyPage(),
-    ),
-    GoRoute(
-      path: '/more/:key',
-      builder: (context, state) => MoreFeaturePage(
-        featureKey: state.pathParameters['key'] ?? '',
-      ),
     ),
     GoRoute(
       path: '/product/:code',
