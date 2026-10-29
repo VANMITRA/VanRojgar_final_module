@@ -25,7 +25,7 @@ function Promo({bg,eyebrow,title,text,btn,to,img,alt}:{bg:string,eyebrow:string,
 function Promos(){
   return <div className="hs-pr">
     {SHOW_BARTER?<Promo bg="var(--band)" eyebrow="For Gram Sabhas" title="Swap what you have for what you need" text="Villages with extra bamboo or fruit can trade with villages that lack it. No money needed." btn="Go to Barter" to="#/barter"/>
-    :<Promo bg="var(--band)" eyebrow="For Gram Sabhas and villagers" title="Sell with VanRozgar" text="List your forest produce and reach buyers across Nashik. Every sale gives work to the village." btn="Sign up" to="#/signup" img="assets/images/promo-sell.jpg" alt="Villagers packing forest produce to sell"/>}
+    :<Promo bg="var(--band)" eyebrow="For Gram Sabhas and villagers" title="Sell with VanMitra" text="List your forest produce and reach buyers across Nashik. Every sale gives work to the village." btn="Sign up" to="#/signup" img="assets/images/promo-sell.jpg" alt="Villagers packing forest produce to sell"/>}
     <Promo bg="var(--tint)" eyebrow="For drivers and riders" title="Deliver with us" text="Carry forest goods from villages to buyers and earn on every trip." btn="Deliver with us" to="#/deliver" img="assets/images/promo-deliver.jpg" alt="A delivery partner carrying forest produce to a buyer"/>
   </div>;
 }
@@ -85,7 +85,7 @@ function How(){
 
 const WHY=[['shield-check','Verified source','Every product comes from a Gram Sabha with community forest rights.'],['map-pin','Distance shown','You see where it comes from and how far it is.'],['tag','Fair price','Prices are shown before you ask. The Gram Sabha confirms the final amount.'],['users','Work for villages','Every sale gives work and income to a forest village.'],['plant','Grown in the forest','Villagers plant and care for these forests, and harvest only what is ready.'],['messages','Clear answers','You always see the status of your request: pending, counter offer, accepted or rejected.']];
 function Why(){
-  return <Sec><Head t="Why VanRozgar" s="Why people buy from the village directly."/>
+  return <Sec><Head t="Why VanMitra" s="Why people buy from the village directly."/>
     <div className="fg" style={fgs(WHY.length)}>{WHY.map(x=><div key={x[1]} className="st hs-s"><i className={`ti ti-${x[0]}`}></i><div className="nm" style={{fontSize:15}}>{x[1]}</div><div className="lc">{x[2]}</div></div>)}</div></Sec>;
 }
 
@@ -119,11 +119,11 @@ function Articles(){
 
 function Sell(){
   const L=[['Sign up','Register your Gram Sabha or yourself as a CFR villager. We check your details.','#/signup/gram-sabha'],['List what you have','Add the products you can give and about how much.','#/signup/villager/sell'],['Get requests','Buyers send requests. You accept, counter or say no, then hand over the goods.','#/signup']];
-  return <Sec><Head t="Sell with VanRozgar" s="Three steps to reach buyers across Nashik."/>
+  return <Sec><Head t="Sell with VanMitra" s="Three steps to reach buyers across Nashik."/>
     <div className="fg" style={fgs(L.length)}>{L.map((x,i)=><div key={x[0]} className="st hs-s"><span className="hs-n">{i+1}</span><div className="nm" style={{fontSize:15}}>{x[0]}</div><div className="lc" style={{marginBottom:10}}>{x[1]}</div><button type="button" className="b1" onClick={()=>go(x[2])}>Sign up</button></div>)}</div></Sec>;
 }
 
-const FAQ=[['Who sells on VanRozgar?','Gram Sabhas and CFR villagers in Nashik district. Every seller is checked before they list anything.'],['Do I pay on the site?','No. You send a request. The Gram Sabha answers it and confirms the final amount with you.'],['What does the price mean?','It is the price for the unit shown on the card, for example per kg or for 5 poles. Prices are shown before you ask.'],['How much stock is there?','Quantities on the pages are estimates. The Gram Sabha confirms what is ready.'],['What if the Gram Sabha offers less?','You get a counter offer in My requests. You can accept it or decline it.'],['Can I pick it up myself?','Yes. Choose pick-up in the request form, or ask for delivery to your address.'],['How do I follow my request?','Open My requests from the Account menu. You see every request and its status.'],['How do I sell my products?','Sign up as a Gram Sabha or CFR villager, then list the products you have. The Sell with VanRozgar steps above show how.']];
+const FAQ=[['Who sells on VanMitra?','Gram Sabhas and CFR villagers in Nashik district. Every seller is checked before they list anything.'],['Do I pay on the site?','No. You send a request. The Gram Sabha answers it and confirms the final amount with you.'],['What does the price mean?','It is the price for the unit shown on the card, for example per kg or for 5 poles. Prices are shown before you ask.'],['How much stock is there?','Quantities on the pages are estimates. The Gram Sabha confirms what is ready.'],['What if the Gram Sabha offers less?','You get a counter offer in My requests. You can accept it or decline it.'],['Can I pick it up myself?','Yes. Choose pick-up in the request form, or ask for delivery to your address.'],['How do I follow my request?','Open My requests from the Account menu. You see every request and its status.'],['How do I sell my products?','Sign up as a Gram Sabha or CFR villager, then list the products you have. The Sell with VanMitra steps above show how.']];
 function Faq(){
   const [o,setO]=useState(0);
   return <Sec><Head c id="faq" t="Questions people ask" s="Quick answers. Tap a question to open it."/>
@@ -135,7 +135,7 @@ function Faq(){
 function AppBand(){
   const a=useApp();
   return <div className="band hs-app" style={{margin:'0 calc(-1 * var(--gut))',padding:'28px var(--gut)'}}><div className="row" style={{justifyContent:'space-between',alignItems:'center'}}>
-    <div><h2 style={{fontSize:22}}>Get the VanRozgar app</h2><p style={{margin:'4px 0 0'}}>Shop and follow your requests from your phone.</p></div>
+    <div><h2 style={{fontSize:22}}>Get the VanMitra app</h2><p style={{margin:'4px 0 0'}}>Shop and follow your requests from your phone.</p></div>
     <a className="b1" style={{textDecoration:'none',display:'inline-flex',alignItems:'center',gap:6,height:40,padding:'0 18px',borderRadius:8}} href={APK_URL} onClick={e=>{if(APK_URL==='#'){e.preventDefault();a.toast('The APK link is coming soon.')}}}><i className="ti ti-download"></i> Download the app</a></div></div>;
 }
 

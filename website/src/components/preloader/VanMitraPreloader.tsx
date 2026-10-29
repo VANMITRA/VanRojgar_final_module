@@ -425,7 +425,7 @@ export const VanMitraPreloader: React.FC<VanMitraPreloaderProps> = ({ onComplete
 
           {/* Subtitle Ecosystem Line */}
           <p className="mt-1.5 text-xs sm:text-sm font-semibold text-[#AAB8B2] tracking-wider font-['Manrope']">
-            <span className="text-[#FF8D20] font-bold">VanRozgar</span>
+            <span className="text-[#FF8D20] font-bold">VanMitra</span>
             <span className="mx-2 text-white/30">•</span>
             <span>Trade resources. Create livelihoods.</span>
           </p>

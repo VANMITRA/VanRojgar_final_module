@@ -29,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({ onReplayIntro }) => {
               >
                 <img
                   src="/assets/aistudio/IMG-20261006-WA0009_1_.jpg_91f800c1.jpeg"
-                  alt="VanRozgar Tribal Mandala Logo"
+                  alt="VanMitra Tribal Mandala Logo"
                   className="w-full h-full object-cover"
                 />
               </button>
@@ -39,7 +39,7 @@ export const Footer: React.FC<FooterProps> = ({ onReplayIntro }) => {
                   onClick={() => setActiveTab('overview')}
                   className="text-xl font-bold tracking-tight text-white font-['Manrope'] hover:text-[#FF8D20] transition-colors cursor-pointer text-left block"
                 >
-                  {language === 'hi' ? 'वनरोज़गार' : language === 'mr' ? 'वनरोजगार' : 'VanRozgar'}
+                  {language === 'hi' ? 'वनमित्र' : language === 'mr' ? 'वनमित्र' : 'VanMitra'}
                 </button>
                 <p className="text-xs text-[#AAB8B2]">{t.footer.subtitle}</p>
               </div>

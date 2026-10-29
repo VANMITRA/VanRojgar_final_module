@@ -14,7 +14,7 @@ const ABOUT:Record<string,string>={
 };
 const ACT:Record<string,[string,string]>={
   gs:['Register a Gram Sabha','#/signup/gram-sabha'],
-  vil:['Sell with VanRozgar','#/signup/villager/sell'],
+  vil:['Sell with VanMitra','#/signup/villager/sell'],
   buy:['Shop resources','#/resources'],
   drv:['Deliver with us','#/deliver'],
 };
@@ -38,7 +38,7 @@ export default function Profile(){
   };
   const In=(k:string,label:string,type='text',ph?:string)=><div key={k} className="pf-ed"><label htmlFor={'pf-'+k}>{label}</label><input id={'pf-'+k} type={type} placeholder={ph} value={(d as any)[k]} onChange={set(k)} aria-invalid={!!er[k]}/>{er[k]&&<div className="e" role="alert">{er[k]}</div>}</div>;
   const pending=a.reqs.filter(r=>r.st==='pending'||r.st==='countered').length;
-  const name=a.user.name||'VanRozgar member',act=ACT[a.role]||ACT.buy;
+  const name=a.user.name||'VanMitra member',act=ACT[a.role]||ACT.buy;
   return <div className="pf">
     <div className="pf-top"><h1>My profile</h1>
       <div className="row" style={{gap:8}}>{!edit&&<button type="button" className="pf-out" onClick={start}><i className="ti ti-pencil"></i> Edit</button>}<button type="button" className="pf-out" onClick={()=>{a.setRole('out');a.setUser({});location.hash='#/'}}><i className="ti ti-logout"></i> Log out</button></div></div>

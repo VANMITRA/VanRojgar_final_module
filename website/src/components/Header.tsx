@@ -246,19 +246,19 @@ export const Header: React.FC = () => {
         <button
           onClick={() => handleSelectSection('overview')}
           className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus:ring-2 focus:ring-[#FF8D20] rounded-xl p-1 text-left cursor-pointer transition-colors"
-          aria-label="VanRozgar Home"
+          aria-label="VanMitra Home"
         >
           <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-[#FF8D20] shadow-sm bg-white shrink-0 group-hover:scale-105 transition-transform">
             <img
               src="/assets/aistudio/IMG-20261006-WA0009_1_.jpg_91f800c1.jpeg"
-              alt="VanRozgar Tribal Mandala Logo"
+              alt="VanMitra Tribal Mandala Logo"
               className="w-full h-full object-cover"
             />
           </div>
           <div>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <span className="text-lg sm:text-xl font-bold tracking-tight text-white font-['Manrope']">
-                {language === 'hi' ? 'वनरोज़गार' : language === 'mr' ? 'वनरोजगार' : 'VanRozgar'}
+                {language === 'hi' ? 'वनमित्र' : language === 'mr' ? 'वनमित्र' : 'VanMitra'}
               </span>
               <span className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold bg-[#2D765C] text-emerald-100 rounded-md tracking-wider border border-emerald-400/20">
                 {language === 'hi' ? 'सीएफआर बाज़ार' : language === 'mr' ? 'सीएफआर बाजार' : 'CFR MARKETPLACE'}

@@ -133,7 +133,7 @@ export const PortalsComparisonSection: React.FC = () => {
                 {/* Simulated Phone Top Bar */}
                 <div className="flex items-center justify-between text-[10px] text-white/70 px-2 pt-1">
                   <span>9:41</span>
-                  <span className="font-bold">VanRozgar</span>
+                  <span className="font-bold">VanMitra</span>
                   <span>5G 98%</span>
                 </div>
 

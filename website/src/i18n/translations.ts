@@ -384,7 +384,7 @@ export const translations: Record<Language, Translations> = {
   en: {
     tagline: 'Trade resources. Create livelihoods.',
     motto: 'Where forest resources become rural livelihoods under Community Forest Rights.',
-    ecosystemSynergy: 'VanMitra-AI protects forest rights; VanRozgar turns them into rural income.',
+    ecosystemSynergy: 'VanMitra-AI protects forest rights; VanMitra turns them into rural income.',
     nav: {
       overview: 'Overview',
       ecosystem: 'Ecosystem',
@@ -468,7 +468,7 @@ export const translations: Record<Language, Translations> = {
       headlineBefore: 'Where forest resources become',
       headlineHighlight: 'rural livelihoods.',
       headlineAfter: '',
-      description: 'VanRozgar connects forest-stewarding Gram Sabhas, tribal producers, and ethical enterprises on a single transparent marketplace, while creating paid transport gigs for village drivers.',
+      description: 'VanMitra connects forest-stewarding Gram Sabhas, tribal producers, and ethical enterprises on a single transparent marketplace, while creating paid transport gigs for village drivers.',
       howItWorks: 'How it Works',
       statsActiveGs: 'CFR Gram Sabhas Active',
       statsRuralEarnings: 'Rural Earnings',
@@ -496,7 +496,7 @@ export const translations: Record<Language, Translations> = {
     ecosystemSection: {
       badge: 'The VanMitra Ecosystem Architecture',
       title: 'Rights Recognition Leads to Economic Empowerment',
-      desc: 'VanMitra-AI legally maps and protects forest rights under the Forest Rights Act (FRA 2006). VanRozgar is the integrated economic module that turns those legal rights into sustainable rural income.',
+      desc: 'VanMitra-AI legally maps and protects forest rights under the Forest Rights Act (FRA 2006). VanMitra is the integrated economic module that turns those legal rights into sustainable rural income.',
       parentTitle: 'VanMitra-AI',
       parentBadge: 'Governance & CFR',
       parentDesc: 'Covers the exact 5 core pillars of forest title rights recognition:',
@@ -529,7 +529,7 @@ export const translations: Record<Language, Translations> = {
       ],
       bridgeBadge: 'Livelihood Bridge',
       bridgeDesc: 'Recognized CFR areas yield certified natural resources',
-      moduleTitle: 'VanRozgar',
+      moduleTitle: 'VanMitra',
       moduleBadge: 'Marketplace & Jobs',
       moduleDesc: 'Operates the Amazon-style buyer–seller model adapted for Community Forest Rights:',
       pillars: [
@@ -569,7 +569,7 @@ export const translations: Record<Language, Translations> = {
     },
     howItWorksSection: {
       badge: 'End-to-End Workflow',
-      title: 'How VanRozgar Operates',
+      title: 'How VanMitra Operates',
       desc: 'Every step preserves forest sustainability, community decision-making, and guarantees fair livelihoods for local transporters.',
       stepPrefix: 'Step',
       prevBtn: 'Previous Step',
@@ -731,13 +731,13 @@ export const translations: Record<Language, Translations> = {
     barterSection: {
       badge: 'Fair Trade & Traditional Exchange',
       title: 'Barter Balance Meter & Fair-Price Guidance',
-      desc: 'Different Gram Sabhas possess complementary natural wealth—one has medicinal plants, another has clean highland water. VanRozgar enables balanced bilateral barter backed by transparent market reference valuation.',
+      desc: 'Different Gram Sabhas possess complementary natural wealth—one has medicinal plants, another has clean highland water. VanMitra enables balanced bilateral barter backed by transparent market reference valuation.',
       simulatorTitle: 'Interactive Barter Equity Simulator',
       liveTestBadge: 'Live Test',
       simulatorDesc: 'Adjust quantities on both sides to evaluate whether the proposed exchange is balanced.',
       simToggleLabel: 'Simulate New Resource:',
       sparseDataTitle: '"Not enough regional sales data yet" state:',
-      sparseDataDesc: 'When a newly added forest resource is listed for the first time without historical sales volume, VanRozgar indicates "Not enough data yet". Both Gram Sabhas negotiate mutually agreeable quantities directly without an enforced price benchmark.',
+      sparseDataDesc: 'When a newly added forest resource is listed for the first time without historical sales volume, VanMitra indicates "Not enough data yet". Both Gram Sabhas negotiate mutually agreeable quantities directly without an enforced price benchmark.',
       partyATitle: 'Gram Sabha A (Offered Goods)',
       partyASub: 'Seller Origin',
       partyBTitle: 'Gram Sabha B (Requested Goods)',
@@ -757,7 +757,7 @@ export const translations: Record<Language, Translations> = {
     groupSellingSection: {
       badge: 'Collaborative Supply',
       title: 'Group Selling: Pooled Harvest Simulator',
-      desc: 'Single tribal hamlets often harvest modest seasonal volumes. VanRozgar enables adjoining Gram Sabhas to pool their harvest into a single combined listing, unlocking bulk commercial contracts while guaranteeing individual village payouts.',
+      desc: 'Single tribal hamlets often harvest modest seasonal volumes. VanMitra enables adjoining Gram Sabhas to pool their harvest into a single combined listing, unlocking bulk commercial contracts while guaranteeing individual village payouts.',
       contributingTitle: '3 Contributing Gram Sabhas',
       totalPoolLabel: 'Total Pool:',
       contributedPrefix: 'Contributed:',
@@ -790,7 +790,7 @@ export const translations: Record<Language, Translations> = {
         {
           step: '03',
           title: 'Team Back-Office Verification',
-          actor: 'VanRozgar Field Team',
+          actor: 'VanMitra Field Team',
           desc: 'Credentials and vehicle fitness verified by local coordinators to protect village cargo and road safety.',
         },
         {
@@ -855,7 +855,7 @@ export const translations: Record<Language, Translations> = {
     trustSection: {
       badge: 'Ecological Integrity',
       title: 'Trust & Provenance Tag Explained',
-      desc: 'Unlike commercial e-commerce, VanRozgar is rooted in the Forest Rights Act. We build trust by verifying every forest council and protecting seasonal carrying capacity.',
+      desc: 'Unlike commercial e-commerce, VanMitra is rooted in the Forest Rights Act. We build trust by verifying every forest council and protecting seasonal carrying capacity.',
       tagTitle: 'The CFR Provenance Tag',
       tagBadge: 'On Every Listing',
       tagIntro: 'Every card carries an immutable provenance signature giving buyers total confidence in biological authenticity:',
@@ -875,7 +875,7 @@ export const translations: Record<Language, Translations> = {
       ],
       largeOrderTitle: 'Large Order Reason Rule',
       largeOrderBadge: 'Threshold ≥ 25 Units',
-      largeOrderIntro: 'Why VanRozgar enforces a mandatory explanation box on large buyer quantities:',
+      largeOrderIntro: 'Why VanMitra enforces a mandatory explanation box on large buyer quantities:',
       largeOrderRules: [
         {
           title: 'Prevents Depleting Seasonal Village Reserves:',
@@ -900,7 +900,7 @@ export const translations: Record<Language, Translations> = {
         {
           id: 'D-01',
           title: 'Payment Settlement Architecture',
-          question: 'How is payment handled: online gateway, cash on delivery (COD), or centralized escrow settled by the VanRozgar team?',
+          question: 'How is payment handled: online gateway, cash on delivery (COD), or centralized escrow settled by the VanMitra team?',
           demoPlaceholder: '"Payment method: to be confirmed"',
           impact: 'Tribal bank accounts have varying direct-debit infrastructure. Cash on delivery is common in weekly haats, but escrow protects bulk transactions.',
         },
@@ -943,15 +943,15 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       subtitle: 'Community Forest Resource Marketplace',
-      summary: 'VanMitra-AI protects forest rights; VanRozgar turns them into sustainable rural livelihoods. Empowering Gram Sabhas through transparent community commerce and local transport jobs.',
+      summary: 'VanMitra-AI protects forest rights; VanMitra turns them into sustainable rural livelihoods. Empowering Gram Sabhas through transparent community commerce and local transport jobs.',
       compliance: 'Forest Rights Act (FRA 2006) Compliant',
       ecosystemTitle: 'VanMitra Ecosystem',
       backOfficeTitle: 'Internal Back-Office Notice',
-      backOfficeText: 'The VanRozgar Team Back-Office (used to verify Gram Sabha CFR title documents and review vehicle driver registrations) is strictly an internal administrative tool. It is not a public user login portal.',
+      backOfficeText: 'The VanMitra Team Back-Office (used to verify Gram Sabha CFR title documents and review vehicle driver registrations) is strictly an internal administrative tool. It is not a public user login portal.',
       helplineLabel: 'Helpline:',
       helplineNumber: '1800-209-6060 (Toll Free)',
       replayIntro: 'Replay Intro',
-      allRightsReserved: '© 2026 VanRozgar · VanMitra-AI Ecosystem. All rights reserved.',
+      allRightsReserved: '© 2026 VanMitra · VanMitra-AI Ecosystem. All rights reserved.',
       fraLaw: 'Forest Rights Act 2006',
       privacyPolicy: 'Privacy Policy',
     },
@@ -995,7 +995,7 @@ export const translations: Record<Language, Translations> = {
   hi: {
     tagline: 'वन संपदा का व्यापार। ग्रामीण आजीविका का विस्तार।',
     motto: 'सामुदायिक वन अधिकार (CFR) के अंतर्गत वन संसाधनों से ग्रामीण समृद्धि का सृजन।',
-    ecosystemSynergy: 'वनमित्र-AI वन अधिकार सुरक्षित करता है; वनरोज़गार उन्हें ग्रामीण आय में बदलता है।',
+    ecosystemSynergy: 'वनमित्र-AI वन अधिकार सुरक्षित करता है; वनमित्र उन्हें ग्रामीण आय में बदलता है।',
     nav: {
       overview: 'अवलोकन',
       ecosystem: 'पारिस्थितिकी तंत्र',
@@ -1079,7 +1079,7 @@ export const translations: Record<Language, Translations> = {
       headlineBefore: 'जहां वन संपदा बनती है',
       headlineHighlight: 'ग्रामीण आजीविका।',
       headlineAfter: '',
-      description: 'वनरोज़गार वन संरक्षक ग्राम सभाओं, जनजातीय उत्पादकों और नैतिक उद्यमों को एक पारदर्शी बाज़ार से जोड़ता है, साथ ही ग्रामीण वाहन चालकों के लिए सशुल्क परिवहन रोज़गार का निर्माण करता है।',
+      description: 'वनमित्र वन संरक्षक ग्राम सभाओं, जनजातीय उत्पादकों और नैतिक उद्यमों को एक पारदर्शी बाज़ार से जोड़ता है, साथ ही ग्रामीण वाहन चालकों के लिए सशुल्क परिवहन रोज़गार का निर्माण करता है।',
       howItWorks: 'कार्य प्रणाली देखें',
       statsActiveGs: 'सक्रिय सीएफआर ग्राम सभाएं',
       statsRuralEarnings: 'सीधी ग्रामीण आय',
@@ -1107,7 +1107,7 @@ export const translations: Record<Language, Translations> = {
     ecosystemSection: {
       badge: 'वनमित्र पारिस्थितिकी तंत्र वास्तुकला',
       title: 'वन अधिकार मान्यता से आर्थिक सशक्तिकरण की ओर',
-      desc: 'वनमित्र-AI वन अधिकार अधिनियम (FRA 2006) के अंतर्गत सामुदायिक वन अधिकारों का डिजिटल मानचित्रण व संरक्षण करता है। वनरोज़गार वह आर्थिक मंच है जो इन कानूनी अधिकारों को प्रत्यक्ष ग्रामीण आय में परिवर्तित करता है।',
+      desc: 'वनमित्र-AI वन अधिकार अधिनियम (FRA 2006) के अंतर्गत सामुदायिक वन अधिकारों का डिजिटल मानचित्रण व संरक्षण करता है। वनमित्र वह आर्थिक मंच है जो इन कानूनी अधिकारों को प्रत्यक्ष ग्रामीण आय में परिवर्तित करता है।',
       parentTitle: 'वनमित्र-AI',
       parentBadge: 'शासन व वन अधिकार',
       parentDesc: 'वन अधिकार मान्यता के ५ प्रमुख स्तंभों का डिजिटल प्रबंधन:',
@@ -1140,7 +1140,7 @@ export const translations: Record<Language, Translations> = {
       ],
       bridgeBadge: 'आजीविका सेतु',
       bridgeDesc: 'मान्यता प्राप्त वन क्षेत्रों से प्रमाणित प्राकृतिक संपदा का उत्पादन',
-      moduleTitle: 'वनरोज़गार (VanRozgar)',
+      moduleTitle: 'वनमित्र (VanMitra)',
       moduleBadge: 'बाज़ार व रोज़गार',
       moduleDesc: 'सामुदायिक वन अधिकारों के अनुरूप अनुकूलित अमेज़ॅन-शैली का क्रेता-विक्रेता मॉडल:',
       pillars: [
@@ -1180,7 +1180,7 @@ export const translations: Record<Language, Translations> = {
     },
     howItWorksSection: {
       badge: 'संपूर्ण कार्यप्रणाली',
-      title: 'वनरोज़गार कैसे कार्य करता है',
+      title: 'वनमित्र कैसे कार्य करता है',
       desc: 'प्रत्येक चरण वन संरक्षण, ग्राम सभा के स्वायत्त निर्णयों और स्थानीय वाहन चालकों के लिए न्यायसंगत आजीविका की गारंटी देता है।',
       stepPrefix: 'चरण',
       prevBtn: 'पिछला चरण',
@@ -1342,13 +1342,13 @@ export const translations: Record<Language, Translations> = {
     barterSection: {
       badge: 'न्यायसंगत व्यापार व पारंपरिक विनिमय',
       title: 'वस्तु-विनिमय संतुलन मीटर व निष्पक्ष मूल्य मार्गदर्शन',
-      desc: 'विभिन्न ग्राम सभाओं के पास पूरक प्राकृतिक संपदा है—एक के पास जड़ी-बूटियां हैं, तो दूसरी के पास स्वच्छ पहाड़ी जल। वनरोज़गार पारदर्शी बाज़ार संदर्भ पर आधारित संतुलित विनिमय को संभव बनाता है।',
+      desc: 'विभिन्न ग्राम सभाओं के पास पूरक प्राकृतिक संपदा है—एक के पास जड़ी-बूटियां हैं, तो दूसरी के पास स्वच्छ पहाड़ी जल। वनमित्र पारदर्शी बाज़ार संदर्भ पर आधारित संतुलित विनिमय को संभव बनाता है।',
       simulatorTitle: 'इंटरैक्टिव वस्तु-विनिमय समानता सिम्युलेटर',
       liveTestBadge: 'सक्रिय परीक्षण',
       simulatorDesc: 'दोनों पक्षों की मात्रा को समायोजित करके परखें कि प्रस्तावित विनिमय संतुलित है या नहीं।',
       simToggleLabel: 'नए संसाधन का अनुकरण करें:',
       sparseDataTitle: '"क्षेत्रीय मूल्य का पर्याप्त डेटा उपलब्ध नहीं" स्थिति:',
-      sparseDataDesc: 'जब कोई नया वन संसाधन बिना किसी पूर्व बिक्री इतिहास के पहली बार सूचीबद्ध होता है, तो वनरोज़गार "पर्याप्त डेटा उपलब्ध नहीं" दर्शाता है। दोनों ग्राम सभाएं बिना किसी अनिवार्य मूल्य दबाव के सीधे आपस में मात्रा तय करती हैं।',
+      sparseDataDesc: 'जब कोई नया वन संसाधन बिना किसी पूर्व बिक्री इतिहास के पहली बार सूचीबद्ध होता है, तो वनमित्र "पर्याप्त डेटा उपलब्ध नहीं" दर्शाता है। दोनों ग्राम सभाएं बिना किसी अनिवार्य मूल्य दबाव के सीधे आपस में मात्रा तय करती हैं।',
       partyATitle: 'ग्राम सभा क (प्रस्तावित उत्पाद)',
       partyASub: 'विक्रेता ग्राम',
       partyBTitle: 'ग्राम सभा ख (मांगी गई वस्तु)',
@@ -1368,7 +1368,7 @@ export const translations: Record<Language, Translations> = {
     groupSellingSection: {
       badge: 'सहकारी आपूर्ति',
       title: 'सामूहिक संकलन: साझा उपज सिम्युलेटर',
-      desc: 'एकल जनजातीय पाड़ों में अक्सर सीमित मौसमी उपज होती है। वनरोज़गार पड़ोसी ग्राम सभाओं को अपनी उपज को एक ही संयुक्त सूची में जोड़ने की सुविधा देता है, जिससे थोक खरीदार मिलते हैं और हर गांव को उसका पूरा हिस्सा प्राप्त होता है।',
+      desc: 'एकल जनजातीय पाड़ों में अक्सर सीमित मौसमी उपज होती है। वनमित्र पड़ोसी ग्राम सभाओं को अपनी उपज को एक ही संयुक्त सूची में जोड़ने की सुविधा देता है, जिससे थोक खरीदार मिलते हैं और हर गांव को उसका पूरा हिस्सा प्राप्त होता है।',
       contributingTitle: '३ भागीदार ग्राम सभाएं',
       totalPoolLabel: 'कुल सामूहिक पूल:',
       contributedPrefix: 'योगदान:',
@@ -1401,7 +1401,7 @@ export const translations: Record<Language, Translations> = {
         {
           step: '०३',
           title: 'क्षेत्रीय टीम द्वारा सत्यापन',
-          actor: 'वनरोज़गार क्षेत्रीय दल',
+          actor: 'वनमित्र क्षेत्रीय दल',
           desc: 'गांव के माल और सड़क सुरक्षा को सुनिश्चित करने के लिए स्थानीय समन्वयकों द्वारा दस्तावेजों का भौतिक सत्यापन।',
         },
         {
@@ -1466,7 +1466,7 @@ export const translations: Record<Language, Translations> = {
     trustSection: {
       badge: 'पारिस्थितिकीय सत्यनिष्ठा',
       title: 'उत्पत्ति व विश्वास टैग का महत्व',
-      desc: 'व्यावसायिक ई-कॉमर्स के विपरीत, वनरोज़गार वन अधिकार कानून पर आधारित है। हम प्रत्येक ग्राम सभा को सत्यापित करके और मौसमी सीमा का सम्मान करके विश्वास का निर्माण करते हैं।',
+      desc: 'व्यावसायिक ई-कॉमर्स के विपरीत, वनमित्र वन अधिकार कानून पर आधारित है। हम प्रत्येक ग्राम सभा को सत्यापित करके और मौसमी सीमा का सम्मान करके विश्वास का निर्माण करते हैं।',
       tagTitle: 'सीएफआर उत्पत्ति प्रामाणिकता टैग',
       tagBadge: 'प्रत्येक उत्पाद पर',
       tagIntro: 'प्रत्येक उत्पाद कार्ड पर एक अपरिवर्तनीय डिजिटल हस्ताक्षर होता है जो खरीदार को जैविक शुद्धता का पूर्ण विश्वास दिलाता है:',
@@ -1486,7 +1486,7 @@ export const translations: Record<Language, Translations> = {
       ],
       largeOrderTitle: 'थोक ऑर्डर पर कारण बताने का नियम',
       largeOrderBadge: 'सीमा ≥ २५ इकाई',
-      largeOrderIntro: 'वनरोज़गार बड़ी मात्रा के खरीदारों से कारण पूछने पर बल क्यों देता है:',
+      largeOrderIntro: 'वनमित्र बड़ी मात्रा के खरीदारों से कारण पूछने पर बल क्यों देता है:',
       largeOrderRules: [
         {
           title: 'गांव के मौसमी संचय को समाप्त होने से बचाना:',
@@ -1511,7 +1511,7 @@ export const translations: Record<Language, Translations> = {
         {
           id: 'निर्णय-०१',
           title: 'भुगतान निपटान वास्तुकला',
-          question: 'भुगतान कैसे होगा: ऑनलाइन गेटवे, कैश ऑन डिलीवरी (COD), अथवा वनरोज़गार टीम द्वारा प्रबंधित केंद्रीय एस्क्रो?',
+          question: 'भुगतान कैसे होगा: ऑनलाइन गेटवे, कैश ऑन डिलीवरी (COD), अथवा वनमित्र टीम द्वारा प्रबंधित केंद्रीय एस्क्रो?',
           demoPlaceholder: '"भुगतान विधि: शीघ्र अंतिम रूप दिया जाएगा"',
           impact: 'जनजातीय बैंक खातों में ऑटो-डेबिट की अलग-अलग सीमाएं हैं। ग्रामीण हाटों में नकद प्रचलित है, किंतु बड़े सौदों में एस्क्रो सुरक्षित रहता है।',
         },
@@ -1554,15 +1554,15 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       subtitle: 'सामुदायिक वन संसाधन बाज़ार',
-      summary: 'वनमित्र-AI वन अधिकारों की रक्षा करता है; वनरोज़गार उन्हें सतत ग्रामीण समृद्धि में बदलता है। पारदर्शी व्यापार और स्थानीय परिवहन रोज़गार के माध्यम से ग्राम सभाओं का सशक्तिकरण।',
+      summary: 'वनमित्र-AI वन अधिकारों की रक्षा करता है; वनमित्र उन्हें सतत ग्रामीण समृद्धि में बदलता है। पारदर्शी व्यापार और स्थानीय परिवहन रोज़गार के माध्यम से ग्राम सभाओं का सशक्तिकरण।',
       compliance: 'वन अधिकार अधिनियम (FRA 2006) के अनुरूप',
       ecosystemTitle: 'वनमित्र पारिस्थिकी तंत्र',
       backOfficeTitle: 'आंतरिक बैक-ऑफिस सूचना',
-      backOfficeText: 'वनरोज़गार बैक-ऑफिस (जिसका उपयोग ग्राम सभा सीएफआर पट्टा दस्तावेजों के सत्यापन और वाहन चालकों के पंजीकरण की जांच हेतु होता है) विशुद्ध रूप से एक आंतरिक प्रशासनिक साधन है। यह कोई सार्वजनिक उपयोगकर्ता पोर्टल नहीं है।',
+      backOfficeText: 'वनमित्र बैक-ऑफिस (जिसका उपयोग ग्राम सभा सीएफआर पट्टा दस्तावेजों के सत्यापन और वाहन चालकों के पंजीकरण की जांच हेतु होता है) विशुद्ध रूप से एक आंतरिक प्रशासनिक साधन है। यह कोई सार्वजनिक उपयोगकर्ता पोर्टल नहीं है।',
       helplineLabel: 'हेल्पलाइन:',
       helplineNumber: '१८००-२०९-६०६० (टोल-फ्री)',
       replayIntro: 'प्रस्तावना पुनः देखें',
-      allRightsReserved: '© २०२६ वनरोज़गार · वनमित्र-AI पारिस्थितिकी तंत्र। सर्वाधिकार सुरक्षित।',
+      allRightsReserved: '© २०२६ वनमित्र · वनमित्र-AI पारिस्थितिकी तंत्र। सर्वाधिकार सुरक्षित।',
       fraLaw: 'वन अधिकार अधिनियम २००६',
       privacyPolicy: 'गोपनीयता नीति',
     },
@@ -1606,7 +1606,7 @@ export const translations: Record<Language, Translations> = {
   mr: {
     tagline: 'वनसंपत्तीचा व्यापार। ग्रामीण उपजीविकेचा विस्तार।',
     motto: 'सामुदायिक वन हक्क (CFR) अंतर्गत वन संसाधनांचे रूपांतर शाश्वत ग्रामीण उत्पन्नात.',
-    ecosystemSynergy: 'वनमित्र-AI वन हक्कांचे रक्षण करते; वनरोजगार त्यांचे रूपांतर ग्रामीण उत्पन्नात करते.',
+    ecosystemSynergy: 'वनमित्र-AI वन हक्कांचे रक्षण करते; वनमित्र त्यांचे रूपांतर ग्रामीण उत्पन्नात करते.',
     nav: {
       overview: 'अवलोकन',
       ecosystem: 'परिसंस्था',
@@ -1690,7 +1690,7 @@ export const translations: Record<Language, Translations> = {
       headlineBefore: 'जिथे नैसर्गिक वनसंपत्ती बनते',
       headlineHighlight: 'शाश्वत ग्रामीण रोजगार।',
       headlineAfter: '',
-      description: 'वनरोजगार वनसंरक्षक ग्रामसभा, आदिवासी उत्पादक आणि व्यावसायिक खरेदीदारांना एका पारदर्शक व्यासपीठावर आणते, तसेच स्थानिक वाहनधारकांसाठी सशुल्क वाहतूक रोजगार निर्माण करते.',
+      description: 'वनमित्र वनसंरक्षक ग्रामसभा, आदिवासी उत्पादक आणि व्यावसायिक खरेदीदारांना एका पारदर्शक व्यासपीठावर आणते, तसेच स्थानिक वाहनधारकांसाठी सशुल्क वाहतूक रोजगार निर्माण करते.',
       howItWorks: 'कार्यपद्धती पहा',
       statsActiveGs: 'सक्रिय सीएफआर ग्रामसभा',
       statsRuralEarnings: 'थेट ग्रामीण उत्पन्न',
@@ -1718,7 +1718,7 @@ export const translations: Record<Language, Translations> = {
     ecosystemSection: {
       badge: 'वनमित्र परिसंस्था रचना',
       title: 'वन हक्क मान्यतेतून आर्थिक सक्षमीकरण',
-      desc: 'वनमित्र-AI वन हक्क कायद्यांतर्गत (FRA 2006) अधिकारांचे डिजिटल नकाशे व संरक्षण करते. वनरोजगार हे त्या अधिकारांचे रूपांतर शाश्वत ग्रामीण उत्पन्नात करणारे अधिकृत व्यासपीठ आहे.',
+      desc: 'वनमित्र-AI वन हक्क कायद्यांतर्गत (FRA 2006) अधिकारांचे डिजिटल नकाशे व संरक्षण करते. वनमित्र हे त्या अधिकारांचे रूपांतर शाश्वत ग्रामीण उत्पन्नात करणारे अधिकृत व्यासपीठ आहे.',
       parentTitle: 'वनमित्र-AI (VanMitra-AI)',
       parentBadge: 'शासन व वन हक्क',
       parentDesc: 'वन हक्क मान्यतेच्या ५ प्रमुख स्तंभांचे डिजिटल व्यवस्थापन:',
@@ -1751,7 +1751,7 @@ export const translations: Record<Language, Translations> = {
       ],
       bridgeBadge: 'उपजीविका सेतू',
       bridgeDesc: 'मान्यताप्राप्त वनक्षेत्रांतून प्रमाणित नैसर्गिक संसाधनांचे उत्पादन',
-      moduleTitle: 'वनरोजगार (VanRozgar)',
+      moduleTitle: 'वनमित्र (VanMitra)',
       moduleBadge: 'बाजार व रोजगार',
       moduleDesc: 'सामुदायिक वन हक्कांच्या अनुषंगाने तयार केलेले ॲमेझॉन-शैलीचे खरेदी-विक्री मॉडेल:',
       pillars: [
@@ -1791,7 +1791,7 @@ export const translations: Record<Language, Translations> = {
     },
     howItWorksSection: {
       badge: 'संपूर्ण कार्यप्रणाली',
-      title: 'वनरोजगार कसे कार्य करते',
+      title: 'वनमित्र कसे कार्य करते',
       desc: 'प्रत्येक टप्पा वन संवर्धन, ग्रामसभेचा निर्णय अधिकार आणि स्थानिक वाहनचालकांसाठी न्याय्य उत्पन्न सुरक्षित करतो.',
       stepPrefix: 'टप्पा',
       prevBtn: 'मागील टप्पा',
@@ -1953,7 +1953,7 @@ export const translations: Record<Language, Translations> = {
     barterSection: {
       badge: 'न्याय्य व्यापार व पारंपारिक देवाणघेवाण',
       title: 'वस्तुविनिमय संतुलन मीटर व योग्य बाजारभाव मार्गदर्शन',
-      desc: 'वेगवेगळ्या ग्रामसभांकडे निसर्गाची वेगवेगळी देणगी आहे—एका गावाकडे औषधी वनस्पती, तर दुसऱ्याकडे बारमाही स्वच्छ पाणी. वनरोजगार दोघांनाही पारदर्शक विनिमय करण्यास मदत करते.',
+      desc: 'वेगवेगळ्या ग्रामसभांकडे निसर्गाची वेगवेगळी देणगी आहे—एका गावाकडे औषधी वनस्पती, तर दुसऱ्याकडे बारमाही स्वच्छ पाणी. वनमित्र दोघांनाही पारदर्शक विनिमय करण्यास मदत करते.',
       simulatorTitle: 'थेट वस्तुविनिमय संतुलन सिम्युलेटर',
       liveTestBadge: 'थेट चाचणी',
       simulatorDesc: 'दोन्ही बाजूंची संख्या बदलून पहा की हा विनिमय समतोल आहे की नाही.',
@@ -1979,7 +1979,7 @@ export const translations: Record<Language, Translations> = {
     groupSellingSection: {
       badge: 'एकत्रित पुरवठा',
       title: 'सामूहिक विक्री: एकत्र साठा सिम्युलेटर',
-      desc: 'एका छोट्या पाड्यामध्ये हंगामी साठा मर्यादित असू शकतो. वनरोजगार शेजारील ग्रामसभांना एकत्र येऊन मोठा साठा विकण्याची संधी देते, ज्यामुळे मोठे व्यापारी मिळतात आणि प्रत्येकाला योग्य हिस्सा मिळतो.',
+      desc: 'एका छोट्या पाड्यामध्ये हंगामी साठा मर्यादित असू शकतो. वनमित्र शेजारील ग्रामसभांना एकत्र येऊन मोठा साठा विकण्याची संधी देते, ज्यामुळे मोठे व्यापारी मिळतात आणि प्रत्येकाला योग्य हिस्सा मिळतो.',
       contributingTitle: '३ सहभागी ग्रामसभा',
       totalPoolLabel: 'एकूण गोळा झालेला साठा:',
       contributedPrefix: 'हिस्सा:',
@@ -2012,7 +2012,7 @@ export const translations: Record<Language, Translations> = {
         {
           step: '०३',
           title: 'क्षेत्रीय पथकाकडून पडताळणी',
-          actor: 'वनरोजगार टीम',
+          actor: 'वनमित्र टीम',
           desc: 'मालाची आणि रस्त्याची सुरक्षितता जपण्यासाठी स्थानिक समन्वयकांकडून कागदपत्रांची खात्री केली जाते.',
         },
         {
@@ -2077,7 +2077,7 @@ export const translations: Record<Language, Translations> = {
     trustSection: {
       badge: 'पर्यावरणीय सचोटी',
       title: 'उगम व विश्वास दाखल्याचे महत्त्व',
-      desc: 'सामान्य ई-कॉमर्सपेक्षा वेगळे, वनरोजगार वनहक्क कायद्यावर उभे आहे. आम्ही प्रत्येक ग्रामसभेची पडताळणी करून विश्वास निर्माण करतो.',
+      desc: 'सामान्य ई-कॉमर्सपेक्षा वेगळे, वनमित्र वनहक्क कायद्यावर उभे आहे. आम्ही प्रत्येक ग्रामसभेची पडताळणी करून विश्वास निर्माण करतो.',
       tagTitle: 'सीएफआर उगम दाखला',
       tagBadge: 'प्रत्येक उत्पादनावर',
       tagIntro: 'प्रत्येक उत्पादनावर एक अधिकृत डिजिटल खूण असते, जी खरेदीदाराला शुद्धतेची खात्री देते:',
@@ -2097,7 +2097,7 @@ export const translations: Record<Language, Translations> = {
       ],
       largeOrderTitle: 'मोठ्या खरेदीसाठी कारण विचारण्याचा नियम',
       largeOrderBadge: 'मर्यादा ≥ २५ युनिट',
-      largeOrderIntro: 'वनरोजगार मोठ्या व्यापाऱ्यांना कारण विचारणे का बंधनकारक करते:',
+      largeOrderIntro: 'वनमित्र मोठ्या व्यापाऱ्यांना कारण विचारणे का बंधनकारक करते:',
       largeOrderRules: [
         {
           title: 'गावातील साठा संपण्यापासून संरक्षण:',
@@ -2122,7 +2122,7 @@ export const translations: Record<Language, Translations> = {
         {
           id: 'मुद्दा-०१',
           title: 'पेमेंट व व्यवहार रचना',
-          question: 'पैसे कसे दिले जातील: ऑनलाइन पेमेंट, कॅश ऑन डिलिव्हरी (COD) की वनरोजगारच्या मध्यस्थ खात्यातून?',
+          question: 'पैसे कसे दिले जातील: ऑनलाइन पेमेंट, कॅश ऑन डिलिव्हरी (COD) की वनमित्रच्या मध्यस्थ खात्यातून?',
           demoPlaceholder: 'सद्यस्थिती: "पेमेंट पद्धत: निश्चित केली जाईल"',
           impact: 'आदिवासी भागात बँकिंग सुविधा वेगवेगळ्या आहेत. बाजारात रोख व्यवहार चालतो, पण मोठ्या व्यवहारात मध्यस्थ खाते सुरक्षित असते.',
         },
@@ -2165,15 +2165,15 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       subtitle: 'सामुदायिक वन हक्क संसाधन बाजार',
-      summary: 'वनमित्र-AI वन हक्कांचे रक्षण करते; वनरोजगार त्याचे रूपांतर शाश्वत ग्रामीण उत्पन्नात करते. पारदर्शक व्यापार आणि स्थानिक वाहतूक रोजगारातून ग्रामसभेचे सक्षमीकरण.',
+      summary: 'वनमित्र-AI वन हक्कांचे रक्षण करते; वनमित्र त्याचे रूपांतर शाश्वत ग्रामीण उत्पन्नात करते. पारदर्शक व्यापार आणि स्थानिक वाहतूक रोजगारातून ग्रामसभेचे सक्षमीकरण.',
       compliance: 'वन हक्क कायदा (FRA 2006) च्या नियमांनुसार',
       ecosystemTitle: 'वनमित्र परिसंस्था',
       backOfficeTitle: 'अंतर्गत प्रशासकीय सूचना',
-      backOfficeText: 'वनरोजगार बॅक-ऑफिस (ज्याचा वापर ग्रामसभेची वनहक्क कागदपत्रे व चालकांची तपासणी करण्यासाठी होतो) हे अंतर्गत प्रशासकीय साधन आहे. हे सार्वजनिक लॉगिन पोर्टल नाही.',
+      backOfficeText: 'वनमित्र बॅक-ऑफिस (ज्याचा वापर ग्रामसभेची वनहक्क कागदपत्रे व चालकांची तपासणी करण्यासाठी होतो) हे अंतर्गत प्रशासकीय साधन आहे. हे सार्वजनिक लॉगिन पोर्टल नाही.',
       helplineLabel: 'हेल्पलाइन:',
       helplineNumber: '१८००-२०९-६०६० (टोल-फ्री)',
       replayIntro: 'प्रस्तावना पुन्हा पहा',
-      allRightsReserved: '© २०२६ वनरोजगार · वनमित्र-AI परिसंस्था. सर्व हक्क सुरक्षित.',
+      allRightsReserved: '© २०२६ वनमित्र · वनमित्र-AI परिसंस्था. सर्व हक्क सुरक्षित.',
       fraLaw: 'वन हक्क कायदा २००६',
       privacyPolicy: 'गोपनीयता धोरण',
     },

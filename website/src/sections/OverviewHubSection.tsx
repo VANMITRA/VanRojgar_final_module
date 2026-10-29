@@ -46,9 +46,9 @@ const MODULE_CARDS: ModuleCardConfig[] = [
     tag: { en: '5 FRA Pillars', hi: '५ वन अधिकार स्तंभ', mr: '५ वन हक्क स्तंभ' },
     highlight: { en: 'VanMitra Architecture', hi: 'वनमित्र-AI वास्तुकला', mr: 'वनमित्र-AI रचना' },
     description: {
-      en: 'How legal forest rights mapped in VanMitra-AI connect directly into VanRozgar for sustainable rural trade.',
-      hi: 'वनमित्र-AI में मान्यता प्राप्त वन अधिकार कैसे सीधे वनरोज़गार के बाज़ार से जुड़कर आय उत्पन्न करते हैं।',
-      mr: 'वनमित्र-AI मध्ये मिळालेले वन हक्क कसे थेट वनरोजगार बाजारपेठेशी जोडून उत्पन्न मिळवून देतात.',
+      en: 'How legal forest rights mapped in VanMitra-AI connect directly into VanMitra for sustainable rural trade.',
+      hi: 'वनमित्र-AI में मान्यता प्राप्त वन अधिकार कैसे सीधे वनमित्र के बाज़ार से जुड़कर आय उत्पन्न करते हैं।',
+      mr: 'वनमित्र-AI मध्ये मिळालेले वन हक्क कसे थेट वनमित्र बाजारपेठेशी जोडून उत्पन्न मिळवून देतात.',
     },
   },
   {
@@ -148,9 +148,9 @@ export const OverviewHubSection: React.FC = () => {
 
           <h2 className="text-3xl sm:text-4xl font-extrabold font-['Manrope'] tracking-tight">
             {language === 'hi'
-              ? 'वनरोज़गार के सभी ७ प्रमुख अनुभाग'
+              ? 'वनमित्र के सभी ७ प्रमुख अनुभाग'
               : language === 'mr'
-              ? 'वनरोजगारचे सर्व ७ मुख्य विभाग'
+              ? 'वनमित्रचे सर्व ७ मुख्य विभाग'
               : 'Explore All 7 Dedicated Sections'}
           </h2>
 

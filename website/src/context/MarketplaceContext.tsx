@@ -527,7 +527,7 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
     addToast({
       type: 'info',
       title: 'Application Submitted',
-      message: 'Your vehicle details are under review by the VanRozgar field team.',
+      message: 'Your vehicle details are under review by the VanMitra field team.',
     });
   };
 

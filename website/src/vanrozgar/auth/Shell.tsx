@@ -15,11 +15,11 @@ export default function Shell({children,login=false}:{children:ReactNode,login?:
         <a className="logo" href="#/"><Logo size={38}/></a>
         <div className="art"><div className="bub" style={{width:64,height:64,left:'6%',top:'8%',opacity:.55}}></div><div className="bub" style={{width:26,height:26,right:'8%',top:'18%',opacity:.7}}></div><div className="bub" style={{width:44,height:44,left:'12%',bottom:'6%',opacity:.5}}></div><div className="bub" style={{width:28,height:28,right:'14%',bottom:'12%',opacity:.6}}></div>{art}</div>
         <div className="tx"><b>Forest goods, straight from the Gram Sabha</b><span>{login?'Login':'Sign up'} to buy or sell forest produce.</span></div>
-        <div className="cp">&copy; 2026 VanRozgar</div>
+        <div className="cp">&copy; 2026 VanMitra</div>
         <svg className="curve" viewBox="0 0 70 400" preserveAspectRatio="none" aria-hidden="true"><path d="M70 0V400H0C44 336 8 262 36 196S14 66 0 0Z" fill="var(--rp)"/></svg>
       </div>
       <div className="r">{children}
-        <div className="foot"><span>{a.t('Need help? Contact the VanRozgar team')}</span><span><a className="lk" href="#/terms" target="_blank" rel="noopener">{a.t('Terms of use')}</a> · <a className="lk" href="#/privacy" target="_blank" rel="noopener">{a.t('Privacy policy')}</a></span></div></div>
+        <div className="foot"><span>{a.t('Need help? Contact the VanMitra team')}</span><span><a className="lk" href="#/terms" target="_blank" rel="noopener">{a.t('Terms of use')}</a> · <a className="lk" href="#/privacy" target="_blank" rel="noopener">{a.t('Privacy policy')}</a></span></div></div>
     </div>
   </div>;
 }

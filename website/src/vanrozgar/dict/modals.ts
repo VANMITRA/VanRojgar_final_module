@@ -38,7 +38,7 @@ const rows:Row[]=[
 
   /* Delivery partner application */
   ['Register as a delivery partner','डिलीवरी पार्टनर के रूप में पंजीकरण करें','डिलिव्हरी भागीदार म्हणून नोंदणी करा'],
-  ['The VanRozgar team checks every application.','वनरोज़गार टीम हर आवेदन की जाँच करती है।','वनरोजगार टीम प्रत्येक अर्ज तपासते.'],
+  ['The VanMitra team checks every application.','वनमित्र टीम हर आवेदन की जाँच करती है।','वनमित्र टीम प्रत्येक अर्ज तपासते.'],
   ['Enter your name, a 10-digit phone number, vehicle type, vehicle number and how much it can carry.','अपना नाम, 10 अंकों का फ़ोन नंबर, वाहन का प्रकार, वाहन नंबर और वह कितना ले जा सकता है, दर्ज करें।','तुमचे नाव, 10 अंकी फोन नंबर, वाहनाचा प्रकार, वाहन क्रमांक आणि ते किती नेऊ शकते ते टाका.'],
   ['Application sent','आवेदन भेजा गया','अर्ज पाठवला'],
   ['Thank you, {w}. The team will check your details and tell you by SMS. You can follow your status on the Deliver with us page.','धन्यवाद, {w}। टीम आपका विवरण जाँचेगी और आपको SMS से बताएगी। आप "हमारे साथ डिलीवरी करें" पन्ने पर अपनी स्थिति देख सकते हैं।','धन्यवाद, {w}. टीम तुमचा तपशील तपासेल आणि SMS ने कळवेल. तुम्ही "आमच्यासोबत डिलिव्हरी करा" पानावर तुमची स्थिती पाहू शकता.'],

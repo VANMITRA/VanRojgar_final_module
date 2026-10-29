@@ -44,13 +44,13 @@ export const appFlow: Record<Language, AppFlowText> = {
     liveBadge: 'LIVE',
     sampleBanner:
       'These are preview listings. Their codes will not be found in the app. Real items appear here once Gram Sabhas list them.',
-    liveBanner: 'These listings are live from the VanRozgar marketplace. Copy an item code and paste it into the app search.',
+    liveBanner: 'These listings are live from the VanMitra marketplace. Copy an item code and paste it into the app search.',
     buyInApp: 'Buy in the app',
     download: {
-      title: 'Buy this in the VanRozgar app',
+      title: 'Buy this in the VanMitra app',
       subtitle: 'Orders and payment happen in the Android app, not on this website.',
       steps: [
-        'Download and install the VanRozgar app (Android).',
+        'Download and install the VanMitra app (Android).',
         'Sign up or log in with your phone number and a 6-digit PIN.',
         'Open Search and paste the item code below.',
         'Place your request. Pay by UPI or cash on delivery.',
@@ -97,13 +97,13 @@ export const appFlow: Record<Language, AppFlowText> = {
     liveBadge: 'लाइव',
     sampleBanner:
       'ये पूर्वावलोकन सूचियाँ हैं। इनके कोड ऐप में नहीं मिलेंगे। ग्राम सभाओं के सूचीबद्ध करते ही असली वस्तुएँ यहाँ दिखेंगी।',
-    liveBanner: 'ये सूचियाँ वनरोजगार बाज़ार से लाइव हैं। आइटम कोड कॉपी करें और ऐप की खोज में डालें।',
+    liveBanner: 'ये सूचियाँ वनमित्र बाज़ार से लाइव हैं। आइटम कोड कॉपी करें और ऐप की खोज में डालें।',
     buyInApp: 'ऐप में खरीदें',
     download: {
-      title: 'इसे वनरोजगार ऐप में खरीदें',
+      title: 'इसे वनमित्र ऐप में खरीदें',
       subtitle: 'ऑर्डर और भुगतान इस वेबसाइट पर नहीं, एंड्रॉइड ऐप में होते हैं।',
       steps: [
-        'वनरोजगार ऐप (एंड्रॉइड) डाउनलोड और इंस्टॉल करें।',
+        'वनमित्र ऐप (एंड्रॉइड) डाउनलोड और इंस्टॉल करें।',
         'अपने फ़ोन नंबर और 6 अंकों के पिन से साइन अप या लॉग इन करें।',
         'खोज खोलें और नीचे दिया आइटम कोड डालें।',
         'अनुरोध भेजें। यूपीआई या डिलीवरी पर नकद से भुगतान करें।',
@@ -150,13 +150,13 @@ export const appFlow: Record<Language, AppFlowText> = {
     liveBadge: 'लाइव्ह',
     sampleBanner:
       'ही पूर्वावलोकन यादी आहे. या कोडचा अॅपमध्ये शोध लागणार नाही. ग्रामसभांनी यादी केल्यावर खऱ्या वस्तू येथे दिसतील.',
-    liveBanner: 'ही यादी वनरोजगार बाजारातून थेट आहे. वस्तू कोड कॉपी करून अॅपच्या शोधात टाका.',
+    liveBanner: 'ही यादी वनमित्र बाजारातून थेट आहे. वस्तू कोड कॉपी करून अॅपच्या शोधात टाका.',
     buyInApp: 'अॅपमध्ये खरेदी करा',
     download: {
-      title: 'हे वनरोजगार अॅपमध्ये खरेदी करा',
+      title: 'हे वनमित्र अॅपमध्ये खरेदी करा',
       subtitle: 'ऑर्डर आणि पैसे या वेबसाइटवर नाही, अँड्रॉइड अॅपमध्ये होतात.',
       steps: [
-        'वनरोजगार अॅप (अँड्रॉइड) डाउनलोड करून इन्स्टॉल करा.',
+        'वनमित्र अॅप (अँड्रॉइड) डाउनलोड करून इन्स्टॉल करा.',
         'तुमचा फोन नंबर आणि 6 अंकी पिन वापरून साइन अप किंवा लॉग इन करा.',
         'शोध उघडा आणि खालील वस्तू कोड टाका.',
         'मागणी पाठवा. यूपीआय किंवा डिलिव्हरीवर रोख रक्कम देऊन पैसे भरा.',

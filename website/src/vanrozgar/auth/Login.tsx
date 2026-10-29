@@ -32,7 +32,7 @@ export default function Login(){
     e.preventDefault();setD([0,1,2,3,4,5].map(i=>t[i]||''));
   };
 
-  if(step==='done')return <Done title="Welcome to VanRozgar" text="You are logged in."><button type="button" className="btn" onClick={toHome}>Go to Home</button></Done>;
+  if(step==='done')return <Done title="Welcome to VanMitra" text="You are logged in."><button type="button" className="btn" onClick={toHome}>Go to Home</button></Done>;
   return <Shell login>
     {step==='phone'?<>
       <h3>Login</h3>

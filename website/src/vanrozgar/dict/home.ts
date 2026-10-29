@@ -1,6 +1,6 @@
 import type {Row} from './index';
 
-/* Home page, the "How it works" and "Why VanRozgar" bands, the FAQ and the impact page. */
+/* Home page, the "How it works" and "Why VanMitra" bands, the FAQ and the impact page. */
 const rows:Row[]=[
   ['From forest villages to you','वन गाँवों से आप तक','वन गावांतून तुमच्यापर्यंत'],
   ['Forest goods, straight from the Gram Sabha','वन उत्पाद, सीधे ग्राम सभा से','वनउत्पादने, थेट ग्रामसभेकडून'],
@@ -59,7 +59,7 @@ const rows:Row[]=[
   ['Pick up or delivery','खुद लें या डिलीवरी','स्वतः घ्या किंवा डिलिव्हरी'],
   ['Collect it from the village or ask for delivery.','गाँव से खुद ले जाएँ या डिलीवरी माँगें।','गावातून स्वतः घ्या किंवा डिलिव्हरी मागा.'],
 
-  ['Why VanRozgar','वनरोज़गार क्यों','वनरोजगार का'],
+  ['Why VanMitra','वनमित्र क्यों','वनमित्र का'],
   ['Why people buy from the village directly.','लोग सीधे गाँव से क्यों खरीदते हैं।','लोक थेट गावाकडून का खरेदी करतात.'],
   ['Every product comes from a Gram Sabha with community forest rights.','हर उत्पाद सामुदायिक वन अधिकार वाली ग्राम सभा से आता है।','प्रत्येक उत्पादन सामुदायिक वनहक्क असलेल्या ग्रामसभेकडून येते.'],
   ['You see where it comes from and how far it is.','आप देखते हैं कि यह कहाँ से आता है और कितनी दूर है।','ते कुठून येते आणि किती दूर आहे ते तुम्हाला दिसते.'],
@@ -92,7 +92,7 @@ const rows:Row[]=[
 
   ['Questions people ask','लोग अक्सर पूछते हैं','लोक नेहमी विचारतात'],
   ['Quick answers. Tap a question to open it.','जल्दी जवाब। खोलने के लिए किसी प्रश्न को दबाएँ।','झटपट उत्तरे. उघडण्यासाठी प्रश्नावर दाबा.'],
-  ['Who sells on VanRozgar?','वनरोज़गार पर कौन बेचता है?','वनरोजगारवर कोण विकते?'],
+  ['Who sells on VanMitra?','वनमित्र पर कौन बेचता है?','वनमित्रवर कोण विकते?'],
   ['Gram Sabhas and CFR villagers in Nashik district. Every seller is checked before they list anything.','नाशिक ज़िले की ग्राम सभाएँ और CFR ग्रामीण। कुछ भी सूचीबद्ध करने से पहले हर विक्रेता की जाँच होती है।','नाशिक जिल्ह्यातील ग्रामसभा आणि CFR गावकरी. काहीही नोंदवण्यापूर्वी प्रत्येक विक्रेत्याची तपासणी होते.'],
   ['Do I pay on the site?','क्या मैं साइट पर भुगतान करता/करती हूँ?','मी साइटवर पैसे भरतो का?'],
   ['No. You send a request. The Gram Sabha answers it and confirms the final amount with you.','नहीं। आप अनुरोध भेजते हैं। ग्राम सभा उसका जवाब देती है और अंतिम रकम आपसे तय करती है।','नाही. तुम्ही विनंती पाठवता. ग्रामसभा उत्तर देते आणि अंतिम रक्कम तुमच्याशी निश्चित करते.'],
@@ -107,8 +107,8 @@ const rows:Row[]=[
   ['How do I follow my request?','मैं अपने अनुरोध को कैसे देखूँ?','मी माझी विनंती कशी पाहू?'],
   ['Open My requests from the Account menu. You see every request and its status.','खाता मेनू से मेरे अनुरोध खोलें। आप हर अनुरोध और उसकी स्थिति देखते हैं।','खाते मेनूमधून माझ्या विनंत्या उघडा. प्रत्येक विनंती आणि तिची स्थिती दिसते.'],
   ['How do I sell my products?','मैं अपने उत्पाद कैसे बेचूँ?','मी माझी उत्पादने कशी विकू?'],
-  ['Sign up as a Gram Sabha or CFR villager, then list the products you have. The Sell with VanRozgar steps above show how.','ग्राम सभा या CFR ग्रामीण के रूप में साइन अप करें, फिर अपने उत्पाद सूचीबद्ध करें। ऊपर "वनरोज़गार के साथ बेचें" के चरण बताते हैं कैसे।','ग्रामसभा किंवा CFR गावकरी म्हणून साइन अप करा, मग तुमची उत्पादने नोंदवा. वरील "वनरोजगारसोबत विका" टप्पे कसे ते दाखवतात.'],
-  ['Get the VanRozgar app','वनरोज़गार ऐप पाएँ','वनरोजगार अ‍ॅप मिळवा'],
+  ['Sign up as a Gram Sabha or CFR villager, then list the products you have. The Sell with VanMitra steps above show how.','ग्राम सभा या CFR ग्रामीण के रूप में साइन अप करें, फिर अपने उत्पाद सूचीबद्ध करें। ऊपर "वनमित्र के साथ बेचें" के चरण बताते हैं कैसे।','ग्रामसभा किंवा CFR गावकरी म्हणून साइन अप करा, मग तुमची उत्पादने नोंदवा. वरील "वनमित्रसोबत विका" टप्पे कसे ते दाखवतात.'],
+  ['Get the VanMitra app','वनमित्र ऐप पाएँ','वनमित्र अ‍ॅप मिळवा'],
   ['Shop and follow your requests from your phone.','अपने फ़ोन से खरीदें और अपने अनुरोध देखें।','तुमच्या फोनवरून खरेदी करा आणि विनंत्या पाहा.'],
   ['Download the app','ऐप डाउनलोड करें','अ‍ॅप डाउनलोड करा'],
 
@@ -138,7 +138,7 @@ const rows:Row[]=[
   ['It approves requests and keeps stock records.','यह अनुरोध मंज़ूर करती है और स्टॉक का रिकॉर्ड रखती है।','ती विनंत्या मंजूर करते आणि साठ्याच्या नोंदी ठेवते.'],
   ['Delivery partners carry it','डिलीवरी पार्टनर इसे पहुँचाते हैं','डिलिव्हरी भागीदार ते पोहोचवतात'],
   ['Local vehicle owners earn from each trip.','स्थानीय वाहन मालिक हर फेरे से कमाते हैं।','स्थानिक वाहन मालक प्रत्येक फेरीतून कमवतात.'],
-  ['VanRozgar so far','अब तक वनरोज़गार','आतापर्यंत वनरोजगार'],
+  ['VanMitra so far','अब तक वनमित्र','आतापर्यंत वनमित्र'],
   ['Not started yet','अभी शुरू नहीं हुआ','अजून सुरू झाले नाही'],
   ['Orders, delivery jobs and money earned will show here once the first requests are approved.','पहले अनुरोध मंज़ूर होते ही ऑर्डर, डिलीवरी काम और कमाई यहाँ दिखेगी।','पहिल्या विनंत्या मंजूर झाल्यावर ऑर्डर, डिलिव्हरीची कामे आणि कमाई येथे दिसेल.'],
 ];
